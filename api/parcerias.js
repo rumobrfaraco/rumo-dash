@@ -53,12 +53,19 @@ export default async function handler(req, res) {
     const sheetName = sheets[0] || 'Planilha1';
 
     const values = await readSheet(token, DRIVE_ID, PARCERIAS_ITEM_ID, sheetName);
-    const headers = values[0].map(norm);
 
     if (req.query?.debug === '1') {
       return res.json({ sheets, sheetName, first5rows: values.slice(0, 5) });
     }
-    const dataRows = values.slice(1).filter(row => row.some(c => c !== '' && c !== null));
+
+    // Pula linhas de instrução (ex: Power BI header) e encontra a linha real de cabeçalhos
+    const headerRowIdx = values.findIndex(row =>
+      row.some(c => typeof c === 'string' && /empresa|id_lead/i.test(c))
+    );
+    if (headerRowIdx === -1) throw new Error('Header row not found');
+
+    const headers = values[headerRowIdx].map(norm);
+    const dataRows = values.slice(headerRowIdx + 1).filter(row => row.some(c => c !== '' && c !== null));
 
     const colIdx = {};
     headers.forEach((h, i) => {
