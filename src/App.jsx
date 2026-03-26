@@ -17,7 +17,6 @@ const pctN=(a,b)=>b>0?+(a/b*100).toFixed(1):0;
 function inRange(s,ini,fim){if(!s)return false;const d=s.slice(0,10);if(ini&&d<ini)return false;if(fim&&d>fim)return false;return true;}
 const mo=s=>s&&s.length>=7?s.slice(0,7):null;
  
-// ── EXEC METAS ────────────────────────────────────
 const EXEC_METAS=[
   {nome:"Sandro Casagrande",alias:"Sandro",color:C.orange,metaVisitas:10,metaVisitasAnual:110,metaContratos:11,metaVisitasMar:10},
   {nome:"Carla Cristina Lemes",alias:"Carla",color:C.blue,metaVisitas:10,metaVisitasAnual:110,metaContratos:11,metaVisitasMar:10},
@@ -25,10 +24,8 @@ const EXEC_METAS=[
   {nome:"Marco",alias:"Marco",color:C.gray,metaVisitas:5,metaVisitasMar:5,metaVisitasAnual:85,metaContratos:9},
 ];
  
-// ── RAW CRM ───────────────────────────────────────
 const RAW=[[1,'2E TRANSPORTES - PME','Karoliny','Entrada','Em Andamento','PME','','','','',''],[2,'3 W TRANSPORTES','Sandro Casagrande','Entrada','Em Andamento','PME','','','','',''],[4,'3ZX TRANSPORTES - ETP','Carla Cristina Lemes','Solicitacao de Documentos','Em Andamento','ETP','','2025-10-28','2025-11-07','2025-11-12',''],[20,'ADM LOGISTICA - ETP','Sandro Casagrande','Reuniao Realizada','Perdida','ETP','Sem Interesse','2025-07-01','2025-09-02','','2025-11-19'],[29,'AGRO RIO - ETP','Carla Cristina Lemes','Diagnostico','Em Andamento','ETP','','2025-06-16','2025-09-16','2025-09-17',''],[57,'ANACIREMA TRANSPORTES - ETP','Carla Cristina Lemes','Reuniao Realizada','Em Andamento','ETP','','2025-08-26','2025-08-29','',''],[58,'ANALOG TRANSPORTES - ETP','Sandro Casagrande','Reuniao Realizada','Perdida','ETP','Sem retorno','2025-06-04','2025-07-11','','2026-02-05'],[65,'APK LOGISTICA - ETP','Carla Cristina Lemes','Reuniao Realizada','Em Andamento','ETP','','2025-06-17','2025-06-17','',''],[74,'ARJ TRANSPORTES - ETP','Lucas Cavalcante','Reuniao Realizada','Perdida','ETP','Sem retorno','2025-09-05','2025-09-25','','2025-12-16'],[80,'ASTUTI TRANSPORTE - ETP','Carla Cristina Lemes','Reuniao Realizada','Em Andamento','ETP','','2025-06-02','2026-02-19','',''],[85,'AVENORTE AVICOLA - ETP','Carla Cristina Lemes','Reuniao Realizada','Em Andamento','ETP','','2025-05-24','','',''],[88,'AXON LOGISTICA - ETP','Lucas Cavalcante','Reuniao Realizada','Perdida','ETP','Sem Interesse','2025-09-19','2025-09-18','','2025-11-25'],[93,'BANDEIRA TRANSPORTES - ETP','Sandro Casagrande','Reuniao Realizada','Em Andamento','ETP','','2025-10-21','2025-10-22','',''],[107,'BENDO LOGISTICA - ETP','Sandro Casagrande','Proposta','Em Andamento','ETP','','2025-05-09','2025-12-09','2025-05-13',''],[143,'BUZIN TRANSPORTES - ETP','Sandro Casagrande','Reuniao Realizada','Em Andamento','ETP','','2025-12-08','2025-12-08','',''],[177,'CEU AZUL TRANSPORTES - ETP','Sandro Casagrande','Fechamento','Vendida','ETP','','','2025-12-15','2025-12-15','2026-01-19'],[230,'DAMACEL TRANSPORTES - ETP','Sandro Casagrande','Negociacao','Perdida','ETP','Sem Interesse','2025-07-21','2025-10-30','2025-11-24','2026-02-06'],[238,'DEXLOG TRANSPORTE - ETP','Sandro Casagrande','Diagnostico','Em Andamento','ETP','','2025-11-26','2025-11-14','2025-11-18',''],[253,'DRUGOVICH TRANSPORTES','Carla Cristina Lemes','Reuniao Realizada','Em Andamento','ETP','','2025-09-11','2025-09-10','',''],[326,'FRETOU BRASIL - PME','Sandro Casagrande','Reuniao Realizada','Em Andamento','PME','','2025-11-26','2025-11-26','',''],[360,'GRAO VALLE - PME','Sandro Casagrande','Fechamento','Vendida','PME','','','2025-10-16','','2026-02-13'],[377,'GUILHERME ATACAMA - ETP','Sandro Casagrande','Fechamento','Vendida','ETP','','','2026-02-20','2026-02-24','2026-02-26'],[419,'J&J TRANSPORTES - PME','Carla Cristina Lemes','Fechamento','Vendida','PME','','2025-05-10','2025-07-25','2025-02-27','2026-01-05'],[451,'JUND TRANSPORTES - PME','Sandro Casagrande','Fechamento','Vendida','PME','','','2025-12-15','2025-12-15','2026-02-12'],[499,'LOTH TRANSPORTES','Rafael Brito','Fechamento','Vendida','PME','','','2026-01-12','','2026-01-30'],[507,'LUCESI TRANSPORTES - ETP','Sandro Casagrande','Reuniao Realizada','Em Andamento','ETP','','2026-02-25','2026-02-25','',''],[560,'MENDES KOCH - ETP','Sandro Casagrande','Reuniao Realizada','Em Andamento','ETP','','2025-06-20','','',''],[574,'MODO AGROLOGISTICA - ETP','Carla Cristina Lemes','Diagnostico','Em Andamento','ETP','','2025-05-14','2025-09-18','2025-09-24',''],[596,'NATAL TRANSPORTES - PME','Sandro Casagrande','Negociacao','Em Andamento','PME','','2025-08-26','2025-08-26','',''],[656,'PIANETTO TRANSPORTES - ETP','Sandro Casagrande','Negociacao','Em Andamento','ETP','','2025-06-27','2025-06-30','2025-06-30',''],[665,'PONTAL LOGISTICA - PME','Sandro Casagrande','Reuniao Realizada','Em Andamento','PME','','2026-01-29','2026-01-27','',''],[720,'RIO PARDO TRANSPORTES - ETP','Carla Cristina Lemes','Reuniao Realizada','Em Andamento','ETP','','2025-11-27','2025-12-18','',''],[735,'RODO WALL - ETP','Sandro Casagrande','Reuniao Realizada','Em Andamento','ETP','','2025-08-04','2025-12-18','',''],[746,'RODOCELL TRANSPORTE - ETP','Sandro Casagrande','Negociacao','Em Andamento','ETP','','2025-11-18','2025-11-21','2025-11-21',''],[789,'RODOXISTO TRANSPORTES - ETP','Sandro Casagrande','Diagnostico','Em Andamento','ETP','','2025-12-17','2026-01-13','2026-01-13',''],[811,'S E TRANSPORTES - ETP','Sandro Casagrande','Negociacao','Em Andamento','ETP','','2025-05-06','2025-07-01','2025-10-10',''],[845,'SGT LOG - ETP','Carla Cristina Lemes','Solicitacao de Documentos','Em Andamento','ETP','','2025-08-29','2025-09-09','2025-11-11',''],[859,'SOMERLOG - ETP','Carla Cristina Lemes','Reuniao Realizada','Em Andamento','ETP','','2025-06-20','2025-06-25','',''],[905,'THEO TRANSPORTES - ETP','Sandro Casagrande','Reuniao Realizada','Em Andamento','ETP','','2025-07-31','2025-08-06','',''],[1062,'TRANSPORTADORA HAMMES - ETP','Sandro Casagrande','Diagnostico','Em Andamento','ETP','','2025-08-29','2026-01-29','2026-01-29',''],[1150,'TRANSPORTES BRASIL - ETP','Carla Cristina Lemes','Diagnostico','Em Andamento','ETP','','2025-08-27','2025-08-27','2025-08-27',''],[1274,'TRILHA TRANSPORTES - PME','Barbara Novato','Proposta','Em Andamento','PME','','2025-10-03','2025-10-03','',''],[1320,'VITORIA PROVEDORA - ETP','Sandro Casagrande','Apresentacao','Em Andamento','ETP','','2025-10-02','2025-12-08','2025-12-10',''],[1339,'FUTURO LOGISTICA - ETP','Sandro Casagrande','Fechamento','Vendida','ETP','','2025-05-22','2026-01-09','2025-05-10','2026-01-09']];
  
-// ── PARCERIAS DATA ────────────────────────────────
 const PARCERIAS_RAW=[
   [1,"BENINI TRANSPORTES","Saionara | Raster GR","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","PR","PR - Sudoeste","ENTERPRISE","Nao","Nao Informado","Nao Informado","24/11/2025","","Nao",2025,11],
   [2,"BIZARI TRANSPORTES","FB Consult","Perdida","Reuniao Realizada","Sem retorno","Indicacao por Parceiros","Sandro Casagrande","Brasil","GO","GO - Sul","PME","Sim","Sim","0 a 50 caminhoes","05/05/2025","22/05/2025","Nao",2025,5],
@@ -76,38 +73,35 @@ const PARCERIAS_RAW=[
   [44,"TRANSPORTADORA CORTESIA","Daniel | Raster","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Lucas Faraco","Brasil","PR","PR - Centro Oriental","PME","Nao","Nao","0","23/02/2026","24/02/2026","Nao",2026,2],
 ];
  
-// ── SDR DATA ──────────────────────────────────────
 const SDR_AGENDAMENTOS=[
-  {empresa:'A.BECCHI & CIA',                      perfil:'PME', status:STATUS_REALIZADA, crm:'Perdida',     motivo:'Sem Interesse no Momento', dataAgend:'2026-03-16'},
-  {empresa:'PARCEIRO DO GRAO LOGISTICA',           perfil:'PME', status:STATUS_AGENDADA,  crm:'Em Andamento',motivo:'',                          dataAgend:'2026-03-16'},
-  {empresa:'GOMES E ALVES TRANSPORTES LTDA',       perfil:'PME', status:STATUS_AGENDADA,  crm:'Em Andamento',motivo:'',                          dataAgend:'2026-03-17'},
-  {empresa:'EXPRESSO RODOFRIO',                    perfil:'PME', status:STATUS_REALIZADA, crm:'Em Andamento',motivo:'',                          dataAgend:'2026-03-17'},
-  {empresa:'DIAMANTE S/A',                         perfil:'ETP', status:STATUS_AGENDADA,  crm:'Em Andamento',motivo:'',                          dataAgend:'2026-03-18'},
-  {empresa:'GRUPO DTRANS',                         perfil:'PME', status:STATUS_AGENDADA,  crm:'Em Andamento',motivo:'',                          dataAgend:'2026-03-19'},
-  {empresa:'EXPRESSO 9002 TRANSPORTES',            perfil:'PME', status:STATUS_REALIZADA, crm:'Perdida',     motivo:'Sem Interesse no Momento',  dataAgend:'2026-03-23'},
-  {empresa:'VIA TERRESTRE TRANSPORTE E LOGISTICA', perfil:'PME', status:STATUS_REALIZADA, crm:'Em Andamento',motivo:'',                          dataAgend:'2026-03-23'},
-  {empresa:'RTT LOG',                              perfil:'PME', status:STATUS_AGENDADA,  crm:'Em Andamento',motivo:'',                          dataAgend:'2026-03-23'},
-  {empresa:'ENI TRANSPORTES',                      perfil:'PME', status:STATUS_AGENDADA,  crm:'Em Andamento',motivo:'',                          dataAgend:'2026-03-24'},
+  {empresa:'A.BECCHI & CIA',perfil:'PME',status:STATUS_REALIZADA,crm:'Perdida',motivo:'Sem Interesse no Momento',dataAgend:'2026-03-16'},
+  {empresa:'PARCEIRO DO GRAO LOGISTICA',perfil:'PME',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-16'},
+  {empresa:'GOMES E ALVES TRANSPORTES LTDA',perfil:'PME',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-17'},
+  {empresa:'EXPRESSO RODOFRIO',perfil:'PME',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-17'},
+  {empresa:'DIAMANTE S/A',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-18'},
+  {empresa:'GRUPO DTRANS',perfil:'PME',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-19'},
+  {empresa:'EXPRESSO 9002 TRANSPORTES',perfil:'PME',status:STATUS_REALIZADA,crm:'Perdida',motivo:'Sem Interesse no Momento',dataAgend:'2026-03-23'},
+  {empresa:'VIA TERRESTRE TRANSPORTE E LOGISTICA',perfil:'PME',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-23'},
+  {empresa:'RTT LOG',perfil:'PME',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-23'},
+  {empresa:'ENI TRANSPORTES',perfil:'PME',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-24'},
 ];
  
 const SDR_MOV=[
   {dia:'02/mar',data:'2026-03-02',mov:0},{dia:'03/mar',data:'2026-03-03',mov:0},{dia:'04/mar',data:'2026-03-04',mov:0},{dia:'05/mar',data:'2026-03-05',mov:0},{dia:'06/mar',data:'2026-03-06',mov:0},{dia:'07/mar',data:'2026-03-07',mov:0},{dia:'08/mar',data:'2026-03-08',mov:0},{dia:'09/mar',data:'2026-03-09',mov:0},{dia:'10/mar',data:'2026-03-10',mov:0},
-  {dia:'11/mar',data:'2026-03-11',mov:18},{dia:'12/mar',data:'2026-03-12',mov:22},{dia:'13/mar',data:'2026-03-13',mov:27},{dia:'16/mar',data:'2026-03-16',mov:9},{dia:'17/mar',data:'2026-03-17',mov:16},{dia:'18/mar',data:'2026-03-18',mov:21},{dia:'19/mar',data:'2026-03-19',mov:26},{dia:'20/mar',data:'2026-03-20',mov:29},{dia:'23/mar',data:'2026-03-23',mov:8},{dia:'24/mar',data:'2026-03-24',mov:16},
+  {dia:'11/mar',data:'2026-03-11',mov:18},{dia:'12/mar',data:'2026-03-12',mov:22},{dia:'13/mar',data:'2026-03-13',mov:27},{dia:'16/mar',data:'2026-03-16',mov:9},{dia:'17/mar',data:'2026-03-17',mov:16},{dia:'18/mar',data:'2026-03-18',mov:21},{dia:'19/mar',data:'2026-03-19',mov:26},{dia:'20/mar',data:'2026-03-20',mov:29},{dia:'23/mar',data:'2026-03-23',mov:8},{dia:'24/mar',data:'2026-03-24',mov:16},{dia:'25/mar',data:'2026-03-25',mov:39},
 ];
  
 const SDR_SEMANAS=[
   {semana:'S1 (11-13/mar)',ligacoes:18+22+27,agendamentos:1},
   {semana:'S2 (16-20/mar)',ligacoes:9+16+10+21+14,agendamentos:5},
-  {semana:'S3 (23/mar)',   ligacoes:31,             agendamentos:3},
+  {semana:'S3 (23/mar)',ligacoes:31,agendamentos:3},
 ];
  
-const SDR_DAYS_LBL=['11/mar','12/mar','13/mar','16/mar','17/mar','18/mar','19/mar','20/mar','23/mar','24/mar'];
-const SDR_LIG_DIA=[0,0,27,9,16,10,21,14,31,14];
-const SDR_EML_DIA=[0,22,0,0,0,11,5,0,3,8];
-const SDR_WHA_DIA=[0,0,0,0,0,0,0,15,15,12];
+const SDR_DAYS_LBL=['11/mar','12/mar','13/mar','16/mar','17/mar','18/mar','19/mar','20/mar','23/mar','24/mar','25/mar'];
+const SDR_LIG_DIA=[0,0,27,9,16,10,21,14,31,14,14];
+const SDR_EML_DIA=[0,22,0,0,0,11,5,0,3,8,7];
+const SDR_WHA_DIA=[0,0,0,0,0,0,0,15,15,12,18];
  
-// ── AGENDAMENTOS POR DIA (para acumulado no gráfico de atividades) ────────────
-// Mapeamento: data ISO -> número de agendamentos realizados naquele dia
 const SDR_AGEND_POR_DATA = {};
 SDR_AGENDAMENTOS.forEach(a => {
   if (a.dataAgend) {
@@ -115,14 +109,12 @@ SDR_AGENDAMENTOS.forEach(a => {
   }
 });
  
-// Datas base do gráfico de atividades (na mesma ordem que SDR_DAYS_LBL)
 const SDR_ATIV_DATES = [
   '2026-03-11','2026-03-12','2026-03-13',
   '2026-03-16','2026-03-17','2026-03-18','2026-03-19','2026-03-20',
-  '2026-03-23','2026-03-24'
+  '2026-03-23','2026-03-24','2026-03-25'
 ];
  
-// Acumulado de agendamentos por dia (alinhado com SDR_DAYS_LBL)
 const SDR_AGEND_ACUM = (() => {
   let acc = 0;
   return SDR_ATIV_DATES.map(date => {
@@ -142,90 +134,58 @@ const SDR_ATIV=[
   {data:'2026-03-18',empresa:'RT TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'RLP TRANSPORTES',canal:'ligacao'},{data:'2026-03-18',empresa:'MCR TRANSPORTES',canal:'ligacao'},{data:'2026-03-18',empresa:'TRANSPORTADORA IPE',canal:'ligacao'},{data:'2026-03-18',empresa:'VKEFILHOS',canal:'email'},{data:'2026-03-18',empresa:'VIA TERRESTRE',canal:'email'},{data:'2026-03-18',empresa:'VELOZ CARGAS',canal:'email'},{data:'2026-03-18',empresa:'VALLENCE',canal:'email'},{data:'2026-03-18',empresa:'SIGA BRASIL',canal:'ligacao'},{data:'2026-03-18',empresa:'SGR LOGISTICA',canal:'ligacao'},{data:'2026-03-18',empresa:'UNICA TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'UES TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'EXPRESSO GOIAS',canal:'ligacao'},{data:'2026-03-18',empresa:'TRANSPORTADORA MINAS BRASIL',canal:'email'},{data:'2026-03-18',empresa:'TRANSPORTADORA ASA SUL',canal:'email'},{data:'2026-03-18',empresa:'TRANSCOURIER',canal:'email'},{data:'2026-03-18',empresa:'ESPANSUL',canal:'ligacao'},{data:'2026-03-18',empresa:'SLC TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'SIGA BRASIL',canal:'email'},{data:'2026-03-18',empresa:'SGR LOGISTICA',canal:'email'},{data:'2026-03-18',empresa:'DIAMANTE',canal:'ligacao'},{data:'2026-03-18',empresa:'VALLENCE',canal:'ligacao'},{data:'2026-03-18',empresa:'RLP TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'MCR TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'LAGE LOG',canal:'email'},{data:'2026-03-18',empresa:'JAT TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'GUTO LOGISTICA',canal:'email'},{data:'2026-03-18',empresa:'PARCEIRO DO GRAO',canal:'ligacao'},{data:'2026-03-18',empresa:'COMERCIAL MULT MIX',canal:'email'},{data:'2026-03-18',empresa:'GABRI CARGO',canal:'email'},{data:'2026-03-18',empresa:'TWF LOGISTICA',canal:'email'},{data:'2026-03-18',empresa:'ROMA TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'TRANSPORTADORA IPE',canal:'email'},
   {data:'2026-03-19',empresa:'VALLENCE',canal:'ligacao'},{data:'2026-03-19',empresa:'M ANDRADE',canal:'ligacao'},{data:'2026-03-19',empresa:'LOBS TRANSPORTES',canal:'ligacao'},{data:'2026-03-19',empresa:'CELTA TRANSPORTES',canal:'ligacao'},{data:'2026-03-19',empresa:'D.E.S TRANSPORTES',canal:'ligacao'},{data:'2026-03-19',empresa:'ARAGAO CAMINHOES',canal:'ligacao'},{data:'2026-03-19',empresa:'DEC LOG',canal:'ligacao'},{data:'2026-03-19',empresa:'AGROVERDE CEREAIS',canal:'ligacao'},{data:'2026-03-19',empresa:'UNICA TRANSPORTES',canal:'ligacao'},{data:'2026-03-19',empresa:'VIA TERRESTRE',canal:'ligacao'},{data:'2026-03-19',empresa:'VELOZ CARGAS',canal:'ligacao'},{data:'2026-03-19',empresa:'FERREIRA VILACA',canal:'ligacao'},{data:'2026-03-19',empresa:'3 W TRANSPORTES',canal:'ligacao'},{data:'2026-03-19',empresa:'SLC TRANSPORTES',canal:'ligacao'},{data:'2026-03-19',empresa:'SIGA BRASIL',canal:'ligacao'},{data:'2026-03-19',empresa:'ARROW LOGISTICA',canal:'ligacao'},{data:'2026-03-19',empresa:'DINIZ SARAIVA',canal:'ligacao'},{data:'2026-03-19',empresa:'GRUPO DTRANS',canal:'ligacao'},{data:'2026-03-19',empresa:'EXPRESSO 9002',canal:'ligacao'},{data:'2026-03-19',empresa:'FENIX WAY',canal:'ligacao'},{data:'2026-03-19',empresa:'TRANSPORTE RICARDO ROSA',canal:'ligacao'},{data:'2026-03-19',empresa:'MILLENNIUM',canal:'email'},{data:'2026-03-19',empresa:'PETRA LOG',canal:'email'},{data:'2026-03-19',empresa:'LGP TRANSPORTES',canal:'email'},{data:'2026-03-19',empresa:'ALO TRANSPORTES',canal:'email'},{data:'2026-03-19',empresa:'FELLON TRANSPORTES',canal:'email'},{data:'2026-03-19',empresa:'TRANSPORTE RICARDO ROSA',canal:'email'},{data:'2026-03-19',empresa:'J&P TRANSPORTADORA',canal:'email'},{data:'2026-03-19',empresa:'FERREIRA VILACA',canal:'email'},{data:'2026-03-19',empresa:'3 W TRANSPORTES',canal:'email'},{data:'2026-03-19',empresa:'HOLIVER TRANSPORTES',canal:'email'},{data:'2026-03-19',empresa:'GRUPO DTRANS',canal:'email'},{data:'2026-03-19',empresa:'FENIX WAY',canal:'email'},{data:'2026-03-19',empresa:'EXPRESSO 9002',canal:'email'},{data:'2026-03-19',empresa:'D.E.S TRANSPORTES',canal:'whatsapp'},{data:'2026-03-19',empresa:'ARROW LOGISTICA',canal:'whatsapp'},{data:'2026-03-19',empresa:'ARAGAO CAMINHOES',canal:'whatsapp'},{data:'2026-03-19',empresa:'AGROVERDE CEREAIS',canal:'whatsapp'},{data:'2026-03-19',empresa:'FELLON TRANSPORTES',canal:'whatsapp'},{data:'2026-03-19',empresa:'CELTA TRANSPORTES',canal:'whatsapp'},{data:'2026-03-19',empresa:'M ANDRADE',canal:'whatsapp'},{data:'2026-03-19',empresa:'VIA TERRESTRE',canal:'whatsapp'},{data:'2026-03-19',empresa:'TRANSPORTE RICARDO ROSA',canal:'whatsapp'},{data:'2026-03-19',empresa:'UNICA TRANSPORTES',canal:'whatsapp'},{data:'2026-03-19',empresa:'GRUPO DTRANS',canal:'whatsapp'},{data:'2026-03-19',empresa:'VELOZ CARGAS',canal:'whatsapp'},{data:'2026-03-19',empresa:'3 W TRANSPORTES',canal:'whatsapp'},{data:'2026-03-19',empresa:'EXPRESSO 9002',canal:'whatsapp'},
   {data:'2026-03-20',empresa:'AGROVELOZ',canal:'whatsapp'},{data:'2026-03-20',empresa:'LGP TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'ALO TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'TRANSPORTADORA MINAS BRASIL',canal:'whatsapp'},{data:'2026-03-20',empresa:'TRANSCOURIER',canal:'whatsapp'},{data:'2026-03-20',empresa:'HOLIVER TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'FENIX WAY',canal:'whatsapp'},{data:'2026-03-20',empresa:'J&P TRANSPORTADORA',canal:'whatsapp'},{data:'2026-03-20',empresa:'SLC TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'TSF TRANSPORTADORA',canal:'whatsapp'},{data:'2026-03-20',empresa:'SIGA BRASIL',canal:'whatsapp'},{data:'2026-03-20',empresa:'LOBS TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'TRANSPEREGO',canal:'whatsapp'},{data:'2026-03-20',empresa:'UNICA TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'JAT TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'GUTO LOGISTICA',canal:'whatsapp'},{data:'2026-03-20',empresa:'MCR TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'LAGE LOG',canal:'whatsapp'},{data:'2026-03-20',empresa:'PETRA LOG',canal:'whatsapp'},{data:'2026-03-20',empresa:'EXPRESSO GOIAS',canal:'ligacao'},{data:'2026-03-20',empresa:'ESPANSUL',canal:'ligacao'},{data:'2026-03-20',empresa:'CELTA TRANSPORTES',canal:'ligacao'},{data:'2026-03-20',empresa:'TRANSPEREGO',canal:'ligacao'},{data:'2026-03-20',empresa:'TRANSPORTADORA CLASSE A',canal:'ligacao'},{data:'2026-03-20',empresa:'PETRA LOG',canal:'ligacao'},{data:'2026-03-20',empresa:'TSF TRANSPORTADORA',canal:'ligacao'},{data:'2026-03-20',empresa:'RLP TRANSPORTES',canal:'ligacao'},{data:'2026-03-20',empresa:'MCR TRANSPORTES',canal:'ligacao'},{data:'2026-03-20',empresa:'LAGE LOG',canal:'ligacao'},{data:'2026-03-20',empresa:'UNICA TRANSPORTES',canal:'ligacao'},{data:'2026-03-20',empresa:'JAT TRANSPORTES',canal:'ligacao'},{data:'2026-03-20',empresa:'GUTO LOGISTICA',canal:'ligacao'},{data:'2026-03-20',empresa:'COMERCIAL MULT MIX',canal:'ligacao'},
-  {data:'2026-03-23',empresa:'FENIX WAY',canal:'ligacao'},{data:'2026-03-23',empresa:'MILLENNIUM',canal:'ligacao'},{data:'2026-03-23',empresa:'TRANSPORTADORA MINAS BRASIL',canal:'ligacao'},{data:'2026-03-23',empresa:'VIA TERRESTRE',canal:'ligacao'},{data:'2026-03-23',empresa:'W&E TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'SLC TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'DINIZ SARAIVA',canal:'ligacao'},{data:'2026-03-23',empresa:'DEC LOG',canal:'ligacao'},{data:'2026-03-23',empresa:'TRANSCOURIER',canal:'ligacao'},{data:'2026-03-23',empresa:'D.E.S TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'ARROW LOGISTICA',canal:'ligacao'},{data:'2026-03-23',empresa:'ARAGAO CAMINHOES',canal:'ligacao'},{data:'2026-03-23',empresa:'DIAMANTE',canal:'ligacao'},{data:'2026-03-23',empresa:'ALO TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'HOLIVER TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'TRANSPORTE RICARDO ROSA',canal:'ligacao'},{data:'2026-03-23',empresa:'FELLON TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'J&P TRANSPORTADORA',canal:'ligacao'},{data:'2026-03-23',empresa:'VELOZ CARGAS',canal:'ligacao'},{data:'2026-03-23',empresa:'3 W TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'EXPRESSO 9002',canal:'ligacao'},{data:'2026-03-23',empresa:'PRV TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'ANSELMINI',canal:'ligacao'},{data:'2026-03-23',empresa:'BMG VICENZI',canal:'ligacao'},{data:'2026-03-23',empresa:'KJUNIOR',canal:'ligacao'},{data:'2026-03-23',empresa:'M A TRANSPORTADORA',canal:'ligacao'},{data:'2026-03-23',empresa:'AGS LOG',canal:'ligacao'},{data:'2026-03-23',empresa:'ENI TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'LOG MASTER',canal:'ligacao'},{data:'2026-03-23',empresa:'ALBANI TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'CONCENTO TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'RTT LOG',canal:'whatsapp'},{data:'2026-03-23',empresa:'TRANSPORTADORA CLASSE A',canal:'whatsapp'},{data:'2026-03-23',empresa:'LOBS TRANSPORTES',canal:'whatsapp'},{data:'2026-03-23',empresa:'M ANDRADE',canal:'whatsapp'},{data:'2026-03-23',empresa:'TRANSPEREGO',canal:'whatsapp'},{data:'2026-03-23',empresa:'RTT LOG',canal:'whatsapp'},{data:'2026-03-23',empresa:'VIA TERRESTRE',canal:'whatsapp'},{data:'2026-03-23',empresa:'TRANSPORTADORA ASA SUL',canal:'whatsapp'},{data:'2026-03-23',empresa:'CELTA TRANSPORTES',canal:'whatsapp'},{data:'2026-03-23',empresa:'PARCEIRO DO GRAO',canal:'whatsapp'},{data:'2026-03-23',empresa:'M ANDRADE',canal:'whatsapp'},{data:'2026-03-23',empresa:'MCR TRANSPORTES',canal:'whatsapp'},{data:'2026-03-23',empresa:'JAT TRANSPORTES',canal:'whatsapp'},{data:'2026-03-23',empresa:'GUTO LOGISTICA',canal:'whatsapp'},{data:'2026-03-23',empresa:'TRANSPORTADORA CLASSE A',canal:'whatsapp'},{data:'2026-03-23',empresa:'DIAMANTE',canal:'email'},{data:'2026-03-23',empresa:'DIAMANTE',canal:'email'},{data:'2026-03-23',empresa:'EXPRESSO 9002',canal:'email'},
-  // ── 24/mar ──
-  {data:'2026-03-24',empresa:'ENI TRANSPORTES',canal:'ligacao'},
-  {data:'2026-03-24',empresa:'PRV TRANSPORTES',canal:'ligacao'},
-  {data:'2026-03-24',empresa:'TSF TRANSPORTADORA SANTA FE',canal:'ligacao'},
-  {data:'2026-03-24',empresa:'TRANSPORTADORA ASA SUL',canal:'ligacao'},
-  {data:'2026-03-24',empresa:'SIGA BRASIL',canal:'ligacao'},
-  {data:'2026-03-24',empresa:'LOBS TRANSPORTES',canal:'ligacao'},
-  {data:'2026-03-24',empresa:'TRANSPEREGO',canal:'ligacao'},
-  {data:'2026-03-24',empresa:'LGP TRANSPORTES',canal:'ligacao'},
-  {data:'2026-03-24',empresa:'TRANSPEREGO',canal:'ligacao'},
-  {data:'2026-03-24',empresa:'PETRA LOG',canal:'ligacao'},
-  {data:'2026-03-24',empresa:'GABRI CARGO',canal:'ligacao'},
-  {data:'2026-03-24',empresa:'TWF LOGISTICA',canal:'ligacao'},
-  {data:'2026-03-24',empresa:'ROMA TRANSPORTES',canal:'ligacao'},
-  {data:'2026-03-24',empresa:'TRANSPORTADORA IPE AMARELO',canal:'ligacao'},
-  {data:'2026-03-24',empresa:'LOG MASTER',canal:'email'},
-  {data:'2026-03-24',empresa:'BMG VICENZI',canal:'email'},
-  {data:'2026-03-24',empresa:'BMG VICENZI',canal:'email'},
-  {data:'2026-03-24',empresa:'FELLON TRANSPORTES',canal:'email'},
-  {data:'2026-03-24',empresa:'VELOZ CARGAS',canal:'email'},
-  {data:'2026-03-24',empresa:'UNICA TRANSPORTES',canal:'email'},
-  {data:'2026-03-24',empresa:'VELOZ CARGAS',canal:'email'},
-  {data:'2026-03-24',empresa:'UNICA TRANSPORTES',canal:'email'},
-  {data:'2026-03-24',empresa:'PARCEIRO DO GRAO',canal:'whatsapp'},
-  {data:'2026-03-24',empresa:'PRV TRANSPORTES',canal:'whatsapp'},
-  {data:'2026-03-24',empresa:'GRUPO DTRANS',canal:'whatsapp'},
-  {data:'2026-03-24',empresa:'RTT LOG',canal:'whatsapp'},
-  {data:'2026-03-24',empresa:'AGS LOG',canal:'whatsapp'},
-  {data:'2026-03-24',empresa:'AGS LOG',canal:'whatsapp'},
-  {data:'2026-03-24',empresa:'LOBS TRANSPORTES',canal:'whatsapp'},
-  {data:'2026-03-24',empresa:'TRANSPEREGO',canal:'whatsapp'},
-  {data:'2026-03-24',empresa:'LOG MASTER',canal:'whatsapp'},
-  {data:'2026-03-24',empresa:'UNICA TRANSPORTES',canal:'whatsapp'},
-  {data:'2026-03-24',empresa:'GRUPO DTRANS',canal:'whatsapp'},
-  {data:'2026-03-24',empresa:'TRANSPORTADORA CLASSE A',canal:'whatsapp'},
+  {data:'2026-03-23',empresa:'FENIX WAY',canal:'ligacao'},{data:'2026-03-23',empresa:'MILLENNIUM',canal:'ligacao'},{data:'2026-03-23',empresa:'TRANSPORTADORA MINAS BRASIL',canal:'ligacao'},{data:'2026-03-23',empresa:'VIA TERRESTRE',canal:'ligacao'},{data:'2026-03-23',empresa:'W&E TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'SLC TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'DINIZ SARAIVA',canal:'ligacao'},{data:'2026-03-23',empresa:'DEC LOG',canal:'ligacao'},{data:'2026-03-23',empresa:'TRANSCOURIER',canal:'ligacao'},{data:'2026-03-23',empresa:'D.E.S TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'ARROW LOGISTICA',canal:'ligacao'},{data:'2026-03-23',empresa:'ARAGAO CAMINHOES',canal:'ligacao'},{data:'2026-03-23',empresa:'DIAMANTE',canal:'ligacao'},{data:'2026-03-23',empresa:'ALO TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'HOLIVER TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'TRANSPORTE RICARDO ROSA',canal:'ligacao'},{data:'2026-03-23',empresa:'FELLON TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'J&P TRANSPORTADORA',canal:'ligacao'},{data:'2026-03-23',empresa:'VELOZ CARGAS',canal:'ligacao'},{data:'2026-03-23',empresa:'3 W TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'EXPRESSO 9002',canal:'ligacao'},{data:'2026-03-23',empresa:'PRV TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'ANSELMINI',canal:'ligacao'},{data:'2026-03-23',empresa:'BMG VICENZI',canal:'ligacao'},{data:'2026-03-23',empresa:'KJUNIOR',canal:'ligacao'},{data:'2026-03-23',empresa:'M A TRANSPORTADORA',canal:'ligacao'},{data:'2026-03-23',empresa:'AGS LOG',canal:'ligacao'},{data:'2026-03-23',empresa:'ENI TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'LOG MASTER',canal:'ligacao'},{data:'2026-03-23',empresa:'ALBANI TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'CONCENTO TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'RTT LOG',canal:'whatsapp'},{data:'2026-03-23',empresa:'TRANSPORTADORA CLASSE A',canal:'whatsapp'},{data:'2026-03-23',empresa:'LOBS TRANSPORTES',canal:'whatsapp'},{data:'2026-03-23',empresa:'M ANDRADE',canal:'whatsapp'},{data:'2026-03-23',empresa:'TRANSPEREGO',canal:'whatsapp'},{data:'2026-03-23',empresa:'VIA TERRESTRE',canal:'whatsapp'},{data:'2026-03-23',empresa:'TRANSPORTADORA ASA SUL',canal:'whatsapp'},{data:'2026-03-23',empresa:'CELTA TRANSPORTES',canal:'whatsapp'},{data:'2026-03-23',empresa:'PARCEIRO DO GRAO',canal:'whatsapp'},{data:'2026-03-23',empresa:'MCR TRANSPORTES',canal:'whatsapp'},{data:'2026-03-23',empresa:'JAT TRANSPORTES',canal:'whatsapp'},{data:'2026-03-23',empresa:'GUTO LOGISTICA',canal:'whatsapp'},{data:'2026-03-23',empresa:'TRANSPORTADORA CLASSE A',canal:'whatsapp'},{data:'2026-03-23',empresa:'DIAMANTE',canal:'email'},{data:'2026-03-23',empresa:'EXPRESSO 9002',canal:'email'},
+  {data:'2026-03-24',empresa:'ENI TRANSPORTES',canal:'ligacao'},{data:'2026-03-24',empresa:'PRV TRANSPORTES',canal:'ligacao'},{data:'2026-03-24',empresa:'TSF TRANSPORTADORA SANTA FE',canal:'ligacao'},{data:'2026-03-24',empresa:'TRANSPORTADORA ASA SUL',canal:'ligacao'},{data:'2026-03-24',empresa:'SIGA BRASIL',canal:'ligacao'},{data:'2026-03-24',empresa:'LOBS TRANSPORTES',canal:'ligacao'},{data:'2026-03-24',empresa:'TRANSPEREGO',canal:'ligacao'},{data:'2026-03-24',empresa:'LGP TRANSPORTES',canal:'ligacao'},{data:'2026-03-24',empresa:'PETRA LOG',canal:'ligacao'},{data:'2026-03-24',empresa:'GABRI CARGO',canal:'ligacao'},{data:'2026-03-24',empresa:'TWF LOGISTICA',canal:'ligacao'},{data:'2026-03-24',empresa:'ROMA TRANSPORTES',canal:'ligacao'},{data:'2026-03-24',empresa:'TRANSPORTADORA IPE AMARELO',canal:'ligacao'},{data:'2026-03-24',empresa:'LOG MASTER',canal:'email'},{data:'2026-03-24',empresa:'BMG VICENZI',canal:'email'},{data:'2026-03-24',empresa:'FELLON TRANSPORTES',canal:'email'},{data:'2026-03-24',empresa:'VELOZ CARGAS',canal:'email'},{data:'2026-03-24',empresa:'UNICA TRANSPORTES',canal:'email'},{data:'2026-03-24',empresa:'PARCEIRO DO GRAO',canal:'whatsapp'},{data:'2026-03-24',empresa:'PRV TRANSPORTES',canal:'whatsapp'},{data:'2026-03-24',empresa:'GRUPO DTRANS',canal:'whatsapp'},{data:'2026-03-24',empresa:'RTT LOG',canal:'whatsapp'},{data:'2026-03-24',empresa:'AGS LOG',canal:'whatsapp'},{data:'2026-03-24',empresa:'LOBS TRANSPORTES',canal:'whatsapp'},{data:'2026-03-24',empresa:'TRANSPEREGO',canal:'whatsapp'},{data:'2026-03-24',empresa:'LOG MASTER',canal:'whatsapp'},{data:'2026-03-24',empresa:'UNICA TRANSPORTES',canal:'whatsapp'},{data:'2026-03-24',empresa:'GRUPO DTRANS',canal:'whatsapp'},{data:'2026-03-24',empresa:'TRANSPORTADORA CLASSE A',canal:'whatsapp'},
+  // ── 25/mar ──
+  {data:'2026-03-25',empresa:'PRV TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'LOG MASTER TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'AGS LOG',canal:'ligacao'},{data:'2026-03-25',empresa:'CONCENTO TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'BMG VICENZI TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'TRANSPORTE RICARDO ROSA',canal:'ligacao'},{data:'2026-03-25',empresa:'W&E TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'TRANSPORTADORA CLASSE A',canal:'ligacao'},{data:'2026-03-25',empresa:'ARROW LOGISTICA',canal:'ligacao'},{data:'2026-03-25',empresa:'D.E.S TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'DEC LOG TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'RTT LOG',canal:'ligacao'},{data:'2026-03-25',empresa:'SUPERIOR TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'ENI TRANSPORTES',canal:'ligacao'},
+  {data:'2026-03-25',empresa:'AGS LOG',canal:'email'},{data:'2026-03-25',empresa:'CONCENTO TRANSPORTES',canal:'email'},{data:'2026-03-25',empresa:'BMG VICENZI TRANSPORTES',canal:'email'},{data:'2026-03-25',empresa:'TRANSPORTE RICARDO ROSA',canal:'email'},{data:'2026-03-25',empresa:'TSF TRANSPORTADORA SANTA FE',canal:'email'},{data:'2026-03-25',empresa:'DEC LOG TRANSPORTES',canal:'email'},{data:'2026-03-25',empresa:'SUPERIOR TRANSPORTES',canal:'email'},
+  {data:'2026-03-25',empresa:'PRV TRANSPORTES',canal:'whatsapp'},{data:'2026-03-25',empresa:'PETRA LOG',canal:'whatsapp'},{data:'2026-03-25',empresa:'TRANSPORTADORA IPE AMARELO',canal:'whatsapp'},{data:'2026-03-25',empresa:'AGS LOG',canal:'whatsapp'},{data:'2026-03-25',empresa:'CONCENTO TRANSPORTES',canal:'whatsapp'},{data:'2026-03-25',empresa:'BMG VICENZI TRANSPORTES',canal:'whatsapp'},{data:'2026-03-25',empresa:'TRANSPORTE RICARDO ROSA',canal:'whatsapp'},{data:'2026-03-25',empresa:'TSF TRANSPORTADORA SANTA FE',canal:'whatsapp'},{data:'2026-03-25',empresa:'W&E TRANSPORTES',canal:'whatsapp'},{data:'2026-03-25',empresa:'ROMA TRANSPORTES',canal:'whatsapp'},{data:'2026-03-25',empresa:'TWF LOGISTICA',canal:'whatsapp'},{data:'2026-03-25',empresa:'GABRI CARGO',canal:'whatsapp'},{data:'2026-03-25',empresa:'ARROW LOGISTICA',canal:'whatsapp'},{data:'2026-03-25',empresa:'D.E.S TRANSPORTES',canal:'whatsapp'},{data:'2026-03-25',empresa:'DEC LOG TRANSPORTES',canal:'whatsapp'},{data:'2026-03-25',empresa:'RTT LOG',canal:'whatsapp'},{data:'2026-03-25',empresa:'DINIZ SARAIVA',canal:'whatsapp'},{data:'2026-03-25',empresa:'FENIX WAY',canal:'whatsapp'},
 ];
  
 const EFETIVAS=['ARROW LOGISTICA','DINIZ SARAIVA','GRUPO DTRANS'];
  
-// ── DIAGNOSTICO DATA ──────────────────────────────
 const DIAG_DATA=[
-  {id:1,empresa:"DAMACEL TRANSPORTES",          status:"COMPLETE",                executivo:"Matheus Cambui",      estado:"RS",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:null,         dataConclusao:null},
-  {id:2,empresa:"S E TRANSPORTES",              status:"COMPLETE",                executivo:"",                    estado:"GO",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,         dataConclusao:null},
-  {id:3,empresa:"RODOCELL TRANSPORTES",         status:"COMPLETE",                executivo:"Matheus Cambui",      estado:"RS",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,         dataConclusao:null},
-  {id:4,empresa:"GOVEIA RODRIGUES TRANSPORTES", status:"COMPLETE",                executivo:"Matheus Cambui",      estado:"SP",reforma:"Nao",dias:30, tam:"PME",        dataInicio:"2026-02-04", dataConclusao:"2026-03-06"},
-  {id:5,empresa:"GRUPO RODOXISTO",              status:"COMPLETE",                executivo:"Matheus Cambui",      estado:"PR",reforma:"Sim",dias:30, tam:"Enterprise", dataInicio:"2026-02-25", dataConclusao:"2026-03-27"},
-  {id:6,empresa:"RODOLIVIA",                    status:"COMPLETE",                executivo:"Matheus Cambui",      estado:"MT",reforma:"Sim",dias:25, tam:"Enterprise", dataInicio:"2025-12-11", dataConclusao:"2026-01-05"},
-  {id:7,empresa:"JORGINHO TRANSPORTES",         status:"COMPLETE",                executivo:"",                    estado:"RS",reforma:"Sim",dias:38, tam:"Enterprise", dataInicio:"2025-12-22", dataConclusao:"2026-01-29"},
-  {id:8,empresa:"CENTRAL DE TRANSPORTES E SERVICOS",status:"COMPLETE",           executivo:"",                    estado:"SE",reforma:"Sim",dias:15, tam:"Enterprise", dataInicio:"2026-01-28", dataConclusao:"2026-02-12"},
-  {id:9,empresa:"JULITAGO BIOENERGIA",          status:"COMPLETE",                executivo:"",                    estado:"PR",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,         dataConclusao:null},
-  {id:10,empresa:"VITILOG",                     status:"REVALIDACAO",             executivo:"",                    estado:"",  reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:"2025-12-15", dataConclusao:"2026-01-12"},
-  {id:11,empresa:"STEFANI TRANSPORTES",         status:"REVALIDACAO",             executivo:"Matheus Cambui",      estado:"",  reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:"2025-12-18", dataConclusao:"2026-01-16"},
-  {id:12,empresa:"DEXLOG",                      status:"APRESENTACAO",            executivo:"",                    estado:"PR",reforma:"Sim",dias:null,tam:"PME",        dataInicio:"2026-01-22", dataConclusao:"2026-02-23"},
-  {id:13,empresa:"TRANSPORTADORA HAMMES",       status:"EM PROCESSO",             executivo:"Matheus Cambui",      estado:"RS",reforma:"Sim",dias:null,tam:"Enterprise", dataInicio:"2026-02-11", dataConclusao:"2026-03-13"},
-  {id:14,empresa:"JS LOGISTICA",                status:"EM PROCESSO",             executivo:"Luana/Matheus/Vivian",estado:"MG",reforma:"Sim",dias:null,tam:"PME",        dataInicio:"2026-02-25", dataConclusao:"2026-03-27"},
-  {id:15,empresa:"EXCELLENCE TRANSPORTES",      status:"AGUARDANDO DOCUMENTACAO", executivo:"",                    estado:"PR",reforma:"Nao",dias:null,tam:"Enterprise", dataInicio:null,         dataConclusao:null},
-  {id:16,empresa:"MODO AGROLOGISTICA",          status:"AGUARDANDO DOCUMENTACAO", executivo:"",                    estado:"PR",reforma:"Nao",dias:null,tam:"PME",        dataInicio:null,         dataConclusao:null},
-  {id:17,empresa:"TRANSPORTES BRASIL",          status:"EM PROCESSO",             executivo:"Luana Alves Fontana", estado:"PR",reforma:"Nao",dias:null,tam:"PME",        dataInicio:null,         dataConclusao:"2026-04-20"},
-  {id:18,empresa:"PONTAL LOGISTICA",            status:"AGUARDANDO DOCUMENTACAO", executivo:"Luana Alves Fontana", estado:"GO",reforma:"Sim",dias:null,tam:"PME",        dataInicio:null,         dataConclusao:null},
-  {id:19,empresa:"RT RANGEL",                   status:"AGUARDANDO DOCUMENTACAO", executivo:"Luana/Vivian",        estado:"RJ",reforma:"Sim",dias:null,tam:"PME",        dataInicio:"2026-02-19", dataConclusao:"2026-03-27"},
+  {id:1,empresa:"DAMACEL TRANSPORTES",status:"COMPLETE",executivo:"Matheus Cambui",estado:"RS",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
+  {id:2,empresa:"S E TRANSPORTES",status:"COMPLETE",executivo:"",estado:"GO",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
+  {id:3,empresa:"RODOCELL TRANSPORTES",status:"COMPLETE",executivo:"Matheus Cambui",estado:"RS",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
+  {id:4,empresa:"GOVEIA RODRIGUES TRANSPORTES",status:"COMPLETE",executivo:"Matheus Cambui",estado:"SP",reforma:"Nao",dias:30,tam:"PME",dataInicio:"2026-02-04",dataConclusao:"2026-03-06"},
+  {id:5,empresa:"GRUPO RODOXISTO",status:"COMPLETE",executivo:"Matheus Cambui",estado:"PR",reforma:"Sim",dias:30,tam:"Enterprise",dataInicio:"2026-02-25",dataConclusao:"2026-03-27"},
+  {id:6,empresa:"RODOLIVIA",status:"COMPLETE",executivo:"Matheus Cambui",estado:"MT",reforma:"Sim",dias:25,tam:"Enterprise",dataInicio:"2025-12-11",dataConclusao:"2026-01-05"},
+  {id:7,empresa:"JORGINHO TRANSPORTES",status:"COMPLETE",executivo:"",estado:"RS",reforma:"Sim",dias:38,tam:"Enterprise",dataInicio:"2025-12-22",dataConclusao:"2026-01-29"},
+  {id:8,empresa:"CENTRAL DE TRANSPORTES E SERVICOS",status:"COMPLETE",executivo:"",estado:"SE",reforma:"Sim",dias:15,tam:"Enterprise",dataInicio:"2026-01-28",dataConclusao:"2026-02-12"},
+  {id:9,empresa:"JULITAGO BIOENERGIA",status:"COMPLETE",executivo:"",estado:"PR",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
+  {id:10,empresa:"VITILOG",status:"REVALIDACAO",executivo:"",estado:"",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:"2025-12-15",dataConclusao:"2026-01-12"},
+  {id:11,empresa:"STEFANI TRANSPORTES",status:"REVALIDACAO",executivo:"Matheus Cambui",estado:"",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:"2025-12-18",dataConclusao:"2026-01-16"},
+  {id:12,empresa:"DEXLOG",status:"APRESENTACAO",executivo:"",estado:"PR",reforma:"Sim",dias:null,tam:"PME",dataInicio:"2026-01-22",dataConclusao:"2026-02-23"},
+  {id:13,empresa:"TRANSPORTADORA HAMMES",status:"EM PROCESSO",executivo:"Matheus Cambui",estado:"RS",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:"2026-02-11",dataConclusao:"2026-03-13"},
+  {id:14,empresa:"JS LOGISTICA",status:"EM PROCESSO",executivo:"Luana/Matheus/Vivian",estado:"MG",reforma:"Sim",dias:null,tam:"PME",dataInicio:"2026-02-25",dataConclusao:"2026-03-27"},
+  {id:15,empresa:"EXCELLENCE TRANSPORTES",status:"AGUARDANDO DOCUMENTACAO",executivo:"",estado:"PR",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
+  {id:16,empresa:"MODO AGROLOGISTICA",status:"AGUARDANDO DOCUMENTACAO",executivo:"",estado:"PR",reforma:"Nao",dias:null,tam:"PME",dataInicio:null,dataConclusao:null},
+  {id:17,empresa:"TRANSPORTES BRASIL",status:"EM PROCESSO",executivo:"Luana Alves Fontana",estado:"PR",reforma:"Nao",dias:null,tam:"PME",dataInicio:null,dataConclusao:"2026-04-20"},
+  {id:18,empresa:"PONTAL LOGISTICA",status:"AGUARDANDO DOCUMENTACAO",executivo:"Luana Alves Fontana",estado:"GO",reforma:"Sim",dias:null,tam:"PME",dataInicio:null,dataConclusao:null},
+  {id:19,empresa:"RT RANGEL",status:"AGUARDANDO DOCUMENTACAO",executivo:"Luana/Vivian",estado:"RJ",reforma:"Sim",dias:null,tam:"PME",dataInicio:"2026-02-19",dataConclusao:"2026-03-27"},
 ];
  
 const DIAG_STATUS={"COMPLETE":{dot:"#2D9E60",color:"#2D9E60",label:"Concluido"},"AGUARDANDO DOCUMENTACAO":{dot:"#888",color:"#888",label:"Aguardando Documento"},"EM PROCESSO":{dot:C.orange,color:C.orange,label:"Em Processo"},"REVALIDACAO":{dot:"#B35B00",color:"#B35B00",label:"Revalidacao"},"APRESENTACAO":{dot:"#CC6C00",color:"#CC6C00",label:"Apresentacao"},"NAO INICIADA":{dot:"#4A4B4D",color:"#4A4B4D",label:"Nao Iniciada"}};
 const FUNNEL_PHASES=[{key:"NAO INICIADA",label:"Nao Iniciada",bg:"#4A4B4D"},{key:"AGUARDANDO DOCUMENTACAO",label:"Aguardando Documento",bg:"#888"},{key:"EM PROCESSO",label:"Em Processo",bg:C.orange},{key:"REVALIDACAO",label:"Revalidacao",bg:"#B35B00"},{key:"APRESENTACAO",label:"Apresentacao",bg:"#CC6C00"},{key:"COMPLETE",label:"Concluido",bg:"#2D9E60"}];
  
-// ── EVOL DATA ─────────────────────────────────────
-const ALL_DAYS_MAR=['2026-03-02','2026-03-03','2026-03-04','2026-03-05','2026-03-06','2026-03-07','2026-03-09','2026-03-10','2026-03-11','2026-03-12','2026-03-13','2026-03-16','2026-03-17','2026-03-18','2026-03-19','2026-03-20','2026-03-22','2026-03-23','2026-03-24'];
-const MOV_CARLA= [8,0,4,0,0,4,0,13,13,14,0,0,14,17,0,0,15,14,15];
-const MOV_SANDRO=[2,8,0,0,0,0,0,7,0,1,1,3,7,8,1,6,0,20,8];
-const MOV_MARCO= [0,0,0,0,0,0,0,0,0,0,0,4,6,0,5,0,0,6,5];
-const MOV_ISAAC= [0,0,0,0,0,0,0,0,0,0,0,3,9,3,5,0,0,3,9];
+const ALL_DAYS_MAR=['2026-03-02','2026-03-03','2026-03-04','2026-03-05','2026-03-06','2026-03-07','2026-03-09','2026-03-10','2026-03-11','2026-03-12','2026-03-13','2026-03-16','2026-03-17','2026-03-18','2026-03-19','2026-03-20','2026-03-22','2026-03-23','2026-03-24','2026-03-25'];
+const MOV_CARLA=[8,0,4,0,0,4,0,13,13,14,0,0,14,17,0,0,15,14,15,16];
+const MOV_SANDRO=[2,8,0,0,0,0,0,7,0,1,1,3,7,8,1,6,0,20,8,3];
+const MOV_MARCO=[0,0,0,0,0,0,0,0,0,0,0,4,6,0,5,0,0,6,5,16];
+const MOV_ISAAC=[0,0,0,0,0,0,0,0,0,0,0,3,9,3,5,0,0,3,9,12];
 const SANDRO_REUNIOES=['2026-03-02','2026-03-03','2026-03-04','2026-03-09','2026-03-11','2026-03-13','2026-03-17','2026-03-17','2026-03-18'];
 const SANDRO_VISITAS=['2026-03-11','2026-03-13'];
 const CARLA_REUNIOES=['2026-03-05','2026-03-16','2026-03-18'];
 const CARLA_VISITAS=['2026-03-04','2026-03-07','2026-03-07','2026-03-09','2026-03-09','2026-03-09','2026-03-09','2026-03-09','2026-03-09','2026-03-09','2026-03-09','2026-03-09','2026-03-09','2026-03-18','2026-03-18','2026-03-19'];
-const MARCO_REUNIOES=['2026-03-19'];
-const MARCO_VISITAS=['2026-03-19','2026-03-19','2026-03-24','2026-03-24','2026-03-24'];
+const MARCO_REUNIOES=['2026-03-19','2026-03-24','2026-03-25'];
+const MARCO_VISITAS=['2026-03-19'];
 const ISAAC_REUNIOES=[];
-const ISAAC_VISITAS=['2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-20','2026-03-20','2026-03-23','2026-03-24','2026-03-24'];
+const ISAAC_VISITAS=['2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-20','2026-03-20','2026-03-23','2026-03-24','2026-03-24','2026-03-25'];
+ 
 function buildEvolution(dates,allDays){const counts={};dates.forEach(d=>{counts[d]=(counts[d]||0)+1;});let acc=0;return allDays.map(day=>{acc+=(counts[day]||0);return acc;});}
 function buildMovEvolution(movArr){let acc=0;return ALL_DAYS_MAR.map((_,i)=>{acc+=(movArr[i]||0);return acc;});}
  
-// ── UI HELPERS ────────────────────────────────────
 const Tip=({active,payload,label})=>{if(!active||!payload||!payload.length)return null;return(<div style={{background:C.dark,color:'#fff',padding:'10px 14px',borderRadius:6,fontSize:12,fontFamily:FONT,boxShadow:'0 8px 24px rgba(0,0,0,0.35)',border:'1px solid #333',minWidth:120}}><div style={{fontWeight:700,marginBottom:5,color:'#AAA',fontSize:10,textTransform:'uppercase'}}>{label}</div>{payload.map((p,i)=>(<div key={i} style={{display:'flex',gap:8,alignItems:'center',marginBottom:2}}><div style={{width:8,height:8,borderRadius:2,background:p.fill||p.color||C.orange,flexShrink:0}}/><span style={{color:'#CCC',fontSize:11}}>{p.name}:</span><strong style={{color:'white'}}>{typeof p.value==='number'?p.value.toLocaleString('pt-BR'):p.value}</strong></div>))}</div>);};
 function Badge({label,color=C.orange,bg}){return(<span style={{fontSize:10,fontWeight:700,padding:'2px 7px',borderRadius:3,background:bg||color+'18',color,display:'inline-block',lineHeight:1.7,whiteSpace:'nowrap',fontFamily:FONT}}>{label}</span>);}
 function KPICard({title,value,note,icon}){return(<div style={{background:C.white,borderRadius:8,padding:'16px 18px',border:`2px solid ${C.orange}`,boxShadow:C.shadow,flex:1,minWidth:0,fontFamily:FONT,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center'}}><div style={{fontSize:10,color:C.gray,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6,display:'flex',alignItems:'center',justifyContent:'center',gap:5}}>{icon&&<span style={{fontSize:13}}>{icon}</span>}{title}</div><div style={{fontSize:28,fontWeight:800,color:C.orange,lineHeight:1.1}}>{typeof value==='number'?value.toLocaleString('pt-BR'):value}</div>{note&&<div style={{fontSize:11,color:C.gray,marginTop:4}}>{note}</div>}</div>);}
@@ -235,9 +195,7 @@ function TblHead({cols}){return(<thead><tr style={{background:C.grayL,borderBott
 const tRow=i=>({borderBottom:`1px solid ${C.border}`,background:i%2===0?C.white:C.grayL});
 function fmtDt(iso){if(!iso)return "—";const p=iso.split("-");return p[2]+"/"+p[1];}
 function calcAging(ini,fim){if(!ini)return null;const f=fim?new Date(fim):new Date();return Math.floor((f-new Date(ini))/864e5);}
-function AgingBadge({d}){if(d===null)return <span style={{color:C.gray}}>—</span>;const col=d<=15?C.green:d<=30?C.orange:"#B35B00";const bg=d<=15?C.gL:d<=30?C.oL:"#FFF3E0";return <span style={{fontSize:9.5,fontWeight:700,background:bg,color:col,padding:'2px 6px',borderRadius:10}}>{d}d</span>;}
  
-// ── PARCERIAS PAGE ────────────────────────────────
 function ParceriasPage(){
   const[selParceiro,setSelParceiro]=useState('Todos');
   const[selStatus,setSelStatus]=useState('Todos');
@@ -305,7 +263,6 @@ function ParceriasPage(){
   </div>);
 }
  
-// ── DIAGNOSTICO PAGE ──────────────────────────────
 function DiagPage(){
   const total=DIAG_DATA.length;
   const concluidos=DIAG_DATA.filter(d=>d.status==="COMPLETE").sort((a,b)=>a.empresa.localeCompare(b.empresa,"pt-BR"));
@@ -318,8 +275,6 @@ function DiagPage(){
   const nEnt=DIAG_DATA.filter(d=>d.tam==="Enterprise").length,nPME=DIAG_DATA.filter(d=>d.tam==="PME").length;
   const pctConc=Math.round(nConc/total*100);
   const bs=`1px solid ${C.border}`;
- 
-  // Estilos de tabela
   const TH={padding:'6px 10px',background:'#F5F5F3',fontSize:10,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.05em',borderBottom:`1px solid ${C.border}`,whiteSpace:'nowrap',textAlign:'left'};
   const THC={...TH,textAlign:'center'};
   const calcAg=(ini,fim)=>{if(!ini)return null;const f=fim?new Date(fim):new Date();return Math.floor((f-new Date(ini))/864e5);};
@@ -328,27 +283,15 @@ function DiagPage(){
   const RefBadge=({v})=>{if(!v||v==='—')return <span style={{color:'#CCC'}}>—</span>;return <span style={{fontSize:11,fontWeight:700,color:v==='Sim'?'#2D9E60':C.orange}}>{v}</span>;};
   const UFBadge=({v})=>v?<span style={{fontSize:11,fontWeight:700,color:C.orange}}>{v}</span>:<span style={{color:'#CCC'}}>—</span>;
   const SegBadge=({v})=><span style={{fontSize:10,fontWeight:700,color:v==='Enterprise'?C.orange:'#888',background:v==='Enterprise'?C.oL:'#F0F0F0',padding:'2px 6px',borderRadius:4}}>{v==='Enterprise'?'ETP':'PME'}</span>;
- 
   return(
   <div style={{display:'flex',flexDirection:'column',gap:10,fontFamily:FONT}}>
- 
-    {/* ── HEADER ── */}
     <div style={{background:C.white,borderRadius:8,padding:'14px 20px',border:bs,boxShadow:C.shadow}}>
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',flexWrap:'wrap',gap:8}}>
-        <div>
-          <div style={{fontSize:14,fontWeight:800,color:C.text,letterSpacing:'-0.01em'}}>REPORT DE DIAGNÓSTICO</div>
-          <div style={{fontSize:11,color:C.gray,marginTop:2}}>{new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})}</div>
-        </div>
-        <div style={{display:'flex',alignItems:'center',gap:8}}>
-          <span style={{fontSize:13,fontWeight:800,color:C.dark,letterSpacing:'-0.02em'}}>RumoBrasil</span>
-          <div style={{width:28,height:28,borderRadius:6,background:C.orange,display:'flex',alignItems:'center',justifyContent:'center'}}><span style={{fontSize:13,fontWeight:900,color:'#fff'}}>R</span></div>
-        </div>
+        <div><div style={{fontSize:14,fontWeight:800,color:C.text,letterSpacing:'-0.01em'}}>REPORT DE DIAGNÓSTICO</div><div style={{fontSize:11,color:C.gray,marginTop:2}}>{new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})}</div></div>
+        <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:13,fontWeight:800,color:C.dark,letterSpacing:'-0.02em'}}>RumoBrasil</span><div style={{width:28,height:28,borderRadius:6,background:C.orange,display:'flex',alignItems:'center',justifyContent:'center'}}><span style={{fontSize:13,fontWeight:900,color:'#fff'}}>R</span></div></div>
       </div>
     </div>
- 
-    {/* ── KPI CARDS ── */}
     <div style={{display:'grid',gridTemplateColumns:'1.4fr 1fr 1fr 1fr 1.6fr',gap:10}}>
-      {/* Pipeline Total */}
       <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center'}}>
         <div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6}}>Pipeline Total</div>
         <div style={{display:'flex',alignItems:'center',gap:10,justifyContent:'center'}}>
@@ -360,25 +303,9 @@ function DiagPage(){
         </div>
         <div style={{fontSize:10,color:'#AAA',marginTop:5}}>{pctConc}% concluído</div>
       </div>
-      {/* Concluídos */}
-      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}>
-        <div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Concluídos</div>
-        <div style={{fontSize:32,fontWeight:800,color:C.text,lineHeight:1}}>{nConc}</div>
-        <div style={{fontSize:10,color:'#AAA',marginTop:4}}>{pctConc}% de conclusão</div>
-      </div>
-      {/* Em Andamento */}
-      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}>
-        <div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Em Andamento</div>
-        <div style={{fontSize:32,fontWeight:800,color:C.text,lineHeight:1}}>{nAtivo}</div>
-        <div style={{fontSize:10,color:'#AAA',marginTop:4}}>{nAtivo} empresas ativas</div>
-      </div>
-      {/* Prazo Médio */}
-      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}>
-        <div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Prazo Médio</div>
-        <div style={{fontSize:32,fontWeight:800,color:C.text,lineHeight:1}}>{diasM}d</div>
-        <div style={{fontSize:10,color:'#AAA',marginTop:4}}>média para concluir</div>
-      </div>
-      {/* Reforma Tributária */}
+      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Concluídos</div><div style={{fontSize:32,fontWeight:800,color:C.text,lineHeight:1}}>{nConc}</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>{pctConc}% de conclusão</div></div>
+      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Em Andamento</div><div style={{fontSize:32,fontWeight:800,color:C.text,lineHeight:1}}>{nAtivo}</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>{nAtivo} empresas ativas</div></div>
+      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Prazo Médio</div><div style={{fontSize:32,fontWeight:800,color:C.text,lineHeight:1}}>{diasM}d</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>média para concluir</div></div>
       <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center'}}>
         <div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6}}>Reforma Tributária</div>
         <div style={{display:'flex',alignItems:'center',gap:10,justifyContent:'center'}}>
@@ -392,115 +319,21 @@ function DiagPage(){
         <div style={{fontSize:10,color:'#AAA',marginTop:5}}>{Math.round(nSim/total*100)}% optam</div>
       </div>
     </div>
- 
-    {/* ── MIDDLE ROW: Funil + Concluídas ── */}
     <div style={{display:'grid',gridTemplateColumns:'260px 1fr',gap:10,alignItems:'stretch'}}>
-      {/* Funil */}
       <div style={{background:C.white,borderRadius:8,border:bs,boxShadow:C.shadow,overflow:'hidden',display:'flex',flexDirection:'column'}}>
         <div style={{padding:'7px 12px',borderBottom:bs,background:'#F5F5F3',flexShrink:0}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Pipeline por Fase</span></div>
         <div style={{flex:1,padding:'12px',display:'flex',flexDirection:'column',justifyContent:'space-evenly',gap:4}}>
-          {(()=>{
-            // Funil real: topo = menor barra, base = maior barra
-            // FUNNEL_PHASES order: NAO INICIADA → COMPLETE (de cima para baixo)
-            // Widths crescentes de cima para baixo
-            const WIDTHS=[100,86,72,60,46,30];
-            return FUNNEL_PHASES.map((f,i)=>{
-              const cnt=DIAG_DATA.filter(d=>d.status===f.key).length;
-              const col=cnt>0?f.bg:'#E8E8E8';
-              const labelCol=cnt>0?f.bg:'#BBBBBB';
-              const w=WIDTHS[i];
-              return(
-                <div key={f.key} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2}}>
-                  <span style={{fontSize:11,fontWeight:600,color:labelCol,whiteSpace:'nowrap',lineHeight:1.2,textAlign:'center'}}>{f.label}</span>
-                  <div style={{width:`${w}%`,height:26,background:col,borderRadius:4,display:'flex',alignItems:'center',justifyContent:'center'}}>
-                    <span style={{fontSize:12,fontWeight:800,color:'#fff'}}>{cnt}</span>
-                  </div>
-                </div>
-              );
-            });
-          })()}
+          {(()=>{const WIDTHS=[100,86,72,60,46,30];return FUNNEL_PHASES.map((f,i)=>{const cnt=DIAG_DATA.filter(d=>d.status===f.key).length;const col=cnt>0?f.bg:'#E8E8E8';const labelCol=cnt>0?f.bg:'#BBBBBB';const w=WIDTHS[i];return(<div key={f.key} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2}}><span style={{fontSize:11,fontWeight:600,color:labelCol,whiteSpace:'nowrap',lineHeight:1.2,textAlign:'center'}}>{f.label}</span><div style={{width:`${w}%`,height:26,background:col,borderRadius:4,display:'flex',alignItems:'center',justifyContent:'center'}}><span style={{fontSize:12,fontWeight:800,color:'#fff'}}>{cnt}</span></div></div>);});})()}
         </div>
       </div>
- 
-      {/* Tabela Concluídas */}
       <div style={{background:C.white,borderRadius:8,border:bs,boxShadow:C.shadow,overflow:'hidden'}}>
-        <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}>
-          <span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Concluídas</span>
-          <span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:800}}>{nConc}</span>
-        </div>
-        <div style={{overflowX:'auto'}}>
-          <table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}>
-            <thead>
-              <tr>
-                <th style={{...TH,width:'28%'}}>Empresa</th>
-                <th style={{...THC,width:'18%'}}>Executivo</th>
-                <th style={{...THC,width:'6%'}}>UF</th>
-                <th style={{...THC,width:'7%'}}>Seg.</th>
-                <th style={{...THC,width:'13%'}}>Dt. Entrada</th>
-                <th style={{...THC,width:'13%'}}>Dt. Conclusão</th>
-                <th style={{...THC,width:'9%'}}>Reforma</th>
-              </tr>
-            </thead>
-            <tbody>
-              {concluidos.map((d,i)=>(
-                <tr key={d.id} style={{borderBottom:`1px solid #F2F2F0`,background:i%2===0?C.white:'#FAFAF8'}}>
-                  <td style={{padding:'7px 10px',fontWeight:700,fontSize:11,color:C.text,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',maxWidth:200}}>{d.empresa}</td>
-                  <td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#666'}}>{d.executivo||'—'}</td>
-                  <td style={{padding:'7px 10px',textAlign:'center'}}><UFBadge v={d.estado}/></td>
-                  <td style={{padding:'7px 10px',textAlign:'center'}}><SegBadge v={d.tam}/></td>
-                  <td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataInicio)}</td>
-                  <td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataConclusao)}</td>
-                  <td style={{padding:'7px 10px',textAlign:'center'}}><RefBadge v={d.reforma}/></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Concluídas</span><span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:800}}>{nConc}</span></div>
+        <div style={{overflowX:'auto'}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}><thead><tr><th style={{...TH,width:'28%'}}>Empresa</th><th style={{...THC,width:'18%'}}>Executivo</th><th style={{...THC,width:'6%'}}>UF</th><th style={{...THC,width:'7%'}}>Seg.</th><th style={{...THC,width:'13%'}}>Dt. Entrada</th><th style={{...THC,width:'13%'}}>Dt. Conclusão</th><th style={{...THC,width:'9%'}}>Reforma</th></tr></thead><tbody>{concluidos.map((d,i)=>(<tr key={d.id} style={{borderBottom:`1px solid #F2F2F0`,background:i%2===0?C.white:'#FAFAF8'}}><td style={{padding:'7px 10px',fontWeight:700,fontSize:11,color:C.text,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',maxWidth:200}}>{d.empresa}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#666'}}>{d.executivo||'—'}</td><td style={{padding:'7px 10px',textAlign:'center'}}><UFBadge v={d.estado}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><SegBadge v={d.tam}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataInicio)}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataConclusao)}</td><td style={{padding:'7px 10px',textAlign:'center'}}><RefBadge v={d.reforma}/></td></tr>))}</tbody></table></div>
       </div>
     </div>
- 
-    {/* ── TABELA EM ANDAMENTO ── */}
     <div style={{background:C.white,borderRadius:8,border:bs,boxShadow:C.shadow,overflow:'hidden'}}>
-      <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}>
-        <span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Em Andamento</span>
-        <span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:800}}>{nAtivo}</span>
-      </div>
-      <div style={{overflowX:'auto'}}>
-        <table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}>
-          <thead>
-            <tr>
-              <th style={{...TH,width:'20%'}}>Empresa</th>
-              <th style={{...THC,width:'14%'}}>Status</th>
-              <th style={{...THC,width:'16%'}}>Executivo(s)</th>
-              <th style={{...THC,width:'5%'}}>UF</th>
-              <th style={{...THC,width:'6%'}}>Seg.</th>
-              <th style={{...THC,width:'10%'}}>Dt. Entrada</th>
-              <th style={{...THC,width:'10%'}}>Dt. Conclusão</th>
-              <th style={{...THC,width:'7%'}}>Aging</th>
-              <th style={{...THC,width:'7%'}}>Reforma</th>
-            </tr>
-          </thead>
-          <tbody>
-            {emAndamento.map((d,i)=>{
-              const ag=calcAg(d.dataInicio,d.dataConclusao);
-              return(
-                <tr key={d.id} style={{borderBottom:`1px solid #F2F2F0`,background:i%2===0?C.white:'#FAFAF8'}}>
-                  <td style={{padding:'7px 10px',fontWeight:700,fontSize:11,color:C.text,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',maxWidth:220}}>{d.empresa}</td>
-                  <td style={{padding:'7px 10px',textAlign:'center'}}><StBadge status={d.status}/></td>
-                  <td style={{padding:'7px 10px',textAlign:'center',fontSize:10.5,color:'#666'}}>{d.executivo||'—'}</td>
-                  <td style={{padding:'7px 10px',textAlign:'center'}}><UFBadge v={d.estado}/></td>
-                  <td style={{padding:'7px 10px',textAlign:'center'}}><SegBadge v={d.tam}/></td>
-                  <td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataInicio)}</td>
-                  <td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataConclusao)}</td>
-                  <td style={{padding:'7px 10px',textAlign:'center'}}><AgBadge d={ag}/></td>
-                  <td style={{padding:'7px 10px',textAlign:'center'}}><RefBadge v={d.reforma}/></td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-      {/* Legenda */}
+      <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Em Andamento</span><span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:800}}>{nAtivo}</span></div>
+      <div style={{overflowX:'auto'}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}><thead><tr><th style={{...TH,width:'20%'}}>Empresa</th><th style={{...THC,width:'14%'}}>Status</th><th style={{...THC,width:'16%'}}>Executivo(s)</th><th style={{...THC,width:'5%'}}>UF</th><th style={{...THC,width:'6%'}}>Seg.</th><th style={{...THC,width:'10%'}}>Dt. Entrada</th><th style={{...THC,width:'10%'}}>Dt. Conclusão</th><th style={{...THC,width:'7%'}}>Aging</th><th style={{...THC,width:'7%'}}>Reforma</th></tr></thead><tbody>{emAndamento.map((d,i)=>{const ag=calcAg(d.dataInicio,d.dataConclusao);return(<tr key={d.id} style={{borderBottom:`1px solid #F2F2F0`,background:i%2===0?C.white:'#FAFAF8'}}><td style={{padding:'7px 10px',fontWeight:700,fontSize:11,color:C.text,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',maxWidth:220}}>{d.empresa}</td><td style={{padding:'7px 10px',textAlign:'center'}}><StBadge status={d.status}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:10.5,color:'#666'}}>{d.executivo||'—'}</td><td style={{padding:'7px 10px',textAlign:'center'}}><UFBadge v={d.estado}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><SegBadge v={d.tam}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataInicio)}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataConclusao)}</td><td style={{padding:'7px 10px',textAlign:'center'}}><AgBadge d={ag}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><RefBadge v={d.reforma}/></td></tr>);})}</tbody></table></div>
       <div style={{padding:'7px 14px',borderTop:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:12,flexWrap:'wrap'}}>
         <span style={{fontSize:8.5,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.06em'}}>Status:</span>
         {FUNNEL_PHASES.filter(f=>f.key!=='NAO INICIADA').map(f=>(<div key={f.key} style={{display:'flex',alignItems:'center',gap:3}}><div style={{width:7,height:7,borderRadius:'50%',background:f.bg}}/><span style={{fontSize:9,color:'#555'}}>{f.label}</span></div>))}
@@ -508,11 +341,161 @@ function DiagPage(){
         {[['≤15d',C.green,C.gL,'Recente'],['16–30d',C.orange,C.oL,'Atenção'],['> 30d','#B35B00','#FFF3E0','Crítico']].map(([v,c,bg,l])=>(<div key={v} style={{display:'flex',alignItems:'center',gap:4}}><span style={{fontSize:9,background:bg,color:c,padding:'1px 6px',borderRadius:8,fontWeight:700}}>{v}</span><span style={{fontSize:9,color:'#555'}}>{l}</span></div>))}
       </div>
     </div>
- 
   </div>);
 }
-// ── EXEC INTERNOS ─────────────────────────────────
-const TATIANE_REUNIOES=[],TATIANE_VISITAS=[],MOV_TATIANE=new Array(ALL_DAYS_MAR.length).fill(0);
+ 
+const TATIANE_AGENDAMENTOS=[];
+const TATIANE_MOV=[
+  {dia:'25/mar',data:'2026-03-25',mov:39},
+];
+const TATIANE_REUNIOES=[],TATIANE_VISITAS=[],MOV_TATIANE=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31];
+// Atividades diárias Tatiane por canal (alinhadas com ALL_DAYS_MAR)
+// [02,03,04,05,06,07,09,10,11,12,13,16,17,18,19,20,22,23,24,25]
+const TATIANE_LIG_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,29];
+const TATIANE_EML_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1];
+const TATIANE_WHA_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1];
+ 
+function TatianeMixEvolChart(){
+  const COL_L=C.orange,COL_E='#444444',COL_W='#AAAAAA';
+  const[showLig,setShowLig]=useState(true);
+  const[showEml,setShowEml]=useState(true);
+  const[showWha,setShowWha]=useState(true);
+  const ligAcc=buildSdrEvol(TATIANE_LIG_DIA);
+  const emlAcc=buildSdrEvol(TATIANE_EML_DIA);
+  const whaAcc=buildSdrEvol(TATIANE_WHA_DIA);
+  const totalLig=ligAcc[ligAcc.length-1];
+  const totalEml=emlAcc[emlAcc.length-1];
+  const totalWha=whaAcc[whaAcc.length-1];
+  const totalCanais=totalLig+totalEml+totalWha;
+  const evolData=ALL_DAYS_MAR.map((d,i)=>({
+    dia:String(parseInt(d.slice(8)))+'/mar',
+    ligacao:ligAcc[i],
+    email:emlAcc[i],
+    whatsapp:whaAcc[i],
+  }));
+  const canalInfo=[
+    {label:'Ligacao',qtd:totalLig,pct:totalCanais>0?Math.round(totalLig/totalCanais*100):0,fill:COL_L,icon:'📞'},
+    {label:'E-mail', qtd:totalEml,pct:totalCanais>0?Math.round(totalEml/totalCanais*100):0,fill:COL_E,icon:'✉️'},
+    {label:'WhatsApp',qtd:totalWha,pct:totalCanais>0?Math.round(totalWha/totalCanais*100):0,fill:COL_W,icon:'💬'},
+  ];
+  const tagStyle=(active,col)=>({fontSize:10,fontWeight:800,cursor:'pointer',padding:'2px 8px',borderRadius:10,background:active?col+'18':'#F0F0F0',color:active?col:'#AAA',border:`1.5px solid ${active?col:'#DDD'}`,textDecoration:active?'none':'line-through'});
+  const mkDot=(key,col)=>(props)=>{const{cx,cy,index}=props;const val=evolData[index][key];const prev=index>0?evolData[index-1][key]:null;if(val===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={5} fill={col} stroke="#fff" strokeWidth={2}/>;};
+  const mkLabel=(key,col)=>(props)=>{const{x,y,index}=props;const val=evolData[index][key];const prev=index>0?evolData[index-1][key]:null;if(val===prev&&index>0)return null;return <text key={index} x={x} y={y-10} textAnchor="middle" fill={col} fontSize={10} fontWeight={800} fontFamily={FONT}>{val}</text>;};
+  return(
+    <div style={{display:'grid',gridTemplateColumns:'1fr 1.8fr',gap:11}}>
+      <Card title="Mix de Canais">
+        <div style={{display:'flex',flexDirection:'column',gap:10,marginTop:4}}>
+          {canalInfo.map(d=>(<div key={d.label}>
+            <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}>
+              <span style={{fontSize:12,fontWeight:600}}>{d.icon} {d.label}</span>
+              <span><strong style={{color:d.fill,fontSize:13}}>{d.qtd}</strong><span style={{fontSize:11,color:C.gray}}> ({d.pct}%)</span></span>
+            </div>
+            <div style={{height:12,background:C.grayL,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${d.pct}%`,background:d.fill,borderRadius:6}}/></div>
+          </div>))}
+        </div>
+      </Card>
+      <Card title="Evolucao Diaria - Tatiane Gomes">
+        <div style={{display:'flex',gap:12,marginBottom:12,flexWrap:'wrap',alignItems:'center'}}>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_L,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_L}}/><span style={{fontSize:10,fontWeight:700,color:COL_L}}>Ligacoes</span></div>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_E,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_E}}/><span style={{fontSize:10,fontWeight:700,color:COL_E}}>E-mails</span></div>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_W,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_W}}/><span style={{fontSize:10,fontWeight:700,color:COL_W}}>WhatsApp</span></div>
+          <div style={{marginLeft:'auto',display:'flex',gap:8}}>
+            <span onClick={()=>setShowLig(v=>!v)} style={tagStyle(showLig,COL_L)}>{totalLig} lig.</span>
+            <span onClick={()=>setShowEml(v=>!v)} style={tagStyle(showEml,COL_E)}>{totalEml} email</span>
+            <span onClick={()=>setShowWha(v=>!v)} style={tagStyle(showWha,COL_W)}>{totalWha} whats</span>
+          </div>
+        </div>
+        <ResponsiveContainer width="100%" height={240}>
+          <ComposedChart data={evolData} margin={{top:28,right:16,left:0,bottom:0}}>
+            <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
+            <XAxis dataKey="dia" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
+            <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,'dataMax+15']}/>
+            <Tooltip content={<Tip/>}/>
+            {showLig&&<Line dataKey="ligacao" name="Ligacoes" stroke={COL_L} strokeWidth={2.5} type="monotone" dot={mkDot('ligacao',COL_L)} label={mkLabel('ligacao',COL_L)}/>}
+            {showEml&&<Line dataKey="email" name="E-mails" stroke={COL_E} strokeWidth={2.5} type="monotone" dot={mkDot('email',COL_E)} label={mkLabel('email',COL_E)}/>}
+            {showWha&&<Line dataKey="whatsapp" name="WhatsApp" stroke={COL_W} strokeWidth={2} strokeDasharray="5 3" type="monotone" dot={mkDot('whatsapp',COL_W)} label={mkLabel('whatsapp',COL_W)}/>}
+          </ComposedChart>
+        </ResponsiveContainer>
+      </Card>
+    </div>
+  );
+}
+ 
+function TatianeAtivChart(){
+  const COL_L=C.orange,COL_E='#444444',COL_W='#AAAAAA',COL_AG='#1B5E20';
+  const[showLig,setShowLig]=useState(true);
+  const[showEml,setShowEml]=useState(true);
+  const[showWha,setShowWha]=useState(true);
+  const ligAcc=buildSdrEvol(TATIANE_LIG_DIA);
+  const emlAcc=buildSdrEvol(TATIANE_EML_DIA);
+  const whaAcc=buildSdrEvol(TATIANE_WHA_DIA);
+  const tatAgendAcum=ALL_DAYS_MAR.map(()=>0);
+  const totalLig=ligAcc[ligAcc.length-1],totalEml=emlAcc[emlAcc.length-1],totalWha=whaAcc[whaAcc.length-1];
+  const totalCanais=totalLig+totalEml+totalWha;
+  const totalAg=tatAgendAcum[tatAgendAcum.length-1];
+  const META_MES=500;
+  const pct=Math.min(Math.round(totalCanais/META_MES*100),100);
+  const faltam=Math.max(0,META_MES-totalCanais);
+  const data=ALL_DAYS_MAR.map((d,i)=>({
+    dia:String(parseInt(d.slice(8)))+'/mar',
+    ligacao:TATIANE_LIG_DIA[i]>0?TATIANE_LIG_DIA[i]:0,
+    email:TATIANE_EML_DIA[i]>0?TATIANE_EML_DIA[i]:0,
+    whatsapp:TATIANE_WHA_DIA[i]>0?TATIANE_WHA_DIA[i]:0,
+    agendamentosAcum:tatAgendAcum[i]>0?tatAgendAcum[i]:null,
+  }));
+  const tagStyle=(active,col)=>({fontSize:10,fontWeight:800,cursor:'pointer',padding:'2px 8px',borderRadius:10,background:active?col+'18':'#F0F0F0',color:active?col:'#AAA',border:`1.5px solid ${active?col:'#DDD'}`,textDecoration:active?'none':'line-through'});
+  const mkDotAg=(props)=>{const{cx,cy,index,value}=props;if(!value)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;const prev=index>0?data[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={6} fill={COL_AG} stroke="#fff" strokeWidth={2}/>;};
+  const mkLabelAg=(props)=>{const{x,y,index,value}=props;if(!value)return null;const prev=index>0?data[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AG} fontSize={11} fontWeight={800} fontFamily={FONT}>{value}</text>;};
+  return(
+    <Card title="Atividades por Dia — por Canal + Agendamentos Acumulados (Tatiane Gomes)">
+      <div style={{display:'flex',gap:12,marginBottom:12,flexWrap:'wrap',alignItems:'center'}}>
+        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_L,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_L}}/><span style={{fontSize:10,fontWeight:700,color:COL_L}}>Ligacoes</span></div>
+        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_E,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_E}}/><span style={{fontSize:10,fontWeight:700,color:COL_E}}>E-mails</span></div>
+        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_W,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_W}}/><span style={{fontSize:10,fontWeight:700,color:COL_W}}>WhatsApp</span></div>
+        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:20,height:2.5,background:COL_AG,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_AG}}/><span style={{fontSize:10,fontWeight:700,color:COL_AG}}>Agend. Acumulados (eixo dir.)</span></div>
+        <div style={{marginLeft:'auto',display:'flex',gap:8}}>
+          <span onClick={()=>setShowLig(v=>!v)} style={tagStyle(showLig,COL_L)}>{totalLig} lig.</span>
+          <span onClick={()=>setShowEml(v=>!v)} style={tagStyle(showEml,COL_E)}>{totalEml} email</span>
+          <span onClick={()=>setShowWha(v=>!v)} style={tagStyle(showWha,COL_W)}>{totalWha} whats</span>
+        </div>
+      </div>
+      <ResponsiveContainer width="100%" height={240}>
+        <ComposedChart data={data} margin={{top:20,right:45,left:0,bottom:0}}>
+          <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
+          <XAxis dataKey="dia" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
+          <YAxis yAxisId="left" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
+          <YAxis yAxisId="right" orientation="right" tick={{fontSize:10,fill:COL_AG,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,Math.max(totalAg+2,5)]}/>
+          <Tooltip content={<Tip/>}/>
+          <Legend wrapperStyle={{fontSize:10,fontFamily:FONT}}/>
+          <ReferenceLine yAxisId="left" y={25} stroke={C.orange} strokeWidth={1.5} strokeDasharray="5 3" label={{value:'Meta 25/dia',fill:C.orange,fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
+          {showLig&&<Bar yAxisId="left" dataKey="ligacao" name="Ligacao" stackId="a" fill={COL_L} barSize={40}><LabelList dataKey="ligacao" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>}
+          {showEml&&<Bar yAxisId="left" dataKey="email" name="E-mail" stackId="a" fill={COL_E} barSize={40}><LabelList dataKey="email" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>}
+          {showWha&&<Bar yAxisId="left" dataKey="whatsapp" name="WhatsApp" stackId="a" fill={COL_W} radius={[4,4,0,0]} barSize={40}><LabelList dataKey="whatsapp" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>}
+          <Line yAxisId="right" dataKey="agendamentosAcum" name="Agend. Acumulados" stroke={COL_AG} strokeWidth={2.5} type="monotone" connectNulls={true} dot={mkDotAg} label={mkLabelAg}/>
+        </ComposedChart>
+      </ResponsiveContainer>
+      <div style={{display:'flex',gap:8,marginTop:10,flexWrap:'wrap'}}>
+        <div style={{background:C.orange,borderRadius:4,padding:'4px 12px',display:'flex',alignItems:'center',gap:6}}><span style={{fontSize:11,fontWeight:700,color:C.white}}>Meta de Ligações Diárias: <strong>25 ligações/dia</strong></span></div>
+        <div style={{background:C.orange,borderRadius:4,padding:'4px 12px',display:'flex',alignItems:'center',gap:6}}><span style={{fontSize:11,fontWeight:700,color:C.white}}>Meta de Ligações Semanais: <strong>112 ligações/semana</strong></span></div>
+      </div>
+      <div style={{marginTop:10,padding:'12px 14px',background:C.grayL,borderRadius:8}}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}>
+          <span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span>
+          <div style={{display:'flex',gap:10,alignItems:'center'}}>
+            <span style={{fontSize:12,fontWeight:800,color:C.orange}}>{totalCanais}</span>
+            <span style={{fontSize:11,color:C.gray}}>/ {META_MES}</span>
+            <span style={{fontSize:11,fontWeight:700,color:pct>=100?C.green:C.gray}}>{pct}%</span>
+          </div>
+        </div>
+        <div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:pct>=100?C.green:C.orange,borderRadius:6}}/></div>
+        <div style={{display:'flex',justifyContent:'space-between',marginTop:5}}>
+          <span style={{fontSize:10,color:C.gray}}>125 interacoes/semana - 25/dia</span>
+          <span style={{fontSize:10,color:faltam>0?C.red:C.green,fontWeight:600}}>{faltam>0?'Faltam '+faltam+' contatos':'Meta atingida!'}</span>
+        </div>
+      </div>
+    </Card>
+  );
+}
 const EXEC_INTERNOS=[{nome:"Tatiane Gomes",alias:"Tatiane",color:C.orange,metaVisitasAnual:0,metaContratos:0,metaVisitasMar:0}];
  
 function ExecEvolutionChart({nome,reunioes,visitas,movArr,metaMov}){
@@ -566,16 +549,12 @@ function ExecEvolutionChart({nome,reunioes,visitas,movArr,metaMov}){
   );
 }
  
-// ── SDR EVOLUTION CHART ───────────────────────────
 function SDREvolutionChart(){
   const[showLig,setShowLig]=useState(true);
   const[showEml,setShowEml]=useState(true);
   const[showWha,setShowWha]=useState(true);
   const ligAcc=buildSdrEvol(SDR_LIG_DIA),emlAcc=buildSdrEvol(SDR_EML_DIA),whaAcc=buildSdrEvol(SDR_WHA_DIA);
   const data=SDR_DAYS_LBL.map((dia,i)=>({dia,ligacao:ligAcc[i],email:emlAcc[i],whatsapp:whaAcc[i]}));
-  const META_MES=500;
-  const total=ligAcc[ligAcc.length-1]+emlAcc[emlAcc.length-1]+whaAcc[whaAcc.length-1];
-  const pct=Math.min(Math.round(total/META_MES*100),100),faltam=Math.max(0,META_MES-total);
   const COL_L=C.orange,COL_E='#444444',COL_W='#AAAAAA';
   const mkDot=(key,col)=>(props)=>{const{cx,cy,index}=props;const val=data[index][key];const prev=index>0?data[index-1][key]:null;if(val===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={5} fill={col} stroke="#fff" strokeWidth={2}/>;};
   const mkLabel=(key,col)=>(props)=>{const{x,y,index}=props;const val=data[index][key];const prev=index>0?data[index-1][key]:null;if(val===prev&&index>0)return null;return <text key={index} x={x} y={y-10} textAnchor="middle" fill={col} fontSize={10} fontWeight={800} fontFamily={FONT}>{val}</text>;};
@@ -583,9 +562,9 @@ function SDREvolutionChart(){
   return(
     <Card title="Evolucao Diaria - Fabiana Vaz (SDR)">
       <div style={{display:'flex',gap:12,marginBottom:12,flexWrap:'wrap',alignItems:'center'}}>
-        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_L,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_L}}/><span style={{fontSize:10,fontWeight:700,color:COL_L}}>Ligacoes</span></div>
-        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_E,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_E}}/><span style={{fontSize:10,fontWeight:700,color:COL_E}}>E-mails</span></div>
-        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_W,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_W}}/><span style={{fontSize:10,fontWeight:700,color:COL_W}}>WhatsApp</span></div>
+        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_L,borderRadius:2}}/><span style={{fontSize:10,fontWeight:700,color:COL_L}}>Ligacoes</span></div>
+        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_E,borderRadius:2}}/><span style={{fontSize:10,fontWeight:700,color:COL_E}}>E-mails</span></div>
+        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_W,borderRadius:2}}/><span style={{fontSize:10,fontWeight:700,color:COL_W}}>WhatsApp</span></div>
         <div style={{marginLeft:'auto',display:'flex',gap:8}}>
           <span onClick={()=>setShowLig(v=>!v)} style={tagStyle(showLig,COL_L)}>{ligAcc[ligAcc.length-1]} lig.</span>
           <span onClick={()=>setShowEml(v=>!v)} style={tagStyle(showEml,COL_E)}>{emlAcc[emlAcc.length-1]} email</span>
@@ -607,30 +586,11 @@ function SDREvolutionChart(){
   );
 }
  
-// ── RESUMO SEMANAL SDR ────────────────────────────
-function SDRResumoSemanal(){
-  const tl=SDR_SEMANAS.reduce((a,s)=>a+s.ligacoes,0),ta=SDR_SEMANAS.reduce((a,s)=>a+s.agendamentos,0),tt=tl>0?+(ta/tl*100).toFixed(1):0;
-  const COL_L=C.orange,COL_A=C.green,COL_T=C.blue;
-  return(
-    <Card title="Resumo Semanal - Ligacoes vs Agendamentos Produtivos">
-      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:16}}>
-        {[{label:'Total Ligacoes',value:tl,color:COL_L,bg:C.oL},{label:'Total Agendamentos',value:ta,color:COL_A,bg:C.gL},{label:'Conversao Geral',value:tt+'%',color:COL_T,bg:C.bL}].map((k,i)=>(
-          <div key={i} style={{textAlign:'center',padding:'12px',background:k.bg,borderRadius:8}}>
-            <div style={{fontSize:9,fontWeight:700,color:k.color,textTransform:'uppercase',letterSpacing:'0.06em',marginBottom:4}}>{k.label}</div>
-            <div style={{fontSize:28,fontWeight:800,color:k.color,lineHeight:1}}>{k.value}</div>
-          </div>
-        ))}
-      </div>
-    </Card>
-  );
-}
- 
-// ── ACOMP PAGE ────────────────────────────────────
 function AcompPage({FL}){
   const[selMes,setSelMes]=useState('2026-03');
   const[selExec,setSelExec]=useState('Todos');
   const dados=useMemo(()=>selExec==='Todos'?FL:FL.filter(r=>r[F.RESP]===selExec),[FL,selExec]);
-  const REUN_MANUAL={'Sandro Casagrande':{'2026-02':9,'2026-03':6},'Carla Cristina Lemes':{'2026-02':2,'2026-03':3},'Marco':{'2026-03':1}};
+  const REUN_MANUAL={'Sandro Casagrande':{'2026-02':9,'2026-03':6},'Carla Cristina Lemes':{'2026-02':2,'2026-03':3},'Marco':{'2026-03':3}};
   const getReunMes=(nome,mes)=>{if(REUN_MANUAL[nome]&&REUN_MANUAL[nome][mes]!==undefined)return REUN_MANUAL[nome][mes];return dados.filter(r=>r[F.RESP]===nome&&r[F.DREUNIAO]&&mo(r[F.DREUNIAO])===mes).length;};
   const execStats=useMemo(()=>EXEC_METAS.map(e=>{
     const mesLimite=selMes||'2026-03';
@@ -664,7 +624,7 @@ function AcompPage({FL}){
               <div style={{height:6,background:C.grayL,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${e.pctR}%`,background:e.color,borderRadius:4}}/></div>
               <div style={{marginTop:3,fontSize:10,color:C.gray}}>Faltam <strong style={{color:e.faltam>0?C.red:C.green}}>{e.faltam}</strong></div>
               <div style={{marginTop:8}}>
-                <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Meta Mensal Reunioes ({mesLbl})</span><span style={{fontSize:11,fontWeight:700,color:overMes?C.green:C.text}}>{e.reunMes}/{e.metaMensal}{overMes&&<span style={{color:C.green,marginLeft:3}}>v</span>}</span></div>
+                <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Meta Mensal ({mesLbl})</span><span style={{fontSize:11,fontWeight:700,color:overMes?C.green:C.text}}>{e.reunMes}/{e.metaMensal}{overMes&&<span style={{color:C.green,marginLeft:3}}>v</span>}</span></div>
                 <div style={{height:6,background:C.grayL,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${pctMes}%`,background:overMes?C.green:e.color,borderRadius:4,opacity:0.75}}/></div>
               </div>
             </div>
@@ -684,32 +644,265 @@ function AcompPage({FL}){
   </div>);
 }
  
-// ── INTERNO PAGE ──────────────────────────────────
 function InternoPage(){
-  const[selMes,setSelMes]=useState('2026-03');
-  const mesLbl=MONTHS_LBL[MONTHS_KEY.indexOf(selMes||'2026-03')]||(selMes||'2026-03');
-  return(<div style={{display:'flex',flexDirection:'column',gap:11}}>
-    <div style={{background:C.white,borderRadius:8,padding:'12px 16px',boxShadow:C.shadow}}>
-      <div style={{display:'flex',gap:16,flexWrap:'wrap'}}>
-        <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:10,fontWeight:700,color:C.gray,textTransform:'uppercase'}}>Mes</span><select value={selMes} onChange={e=>setSelMes(e.target.value)} style={{padding:'5px 10px',borderRadius:6,border:`1.5px solid ${C.border}`,fontSize:11,fontFamily:FONT,outline:'none'}}>{ALL_MONTH_OPTS.map(o=><option key={o.key} value={o.key}>{o.label}</option>)}</select></div>
+  const COL_AG='#1B5E20';
+  const[subTab,setSubTab]=useState('overview');
+  const totalLig=TATIANE_LIG_DIA.reduce((a,b)=>a+b,0);
+  const totalEml=TATIANE_EML_DIA.reduce((a,b)=>a+b,0);
+  const totalWha=TATIANE_WHA_DIA.reduce((a,b)=>a+b,0);
+  const totalCanais=totalLig+totalEml+totalWha;
+  const nEfetivas=0;
+  const diasReg=ALL_DAYS_MAR.filter((_,i)=>MOV_TATIANE[i]>0).length;
+  const totalAgend=0; // agendamentos da Tatiane - a definir
+  const totalReal=0;
+  const txConv=0;
+  const canalInfo=[
+    {canal:'Ligacao',qtd:totalLig,pct:totalCanais>0?Math.round(totalLig/totalCanais*100):0,fill:C.orange,icon:'📞'},
+    {canal:'E-mail', qtd:totalEml,pct:totalCanais>0?Math.round(totalEml/totalCanais*100):0,fill:'#444444',icon:'✉️'},
+    {canal:'WhatsApp',qtd:totalWha,pct:totalCanais>0?Math.round(totalWha/totalCanais*100):0,fill:'#AAAAAA',icon:'💬'},
+  ];
+  // empresas contactadas pela Tatiane
+  const empresasTat=useMemo(()=>{
+    const nomes=['PSM TRANSPORTES','PRESTES E VARGAS TRANSPORTES','NOMI E SOUZA TRANSPORTES','RDL LOGISTICA','TRANS FELIPPI','PEPECE TRANSPORTES','RODOMAXLOG','SAO JOAO ENCOMENDAS','MRX TRANSPORTES','TRANS TAVARES LOGISTICA','RV TRANSPORTES','RODOBECKER','RODO W CARLI','SILO FORTE TRANSPORTES','RODO ALDO','NEHRING TRANSPORTES','TRANSIVANDO TRANSPORTES','TRANSFOGUINHO TRANSPORTES','TANQUESUL TRANSPORTES','FARMLOG','SULCARGAS TRANSPORTES','SUL GRAOS TRANSPORTES','SEIKA TRANSPORTES','SALVADORI BENINI','SAJOB OPERACOES','ROSCHILDT TRANSPORTES','PAZINI GATTERMANN','NASA TRANSPORTES','TR BODINHO','TRANS OTTO','STURMER TAMANINI','TRANS MIGUEL','RODO W CARLI MAPEAMENTO'];
+    return nomes;
+  },[]);
+  const ligAcc=buildSdrEvol(TATIANE_LIG_DIA);
+  const emlAcc=buildSdrEvol(TATIANE_EML_DIA);
+  const whaAcc=buildSdrEvol(TATIANE_WHA_DIA);
+  const tatAgendAcum=ALL_DAYS_MAR.map(()=>0);
+  const diaMap=ALL_DAYS_MAR.map((d,i)=>({
+    dia:String(parseInt(d.slice(8)))+'/mar',
+    ligacao:TATIANE_LIG_DIA[i]>0?TATIANE_LIG_DIA[i]:0,
+    email:TATIANE_EML_DIA[i]>0?TATIANE_EML_DIA[i]:0,
+    whatsapp:TATIANE_WHA_DIA[i]>0?TATIANE_WHA_DIA[i]:0,
+    agendamentosAcum:tatAgendAcum[i]>0?tatAgendAcum[i]:null,
+  }));
+  const META_MES_CONT=500;
+  const pctCont=Math.min(Math.round(totalCanais/META_MES_CONT*100),100);
+  const faltamCont=Math.max(0,META_MES_CONT-totalCanais);
+  const mkAgendDot=(props)=>{const{cx,cy,index,value}=props;if(!value)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;const prev=index>0?diaMap[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={6} fill={COL_AG} stroke="#fff" strokeWidth={2}/>;};
+  const mkAgendLabel=(props)=>{const{x,y,index,value}=props;if(!value)return null;const prev=index>0?diaMap[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AG} fontSize={11} fontWeight={800} fontFamily={FONT}>{value}</text>;};
+  const COL_L=C.orange,COL_E='#444444',COL_W='#AAAAAA';
+  const mkDot=(key,col)=>(props)=>{const{cx,cy,index}=props;const val=diaMap[index][key];const prev=index>0?diaMap[index-1][key]:null;if(val===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={5} fill={col} stroke="#fff" strokeWidth={2}/>;};
+  const mkLabel=(key,col)=>(props)=>{const{x,y,index}=props;const val=diaMap[index][key];const prev=index>0?diaMap[index-1][key]:null;if(val===prev&&index>0)return null;return <text key={index} x={x} y={y-10} textAnchor="middle" fill={col} fontSize={10} fontWeight={800} fontFamily={FONT}>{val||''}</text>;};
+ 
+  return(<div style={{display:'flex',flexDirection:'column',gap:11,fontFamily:FONT}}>
+    {/* ── HEADER ── */}
+    <div style={{background:C.gray,borderRadius:8,padding:'16px 20px',boxShadow:C.shadow,display:'flex',alignItems:'center',gap:16,flexWrap:'wrap'}}>
+      <div style={{width:48,height:48,borderRadius:'50%',background:C.white,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><span style={{fontSize:16,fontWeight:800,color:C.gray}}>TG</span></div>
+      <div>
+        <div style={{color:'rgba(255,255,255,0.75)',fontSize:10,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em'}}>Executiva Interna</div>
+        <div style={{color:C.white,fontSize:20,fontWeight:800}}>Tatiane Gomes</div>
+        <div style={{color:'rgba(255,255,255,0.7)',fontSize:11}}>Inicio: 25/03/2026 — {diasReg} dia{diasReg!==1?'s':''} registrado{diasReg!==1?'s':''}</div>
+      </div>
+      <div style={{marginLeft:'auto',display:'flex',gap:8,flexWrap:'wrap'}}>
+        {canalInfo.map(d=>(<div key={d.canal} style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>{d.icon}</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{d.qtd}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>{d.canal}</div></div>))}
+        <div style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>✅</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{nEfetivas}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>Lig. Efetivas</div></div>
+        <div style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>🏢</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{empresasTat.length}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>Empresas</div></div>
       </div>
     </div>
-    <Card title="Equipe Interna - Performance YTD">
-      <div style={{display:'grid',gridTemplateColumns:'repeat(1,1fr)',gap:10}}>
-        {EXEC_INTERNOS.map(e=>(<div key={e.nome} style={{borderRadius:8,padding:'14px',border:`1px solid ${C.border}`,display:'flex',flexDirection:'column',gap:8,maxWidth:320}}>
-          <div style={{display:'flex',alignItems:'center',gap:7}}><div style={{width:10,height:10,borderRadius:'50%',background:e.color}}/><span style={{fontWeight:700,fontSize:13,color:C.text}}>{e.alias}</span></div>
-          <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Reunioes YTD</span><span style={{fontSize:11,fontWeight:700,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/><div style={{marginTop:3,fontSize:10,color:C.gray}}>Meta a definir</div><div style={{marginTop:8}}><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Meta Mensal Reunioes ({mesLbl})</span><span style={{fontSize:11,fontWeight:700,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/></div></div>
-          <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Contratos YTD</span><span style={{fontSize:11,fontWeight:700,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/></div>
-        </div>))}
+ 
+    {/* ── SUB-TABS ── */}
+    <div style={{background:C.white,borderRadius:8,boxShadow:C.shadow,overflow:'hidden'}}>
+      <div style={{display:'flex',borderBottom:`1px solid ${C.border}`}}>
+        {[{id:'overview',l:'Overview'},{id:'agendamentos',l:'Agendamentos'}].map(t=>(
+          <button key={t.id} onClick={()=>setSubTab(t.id)} style={{padding:'9px 20px',border:'none',background:'none',cursor:'pointer',fontWeight:subTab===t.id?700:500,fontSize:12,color:subTab===t.id?C.orange:C.gray,borderBottom:subTab===t.id?`2.5px solid ${C.orange}`:'2.5px solid transparent',fontFamily:FONT,whiteSpace:'nowrap'}}>{t.l}</button>
+        ))}
+      </div>
+      <div style={{padding:'16px',display:'flex',flexDirection:'column',gap:11}}>
+      {subTab==='overview'&&(<div style={{display:'flex',flexDirection:'column',gap:11}}>
+    {/* ── KPIs ── */}
+    <div style={{display:'flex',gap:9}}>
+      <KPICard title="Total Atividades" value={totalCanais} icon="⚡" note={diasReg+' dias ativos'}/>
+      <KPICard title="Ligacoes" value={totalLig} icon="📞" note={canalInfo[0].pct+'% do total'}/>
+      <KPICard title="E-mails" value={totalEml} icon="✉️" note={canalInfo[1].pct+'% do total'}/>
+      <KPICard title="Empresas" value={empresasTat.length} icon="🏢"/>
+      <KPICard title="Agendamentos" value={totalAgend} icon="📅" note={'Meta: '+META_AGEND_MES}/>
+    </div>
+ 
+    {/* ── GRÁFICO ATIVIDADES POR DIA ── */}
+    <Card title="Atividades por Dia — por Canal + Agendamentos Acumulados">
+      <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:8}}><div style={{width:20,height:2.5,background:COL_AG,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_AG}}/><span style={{fontSize:10,fontWeight:700,color:COL_AG}}>Agendamentos Acumulados (eixo dir.)</span></div>
+      <ResponsiveContainer width="100%" height={240}>
+        <ComposedChart data={diaMap} margin={{top:20,right:45,left:0,bottom:0}}>
+          <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
+          <XAxis dataKey="dia" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
+          <YAxis yAxisId="left" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
+          <YAxis yAxisId="right" orientation="right" tick={{fontSize:10,fill:COL_AG,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,Math.max(totalAgend+2,5)]}/>
+          <Tooltip content={<Tip/>}/><Legend wrapperStyle={{fontSize:10,fontFamily:FONT}}/>
+          <Bar yAxisId="left" dataKey="ligacao" name="Ligacao" stackId="a" fill={C.orange} barSize={40}><LabelList dataKey="ligacao" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
+          <Bar yAxisId="left" dataKey="email" name="E-mail" stackId="a" fill="#444444" barSize={40}><LabelList dataKey="email" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
+          <Bar yAxisId="left" dataKey="whatsapp" name="WhatsApp" stackId="a" fill="#AAAAAA" radius={[4,4,0,0]} barSize={40}><LabelList dataKey="whatsapp" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
+          <Line yAxisId="right" dataKey="agendamentosAcum" name="Agend. Acumulados" stroke={COL_AG} strokeWidth={2.5} type="monotone" connectNulls={true} dot={mkAgendDot} label={mkAgendLabel}/>
+        </ComposedChart>
+      </ResponsiveContainer>
+    </Card>
+ 
+    {/* ── AGENDAMENTOS ACUMULADOS VS METAS ── */}
+    {(()=>{
+      const METAS=[20,40,60];
+      const CORES=[C.orange,C.gray,'#AAAAAA'];
+      const atual=totalAgend;
+      const chartData=ALL_DAYS_MAR.map((d,i)=>({dia:String(parseInt(d.slice(8)))+'/mar',real:tatAgendAcum[i]}));
+      const mkDotR=(props)=>{const{cx,cy,index,value}=props;const prev=index>0?chartData[index-1]?.real:null;if(value===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={6} fill={COL_AG} stroke="#fff" strokeWidth={2}/>;};
+      const mkLblR=(props)=>{const{x,y,index,value}=props;const prev=index>0?chartData[index-1]?.real:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AG} fontSize={12} fontWeight={800} fontFamily={FONT}>{value}</text>;};
+      return(
+        <Card title="Agendamentos Acumulados vs Metas — Tatiane Gomes">
+          <ResponsiveContainer width="100%" height={260}>
+            <ComposedChart data={chartData} margin={{top:24,right:20,left:0,bottom:0}}>
+              <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
+              <XAxis dataKey="dia" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
+              <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,60]}/>
+              <Tooltip content={<Tip/>}/>
+              <ReferenceLine y={20} stroke={C.orange} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 20',fill:C.orange,fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
+              <ReferenceLine y={40} stroke={C.gray}   strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 40',fill:C.gray,  fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
+              <ReferenceLine y={60} stroke="#AAAAAA"  strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 60',fill:'#AAAAAA',fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
+              <Line dataKey="real" name="Acumulado Real" stroke={COL_AG} strokeWidth={2.5} type="monotone" connectNulls dot={mkDotR} label={mkLblR}/>
+            </ComposedChart>
+          </ResponsiveContainer>
+          <div style={{marginTop:12,display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}}>
+            {METAS.map((m,i)=>{const falta=Math.max(0,m-atual);const atingida=atual>=m;const pct=Math.min(Math.round(atual/m*100),100);const cor=CORES[i];return(<div key={m} style={{borderRadius:6,padding:'9px 12px',background:atingida?C.gL:'#FAFAFA',border:`1px solid ${atingida?C.green:cor}`,display:'flex',flexDirection:'column',gap:5}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><span style={{fontSize:9,fontWeight:700,color:cor,textTransform:'uppercase',letterSpacing:'0.06em'}}>Meta {m}</span>{atingida&&<span style={{fontSize:10,fontWeight:800,color:C.green}}>✓ Atingida</span>}</div><div style={{display:'flex',alignItems:'baseline',gap:5}}><span style={{fontSize:20,fontWeight:800,color:atingida?C.green:C.text,lineHeight:1}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {m}</span><span style={{fontSize:10,fontWeight:700,color:atingida?C.green:cor,marginLeft:'auto'}}>{pct}%</span></div><div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:atingida?C.green:cor,borderRadius:3}}/></div><div style={{fontSize:10,color:atingida?C.green:C.red,fontWeight:600,textAlign:'right'}}>{atingida?'Meta atingida!':'Faltam '+falta}</div></div>);})}
+          </div>
+        </Card>
+      );
+    })()}
+ 
+    {/* ── MIX DE CANAIS + EVOLUÇÃO DIÁRIA ── */}
+    <div style={{display:'grid',gridTemplateColumns:'1fr 1.8fr',gap:11}}>
+      <Card title="Mix de Canais">
+        <div style={{display:'flex',flexDirection:'column',gap:10,marginTop:4}}>
+          {canalInfo.map(d=>(<div key={d.canal}>
+            <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:12,fontWeight:600}}>{d.icon} {d.canal}</span><span><strong style={{color:d.fill,fontSize:13}}>{d.qtd}</strong><span style={{fontSize:11,color:C.gray}}> ({d.pct}%)</span></span></div>
+            <div style={{height:12,background:C.grayL,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${d.pct}%`,background:d.fill,borderRadius:6}}/></div>
+          </div>))}
+        </div>
+      </Card>
+      <Card title="Evolucao Diaria - Tatiane Gomes">
+        <div style={{display:'flex',gap:12,marginBottom:12,flexWrap:'wrap',alignItems:'center'}}>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_L,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_L}}/><span style={{fontSize:10,fontWeight:700,color:COL_L}}>Ligacoes</span></div>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_E,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_E}}/><span style={{fontSize:10,fontWeight:700,color:COL_E}}>E-mails</span></div>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_W,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_W}}/><span style={{fontSize:10,fontWeight:700,color:COL_W}}>WhatsApp</span></div>
+          <div style={{marginLeft:'auto',display:'flex',gap:8}}>
+            <span style={{fontSize:10,fontWeight:800,padding:'2px 8px',borderRadius:10,background:COL_L+'18',color:COL_L,border:`1.5px solid ${COL_L}`}}>{totalLig} lig.</span>
+            <span style={{fontSize:10,fontWeight:800,padding:'2px 8px',borderRadius:10,background:COL_E+'18',color:COL_E,border:`1.5px solid ${COL_E}`}}>{totalEml} email</span>
+            <span style={{fontSize:10,fontWeight:800,padding:'2px 8px',borderRadius:10,background:'#AAAAAA18',color:COL_W,border:`1.5px solid ${COL_W}`}}>{totalWha} whats</span>
+          </div>
+        </div>
+        <ResponsiveContainer width="100%" height={240}>
+          <ComposedChart data={diaMap} margin={{top:28,right:16,left:0,bottom:0}}>
+            <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
+            <XAxis dataKey="dia" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
+            <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,'dataMax+15']}/>
+            <Tooltip content={<Tip/>}/>
+            <Line dataKey="ligacao" name="Ligacoes" stroke={COL_L} strokeWidth={2.5} type="monotone" dot={mkDot('ligacao',COL_L)} label={mkLabel('ligacao',COL_L)}/>
+            <Line dataKey="email" name="E-mails" stroke={COL_E} strokeWidth={2.5} type="monotone" dot={mkDot('email',COL_E)} label={mkLabel('email',COL_E)}/>
+            <Line dataKey="whatsapp" name="WhatsApp" stroke={COL_W} strokeWidth={2} strokeDasharray="5 3" type="monotone" dot={mkDot('whatsapp',COL_W)} label={mkLabel('whatsapp',COL_W)}/>
+          </ComposedChart>
+        </ResponsiveContainer>
+      </Card>
+    </div>
+ 
+    {/* ── META MENSAL DE CONTATOS ── */}
+    <Card>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}>
+        <span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span>
+        <div style={{display:'flex',gap:10,alignItems:'center'}}>
+          <span style={{fontSize:12,fontWeight:800,color:C.orange}}>{totalCanais}</span>
+          <span style={{fontSize:11,color:C.gray}}>/ {META_MES_CONT}</span>
+          <span style={{fontSize:11,fontWeight:700,color:pctCont>=100?C.green:C.gray}}>{pctCont}%</span>
+        </div>
+      </div>
+      <div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${pctCont}%`,background:pctCont>=100?C.green:C.orange,borderRadius:6}}/></div>
+      <div style={{display:'flex',justifyContent:'space-between',marginTop:5}}>
+        <span style={{fontSize:10,color:C.gray}}>125 interacoes/semana - 25/dia</span>
+        <span style={{fontSize:10,color:faltamCont>0?C.red:C.green,fontWeight:600}}>{faltamCont>0?'Faltam '+faltamCont+' contatos':'Meta atingida!'}</span>
       </div>
     </Card>
-    <ExecEvolutionChart nome="Tatiane Gomes" reunioes={TATIANE_REUNIOES} visitas={TATIANE_VISITAS} movArr={MOV_TATIANE} metaMov={0}/>
+      </div>)}
+ 
+    {/* ── AGENDAMENTOS ── */}
+      {subTab==='agendamentos'&&(<div style={{display:'flex',flexDirection:'column',gap:11}}>
+      {(()=>{
+      const tatTotalAgend=TATIANE_AGENDAMENTOS.length;
+      const tatTotalReal=TATIANE_AGENDAMENTOS.filter(d=>d.status===STATUS_REALIZADA).length;
+      const tatTxConv=tatTotalAgend>0?Math.round(tatTotalReal/tatTotalAgend*100):0;
+      const tatTotalMov=TATIANE_MOV.reduce((a,d)=>a+d.mov,0);
+      const tatMediaMov=TATIANE_MOV.length>0?+(tatTotalMov/TATIANE_MOV.length).toFixed(1):0;
+      return(<div style={{display:'flex',flexDirection:'column',gap:11}}>
+        <div style={{display:'flex',gap:9}}>
+          <KPICard title="Total Movs." value={tatTotalMov} icon="🔄" note={TATIANE_MOV.length+' dias'}/>
+          <KPICard title="Media/Dia" value={tatMediaMov} icon="📈" note={'Meta: '+META_DIA+'/dia'}/>
+          <KPICard title="Agendamentos" value={tatTotalAgend} icon="📅" note={'Meta: '+META_AGEND_MES}/>
+          <KPICard title="Conversao" value={tatTxConv+'%'} icon="🎯" note={tatTotalReal+' realizadas'}/>
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 2fr',gap:11}}>
+          <Card title="Status dos Agendamentos">
+            <ResponsiveContainer width="100%" height={200}>
+              <BarChart data={[{label:'Total',value:tatTotalAgend},{label:'Realizadas',value:tatTotalReal},{label:'Agendadas',value:tatTotalAgend-tatTotalReal}]} margin={{top:20,right:20,left:0,bottom:0}}>
+                <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
+                <XAxis dataKey="label" tick={{fontSize:11,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
+                <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false}/>
+                <Tooltip content={<Tip/>}/>
+                <Bar dataKey="value" name="Qtd." radius={[5,5,0,0]} barSize={52}>{[C.orange,C.green,C.gray].map((f,i)=>(<Cell key={i} fill={f}/>))}<LabelList dataKey="value" position="top" style={{fontSize:13,fontWeight:800}}/></Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </Card>
+          <Card title="Movimentacoes por Dia">
+            <ResponsiveContainer width="100%" height={200}>
+              <BarChart data={TATIANE_MOV} margin={{top:20,right:20,left:0,bottom:0}}>
+                <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
+                <XAxis dataKey="dia" tick={{fontSize:11,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
+                <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} domain={[0,'dataMax+5']}/>
+                <Tooltip content={<Tip/>}/>
+                <ReferenceLine y={META_DIA} stroke={C.green} strokeWidth={2} strokeDasharray="5 3" label={{value:'Meta 25',fill:C.green,fontSize:10,position:'insideTopRight',fontWeight:700}}/>
+                <Bar dataKey="mov" name="Movimentacoes" radius={[5,5,0,0]} barSize={52}>{TATIANE_MOV.map((d,i)=>(<Cell key={i} fill={d.mov>=META_DIA?C.green:C.orange}/>))}<LabelList dataKey="mov" position="top" style={{fontSize:11,fontWeight:800}}/></Bar>
+              </BarChart>
+            </ResponsiveContainer>
+            <div style={{marginTop:14,padding:'12px 14px',background:C.grayL,borderRadius:8}}>
+              <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}>
+                <span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span>
+                <div style={{display:'flex',gap:10,alignItems:'center'}}>
+                  <span style={{fontSize:12,fontWeight:800,color:C.orange}}>{tatTotalMov}</span>
+                  <span style={{fontSize:11,color:C.gray}}>/ 500</span>
+                  <span style={{fontSize:11,fontWeight:700,color:C.gray}}>{Math.min(Math.round(tatTotalMov/500*100),100)}%</span>
+                </div>
+              </div>
+              <div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${Math.min(Math.round(tatTotalMov/500*100),100)}%`,background:C.orange,borderRadius:6}}/></div>
+              <div style={{display:'flex',justifyContent:'space-between',marginTop:5}}>
+                <span style={{fontSize:10,color:C.gray}}>125 interacoes/semana - 25/dia</span>
+                <span style={{fontSize:10,color:C.red,fontWeight:600}}>Faltam {Math.max(0,500-tatTotalMov)} contatos</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+        <Card title={"Agendamentos Marco - "+tatTotalAgend}>
+          <div style={{overflowX:'auto',borderRadius:5,border:`1px solid ${C.border}`}}>
+            <table style={{width:'100%',borderCollapse:'collapse',fontSize:12,fontFamily:FONT}}>
+              <thead><tr style={{background:C.orange}}>
+                <th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center',width:36}}>#</th>
+                <th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'left'}}>Empresa</th>
+                <th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Tamanho</th>
+                <th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Status</th>
+                <th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>CRM</th>
+                <th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Motivo de Perda</th>
+              </tr></thead>
+              <tbody>
+                {tatTotalAgend===0&&(<tr><td colSpan={6} style={{padding:'24px',textAlign:'center',color:C.gray,fontSize:12}}>Nenhum agendamento registrado ainda.</td></tr>)}
+                {TATIANE_AGENDAMENTOS.map((d,i)=>{const isReal=d.status===STATUS_REALIZADA;const stColor=isReal?C.green:C.orange;const stBg=isReal?C.gL:C.oL;const stLabel=isReal?'Reuniao Realizada':'Reuniao Agendada';const crmColor=d.crm==='Perdida'?C.red:isReal?C.green:C.orange;const crmBg=d.crm==='Perdida'?C.rL:isReal?C.gL:C.oL;return(<tr key={i} style={{...tRow(i),fontSize:12}}><td style={{padding:'9px 12px',color:C.gray,fontWeight:700,textAlign:'center'}}>{i+1}</td><td style={{padding:'9px 12px',fontWeight:700,color:C.text}}>{d.empresa}</td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={d.perfil} color={d.perfil==='ETP'?C.blue:C.orange} bg={d.perfil==='ETP'?C.bL:C.oL}/></td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={stLabel} color={stColor} bg={stBg}/></td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={d.crm} color={crmColor} bg={crmBg}/></td><td style={{padding:'9px 12px',textAlign:'center'}}>{d.motivo?<Badge label={d.motivo} color={C.red} bg={C.rL}/>:<span style={{color:C.gray}}>-</span>}</td></tr>);})}
+              </tbody>
+            </table>
+          </div>
+          <div style={{marginTop:12}}><PBar label={'Meta mensal ('+META_AGEND_MES+')'} actual={tatTotalAgend} meta={META_AGEND_MES}/></div>
+        </Card>
+      </div>);
+    })()}
+      </div>)}
+      </div>
+    </div>
   </div>);
 }
  
-// ── SDR PAGE ──────────────────────────────────────
-// Cor verde escuro para a linha de agendamentos acumulados
-const COL_AGEND_ACUM = '#1B5E20';
+const COL_AGEND_ACUM='#1B5E20';
  
 function SDRPage({dateIni,dateFim}){
   const[subSDR,setSubSDR]=useState('overview');
@@ -726,23 +919,13 @@ function SDRPage({dateIni,dateFim}){
   const canalInfo=[{canal:'Ligacao',qtd:nLig,pct:totalCanais>0?Math.round(nLig/totalCanais*100):0,fill:C.orange,icon:'📞'},{canal:'E-mail',qtd:nEmail,pct:totalCanais>0?Math.round(nEmail/totalCanais*100):0,fill:'#444444',icon:'✉️'},{canal:'WhatsApp',qtd:nWhats,pct:totalCanais>0?Math.round(nWhats/totalCanais*100):0,fill:'#AAAAAA',icon:'💬'}];
   const empresaMap=useMemo(()=>{const m={};ativFilt.forEach(d=>{if(!m[d.empresa])m[d.empresa]={empresa:d.empresa,ligacao:0,email:0,whatsapp:0,total:0};m[d.empresa][d.canal]=(m[d.empresa][d.canal]||0)+1;m[d.empresa].total++;});return Object.values(m).sort((a,b)=>b.total-a.total);},[ativFilt]);
   const nMultiCanal=useMemo(()=>empresaMap.filter(e=>e.ligacao>0&&e.email>0).length,[empresaMap]);
- 
-  // ── Dados do gráfico de atividades por dia COM acumulado de agendamentos ──
   const diaMap=useMemo(()=>{
     const dias=[...new Set(ativFilt.map(d=>d.data))].sort();
     return dias.map(dia=>{
       const idx=SDR_ATIV_DATES.indexOf(dia);
-      return({
-        dia:dia.split('-').reverse().slice(0,2).join('/'),
-        ligacao:ativFilt.filter(d=>d.data===dia&&d.canal==='ligacao').length||undefined,
-        email:ativFilt.filter(d=>d.data===dia&&d.canal==='email').length||undefined,
-        whatsapp:ativFilt.filter(d=>d.data===dia&&d.canal==='whatsapp').length||undefined,
-        // acumulado de agendamentos: pega do array pré-calculado, ou null se dia não reconhecido
-        agendamentosAcum: idx>=0 ? SDR_AGEND_ACUM[idx] : null,
-      });
+      return({dia:dia.split('-').reverse().slice(0,2).join('/'),ligacao:ativFilt.filter(d=>d.data===dia&&d.canal==='ligacao').length||undefined,email:ativFilt.filter(d=>d.data===dia&&d.canal==='email').length||undefined,whatsapp:ativFilt.filter(d=>d.data===dia&&d.canal==='whatsapp').length||undefined,agendamentosAcum:idx>=0?SDR_AGEND_ACUM[idx]:null});
     });
   },[ativFilt]);
- 
   const BONIF=[{min:1,max:20,valor:20,cenario:400},{min:21,max:40,valor:25,cenario:1000},{min:41,max:60,valor:30,cenario:1800}];
   const faixa=BONIF.find(b=>totalAgend>=b.min&&totalAgend<=b.max)||null;
   const proxFaixa=faixa?BONIF.find(b=>b.min>faixa.min):BONIF[0];
@@ -750,22 +933,8 @@ function SDRPage({dateIni,dateFim}){
   const pctFaixa=faixa?Math.min((totalAgend-faixa.min+1)/(faixa.max-faixa.min+1)*100,100):0;
   const faltamProx=proxFaixa?proxFaixa.min-totalAgend:0;
   const subTabs=[{id:'overview',l:'Overview'},{id:'canais',l:'Canais'},{id:'empresas',l:'Empresas'},{id:'agendamentos',l:'Agendamentos'},{id:'bonificacao',l:'Bonificacao'}];
- 
-  // Renderizador de dot apenas em pontos onde o valor mudou (para a linha de acumulado)
-  const mkAgendDot=(props)=>{
-    const{cx,cy,index,value}=props;
-    if(value===null||value===undefined)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;
-    const prev=index>0?diaMap[index-1]?.agendamentosAcum:null;
-    if(value===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;
-    return <circle key={index} cx={cx} cy={cy} r={6} fill={COL_AGEND_ACUM} stroke="#fff" strokeWidth={2}/>;
-  };
-  const mkAgendLabel=(props)=>{
-    const{x,y,index,value}=props;
-    if(value===null||value===undefined)return null;
-    const prev=index>0?diaMap[index-1]?.agendamentosAcum:null;
-    if(value===prev&&index>0)return null;
-    return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AGEND_ACUM} fontSize={11} fontWeight={800} fontFamily={FONT}>{value}</text>;
-  };
+  const mkAgendDot=(props)=>{const{cx,cy,index,value}=props;if(value===null||value===undefined)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;const prev=index>0?diaMap[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={6} fill={COL_AGEND_ACUM} stroke="#fff" strokeWidth={2}/>;};
+  const mkAgendLabel=(props)=>{const{x,y,index,value}=props;if(value===null||value===undefined)return null;const prev=index>0?diaMap[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AGEND_ACUM} fontSize={11} fontWeight={800} fontFamily={FONT}>{value}</text>;};
  
   return(<div style={{display:'flex',flexDirection:'column',gap:11,fontFamily:FONT}}>
     <div style={{background:C.gray,borderRadius:8,padding:'16px 20px',boxShadow:C.shadow,display:'flex',alignItems:'center',gap:16,flexWrap:'wrap'}}>
@@ -784,113 +953,43 @@ function SDRPage({dateIni,dateFim}){
       <div style={{padding:'16px',display:'flex',flexDirection:'column',gap:11}}>
         {subSDR==='overview'&&(<div style={{display:'flex',flexDirection:'column',gap:11}}>
           <div style={{display:'flex',gap:9}}><KPICard title="Total Atividades" value={totalCanais} icon="⚡" note={movFilt.length+' dias ativos'}/><KPICard title="Ligacoes" value={nLig} icon="📞" note={canalInfo[0].pct+'% do total'}/><KPICard title="E-mails" value={nEmail} icon="✉️" note={canalInfo[1].pct+'% do total'}/><KPICard title="Empresas" value={empresaMap.length} icon="🏢"/><KPICard title="Agendamentos" value={totalAgend} icon="📅" note={'Meta: '+META_AGEND_MES}/></div>
-          {/* ── GRÁFICO PRINCIPAL: Atividades por Dia + Acumulado Agendamentos ── */}
           <Card title="Atividades por Dia — por Canal + Agendamentos Acumulados">
-            {/* Legenda da linha verde */}
-            <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:8,flexWrap:'wrap'}}>
-              <div style={{display:'flex',alignItems:'center',gap:5}}>
-                <div style={{width:20,height:2.5,background:COL_AGEND_ACUM,borderRadius:2}}/>
-                <div style={{width:7,height:7,borderRadius:'50%',background:COL_AGEND_ACUM}}/>
-                <span style={{fontSize:10,fontWeight:700,color:COL_AGEND_ACUM}}>Agendamentos Acumulados (eixo dir.)</span>
-              </div>
-            </div>
+            <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:8}}><div style={{width:20,height:2.5,background:COL_AGEND_ACUM,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_AGEND_ACUM}}/><span style={{fontSize:10,fontWeight:700,color:COL_AGEND_ACUM}}>Agendamentos Acumulados (eixo dir.)</span></div>
             <ResponsiveContainer width="100%" height={240}>
               <ComposedChart data={diaMap} margin={{top:20,right:45,left:0,bottom:0}}>
-                <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
-                <XAxis dataKey="dia" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
-                <YAxis yAxisId="left" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
-                <YAxis yAxisId="right" orientation="right" tick={{fontSize:10,fill:COL_AGEND_ACUM,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0, totalAgend+2]}/>
-                <Tooltip content={<Tip/>}/>
-                <Legend wrapperStyle={{fontSize:10,fontFamily:FONT}}/>
-                <Bar yAxisId="left" dataKey="ligacao" name="Ligacao" stackId="a" fill={C.orange} barSize={40}>
-                  <LabelList dataKey="ligacao" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/>
-                </Bar>
-                <Bar yAxisId="left" dataKey="email" name="E-mail" stackId="a" fill="#444444" barSize={40}>
-                  <LabelList dataKey="email" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/>
-                </Bar>
-                <Bar yAxisId="left" dataKey="whatsapp" name="WhatsApp" stackId="a" fill="#AAAAAA" radius={[4,4,0,0]} barSize={40}>
-                  <LabelList dataKey="whatsapp" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/>
-                </Bar>
-                <Line
-                  yAxisId="right"
-                  dataKey="agendamentosAcum"
-                  name="Agend. Acumulados"
-                  stroke={COL_AGEND_ACUM}
-                  strokeWidth={2.5}
-                  type="monotone"
-                  connectNulls={true}
-                  dot={mkAgendDot}
-                  label={mkAgendLabel}
-                />
+                <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/><XAxis dataKey="dia" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/><YAxis yAxisId="left" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/><YAxis yAxisId="right" orientation="right" tick={{fontSize:10,fill:COL_AGEND_ACUM,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,totalAgend+2]}/><Tooltip content={<Tip/>}/><Legend wrapperStyle={{fontSize:10,fontFamily:FONT}}/>
+                <Bar yAxisId="left" dataKey="ligacao" name="Ligacao" stackId="a" fill={C.orange} barSize={40}><LabelList dataKey="ligacao" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
+                <Bar yAxisId="left" dataKey="email" name="E-mail" stackId="a" fill="#444444" barSize={40}><LabelList dataKey="email" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
+                <Bar yAxisId="left" dataKey="whatsapp" name="WhatsApp" stackId="a" fill="#AAAAAA" radius={[4,4,0,0]} barSize={40}><LabelList dataKey="whatsapp" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
+                <Line yAxisId="right" dataKey="agendamentosAcum" name="Agend. Acumulados" stroke={COL_AGEND_ACUM} strokeWidth={2.5} type="monotone" connectNulls={true} dot={mkAgendDot} label={mkAgendLabel}/>
               </ComposedChart>
             </ResponsiveContainer>
           </Card>
- 
-          {/* ── GRÁFICO: Agendamentos Acumulados vs Metas ── */}
           {(()=>{
             const METAS_SDR=[20,40,60];
-            const COL_M1=C.orange, COL_M2=C.gray, COL_M3='#AAAAAA';
+            const COL_M1=C.orange,COL_M2=C.gray,COL_M3='#AAAAAA';
             const metaCores=[COL_M1,COL_M2,COL_M3];
-            const agendChartData = SDR_ATIV_DATES.map((date,i)=>{
-              const lbl = date.slice(8).replace(/^0/,'')+'/mar';
-              return {dia:lbl, real: SDR_AGEND_ACUM[i], meta1:20, meta2:40, meta3:60};
-            });
-            const atual = totalAgend;
-            const faltaM1 = Math.max(0, 20 - atual);
-            const faltaM2 = Math.max(0, 40 - atual);
-            const faltaM3 = Math.max(0, 60 - atual);
+            const agendChartData=SDR_ATIV_DATES.map((date,i)=>({dia:date.slice(8).replace(/^0/,'')+'/mar',real:SDR_AGEND_ACUM[i],meta1:20,meta2:40,meta3:60}));
+            const atual=totalAgend;
             const mkDotReal=(props)=>{const{cx,cy,index,value}=props;const prev=index>0?agendChartData[index-1]?.real:null;if(value===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={6} fill={COL_AGEND_ACUM} stroke="#fff" strokeWidth={2}/>;};
             const mkLabelReal=(props)=>{const{x,y,index,value}=props;const prev=index>0?agendChartData[index-1]?.real:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AGEND_ACUM} fontSize={12} fontWeight={800} fontFamily={FONT}>{value}</text>;};
             return(
               <Card title="Agendamentos Acumulados vs Metas — Fabiana Vaz">
-                <div style={{display:'flex',gap:16,marginBottom:10,flexWrap:'wrap',alignItems:'center'}}>
-                  <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:20,height:2.5,background:COL_AGEND_ACUM,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_AGEND_ACUM}}/><span style={{fontSize:10,fontWeight:700,color:COL_AGEND_ACUM}}>Acumulado Real</span></div>
-                  {METAS_SDR.map((m,i)=>(<div key={m} style={{display:'flex',alignItems:'center',gap:5}}><svg width="22" height="8"><line x1="0" y1="4" x2="22" y2="4" stroke={metaCores[i]} strokeWidth="1.5" strokeDasharray="5 3"/></svg><span style={{fontSize:10,fontWeight:600,color:metaCores[i]}}>Meta {m}</span></div>))}
-                </div>
                 <ResponsiveContainer width="100%" height={260}>
                   <ComposedChart data={agendChartData} margin={{top:24,right:20,left:0,bottom:0}}>
-                    <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
-                    <XAxis dataKey="dia" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
-                    <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,60]}/>
-                    <Tooltip content={<Tip/>}/>
+                    <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/><XAxis dataKey="dia" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/><YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,60]}/><Tooltip content={<Tip/>}/>
                     <ReferenceLine y={20} stroke={COL_M1} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 20',fill:COL_M1,fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
                     <ReferenceLine y={40} stroke={COL_M2} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 40',fill:COL_M2,fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
                     <ReferenceLine y={60} stroke={COL_M3} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 60',fill:COL_M3,fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
                     <Line dataKey="real" name="Acumulado Real" stroke={COL_AGEND_ACUM} strokeWidth={2.5} type="monotone" connectNulls dot={mkDotReal} label={mkLabelReal}/>
                   </ComposedChart>
                 </ResponsiveContainer>
-                {/* Faixa de metas — compacta */}
                 <div style={{marginTop:12,display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}}>
-                  {METAS_SDR.map((m,i)=>{
-                    const falta=Math.max(0,m-atual);
-                    const atingida=atual>=m;
-                    const pct=Math.min(Math.round(atual/m*100),100);
-                    const cor=metaCores[i];
-                    return(
-                      <div key={m} style={{borderRadius:6,padding:'9px 12px',background:atingida?C.gL:'#FAFAFA',border:`1px solid ${atingida?C.green:cor}`,display:'flex',flexDirection:'column',gap:5}}>
-                        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                          <span style={{fontSize:9,fontWeight:700,color:cor,textTransform:'uppercase',letterSpacing:'0.06em'}}>Meta {m}</span>
-                          {atingida&&<span style={{fontSize:10,fontWeight:800,color:C.green}}>✓ Atingida</span>}
-                        </div>
-                        <div style={{display:'flex',alignItems:'baseline',gap:5}}>
-                          <span style={{fontSize:20,fontWeight:800,color:atingida?C.green:C.text,lineHeight:1}}>{atual}</span>
-                          <span style={{fontSize:11,color:C.gray}}>/ {m}</span>
-                          <span style={{fontSize:10,fontWeight:700,color:atingida?C.green:cor,marginLeft:'auto'}}>{pct}%</span>
-                        </div>
-                        <div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}>
-                          <div style={{height:'100%',width:`${pct}%`,background:atingida?C.green:cor,borderRadius:3}}/>
-                        </div>
-                        <div style={{fontSize:10,color:atingida?C.green:C.red,fontWeight:600,textAlign:'right'}}>
-                          {atingida?'Meta atingida!':'Faltam '+falta}
-                        </div>
-                      </div>
-                    );
-                  })}
+                  {METAS_SDR.map((m,i)=>{const falta=Math.max(0,m-atual);const atingida=atual>=m;const pct=Math.min(Math.round(atual/m*100),100);const cor=metaCores[i];return(<div key={m} style={{borderRadius:6,padding:'9px 12px',background:atingida?C.gL:'#FAFAFA',border:`1px solid ${atingida?C.green:cor}`,display:'flex',flexDirection:'column',gap:5}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><span style={{fontSize:9,fontWeight:700,color:cor,textTransform:'uppercase',letterSpacing:'0.06em'}}>Meta {m}</span>{atingida&&<span style={{fontSize:10,fontWeight:800,color:C.green}}>✓ Atingida</span>}</div><div style={{display:'flex',alignItems:'baseline',gap:5}}><span style={{fontSize:20,fontWeight:800,color:atingida?C.green:C.text,lineHeight:1}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {m}</span><span style={{fontSize:10,fontWeight:700,color:atingida?C.green:cor,marginLeft:'auto'}}>{pct}%</span></div><div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:atingida?C.green:cor,borderRadius:3}}/></div><div style={{fontSize:10,color:atingida?C.green:C.red,fontWeight:600,textAlign:'right'}}>{atingida?'Meta atingida!':'Faltam '+falta}</div></div>);})}
                 </div>
               </Card>
             );
           })()}
- 
           <div style={{display:'grid',gridTemplateColumns:'1fr 1.8fr',gap:11}}>
             <Card title="Mix de Canais"><div style={{display:'flex',flexDirection:'column',gap:10,marginTop:4}}>{canalInfo.map(d=>(<div key={d.canal}><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:12,fontWeight:600}}>{d.icon} {d.canal}</span><span><strong style={{color:d.fill,fontSize:13}}>{d.qtd}</strong><span style={{fontSize:11,color:C.gray}}> ({d.pct}%)</span></span></div><div style={{height:12,background:C.grayL,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${d.pct}%`,background:d.fill,borderRadius:6}}/></div></div>))}</div></Card>
             <SDREvolutionChart/>
@@ -898,10 +997,6 @@ function SDRPage({dateIni,dateFim}){
         </div>)}
         {subSDR==='canais'&&(<div style={{display:'flex',flexDirection:'column',gap:11}}>
           <div style={{display:'flex',gap:9}}>{canalInfo.map(d=>(<div key={d.canal} style={{flex:1,background:C.white,borderRadius:8,padding:'20px',border:`2px solid ${d.fill}`,textAlign:'center',boxShadow:C.shadow}}><div style={{fontSize:32,marginBottom:8}}>{d.icon}</div><div style={{fontSize:36,fontWeight:800,color:d.fill,lineHeight:1}}>{d.qtd}</div><div style={{fontSize:13,fontWeight:700,color:C.text,marginTop:6}}>{d.canal}</div><div style={{fontSize:11,color:C.gray,marginTop:2}}>{d.pct}% do total</div><div style={{marginTop:10,height:8,background:C.grayL,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${d.pct}%`,background:d.fill,borderRadius:4}}/></div></div>))}</div>
-          <Card title="Distribuicao por Dia"><ResponsiveContainer width="100%" height={240}><BarChart data={diaMap} margin={{top:16,right:16,left:0,bottom:0}}><CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/><XAxis dataKey="dia" tick={{fontSize:11,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/><YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/><Tooltip content={<Tip/>}/><Legend wrapperStyle={{fontSize:11,fontFamily:FONT}}/>
-            <Bar dataKey="ligacao" name="Ligacao" fill={C.orange} barSize={44}><LabelList dataKey="ligacao" position="inside" style={{fontSize:10,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
-            <Bar dataKey="email" name="E-mail" fill="#444444" radius={[4,4,0,0]} barSize={44}><LabelList dataKey="email" position="inside" style={{fontSize:10,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
-          </BarChart></ResponsiveContainer></Card>
         </div>)}
         {subSDR==='empresas'&&(<div style={{display:'flex',flexDirection:'column',gap:11}}>
           <div style={{display:'flex',gap:9}}><KPICard title="Empresas Contactadas" value={empresaMap.length} icon="🏢"/><KPICard title="Maior Volume" value={empresaMap[0]?empresaMap[0].total:0} icon="🔝" note={empresaMap[0]?empresaMap[0].empresa.split(' ').slice(0,2).join(' '):''}/><KPICard title="So Ligacao" value={empresaMap.filter(e=>e.ligacao>0&&e.email===0).length} icon="📞" note="empresas"/><KPICard title="So E-mail" value={empresaMap.filter(e=>e.email>0&&e.ligacao===0).length} icon="✉️" note="empresas"/><KPICard title="Multi-canal" value={nMultiCanal} icon="🔀" note="ligacao + e-mail"/></div>
@@ -910,9 +1005,28 @@ function SDRPage({dateIni,dateFim}){
         {subSDR==='agendamentos'&&(<div style={{display:'flex',flexDirection:'column',gap:11}}>
           <div style={{display:'flex',gap:9}}><KPICard title="Total Movs." value={totalMov} icon="🔄" note={movFilt.length+' dias'}/><KPICard title="Media/Dia" value={mediaMov} icon="📈" note={'Meta: '+META_DIA+'/dia'}/><KPICard title="Agendamentos" value={totalAgend} icon="📅" note={'Meta: '+META_AGEND_MES}/><KPICard title="Conversao" value={txConv+'%'} icon="🎯" note={totalReal+' realizadas'}/></div>
           <div style={{display:'grid',gridTemplateColumns:'1fr 2fr',gap:11}}>
-            <Card title="Status dos Agendamentos"><ResponsiveContainer width="100%" height={200}><BarChart data={[{label:'Total',value:totalAgend},{label:'Realizadas',value:totalReal},{label:'Agendadas',value:totalAgend-totalReal}]} margin={{top:20,right:20,left:0,bottom:0}}><CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/><XAxis dataKey="label" tick={{fontSize:11,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/><YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false}/><Tooltip content={<Tip/>}/><Bar dataKey="value" name="Qtd." radius={[5,5,0,0]} barSize={52}>{[C.orange,C.green,C.gray].map((f,i)=>(<Cell key={i} fill={f}/>))}<LabelList dataKey="value" position="top" style={{fontSize:13,fontWeight:800}}/></Bar></BarChart></ResponsiveContainer></Card>
+            <Card title="Status dos Agendamentos">
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart data={[{label:'Total',value:totalAgend},{label:'Realizadas',value:totalReal},{label:'Agendadas',value:totalAgend-totalReal}]} margin={{top:20,right:20,left:0,bottom:0}}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
+                  <XAxis dataKey="label" tick={{fontSize:11,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
+                  <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false}/>
+                  <Tooltip content={<Tip/>}/>
+                  <Bar dataKey="value" name="Qtd." radius={[5,5,0,0]} barSize={52}>{[C.orange,C.green,C.gray].map((f,i)=>(<Cell key={i} fill={f}/>))}<LabelList dataKey="value" position="top" style={{fontSize:13,fontWeight:800}}/></Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </Card>
             <Card title="Movimentacoes por Dia">
-              <ResponsiveContainer width="100%" height={200}><BarChart data={movFilt} margin={{top:20,right:20,left:0,bottom:0}}><CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/><XAxis dataKey="dia" tick={{fontSize:11,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/><YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} domain={[0,'dataMax+5']}/><Tooltip content={<Tip/>}/><ReferenceLine y={META_DIA} stroke={C.green} strokeWidth={2} strokeDasharray="5 3" label={{value:'Meta 25',fill:C.green,fontSize:10,position:'insideTopRight',fontWeight:700}}/><Bar dataKey="mov" name="Movimentacoes" radius={[5,5,0,0]} barSize={36}>{movFilt.map((d,i)=>(<Cell key={i} fill={d.mov>=META_DIA?C.green:C.orange}/>))}<LabelList dataKey="mov" position="top" style={{fontSize:11,fontWeight:800}}/></Bar></BarChart></ResponsiveContainer>
+              <ResponsiveContainer width="100%" height={200}>
+                <BarChart data={movFilt} margin={{top:20,right:20,left:0,bottom:0}}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
+                  <XAxis dataKey="dia" tick={{fontSize:11,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
+                  <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} domain={[0,'dataMax+5']}/>
+                  <Tooltip content={<Tip/>}/>
+                  <ReferenceLine y={META_DIA} stroke={C.green} strokeWidth={2} strokeDasharray="5 3" label={{value:'Meta 25',fill:C.green,fontSize:10,position:'insideTopRight',fontWeight:700}}/>
+                  <Bar dataKey="mov" name="Movimentacoes" radius={[5,5,0,0]} barSize={36}>{movFilt.map((d,i)=>(<Cell key={i} fill={d.mov>=META_DIA?C.green:C.orange}/>))}<LabelList dataKey="mov" position="top" style={{fontSize:11,fontWeight:800}}/></Bar>
+                </BarChart>
+              </ResponsiveContainer>
               {(()=>{const META_MES=500;const atual=movFilt.reduce((a,d)=>a+d.mov,0);const pct=Math.min(Math.round(atual/META_MES*100),100);const faltam=Math.max(0,META_MES-atual);return(<div style={{marginTop:14,padding:'12px 14px',background:C.grayL,borderRadius:8}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}><span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span><div style={{display:'flex',gap:10,alignItems:'center'}}><span style={{fontSize:12,fontWeight:800,color:C.orange}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {META_MES}</span><span style={{fontSize:11,fontWeight:700,color:pct>=100?C.green:C.gray}}>{pct}%</span></div></div><div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:pct>=100?C.green:C.orange,borderRadius:6}}/></div><div style={{display:'flex',justifyContent:'space-between',marginTop:5}}><span style={{fontSize:10,color:C.gray}}>125 interacoes/semana - 25/dia</span><span style={{fontSize:10,color:faltam>0?C.red:C.green,fontWeight:600}}>{faltam>0?'Faltam '+faltam+' contatos':'Meta atingida!'}</span></div></div>);})()}
             </Card>
           </div>
@@ -933,7 +1047,6 @@ function SDRPage({dateIni,dateFim}){
   </div>);
 }
  
-// ── APP ───────────────────────────────────────────
 const TABS=[{id:'acomp',label:'Executivos Externos'},{id:'interno',label:'Executivos Internos'},{id:'sdr',label:'SDR'},{id:'diag',label:'Diagnostico'},{id:'parcerias',label:'Parcerias'}];
  
 export default function App(){
