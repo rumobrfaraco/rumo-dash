@@ -52,13 +52,12 @@ export default async function handler(req, res) {
     const sheets = await listSheets(token, DRIVE_ID, PARCERIAS_ITEM_ID);
     const sheetName = sheets[0] || 'Planilha1';
 
-    if (req.query?.debug === '1') {
-      return res.json({ sheets, sheetName });
-    }
-
     const values = await readSheet(token, DRIVE_ID, PARCERIAS_ITEM_ID, sheetName);
-
     const headers = values[0].map(norm);
+
+    if (req.query?.debug === '1') {
+      return res.json({ sheets, sheetName, rawHeaders: values[0], normHeaders: headers });
+    }
     const dataRows = values.slice(1).filter(row => row.some(c => c !== '' && c !== null));
 
     const colIdx = {};
