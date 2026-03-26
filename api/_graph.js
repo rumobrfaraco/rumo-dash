@@ -15,7 +15,7 @@ export async function getGraphToken() {
     grant_type: 'refresh_token',
     client_id: CLIENT_ID,
     client_secret: CLIENT_SECRET,
-    refresh_token: process.env.REFRESH_TOKEN,
+    refresh_token: (process.env.REFRESH_TOKEN || '').replace(/\s+/g, ''),
     scope: 'Files.Read offline_access',
   });
   const res = await fetch(url, { method: 'POST', body });
