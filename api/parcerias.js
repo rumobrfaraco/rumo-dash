@@ -33,13 +33,30 @@ const COL_MAP = {
 
 const DATE_COLS = new Set([P.DATA_IND, P.DATA_REUN]);
 
+// Lista todas as abas disponíveis no arquivo
+async function listSheets(token, driveId, itemId) {
+  const url = `https://graph.microsoft.com/v1.0/drives/${driveId}/items/${itemId}/workbook/worksheets`;
+  const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+  const json = await res.json();
+  return (json.value || []).map(s => s.name);
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 's-maxage=300');
 
   try {
     const token = await getGraphToken();
-    const values = await readSheet(token, DRIVE_ID, PARCERIAS_ITEM_ID);
+
+    // Auto-detectar o nome da aba
+    const sheets = await listSheets(token, DRIVE_ID, PARCERIAS_ITEM_ID);
+    const sheetName = sheets[0] || 'Planilha1';
+
+    if (req.query?.debug === '1') {
+      return res.json({ sheets, sheetName });
+    }
+
+    const values = await readSheet(token, DRIVE_ID, PARCERIAS_ITEM_ID, sheetName);
 
     const headers = values[0].map(norm);
     const dataRows = values.slice(1).filter(row => row.some(c => c !== '' && c !== null));
