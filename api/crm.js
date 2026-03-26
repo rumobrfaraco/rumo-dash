@@ -4,18 +4,22 @@ import { getGraphToken, readSheet, DRIVE_ID, CRM_ITEM_ID, excelDate, norm } from
 // Mapeamento: nome normalizado da coluna → índice F{}
 const F = { ID:0, NOME:1, RESP:2, ETAPA:3, ESTADO:4, PERFIL:5, MOTIVO:6, DPRIMEIRO:7, DREUNIAO:8, SOLDOC:9, DFECH:10 };
 
+// Cabeçalhos exatos da planilha (normalizados = lowercase + sem acentos)
+// Nome | Perfil | Empresa | Etapa | Estado | Motivo de Perda | Data do primeiro contato |
+// Data do Ultimo contato | Data de fechamento | Fonte | Responsável: | Indicado por: |
+// Solicitação de Documentos: | Reunião com o decisor? | Quant. Frota: | Quant. Funcionários |
+// Mesoregião | Evento | Data da Reunião Realizada | Tipo de reunião: | SDR: | Parcerias:
 const COL_MAP = {
-  'id': F.ID,
-  'nome': F.NOME, 'empresa': F.NOME,
-  'responsavel': F.RESP, 'resp': F.RESP,
+  'empresa': F.NOME, 'nome': F.NOME,
+  'responsavel:': F.RESP, 'responsavel': F.RESP,
   'etapa': F.ETAPA,
-  'estado': F.ESTADO, 'status': F.ESTADO, 'funil de vendas': F.ESTADO,
-  'perfil': F.PERFIL, 'qualificacao': F.PERFIL,
-  'motivo de perda': F.MOTIVO, 'motivo': F.MOTIVO,
-  'data do primeiro contato': F.DPRIMEIRO, 'primeiro contato': F.DPRIMEIRO,
-  'data do ultimo contato': F.DREUNIAO, 'data da reuniao': F.DREUNIAO, 'data reuniao': F.DREUNIAO,
-  'solicitacao de documentos': F.SOLDOC, 'sol doc': F.SOLDOC,
-  'data de fechamento': F.DFECH, 'fechamento': F.DFECH,
+  'estado': F.ESTADO, 'status': F.ESTADO,
+  'perfil': F.PERFIL,
+  'motivo de perda': F.MOTIVO,
+  'data do primeiro contato': F.DPRIMEIRO,
+  'data da reuniao realizada': F.DREUNIAO, 'data do ultimo contato': F.DREUNIAO,
+  'solicitacao de documentos:': F.SOLDOC, 'solicitacao de documentos': F.SOLDOC,
+  'data de fechamento': F.DFECH,
 };
 
 const DATE_COLS = new Set([F.DPRIMEIRO, F.DREUNIAO, F.DFECH]);
