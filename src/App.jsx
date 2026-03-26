@@ -952,10 +952,10 @@ export default function App(){
       setApiReady(true);
     }).catch(()=>setApiReady(true));
   },[]);
-  if(!apiReady)return(<div style={{display:'flex',alignItems:'center',justifyContent:'center',height:'100vh',fontFamily:FONT,flexDirection:'column',gap:12}}><div style={{width:36,height:36,border:`3px solid ${C.border}`,borderTopColor:C.orange,borderRadius:'50%',animation:'spin 0.8s linear infinite'}}></div><style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style><span style={{color:C.gray,fontSize:13}}>Carregando dados...</span></div>);
   const hasFilter=dateIni||dateFim;
-  const FL=useMemo(()=>{let d=RAW;if(hasFilter){d=d.filter(r=>{const datas=[r[F.DPRIMEIRO],r[F.DREUNIAO],r[F.DFECH]].filter(Boolean);return datas.some(dt=>inRange(dt,dateIni,dateFim));});}if(selPerfil!=='Todos')d=d.filter(r=>r[F.PERFIL]===selPerfil);return d;},[dateIni,dateFim,selPerfil]);
+  const FL=useMemo(()=>{let d=RAW;if(hasFilter){d=d.filter(r=>{const datas=[r[F.DPRIMEIRO],r[F.DREUNIAO],r[F.DFECH]].filter(Boolean);return datas.some(dt=>inRange(dt,dateIni,dateFim));});}if(selPerfil!=='Todos')d=d.filter(r=>r[F.PERFIL]===selPerfil);return d;},[dateIni,dateFim,selPerfil,apiReady]);
   const inputStyle={padding:'5px 10px',borderRadius:6,border:`1.5px solid ${C.border}`,fontSize:11,fontFamily:FONT,outline:'none',color:C.text,background:C.white,cursor:'pointer'};
+  if(!apiReady)return(<div style={{display:'flex',alignItems:'center',justifyContent:'center',height:'100vh',fontFamily:FONT,flexDirection:'column',gap:12}}><div style={{width:36,height:36,border:`3px solid ${C.border}`,borderTopColor:C.orange,borderRadius:'50%',animation:'spin 0.8s linear infinite'}}></div><style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style><span style={{color:C.gray,fontSize:13}}>Carregando dados...</span></div>);
   return(<div style={{minHeight:'100vh',background:C.grayL,fontFamily:FONT}}>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
