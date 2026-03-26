@@ -4,25 +4,29 @@ import { getGraphToken, readSheet, DRIVE_ID, PARCERIAS_ITEM_ID, excelDate, norm 
 // Mapeamento: nome normalizado da coluna → índice P{}
 const P = { ID:0, EMPRESA:1, PARCEIRO:2, STATUS:3, ETAPA:4, MOTIVO:5, FONTE:6, RESP:7, PAIS:8, UF:9, MESO:10, PERFIL:11, REUNIAO:12, DECISOR:13, FROTA:14, DATA_IND:15, DATA_REUN:16, CONTRATO:17, ANO:18, MES:19 };
 
+// Cabeçalhos exatos da planilha (normalizados):
+// id_lead | empresa | parceiro | status | etapa | motivo_perda | fonte | responsavel |
+// pais | uf | mesoregiao | perfil_empresa | reuniao_realizada | reuniao_decisor |
+// quant_frota | data_indicacao | data_reuniao | contrato_fechado | ano | mes
 const COL_MAP = {
-  'id': P.ID,
-  'empresa': P.EMPRESA, 'nome': P.EMPRESA,
-  'parceiro': P.PARCEIRO, 'indicado por': P.PARCEIRO,
+  'id_lead': P.ID, 'id': P.ID,
+  'empresa': P.EMPRESA,
+  'parceiro': P.PARCEIRO,
   'status': P.STATUS,
   'etapa': P.ETAPA,
-  'motivo de perda': P.MOTIVO, 'motivo': P.MOTIVO,
+  'motivo_perda': P.MOTIVO, 'motivo de perda': P.MOTIVO,
   'fonte': P.FONTE,
-  'responsavel': P.RESP, 'resp': P.RESP,
-  'pais': P.PAIS, 'país': P.PAIS,
+  'responsavel': P.RESP,
+  'pais': P.PAIS,
   'uf': P.UF,
-  'mesoregiao': P.MESO, 'meso': P.MESO, 'mesoregião': P.MESO,
-  'perfil de empresa': P.PERFIL, 'perfil': P.PERFIL, 'qualificacao': P.PERFIL,
-  'reuniao com decisor': P.REUNIAO, 'reunião com decisor': P.REUNIAO, 'reuniao': P.REUNIAO,
-  'decisor': P.DECISOR,
-  'quant. frota': P.FROTA, 'frota': P.FROTA, 'quantidade frota': P.FROTA,
-  'data de indicacao': P.DATA_IND, 'data ind': P.DATA_IND, 'data_ind': P.DATA_IND,
-  'data da reuniao': P.DATA_REUN, 'data reun': P.DATA_REUN, 'data_reun': P.DATA_REUN,
-  'solicitacao de documentos': P.CONTRATO, 'contrato': P.CONTRATO,
+  'mesoregiao': P.MESO,
+  'perfil_empresa': P.PERFIL, 'perfil de empresa': P.PERFIL,
+  'reuniao_realizada': P.REUNIAO,
+  'reuniao_decisor': P.DECISOR,
+  'quant_frota': P.FROTA,
+  'data_indicacao': P.DATA_IND,
+  'data_reuniao': P.DATA_REUN,
+  'contrato_fechado': P.CONTRATO,
   'ano': P.ANO,
   'mes': P.MES, 'mês': P.MES,
 };

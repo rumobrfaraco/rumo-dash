@@ -42,24 +42,35 @@ export default async function handler(req, res) {
       if (fIdx !== undefined && colIdx[fIdx] === undefined) colIdx[fIdx] = i;
     });
 
+    const EMPTY_VALS = new Set(['', 'nada', '0', 'n/a', '-']);
+    const clean = (v) => EMPTY_VALS.has(v.toLowerCase().trim()) ? '' : v;
+
     const raw = dataRows.map((row, i) => {
       const get = (fIdx) => {
         const ci = colIdx[fIdx];
         const val = ci !== undefined ? (row[ci] ?? '') : '';
-        return DATE_COLS.has(fIdx) ? excelDate(val) : String(val);
+        if (DATE_COLS.has(fIdx)) return excelDate(val);
+        return clean(String(val));
       };
 
-      // F.ID: usa coluna ID se existir, senão usa número sequencial
       const id = colIdx[F.ID] !== undefined ? Number(row[colIdx[F.ID]]) || i + 1 : i + 1;
+      const nome = get(F.NOME);
+
+      // Se Perfil estiver vazio, tenta extrair do nome (ex: "EMPRESA - ETP" ou "EMPRESA | PME")
+      let perfil = get(F.PERFIL);
+      if (!perfil) {
+        if (/\bETP\b/i.test(nome)) perfil = 'ETP';
+        else if (/\bPME\b/i.test(nome)) perfil = 'PME';
+      }
 
       return [
-        id,          // F.ID
-        get(F.NOME), // F.NOME
-        get(F.RESP), // F.RESP
-        get(F.ETAPA),// F.ETAPA
-        get(F.ESTADO),// F.ESTADO
-        get(F.PERFIL),// F.PERFIL
-        get(F.MOTIVO),// F.MOTIVO
+        id,               // F.ID
+        nome,             // F.NOME
+        get(F.RESP),      // F.RESP
+        get(F.ETAPA),     // F.ETAPA
+        get(F.ESTADO),    // F.ESTADO
+        perfil,           // F.PERFIL
+        get(F.MOTIVO),    // F.MOTIVO
         get(F.DPRIMEIRO), // F.DPRIMEIRO
         get(F.DREUNIAO),  // F.DREUNIAO
         get(F.SOLDOC),    // F.SOLDOC
