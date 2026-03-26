@@ -906,6 +906,7 @@ const COL_AGEND_ACUM='#1B5E20';
  
 function SDRPage({dateIni,dateFim}){
   const[subSDR,setSubSDR]=useState('overview');
+  const[selDia,setSelDia]=useState(null);
   const hasFilter=dateIni||dateFim;
   const movFilt=useMemo(()=>hasFilter?SDR_MOV.filter(d=>inRange(d.data,dateIni,dateFim)):SDR_MOV,[dateIni,dateFim,hasFilter]);
   const ativNorm=useMemo(()=>SDR_ATIV.map(d=>({...d})),[]);
@@ -1018,13 +1019,13 @@ function SDRPage({dateIni,dateFim}){
             </Card>
             <Card title="Movimentacoes por Dia">
               <ResponsiveContainer width="100%" height={200}>
-                <BarChart data={movFilt} margin={{top:20,right:20,left:0,bottom:0}}>
+                <BarChart data={movFilt} margin={{top:20,right:20,left:0,bottom:0}} style={{cursor:'pointer'}} onClick={(d)=>{if(d&&d.activePayload&&d.activePayload.length>0){const item=d.activePayload[0].payload;setSelDia(prev=>prev===item.data?null:item.data);}}}>
                   <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
                   <XAxis dataKey="dia" tick={{fontSize:11,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
                   <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} domain={[0,'dataMax+5']}/>
                   <Tooltip content={<Tip/>}/>
                   <ReferenceLine y={META_DIA} stroke={C.green} strokeWidth={2} strokeDasharray="5 3" label={{value:'Meta 25',fill:C.green,fontSize:10,position:'insideTopRight',fontWeight:700}}/>
-                  <Bar dataKey="mov" name="Movimentacoes" radius={[5,5,0,0]} barSize={36} onClick={(d)=>setSelDia(selDia===d.data?null:d.data)} style={{cursor:'pointer'}}>{movFilt.map((d,i)=>{const sel=selDia===d.data;return(<Cell key={i} fill={sel?'#1B5E20':d.mov>=META_DIA?C.green:C.orange} strokeWidth={sel?2:0} stroke={sel?'#0A3A10':undefined}/>);})}<LabelList dataKey="mov" position="top" style={{fontSize:11,fontWeight:800}}/></Bar>
+                  <Bar dataKey="mov" name="Movimentacoes" radius={[5,5,0,0]} barSize={36}>{movFilt.map((d,i)=>{const sel=selDia===d.data;return(<Cell key={i} fill={sel?'#1B5E20':d.mov>=META_DIA?C.green:C.orange}/>);})}<LabelList dataKey="mov" position="top" style={{fontSize:11,fontWeight:800}}/></Bar>
                 </BarChart>
               </ResponsiveContainer>
               {(()=>{const META_MES=500;const atual=movFilt.reduce((a,d)=>a+d.mov,0);const pct=Math.min(Math.round(atual/META_MES*100),100);const faltam=Math.max(0,META_MES-atual);return(<div style={{marginTop:14,padding:'12px 14px',background:C.grayL,borderRadius:8}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}><span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span><div style={{display:'flex',gap:10,alignItems:'center'}}><span style={{fontSize:12,fontWeight:800,color:C.orange}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {META_MES}</span><span style={{fontSize:11,fontWeight:700,color:pct>=100?C.green:C.gray}}>{pct}%</span></div></div><div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:pct>=100?C.green:C.orange,borderRadius:6}}/></div><div style={{display:'flex',justifyContent:'space-between',marginTop:5}}><span style={{fontSize:10,color:C.gray}}>125 interacoes/semana - 25/dia</span><span style={{fontSize:10,color:faltam>0?C.red:C.green,fontWeight:600}}>{faltam>0?'Faltam '+faltam+' contatos':'Meta atingida!'}</span></div></div>);})()}
