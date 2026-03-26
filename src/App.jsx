@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ComposedChart, LabelList, ReferenceLine, Legend, Cell, Line } from "recharts";
  
 const C={orange:"#FF8200",oL:"#FFF0E0",gray:"#6F7072",grayL:"#ECEDEC",white:"#FFFFFF",dark:"#1A1A1C",text:"#1A1A1C",border:"#DCDCDC",green:"#2E7D32",gL:"#E8F5E9",red:"#C62828",rL:"#FFEBEE",blue:"#1565C0",bL:"#E3F2FD",amber:"#E65100",aL:"#FFF3E0",teal:"#00695C",shadow:"0 1px 3px rgba(0,0,0,0.08)"};
@@ -941,6 +941,18 @@ export default function App(){
   const[selPerfil,setSelPerfil]=useState('Todos');
   const[dateIni,setDateIni]=useState('');
   const[dateFim,setDateFim]=useState('');
+  const[apiReady,setApiReady]=useState(false);
+  useEffect(()=>{
+    Promise.all([
+      fetch('/api/crm').then(r=>r.json()).catch(()=>null),
+      fetch('/api/parcerias').then(r=>r.json()).catch(()=>null),
+    ]).then(([crm,par])=>{
+      if(crm?.length)RAW.splice(0,RAW.length,...crm);
+      if(par?.length)PARCERIAS_RAW.splice(0,PARCERIAS_RAW.length,...par);
+      setApiReady(true);
+    }).catch(()=>setApiReady(true));
+  },[]);
+  if(!apiReady)return(<div style={{display:'flex',alignItems:'center',justifyContent:'center',height:'100vh',fontFamily:FONT,flexDirection:'column',gap:12}}><div style={{width:36,height:36,border:`3px solid ${C.border}`,borderTopColor:C.orange,borderRadius:'50%',animation:'spin 0.8s linear infinite'}}></div><style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style><span style={{color:C.gray,fontSize:13}}>Carregando dados...</span></div>);
   const hasFilter=dateIni||dateFim;
   const FL=useMemo(()=>{let d=RAW;if(hasFilter){d=d.filter(r=>{const datas=[r[F.DPRIMEIRO],r[F.DREUNIAO],r[F.DFECH]].filter(Boolean);return datas.some(dt=>inRange(dt,dateIni,dateFim));});}if(selPerfil!=='Todos')d=d.filter(r=>r[F.PERFIL]===selPerfil);return d;},[dateIni,dateFim,selPerfil]);
   const inputStyle={padding:'5px 10px',borderRadius:6,border:`1.5px solid ${C.border}`,fontSize:11,fontFamily:FONT,outline:'none',color:C.text,background:C.white,cursor:'pointer'};
