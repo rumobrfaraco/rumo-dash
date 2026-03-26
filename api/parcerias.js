@@ -56,7 +56,7 @@ export default async function handler(req, res) {
     const headers = values[0].map(norm);
 
     if (req.query?.debug === '1') {
-      return res.json({ sheets, sheetName, rawHeaders: values[0], normHeaders: headers });
+      return res.json({ sheets, sheetName, first5rows: values.slice(0, 5) });
     }
     const dataRows = values.slice(1).filter(row => row.some(c => c !== '' && c !== null));
 
