@@ -1028,7 +1028,7 @@ function SDRPage({dateIni,dateFim}){
                   <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} domain={[0,'dataMax+5']}/>
                   <Tooltip content={<Tip/>}/>
                   <ReferenceLine y={META_DIA} stroke={C.green} strokeWidth={2} strokeDasharray="5 3" label={{value:'Meta 25',fill:C.green,fontSize:10,position:'insideTopRight',fontWeight:700}}/>
-                  <Bar dataKey="mov" name="Movimentacoes" radius={[5,5,0,0]} barSize={36}>{movFilt.map((d,i)=>{const sel=selDia===d.data;return(<Cell key={i} fill={sel?'#1B5E20':d.mov>=META_DIA?C.green:C.orange}/>);})}<LabelList dataKey="mov" position="top" style={{fontSize:11,fontWeight:800}}/></Bar>
+                  <Bar dataKey="mov" name="Movimentacoes" radius={[5,5,0,0]} barSize={36}>{movFilt.map((d,i)=>{const col=d.mov>=META_DIA?C.green:d.mov>=11?C.amber:C.red;return(<Cell key={i} fill={col}/>);})}<LabelList dataKey="mov" position="top" style={{fontSize:11,fontWeight:800}}/></Bar>
                 </BarChart>
               </ResponsiveContainer>
               {(()=>{const META_MES=500;const atual=movFilt.reduce((a,d)=>a+d.mov,0);const pct=Math.min(Math.round(atual/META_MES*100),100);const faltam=Math.max(0,META_MES-atual);return(<div style={{marginTop:14,padding:'12px 14px',background:C.grayL,borderRadius:8}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}><span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span><div style={{display:'flex',gap:10,alignItems:'center'}}><span style={{fontSize:12,fontWeight:800,color:C.orange}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {META_MES}</span><span style={{fontSize:11,fontWeight:700,color:pct>=100?C.green:C.gray}}>{pct}%</span></div></div><div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:pct>=100?C.green:C.orange,borderRadius:6}}/></div><div style={{display:'flex',justifyContent:'space-between',marginTop:5}}><span style={{fontSize:10,color:C.gray}}>125 interacoes/semana - 25/dia</span><span style={{fontSize:10,color:faltam>0?C.red:C.green,fontWeight:600}}>{faltam>0?'Faltam '+faltam+' contatos':'Meta atingida!'}</span></div></div>);})()}
@@ -1061,13 +1061,9 @@ export default function App(){
   const[dateFim,setDateFim]=useState('');
   const[apiReady,setApiReady]=useState(false);
   useEffect(()=>{
-    Promise.all([
-      fetch('/api/crm').then(r=>r.json()).catch(()=>null),
-      fetch('/api/parcerias').then(r=>r.json()).catch(()=>null),
-      fetch('/api/diagnostico').then(r=>r.json()).catch(()=>null),
-    ]).then(([crm,par,diag])=>{
-      if(crm?.length)RAW.splice(0,RAW.length,...crm);
-      if(par?.length)PARCERIAS_RAW.splice(0,PARCERIAS_RAW.length,...par);
+    // CRM e Parcerias usam dados hardcoded (SharePoint desatualizado)
+    // Só busca Diagnostico do ClickUp
+    fetch('/api/diagnostico').then(r=>r.json()).catch(()=>null).then(diag=>{
       if(diag?.length)DIAG_DATA.splice(0,DIAG_DATA.length,...diag);
       setApiReady(true);
     }).catch(()=>setApiReady(true));
