@@ -144,7 +144,7 @@ const SDR_ATIV=[
  
 const EFETIVAS=['ARROW LOGISTICA','DINIZ SARAIVA','GRUPO DTRANS'];
  
-const DIAG_DATA=[
+let DIAG_DATA=[
   {id:1,empresa:"DAMACEL TRANSPORTES",status:"COMPLETE",executivo:"Matheus Cambui",estado:"RS",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
   {id:2,empresa:"S E TRANSPORTES",status:"COMPLETE",executivo:"",estado:"GO",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
   {id:3,empresa:"RODOCELL TRANSPORTES",status:"COMPLETE",executivo:"Matheus Cambui",estado:"RS",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
@@ -1061,9 +1061,11 @@ export default function App(){
     Promise.all([
       fetch('/api/crm').then(r=>r.json()).catch(()=>null),
       fetch('/api/parcerias').then(r=>r.json()).catch(()=>null),
-    ]).then(([crm,par])=>{
+      fetch('/api/diagnostico').then(r=>r.json()).catch(()=>null),
+    ]).then(([crm,par,diag])=>{
       if(crm?.length)RAW.splice(0,RAW.length,...crm);
       if(par?.length)PARCERIAS_RAW.splice(0,PARCERIAS_RAW.length,...par);
+      if(diag?.length)DIAG_DATA.splice(0,DIAG_DATA.length,...diag);
       setApiReady(true);
     }).catch(()=>setApiReady(true));
   },[]);
