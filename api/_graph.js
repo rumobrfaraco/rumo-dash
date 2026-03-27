@@ -1,4 +1,5 @@
 // Shared Microsoft Graph API helpers for Vercel serverless functions
+// Mail.Send requer permissão "Mail.Send" (Application) concedida no Azure AD
 
 const TENANT_ID = process.env.TENANT_ID;
 const CLIENT_ID = process.env.CLIENT_ID;
@@ -51,4 +52,44 @@ export function excelDate(val) {
 // Normaliza string para comparação de colunas
 export function norm(s) {
   return String(s ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+}
+
+// Token via client_credentials — para Mail.Send application permission
+// Requer que o app no Azure AD tenha Mail.Send como Application Permission (não Delegated)
+export async function getMailToken() {
+  const url = `https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/token`;
+  const body = new URLSearchParams({
+    grant_type: 'client_credentials',
+    client_id: CLIENT_ID,
+    client_secret: CLIENT_SECRET,
+    scope: 'https://graph.microsoft.com/.default',
+  });
+  const res = await fetch(url, { method: 'POST', body });
+  const json = await res.json();
+  if (!json.access_token) throw new Error(`Mail token error: ${JSON.stringify(json)}`);
+  return json.access_token;
+}
+
+// Envia e-mail via Outlook usando Graph API
+// from: endereço do remetente (deve existir no tenant)
+// to: string ou array de strings
+export async function sendMail(token, from, to, subject, htmlBody) {
+  const url = `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(from)}/sendMail`;
+  const toList = (Array.isArray(to) ? to : [to]).map(a => ({ emailAddress: { address: a.trim() } }));
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      message: {
+        subject,
+        body: { contentType: 'HTML', content: htmlBody },
+        toRecipients: toList,
+      },
+      saveToSentItems: true,
+    }),
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`sendMail ${res.status}: ${err}`);
+  }
 }
