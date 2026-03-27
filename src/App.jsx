@@ -193,7 +193,7 @@ const CARLA_VISITAS=['2026-03-04','2026-03-07','2026-03-07','2026-03-09','2026-0
 const MARCO_REUNIOES=['2026-03-19','2026-03-24','2026-03-25'];
 const MARCO_VISITAS=['2026-03-19'];
 const ISAAC_REUNIOES=[];
-const ISAAC_VISITAS=['2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-20','2026-03-20','2026-03-23','2026-03-24','2026-03-24','2026-03-25','2026-03-26','2026-03-27','2026-03-27','2026-03-27'];
+const ISAAC_VISITAS=['2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-20','2026-03-20','2026-03-23','2026-03-24','2026-03-24','2026-03-25','2026-03-26','2026-03-26','2026-03-26','2026-03-26'];
 
 function buildEvolution(dates,allDays){const counts={};dates.forEach(d=>{counts[d]=(counts[d]||0)+1;});let acc=0;return allDays.map(day=>{acc+=(counts[day]||0);return acc;});}
 function buildMovEvolution(movArr){let acc=0;return ALL_DAYS_MAR.map((_,i)=>{acc+=(movArr[i]||0);return acc;});}
