@@ -224,7 +224,7 @@ function ParceriasPage(){
         <div style={{overflowX:'auto',borderRadius:6,border:`1px solid ${C.border}`}}>
           <table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}>
             <TblHead cols={['Parceiro','Total','Ativos','Perdidos','Reunioes','Tx. Perda']}/>
-            <tbody>{porParceiro.map((r,i)=>{const txP=r.total>0?Math.round(r.perdidos/r.total*100):0;const color=PARTNER_COLORS[r.parceiro]||C.gray;return(<tr key={i} style={{...tRow(i),cursor:'pointer'}} onClick={()=>setSelParceiro(r.parceiro===selParceiro?'Todos':r.parceiro)}><td style={{padding:'7px 10px'}}><div style={{display:'flex',alignItems:'center',gap:7}}><div style={{width:10,height:10,borderRadius:3,background:color,flexShrink:0}}/><span style={{fontWeight:600}}>{r.parceiro}</span></div></td><td style={{padding:'7px 10px',fontWeight:800,fontSize:13,color}}>{r.total}</td><td style={{padding:'7px 10px',color:C.orange,fontWeight:700}}>{r.ativos}</td><td style={{padding:'7px 10px',color:r.perdidos>0?"#4A4B4D":C.gray,fontWeight:700}}>{r.perdidos||'—'}</td><td style={{padding:'7px 10px',color:"#8C5200",fontWeight:700}}>{r.reunioes||'—'}</td><td style={{padding:'7px 10px'}}><Badge label={`${txP}%`} color={txP>40?"#4A4B4D":txP>20?"#8C5200":C.orange} bg={txP>40?"#EBEBEB":txP>20?"#FFF0D6":C.oL}/></td></tr>);})}</tbody>
+            <tbody>{porParceiro.map((r,i)=>{const txP=r.total>0?Math.round(r.perdidos/r.total*100):0;const color=PARTNER_COLORS[r.parceiro]||C.gray;return(<tr key={i} style={{...tRow(i),cursor:'pointer'}} onClick={()=>setSelParceiro(r.parceiro===selParceiro?'Todos':r.parceiro)}><td style={{padding:'7px 10px'}}><div style={{display:'flex',alignItems:'center',gap:7}}><div style={{width:10,height:10,borderRadius:3,background:color,flexShrink:0}}/><span style={{fontWeight:600}}>{r.parceiro}</span></div></td><td style={{padding:'7px 10px',fontWeight:600,fontSize:13,color}}>{r.total}</td><td style={{padding:'7px 10px',color:C.orange,fontWeight:700}}>{r.ativos}</td><td style={{padding:'7px 10px',color:r.perdidos>0?"#4A4B4D":C.gray,fontWeight:700}}>{r.perdidos||'—'}</td><td style={{padding:'7px 10px',color:"#8C5200",fontWeight:700}}>{r.reunioes||'—'}</td><td style={{padding:'7px 10px'}}><Badge label={`${txP}%`} color={txP>40?"#4A4B4D":txP>20?"#8C5200":C.orange} bg={txP>40?"#EBEBEB":txP>20?"#FFF0D6":C.oL}/></td></tr>);})}</tbody>
           </table>
         </div>
       </Card>
@@ -287,33 +287,33 @@ function DiagPage(){
   <div style={{display:'flex',flexDirection:'column',gap:10,fontFamily:FONT}}>
     <div style={{background:C.white,borderRadius:8,padding:'14px 20px',border:bs,boxShadow:C.shadow}}>
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',flexWrap:'wrap',gap:8}}>
-        <div><div style={{fontSize:14,fontWeight:800,color:C.text,letterSpacing:'-0.01em'}}>REPORT DE DIAGNÓSTICO</div><div style={{fontSize:11,color:C.gray,marginTop:2}}>{new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})}</div></div>
-        <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:13,fontWeight:800,color:C.dark,letterSpacing:'-0.02em'}}>RumoBrasil</span><div style={{width:28,height:28,borderRadius:6,background:C.orange,display:'flex',alignItems:'center',justifyContent:'center'}}><span style={{fontSize:13,fontWeight:900,color:'#fff'}}>R</span></div></div>
+        <div><div style={{fontSize:14,fontWeight:600,color:C.text,letterSpacing:'-0.01em'}}>REPORT DE DIAGNÓSTICO</div><div style={{fontSize:11,color:C.gray,marginTop:2}}>{new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})}</div></div>
+        <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:13,fontWeight:600,color:C.dark,letterSpacing:'-0.02em'}}>RumoBrasil</span><div style={{width:28,height:28,borderRadius:6,background:C.orange,display:'flex',alignItems:'center',justifyContent:'center'}}><span style={{fontSize:13,fontWeight:900,color:'#fff'}}>R</span></div></div>
       </div>
     </div>
     <div style={{display:'grid',gridTemplateColumns:'1.4fr 1fr 1fr 1fr 1.6fr',gap:10}}>
       <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center'}}>
         <div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6}}>Pipeline Total</div>
         <div style={{display:'flex',alignItems:'center',gap:10,justifyContent:'center'}}>
-          <span style={{fontSize:32,fontWeight:800,color:C.text,lineHeight:1}}>{total}</span>
+          <span style={{fontSize:32,fontWeight:600,color:C.text,lineHeight:1}}>{total}</span>
           <div style={{display:'flex',gap:6}}>
-            <div style={{background:C.oL,borderRadius:5,padding:'4px 10px',textAlign:'center'}}><div style={{fontSize:14,fontWeight:800,color:C.orange}}>{nEnt}</div><div style={{fontSize:8,color:C.orange,fontWeight:700,textTransform:'uppercase'}}>ETP</div></div>
-            <div style={{background:'#F2F2F0',borderRadius:5,padding:'4px 10px',textAlign:'center'}}><div style={{fontSize:14,fontWeight:800,color:'#666'}}>{nPME}</div><div style={{fontSize:8,color:'#666',fontWeight:700,textTransform:'uppercase'}}>PME</div></div>
+            <div style={{background:C.oL,borderRadius:5,padding:'4px 10px',textAlign:'center'}}><div style={{fontSize:14,fontWeight:600,color:C.orange}}>{nEnt}</div><div style={{fontSize:8,color:C.orange,fontWeight:700,textTransform:'uppercase'}}>ETP</div></div>
+            <div style={{background:'#F2F2F0',borderRadius:5,padding:'4px 10px',textAlign:'center'}}><div style={{fontSize:14,fontWeight:600,color:'#666'}}>{nPME}</div><div style={{fontSize:8,color:'#666',fontWeight:700,textTransform:'uppercase'}}>PME</div></div>
           </div>
         </div>
         <div style={{fontSize:10,color:'#AAA',marginTop:5}}>{pctConc}% concluído</div>
       </div>
-      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Concluídos</div><div style={{fontSize:32,fontWeight:800,color:C.text,lineHeight:1}}>{nConc}</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>{pctConc}% de conclusão</div></div>
-      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Em Andamento</div><div style={{fontSize:32,fontWeight:800,color:C.text,lineHeight:1}}>{nAtivo}</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>{nAtivo} empresas ativas</div></div>
-      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Prazo Médio</div><div style={{fontSize:32,fontWeight:800,color:C.text,lineHeight:1}}>{diasM}d</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>média para concluir</div></div>
+      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Concluídos</div><div style={{fontSize:32,fontWeight:600,color:C.text,lineHeight:1}}>{nConc}</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>{pctConc}% de conclusão</div></div>
+      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Em Andamento</div><div style={{fontSize:32,fontWeight:600,color:C.text,lineHeight:1}}>{nAtivo}</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>{nAtivo} empresas ativas</div></div>
+      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Prazo Médio</div><div style={{fontSize:32,fontWeight:600,color:C.text,lineHeight:1}}>{diasM}d</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>média para concluir</div></div>
       <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center'}}>
         <div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6}}>Reforma Tributária</div>
         <div style={{display:'flex',alignItems:'center',gap:10,justifyContent:'center'}}>
-          <span style={{fontSize:32,fontWeight:800,color:C.text,lineHeight:1}}>{nSim}</span>
+          <span style={{fontSize:32,fontWeight:600,color:C.text,lineHeight:1}}>{nSim}</span>
           <div style={{display:'flex',gap:6}}>
-            <div style={{background:C.gL,borderRadius:5,padding:'4px 10px',textAlign:'center'}}><div style={{fontSize:12,fontWeight:800,color:'#2D9E60'}}>{nSimConc}</div><div style={{fontSize:8,color:'#2D9E60',fontWeight:700,textTransform:'uppercase'}}>Conc.</div></div>
-            <div style={{background:C.oL,borderRadius:5,padding:'4px 10px',textAlign:'center'}}><div style={{fontSize:12,fontWeight:800,color:C.orange}}>{nSimAtivo}</div><div style={{fontSize:8,color:C.orange,fontWeight:700,textTransform:'uppercase'}}>Ativos</div></div>
-            <div style={{background:'#F2F2F0',borderRadius:5,padding:'4px 10px',textAlign:'center'}}><div style={{fontSize:12,fontWeight:800,color:'#888'}}>{nNao}</div><div style={{fontSize:8,color:'#888',fontWeight:700,textTransform:'uppercase'}}>Não optam</div></div>
+            <div style={{background:C.gL,borderRadius:5,padding:'4px 10px',textAlign:'center'}}><div style={{fontSize:12,fontWeight:600,color:'#2D9E60'}}>{nSimConc}</div><div style={{fontSize:8,color:'#2D9E60',fontWeight:700,textTransform:'uppercase'}}>Conc.</div></div>
+            <div style={{background:C.oL,borderRadius:5,padding:'4px 10px',textAlign:'center'}}><div style={{fontSize:12,fontWeight:600,color:C.orange}}>{nSimAtivo}</div><div style={{fontSize:8,color:C.orange,fontWeight:700,textTransform:'uppercase'}}>Ativos</div></div>
+            <div style={{background:'#F2F2F0',borderRadius:5,padding:'4px 10px',textAlign:'center'}}><div style={{fontSize:12,fontWeight:600,color:'#888'}}>{nNao}</div><div style={{fontSize:8,color:'#888',fontWeight:700,textTransform:'uppercase'}}>Não optam</div></div>
           </div>
         </div>
         <div style={{fontSize:10,color:'#AAA',marginTop:5}}>{Math.round(nSim/total*100)}% optam</div>
@@ -323,16 +323,16 @@ function DiagPage(){
       <div style={{background:C.white,borderRadius:8,border:bs,boxShadow:C.shadow,overflow:'hidden',display:'flex',flexDirection:'column'}}>
         <div style={{padding:'7px 12px',borderBottom:bs,background:'#F5F5F3',flexShrink:0}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Pipeline por Fase</span></div>
         <div style={{flex:1,padding:'12px',display:'flex',flexDirection:'column',justifyContent:'space-evenly',gap:4}}>
-          {(()=>{const WIDTHS=[100,86,72,60,46,30];return FUNNEL_PHASES.map((f,i)=>{const cnt=DIAG_DATA.filter(d=>d.status===f.key).length;const col=cnt>0?f.bg:'#E8E8E8';const labelCol=cnt>0?f.bg:'#BBBBBB';const w=WIDTHS[i];return(<div key={f.key} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2}}><span style={{fontSize:11,fontWeight:600,color:labelCol,whiteSpace:'nowrap',lineHeight:1.2,textAlign:'center'}}>{f.label}</span><div style={{width:`${w}%`,height:26,background:col,borderRadius:4,display:'flex',alignItems:'center',justifyContent:'center'}}><span style={{fontSize:12,fontWeight:800,color:'#fff'}}>{cnt}</span></div></div>);});})()}
+          {(()=>{const WIDTHS=[100,86,72,60,46,30];return FUNNEL_PHASES.map((f,i)=>{const cnt=DIAG_DATA.filter(d=>d.status===f.key).length;const col=cnt>0?f.bg:'#E8E8E8';const labelCol=cnt>0?f.bg:'#BBBBBB';const w=WIDTHS[i];return(<div key={f.key} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2}}><span style={{fontSize:11,fontWeight:600,color:labelCol,whiteSpace:'nowrap',lineHeight:1.2,textAlign:'center'}}>{f.label}</span><div style={{width:`${w}%`,height:26,background:col,borderRadius:4,display:'flex',alignItems:'center',justifyContent:'center'}}><span style={{fontSize:12,fontWeight:600,color:'#fff'}}>{cnt}</span></div></div>);});})()}
         </div>
       </div>
       <div style={{background:C.white,borderRadius:8,border:bs,boxShadow:C.shadow,overflow:'hidden'}}>
-        <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Concluídas</span><span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:800}}>{nConc}</span></div>
+        <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Concluídas</span><span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:600}}>{nConc}</span></div>
         <div style={{overflowX:'auto'}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}><thead><tr><th style={{...TH,width:'28%'}}>Empresa</th><th style={{...THC,width:'18%'}}>Executivo</th><th style={{...THC,width:'6%'}}>UF</th><th style={{...THC,width:'7%'}}>Seg.</th><th style={{...THC,width:'13%'}}>Dt. Entrada</th><th style={{...THC,width:'13%'}}>Dt. Conclusão</th><th style={{...THC,width:'9%'}}>Reforma</th></tr></thead><tbody>{concluidos.map((d,i)=>(<tr key={d.id} style={{borderBottom:`1px solid #F2F2F0`,background:i%2===0?C.white:'#FAFAF8'}}><td style={{padding:'7px 10px',fontWeight:700,fontSize:11,color:C.text,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',maxWidth:200}}>{d.empresa}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#666'}}>{d.executivo||'—'}</td><td style={{padding:'7px 10px',textAlign:'center'}}><UFBadge v={d.estado}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><SegBadge v={d.tam}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataInicio)}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataConclusao)}</td><td style={{padding:'7px 10px',textAlign:'center'}}><RefBadge v={d.reforma}/></td></tr>))}</tbody></table></div>
       </div>
     </div>
     <div style={{background:C.white,borderRadius:8,border:bs,boxShadow:C.shadow,overflow:'hidden'}}>
-      <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Em Andamento</span><span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:800}}>{nAtivo}</span></div>
+      <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Em Andamento</span><span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:600}}>{nAtivo}</span></div>
       <div style={{overflowX:'auto'}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}><thead><tr><th style={{...TH,width:'20%'}}>Empresa</th><th style={{...THC,width:'14%'}}>Status</th><th style={{...THC,width:'16%'}}>Executivo(s)</th><th style={{...THC,width:'5%'}}>UF</th><th style={{...THC,width:'6%'}}>Seg.</th><th style={{...THC,width:'10%'}}>Dt. Entrada</th><th style={{...THC,width:'10%'}}>Dt. Conclusão</th><th style={{...THC,width:'7%'}}>Aging</th><th style={{...THC,width:'7%'}}>Reforma</th></tr></thead><tbody>{emAndamento.map((d,i)=>{const ag=calcAg(d.dataInicio,d.dataConclusao);return(<tr key={d.id} style={{borderBottom:`1px solid #F2F2F0`,background:i%2===0?C.white:'#FAFAF8'}}><td style={{padding:'7px 10px',fontWeight:700,fontSize:11,color:C.text,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',maxWidth:220}}>{d.empresa}</td><td style={{padding:'7px 10px',textAlign:'center'}}><StBadge status={d.status}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:10.5,color:'#666'}}>{d.executivo||'—'}</td><td style={{padding:'7px 10px',textAlign:'center'}}><UFBadge v={d.estado}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><SegBadge v={d.tam}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataInicio)}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataConclusao)}</td><td style={{padding:'7px 10px',textAlign:'center'}}><AgBadge d={ag}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><RefBadge v={d.reforma}/></td></tr>);})}</tbody></table></div>
       <div style={{padding:'7px 14px',borderTop:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:12,flexWrap:'wrap'}}>
         <span style={{fontSize:8.5,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.06em'}}>Status:</span>
@@ -378,9 +378,9 @@ function TatianeMixEvolChart(){
     {label:'E-mail', qtd:totalEml,pct:totalCanais>0?Math.round(totalEml/totalCanais*100):0,fill:COL_E,icon:'✉️'},
     {label:'WhatsApp',qtd:totalWha,pct:totalCanais>0?Math.round(totalWha/totalCanais*100):0,fill:COL_W,icon:'💬'},
   ];
-  const tagStyle=(active,col)=>({fontSize:10,fontWeight:800,cursor:'pointer',padding:'2px 8px',borderRadius:10,background:active?col+'18':'#F0F0F0',color:active?col:'#AAA',border:`1.5px solid ${active?col:'#DDD'}`,textDecoration:active?'none':'line-through'});
+  const tagStyle=(active,col)=>({fontSize:10,fontWeight:600,cursor:'pointer',padding:'2px 8px',borderRadius:10,background:active?col+'18':'#F0F0F0',color:active?col:'#AAA',border:`1.5px solid ${active?col:'#DDD'}`,textDecoration:active?'none':'line-through'});
   const mkDot=(key,col)=>(props)=>{const{cx,cy,index}=props;const val=evolData[index][key];const prev=index>0?evolData[index-1][key]:null;if(val===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={5} fill={col} stroke="#fff" strokeWidth={2}/>;};
-  const mkLabel=(key,col)=>(props)=>{const{x,y,index}=props;const val=evolData[index][key];const prev=index>0?evolData[index-1][key]:null;if(val===prev&&index>0)return null;return <text key={index} x={x} y={y-10} textAnchor="middle" fill={col} fontSize={10} fontWeight={800} fontFamily={FONT}>{val}</text>;};
+  const mkLabel=(key,col)=>(props)=>{const{x,y,index}=props;const val=evolData[index][key];const prev=index>0?evolData[index-1][key]:null;if(val===prev&&index>0)return null;return <text key={index} x={x} y={y-10} textAnchor="middle" fill={col} fontSize={10} fontWeight={500} fontFamily={FONT}>{val}</text>;};
   return(
     <div style={{display:'grid',gridTemplateColumns:'1fr 1.8fr',gap:11}}>
       <Card title="Mix de Canais">
@@ -411,8 +411,8 @@ function TatianeMixEvolChart(){
             <XAxis dataKey="dia" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
             <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,'dataMax+15']}/>
             <Tooltip content={<Tip/>}/>
-            {showLig&&<Line dataKey="ligacao" name="Ligacoes" stroke={COL_L} strokeWidth={2.5} type="monotone" dot={mkDot('ligacao',COL_L)} label={mkLabel('ligacao',COL_L)}/>}
-            {showEml&&<Line dataKey="email" name="E-mails" stroke={COL_E} strokeWidth={2.5} type="monotone" dot={mkDot('email',COL_E)} label={mkLabel('email',COL_E)}/>}
+            {showLig&&<Line dataKey="ligacao" name="Ligacoes" stroke={COL_L} strokeWidth={1.5} type="monotone" dot={mkDot('ligacao',COL_L)} label={mkLabel('ligacao',COL_L)}/>}
+            {showEml&&<Line dataKey="email" name="E-mails" stroke={COL_E} strokeWidth={1.5} type="monotone" dot={mkDot('email',COL_E)} label={mkLabel('email',COL_E)}/>}
             {showWha&&<Line dataKey="whatsapp" name="WhatsApp" stroke={COL_W} strokeWidth={2} strokeDasharray="5 3" type="monotone" dot={mkDot('whatsapp',COL_W)} label={mkLabel('whatsapp',COL_W)}/>}
           </ComposedChart>
         </ResponsiveContainer>
@@ -443,9 +443,9 @@ function TatianeAtivChart(){
     whatsapp:TATIANE_WHA_DIA[i]>0?TATIANE_WHA_DIA[i]:0,
     agendamentosAcum:tatAgendAcum[i]>0?tatAgendAcum[i]:null,
   }));
-  const tagStyle=(active,col)=>({fontSize:10,fontWeight:800,cursor:'pointer',padding:'2px 8px',borderRadius:10,background:active?col+'18':'#F0F0F0',color:active?col:'#AAA',border:`1.5px solid ${active?col:'#DDD'}`,textDecoration:active?'none':'line-through'});
+  const tagStyle=(active,col)=>({fontSize:10,fontWeight:600,cursor:'pointer',padding:'2px 8px',borderRadius:10,background:active?col+'18':'#F0F0F0',color:active?col:'#AAA',border:`1.5px solid ${active?col:'#DDD'}`,textDecoration:active?'none':'line-through'});
   const mkDotAg=(props)=>{const{cx,cy,index,value}=props;if(!value)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;const prev=index>0?data[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={6} fill={COL_AG} stroke="#fff" strokeWidth={2}/>;};
-  const mkLabelAg=(props)=>{const{x,y,index,value}=props;if(!value)return null;const prev=index>0?data[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AG} fontSize={11} fontWeight={800} fontFamily={FONT}>{value}</text>;};
+  const mkLabelAg=(props)=>{const{x,y,index,value}=props;if(!value)return null;const prev=index>0?data[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AG} fontSize={11} fontWeight={500} fontFamily={FONT}>{value}</text>;};
   return(
     <Card title="Atividades por Dia — por Canal + Agendamentos Acumulados (Tatiane Gomes)">
       <div style={{display:'flex',gap:12,marginBottom:12,flexWrap:'wrap',alignItems:'center'}}>
@@ -471,7 +471,7 @@ function TatianeAtivChart(){
           {showLig&&<Bar yAxisId="left" dataKey="ligacao" name="Ligacao" stackId="a" fill={COL_L} barSize={40}><LabelList dataKey="ligacao" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>}
           {showEml&&<Bar yAxisId="left" dataKey="email" name="E-mail" stackId="a" fill={COL_E} barSize={40}><LabelList dataKey="email" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>}
           {showWha&&<Bar yAxisId="left" dataKey="whatsapp" name="WhatsApp" stackId="a" fill={COL_W} radius={[4,4,0,0]} barSize={40}><LabelList dataKey="whatsapp" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>}
-          <Line yAxisId="right" dataKey="agendamentosAcum" name="Agend. Acumulados" stroke={COL_AG} strokeWidth={2.5} type="monotone" connectNulls={true} dot={mkDotAg} label={mkLabelAg}/>
+          <Line yAxisId="right" dataKey="agendamentosAcum" name="Agend. Acumulados" stroke={COL_AG} strokeWidth={1.5} type="monotone" connectNulls={true} dot={mkDotAg} label={mkLabelAg}/>
         </ComposedChart>
       </ResponsiveContainer>
       <div style={{display:'flex',gap:8,marginTop:10,flexWrap:'wrap'}}>
@@ -482,7 +482,7 @@ function TatianeAtivChart(){
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}>
           <span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span>
           <div style={{display:'flex',gap:10,alignItems:'center'}}>
-            <span style={{fontSize:12,fontWeight:800,color:C.orange}}>{totalCanais}</span>
+            <span style={{fontSize:12,fontWeight:600,color:C.orange}}>{totalCanais}</span>
             <span style={{fontSize:11,color:C.gray}}>/ {META_MES}</span>
             <span style={{fontSize:11,fontWeight:700,color:pct>=100?C.green:C.gray}}>{pct}%</span>
           </div>
@@ -511,8 +511,8 @@ function ExecEvolutionChart({nome,reunioes,visitas,movArr,metaMov}){
   const faltamMov=Math.max(0,metaMov-totalMov);
   const COL_R=C.orange,COL_V='#444444',COL_M='#AAAAAA';
   const renderDot=(dataKey,col)=>(props)=>{const{cx,cy,index}=props;const val=data[index][dataKey];const prev=index>0?data[index-1][dataKey]:null;if(val===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={5} fill={col} stroke="#fff" strokeWidth={2}/>;};
-  const renderLabel=(dataKey,col)=>(props)=>{const{x,y,index}=props;const val=data[index][dataKey];const prev=index>0?data[index-1][dataKey]:null;if(val===prev&&index>0)return null;return <text key={index} x={x} y={y-10} textAnchor="middle" fill={col} fontSize={11} fontWeight={800} fontFamily={FONT}>{val}</text>;};
-  const tagStyle=(active,col)=>({fontSize:10,fontWeight:800,cursor:'pointer',padding:'2px 8px',borderRadius:10,background:active?col+'18':'#F0F0F0',color:active?col:'#AAA',border:`1.5px solid ${active?col:'#DDD'}`,textDecoration:active?'none':'line-through'});
+  const renderLabel=(dataKey,col)=>(props)=>{const{x,y,index}=props;const val=data[index][dataKey];const prev=index>0?data[index-1][dataKey]:null;if(val===prev&&index>0)return null;return <text key={index} x={x} y={y-10} textAnchor="middle" fill={col} fontSize={11} fontWeight={500} fontFamily={FONT}>{val}</text>;};
+  const tagStyle=(active,col)=>({fontSize:10,fontWeight:600,cursor:'pointer',padding:'2px 8px',borderRadius:10,background:active?col+'18':'#F0F0F0',color:active?col:'#AAA',border:`1.5px solid ${active?col:'#DDD'}`,textDecoration:active?'none':'line-through'});
   return(
     <Card title={"Evolucao Diaria - "+nome}>
       <div style={{display:'flex',gap:12,marginBottom:12,flexWrap:'wrap',alignItems:'center'}}>
@@ -532,8 +532,8 @@ function ExecEvolutionChart({nome,reunioes,visitas,movArr,metaMov}){
           <YAxis yAxisId="left" tick={{fontSize:9,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,'dataMax+2']}/>
           <YAxis yAxisId="right" orientation="right" tick={{fontSize:9,fill:COL_M,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,'dataMax+10']}/>
           <Tooltip content={<Tip/>}/>
-          {showReun&&<Line yAxisId="left" dataKey="reunioes" name="Reunioes c/ Decisor" stroke={COL_R} strokeWidth={2.5} type="monotone" dot={renderDot('reunioes',COL_R)} label={renderLabel('reunioes',COL_R)}/>}
-          {showVis&&<Line yAxisId="left" dataKey="visitas" name="Visitas" stroke={COL_V} strokeWidth={2.5} type="monotone" dot={renderDot('visitas',COL_V)} label={renderLabel('visitas',COL_V)}/>}
+          {showReun&&<Line yAxisId="left" dataKey="reunioes" name="Reunioes c/ Decisor" stroke={COL_R} strokeWidth={1.5} type="monotone" dot={renderDot('reunioes',COL_R)} label={renderLabel('reunioes',COL_R)}/>}
+          {showVis&&<Line yAxisId="left" dataKey="visitas" name="Visitas" stroke={COL_V} strokeWidth={1.5} type="monotone" dot={renderDot('visitas',COL_V)} label={renderLabel('visitas',COL_V)}/>}
           {showMov&&<Line yAxisId="right" dataKey="movimentacoes" name="Movimentacoes" stroke={COL_M} strokeWidth={2} strokeDasharray="5 3" type="monotone"
             dot={(props)=>{const{cx,cy,index}=props;const val=data[index].movimentacoes;const prev=index>0?data[index-1].movimentacoes:null;if(val===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={4} fill={COL_M} stroke="#fff" strokeWidth={1.5}/>;}}
             label={(props)=>{const{x,y,index}=props;const val=data[index].movimentacoes;const prev=index>0?data[index-1].movimentacoes:null;if(val===prev&&index>0)return null;return <text key={index} x={x} y={y-9} textAnchor="middle" fill={COL_M} fontSize={10} fontWeight={700} fontFamily={FONT}>{val}</text>;}}
@@ -541,7 +541,7 @@ function ExecEvolutionChart({nome,reunioes,visitas,movArr,metaMov}){
         </ComposedChart>
       </ResponsiveContainer>
       <div style={{marginTop:12,padding:'10px 12px',background:C.grayL,borderRadius:8}}>
-        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:5}}><span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta de Movimentacoes (Mar/26)</span><div style={{display:'flex',gap:8,alignItems:'center'}}><span style={{fontSize:12,fontWeight:800,color:COL_M}}>{totalMov}</span><span style={{fontSize:11,color:C.gray}}>/ {metaMov||'—'}</span><span style={{fontSize:11,fontWeight:700,color:pctMov>=100?C.green:C.gray}}>{metaMov?pctMov+'%':'—'}</span></div></div>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:5}}><span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta de Movimentacoes (Mar/26)</span><div style={{display:'flex',gap:8,alignItems:'center'}}><span style={{fontSize:12,fontWeight:600,color:COL_M}}>{totalMov}</span><span style={{fontSize:11,color:C.gray}}>/ {metaMov||'—'}</span><span style={{fontSize:11,fontWeight:700,color:pctMov>=100?C.green:C.gray}}>{metaMov?pctMov+'%':'—'}</span></div></div>
         <div style={{height:8,background:C.border,borderRadius:5,overflow:'hidden'}}><div style={{height:'100%',width:`${pctMov}%`,background:pctMov>=100?C.green:COL_M,borderRadius:5}}/></div>
         <div style={{display:'flex',justifyContent:'flex-end',marginTop:4}}><span style={{fontSize:10,color:faltamMov>0?C.red:C.green,fontWeight:600}}>{metaMov?(faltamMov>0?'Faltam '+faltamMov+' movimentacoes':'Meta atingida!'):'Meta a definir'}</span></div>
       </div>
@@ -557,8 +557,8 @@ function SDREvolutionChart(){
   const data=SDR_DAYS_LBL.map((dia,i)=>({dia,ligacao:ligAcc[i],email:emlAcc[i],whatsapp:whaAcc[i]}));
   const COL_L=C.orange,COL_E='#444444',COL_W='#AAAAAA';
   const mkDot=(key,col)=>(props)=>{const{cx,cy,index}=props;const val=data[index][key];const prev=index>0?data[index-1][key]:null;if(val===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={5} fill={col} stroke="#fff" strokeWidth={2}/>;};
-  const mkLabel=(key,col)=>(props)=>{const{x,y,index}=props;const val=data[index][key];const prev=index>0?data[index-1][key]:null;if(val===prev&&index>0)return null;return <text key={index} x={x} y={y-10} textAnchor="middle" fill={col} fontSize={10} fontWeight={800} fontFamily={FONT}>{val}</text>;};
-  const tagStyle=(active,col)=>({fontSize:10,fontWeight:800,cursor:'pointer',padding:'2px 8px',borderRadius:10,background:active?col+'18':'#F0F0F0',color:active?col:'#AAA',border:`1.5px solid ${active?col:'#DDD'}`,textDecoration:active?'none':'line-through'});
+  const mkLabel=(key,col)=>(props)=>{const{x,y,index}=props;const val=data[index][key];const prev=index>0?data[index-1][key]:null;if(val===prev&&index>0)return null;return <text key={index} x={x} y={y-10} textAnchor="middle" fill={col} fontSize={10} fontWeight={500} fontFamily={FONT}>{val}</text>;};
+  const tagStyle=(active,col)=>({fontSize:10,fontWeight:600,cursor:'pointer',padding:'2px 8px',borderRadius:10,background:active?col+'18':'#F0F0F0',color:active?col:'#AAA',border:`1.5px solid ${active?col:'#DDD'}`,textDecoration:active?'none':'line-through'});
   return(
     <Card title="Evolucao Diaria - Fabiana Vaz (SDR)">
       <div style={{display:'flex',gap:12,marginBottom:12,flexWrap:'wrap',alignItems:'center'}}>
@@ -577,8 +577,8 @@ function SDREvolutionChart(){
           <XAxis dataKey="dia" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
           <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,'dataMax+15']}/>
           <Tooltip content={<Tip/>}/>
-          {showLig&&<Line dataKey="ligacao" name="Ligacoes" stroke={COL_L} strokeWidth={2.5} type="monotone" dot={mkDot('ligacao',COL_L)} label={mkLabel('ligacao',COL_L)}/>}
-          {showEml&&<Line dataKey="email" name="E-mails" stroke={COL_E} strokeWidth={2.5} type="monotone" dot={mkDot('email',COL_E)} label={mkLabel('email',COL_E)}/>}
+          {showLig&&<Line dataKey="ligacao" name="Ligacoes" stroke={COL_L} strokeWidth={1.5} type="monotone" dot={mkDot('ligacao',COL_L)} label={mkLabel('ligacao',COL_L)}/>}
+          {showEml&&<Line dataKey="email" name="E-mails" stroke={COL_E} strokeWidth={1.5} type="monotone" dot={mkDot('email',COL_E)} label={mkLabel('email',COL_E)}/>}
           {showWha&&<Line dataKey="whatsapp" name="WhatsApp" stroke={COL_W} strokeWidth={2} strokeDasharray="5 3" type="monotone" dot={mkDot('whatsapp',COL_W)} label={mkLabel('whatsapp',COL_W)}/>}
         </ComposedChart>
       </ResponsiveContainer>
@@ -684,10 +684,10 @@ function InternoPage(){
   const pctCont=Math.min(Math.round(totalCanais/META_MES_CONT*100),100);
   const faltamCont=Math.max(0,META_MES_CONT-totalCanais);
   const mkAgendDot=(props)=>{const{cx,cy,index,value}=props;if(!value)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;const prev=index>0?diaMap[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={6} fill={COL_AG} stroke="#fff" strokeWidth={2}/>;};
-  const mkAgendLabel=(props)=>{const{x,y,index,value}=props;if(!value)return null;const prev=index>0?diaMap[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AG} fontSize={11} fontWeight={800} fontFamily={FONT}>{value}</text>;};
+  const mkAgendLabel=(props)=>{const{x,y,index,value}=props;if(!value)return null;const prev=index>0?diaMap[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AG} fontSize={11} fontWeight={500} fontFamily={FONT}>{value}</text>;};
   const COL_L=C.orange,COL_E='#444444',COL_W='#AAAAAA';
   const mkDot=(key,col)=>(props)=>{const{cx,cy,index}=props;const val=diaMap[index][key];const prev=index>0?diaMap[index-1][key]:null;if(val===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={5} fill={col} stroke="#fff" strokeWidth={2}/>;};
-  const mkLabel=(key,col)=>(props)=>{const{x,y,index}=props;const val=diaMap[index][key];const prev=index>0?diaMap[index-1][key]:null;if(val===prev&&index>0)return null;return <text key={index} x={x} y={y-10} textAnchor="middle" fill={col} fontSize={10} fontWeight={800} fontFamily={FONT}>{val||''}</text>;};
+  const mkLabel=(key,col)=>(props)=>{const{x,y,index}=props;const val=diaMap[index][key];const prev=index>0?diaMap[index-1][key]:null;if(val===prev&&index>0)return null;return <text key={index} x={x} y={y-10} textAnchor="middle" fill={col} fontSize={10} fontWeight={500} fontFamily={FONT}>{val||''}</text>;};
  
   return(<div style={{display:'flex',flexDirection:'column',gap:11,fontFamily:FONT}}>
     {/* ── HEADER ── */}
@@ -736,7 +736,7 @@ function InternoPage(){
           <Bar yAxisId="left" dataKey="ligacao" name="Ligacao" stackId="a" fill={C.orange} barSize={40}><LabelList dataKey="ligacao" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
           <Bar yAxisId="left" dataKey="email" name="E-mail" stackId="a" fill="#444444" barSize={40}><LabelList dataKey="email" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
           <Bar yAxisId="left" dataKey="whatsapp" name="WhatsApp" stackId="a" fill="#AAAAAA" radius={[4,4,0,0]} barSize={40}><LabelList dataKey="whatsapp" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
-          <Line yAxisId="right" dataKey="agendamentosAcum" name="Agend. Acumulados" stroke={COL_AG} strokeWidth={2.5} type="monotone" connectNulls={true} dot={mkAgendDot} label={mkAgendLabel}/>
+          <Line yAxisId="right" dataKey="agendamentosAcum" name="Agend. Acumulados" stroke={COL_AG} strokeWidth={1.5} type="monotone" connectNulls={true} dot={mkAgendDot} label={mkAgendLabel}/>
         </ComposedChart>
       </ResponsiveContainer>
     </Card>
@@ -748,7 +748,7 @@ function InternoPage(){
       const atual=totalAgend;
       const chartData=ALL_DAYS_MAR.map((d,i)=>({dia:String(parseInt(d.slice(8)))+'/mar',real:tatAgendAcum[i]}));
       const mkDotR=(props)=>{const{cx,cy,index,value}=props;const prev=index>0?chartData[index-1]?.real:null;if(value===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={6} fill={COL_AG} stroke="#fff" strokeWidth={2}/>;};
-      const mkLblR=(props)=>{const{x,y,index,value}=props;const prev=index>0?chartData[index-1]?.real:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AG} fontSize={12} fontWeight={800} fontFamily={FONT}>{value}</text>;};
+      const mkLblR=(props)=>{const{x,y,index,value}=props;const prev=index>0?chartData[index-1]?.real:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AG} fontSize={12} fontWeight={500} fontFamily={FONT}>{value}</text>;};
       return(
         <Card title="Agendamentos Acumulados vs Metas — Tatiane Gomes">
           <ResponsiveContainer width="100%" height={260}>
@@ -760,11 +760,11 @@ function InternoPage(){
               <ReferenceLine y={20} stroke={C.orange} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 20',fill:C.orange,fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
               <ReferenceLine y={40} stroke={C.gray}   strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 40',fill:C.gray,  fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
               <ReferenceLine y={60} stroke="#AAAAAA"  strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 60',fill:'#AAAAAA',fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
-              <Line dataKey="real" name="Acumulado Real" stroke={COL_AG} strokeWidth={2.5} type="monotone" connectNulls dot={mkDotR} label={mkLblR}/>
+              <Line dataKey="real" name="Acumulado Real" stroke={COL_AG} strokeWidth={1.5} type="monotone" connectNulls dot={mkDotR} label={mkLblR}/>
             </ComposedChart>
           </ResponsiveContainer>
           <div style={{marginTop:12,display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}}>
-            {METAS.map((m,i)=>{const falta=Math.max(0,m-atual);const atingida=atual>=m;const pct=Math.min(Math.round(atual/m*100),100);const cor=CORES[i];return(<div key={m} style={{borderRadius:6,padding:'9px 12px',background:atingida?C.gL:'#FAFAFA',border:`1px solid ${atingida?C.green:cor}`,display:'flex',flexDirection:'column',gap:5}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><span style={{fontSize:9,fontWeight:700,color:cor,textTransform:'uppercase',letterSpacing:'0.06em'}}>Meta {m}</span>{atingida&&<span style={{fontSize:10,fontWeight:800,color:C.green}}>✓ Atingida</span>}</div><div style={{display:'flex',alignItems:'baseline',gap:5}}><span style={{fontSize:20,fontWeight:800,color:atingida?C.green:C.text,lineHeight:1}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {m}</span><span style={{fontSize:10,fontWeight:700,color:atingida?C.green:cor,marginLeft:'auto'}}>{pct}%</span></div><div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:atingida?C.green:cor,borderRadius:3}}/></div><div style={{fontSize:10,color:atingida?C.green:C.red,fontWeight:600,textAlign:'right'}}>{atingida?'Meta atingida!':'Faltam '+falta}</div></div>);})}
+            {METAS.map((m,i)=>{const falta=Math.max(0,m-atual);const atingida=atual>=m;const pct=Math.min(Math.round(atual/m*100),100);const cor=CORES[i];return(<div key={m} style={{borderRadius:6,padding:'9px 12px',background:atingida?C.gL:'#FAFAFA',border:`1px solid ${atingida?C.green:cor}`,display:'flex',flexDirection:'column',gap:5}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><span style={{fontSize:9,fontWeight:700,color:cor,textTransform:'uppercase',letterSpacing:'0.06em'}}>Meta {m}</span>{atingida&&<span style={{fontSize:10,fontWeight:600,color:C.green}}>✓ Atingida</span>}</div><div style={{display:'flex',alignItems:'baseline',gap:5}}><span style={{fontSize:20,fontWeight:600,color:atingida?C.green:C.text,lineHeight:1}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {m}</span><span style={{fontSize:10,fontWeight:700,color:atingida?C.green:cor,marginLeft:'auto'}}>{pct}%</span></div><div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:atingida?C.green:cor,borderRadius:3}}/></div><div style={{fontSize:10,color:atingida?C.green:C.red,fontWeight:600,textAlign:'right'}}>{atingida?'Meta atingida!':'Faltam '+falta}</div></div>);})}
           </div>
         </Card>
       );
@@ -786,9 +786,9 @@ function InternoPage(){
           <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_E,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_E}}/><span style={{fontSize:10,fontWeight:700,color:COL_E}}>E-mails</span></div>
           <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_W,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_W}}/><span style={{fontSize:10,fontWeight:700,color:COL_W}}>WhatsApp</span></div>
           <div style={{marginLeft:'auto',display:'flex',gap:8}}>
-            <span style={{fontSize:10,fontWeight:800,padding:'2px 8px',borderRadius:10,background:COL_L+'18',color:COL_L,border:`1.5px solid ${COL_L}`}}>{totalLig} lig.</span>
-            <span style={{fontSize:10,fontWeight:800,padding:'2px 8px',borderRadius:10,background:COL_E+'18',color:COL_E,border:`1.5px solid ${COL_E}`}}>{totalEml} email</span>
-            <span style={{fontSize:10,fontWeight:800,padding:'2px 8px',borderRadius:10,background:'#AAAAAA18',color:COL_W,border:`1.5px solid ${COL_W}`}}>{totalWha} whats</span>
+            <span style={{fontSize:10,fontWeight:600,padding:'2px 8px',borderRadius:10,background:COL_L+'18',color:COL_L,border:`1.5px solid ${COL_L}`}}>{totalLig} lig.</span>
+            <span style={{fontSize:10,fontWeight:600,padding:'2px 8px',borderRadius:10,background:COL_E+'18',color:COL_E,border:`1.5px solid ${COL_E}`}}>{totalEml} email</span>
+            <span style={{fontSize:10,fontWeight:600,padding:'2px 8px',borderRadius:10,background:'#AAAAAA18',color:COL_W,border:`1.5px solid ${COL_W}`}}>{totalWha} whats</span>
           </div>
         </div>
         <ResponsiveContainer width="100%" height={240}>
@@ -797,8 +797,8 @@ function InternoPage(){
             <XAxis dataKey="dia" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
             <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,'dataMax+15']}/>
             <Tooltip content={<Tip/>}/>
-            <Line dataKey="ligacao" name="Ligacoes" stroke={COL_L} strokeWidth={2.5} type="monotone" dot={mkDot('ligacao',COL_L)} label={mkLabel('ligacao',COL_L)}/>
-            <Line dataKey="email" name="E-mails" stroke={COL_E} strokeWidth={2.5} type="monotone" dot={mkDot('email',COL_E)} label={mkLabel('email',COL_E)}/>
+            <Line dataKey="ligacao" name="Ligacoes" stroke={COL_L} strokeWidth={1.5} type="monotone" dot={mkDot('ligacao',COL_L)} label={mkLabel('ligacao',COL_L)}/>
+            <Line dataKey="email" name="E-mails" stroke={COL_E} strokeWidth={1.5} type="monotone" dot={mkDot('email',COL_E)} label={mkLabel('email',COL_E)}/>
             <Line dataKey="whatsapp" name="WhatsApp" stroke={COL_W} strokeWidth={2} strokeDasharray="5 3" type="monotone" dot={mkDot('whatsapp',COL_W)} label={mkLabel('whatsapp',COL_W)}/>
           </ComposedChart>
         </ResponsiveContainer>
@@ -810,7 +810,7 @@ function InternoPage(){
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}>
         <span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span>
         <div style={{display:'flex',gap:10,alignItems:'center'}}>
-          <span style={{fontSize:12,fontWeight:800,color:C.orange}}>{totalCanais}</span>
+          <span style={{fontSize:12,fontWeight:600,color:C.orange}}>{totalCanais}</span>
           <span style={{fontSize:11,color:C.gray}}>/ {META_MES_CONT}</span>
           <span style={{fontSize:11,fontWeight:700,color:pctCont>=100?C.green:C.gray}}>{pctCont}%</span>
         </div>
@@ -846,7 +846,7 @@ function InternoPage(){
                 <XAxis dataKey="label" tick={{fontSize:11,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
                 <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false}/>
                 <Tooltip content={<Tip/>}/>
-                <Bar dataKey="value" name="Qtd." radius={[5,5,0,0]} barSize={52}>{[C.orange,C.green,C.gray].map((f,i)=>(<Cell key={i} fill={f}/>))}<LabelList dataKey="value" position="top" style={{fontSize:13,fontWeight:800}}/></Bar>
+                <Bar dataKey="value" name="Qtd." radius={[5,5,0,0]} barSize={52}>{[C.orange,C.green,C.gray].map((f,i)=>(<Cell key={i} fill={f}/>))}<LabelList dataKey="value" position="top" style={{fontSize:13,fontWeight:600}}/></Bar>
               </BarChart>
             </ResponsiveContainer>
           </Card>
@@ -858,14 +858,14 @@ function InternoPage(){
                 <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} domain={[0,'dataMax+5']}/>
                 <Tooltip content={<Tip/>}/>
                 <ReferenceLine y={META_DIA} stroke={C.green} strokeWidth={2} strokeDasharray="5 3" label={{value:'Meta 25',fill:C.green,fontSize:10,position:'insideTopRight',fontWeight:700}}/>
-                <Bar dataKey="mov" name="Movimentacoes" radius={[5,5,0,0]} barSize={52}>{TATIANE_MOV.map((d,i)=>(<Cell key={i} fill={d.mov>=META_DIA?C.green:C.orange}/>))}<LabelList dataKey="mov" position="top" style={{fontSize:11,fontWeight:800}}/></Bar>
+                <Bar dataKey="mov" name="Movimentacoes" radius={[5,5,0,0]} barSize={52}>{TATIANE_MOV.map((d,i)=>(<Cell key={i} fill={d.mov>=META_DIA?C.green:C.orange}/>))}<LabelList dataKey="mov" position="top" style={{fontSize:11,fontWeight:500}}/></Bar>
               </BarChart>
             </ResponsiveContainer>
             <div style={{marginTop:14,padding:'12px 14px',background:C.grayL,borderRadius:8}}>
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}>
                 <span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span>
                 <div style={{display:'flex',gap:10,alignItems:'center'}}>
-                  <span style={{fontSize:12,fontWeight:800,color:C.orange}}>{tatTotalMov}</span>
+                  <span style={{fontSize:12,fontWeight:600,color:C.orange}}>{tatTotalMov}</span>
                   <span style={{fontSize:11,color:C.gray}}>/ 500</span>
                   <span style={{fontSize:11,fontWeight:700,color:C.gray}}>{Math.min(Math.round(tatTotalMov/500*100),100)}%</span>
                 </div>
@@ -938,7 +938,7 @@ function SDRPage({dateIni,dateFim}){
   const faltamProx=proxFaixa?proxFaixa.min-totalAgend:0;
   const subTabs=[{id:'overview',l:'Overview'},{id:'canais',l:'Canais'},{id:'empresas',l:'Empresas'},{id:'agendamentos',l:'Agendamentos'},{id:'bonificacao',l:'Bonificacao'}];
   const mkAgendDot=(props)=>{const{cx,cy,index,value}=props;if(value===null||value===undefined)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;const prev=index>0?diaMap[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={6} fill={COL_AGEND_ACUM} stroke="#fff" strokeWidth={2}/>;};
-  const mkAgendLabel=(props)=>{const{x,y,index,value}=props;if(value===null||value===undefined)return null;const prev=index>0?diaMap[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AGEND_ACUM} fontSize={11} fontWeight={800} fontFamily={FONT}>{value}</text>;};
+  const mkAgendLabel=(props)=>{const{x,y,index,value}=props;if(value===null||value===undefined)return null;const prev=index>0?diaMap[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AGEND_ACUM} fontSize={11} fontWeight={500} fontFamily={FONT}>{value}</text>;};
  
   return(<div style={{display:'flex',flexDirection:'column',gap:11,fontFamily:FONT}}>
     <div style={{background:C.dark,borderRadius:8,padding:'14px 20px',boxShadow:C.shadow,display:'flex',alignItems:'center',gap:14,flexWrap:'wrap'}}>
@@ -965,7 +965,7 @@ function SDRPage({dateIni,dateFim}){
                 <Bar yAxisId="left" dataKey="ligacao" name="Ligacao" stackId="a" fill={C.orange} barSize={40}><LabelList dataKey="ligacao" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
                 <Bar yAxisId="left" dataKey="email" name="E-mail" stackId="a" fill="#444444" barSize={40}><LabelList dataKey="email" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
                 <Bar yAxisId="left" dataKey="whatsapp" name="WhatsApp" stackId="a" fill="#AAAAAA" radius={[4,4,0,0]} barSize={40}><LabelList dataKey="whatsapp" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
-                <Line yAxisId="right" dataKey="agendamentosAcum" name="Agend. Acumulados" stroke={COL_AGEND_ACUM} strokeWidth={2.5} type="monotone" connectNulls={true} dot={mkAgendDot} label={mkAgendLabel}/>
+                <Line yAxisId="right" dataKey="agendamentosAcum" name="Agend. Acumulados" stroke={COL_AGEND_ACUM} strokeWidth={1.5} type="monotone" connectNulls={true} dot={mkAgendDot} label={mkAgendLabel}/>
               </ComposedChart>
             </ResponsiveContainer>
           </Card>
@@ -976,7 +976,7 @@ function SDRPage({dateIni,dateFim}){
             const agendChartData=SDR_ATIV_DATES.map((date,i)=>({dia:date.slice(8).replace(/^0/,'')+'/mar',real:SDR_AGEND_ACUM[i],meta1:20,meta2:40,meta3:60}));
             const atual=totalAgend;
             const mkDotReal=(props)=>{const{cx,cy,index,value}=props;const prev=index>0?agendChartData[index-1]?.real:null;if(value===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={6} fill={COL_AGEND_ACUM} stroke="#fff" strokeWidth={2}/>;};
-            const mkLabelReal=(props)=>{const{x,y,index,value}=props;const prev=index>0?agendChartData[index-1]?.real:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AGEND_ACUM} fontSize={12} fontWeight={800} fontFamily={FONT}>{value}</text>;};
+            const mkLabelReal=(props)=>{const{x,y,index,value}=props;const prev=index>0?agendChartData[index-1]?.real:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AGEND_ACUM} fontSize={12} fontWeight={500} fontFamily={FONT}>{value}</text>;};
             return(
               <Card title="Agendamentos Acumulados vs Metas — Fabiana Vaz">
                 <ResponsiveContainer width="100%" height={260}>
@@ -985,11 +985,11 @@ function SDRPage({dateIni,dateFim}){
                     <ReferenceLine y={20} stroke={COL_M1} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 20',fill:COL_M1,fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
                     <ReferenceLine y={40} stroke={COL_M2} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 40',fill:COL_M2,fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
                     <ReferenceLine y={60} stroke={COL_M3} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 60',fill:COL_M3,fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
-                    <Line dataKey="real" name="Acumulado Real" stroke={COL_AGEND_ACUM} strokeWidth={2.5} type="monotone" connectNulls dot={mkDotReal} label={mkLabelReal}/>
+                    <Line dataKey="real" name="Acumulado Real" stroke={COL_AGEND_ACUM} strokeWidth={1.5} type="monotone" connectNulls dot={mkDotReal} label={mkLabelReal}/>
                   </ComposedChart>
                 </ResponsiveContainer>
                 <div style={{marginTop:12,display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}}>
-                  {METAS_SDR.map((m,i)=>{const falta=Math.max(0,m-atual);const atingida=atual>=m;const pct=Math.min(Math.round(atual/m*100),100);const cor=metaCores[i];return(<div key={m} style={{borderRadius:6,padding:'9px 12px',background:atingida?C.gL:'#FAFAFA',border:`1px solid ${atingida?C.green:cor}`,display:'flex',flexDirection:'column',gap:5}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><span style={{fontSize:9,fontWeight:700,color:cor,textTransform:'uppercase',letterSpacing:'0.06em'}}>Meta {m}</span>{atingida&&<span style={{fontSize:10,fontWeight:800,color:C.green}}>✓ Atingida</span>}</div><div style={{display:'flex',alignItems:'baseline',gap:5}}><span style={{fontSize:20,fontWeight:800,color:atingida?C.green:C.text,lineHeight:1}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {m}</span><span style={{fontSize:10,fontWeight:700,color:atingida?C.green:cor,marginLeft:'auto'}}>{pct}%</span></div><div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:atingida?C.green:cor,borderRadius:3}}/></div><div style={{fontSize:10,color:atingida?C.green:C.red,fontWeight:600,textAlign:'right'}}>{atingida?'Meta atingida!':'Faltam '+falta}</div></div>);})}
+                  {METAS_SDR.map((m,i)=>{const falta=Math.max(0,m-atual);const atingida=atual>=m;const pct=Math.min(Math.round(atual/m*100),100);const cor=metaCores[i];return(<div key={m} style={{borderRadius:6,padding:'9px 12px',background:atingida?C.gL:'#FAFAFA',border:`1px solid ${atingida?C.green:cor}`,display:'flex',flexDirection:'column',gap:5}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><span style={{fontSize:9,fontWeight:700,color:cor,textTransform:'uppercase',letterSpacing:'0.06em'}}>Meta {m}</span>{atingida&&<span style={{fontSize:10,fontWeight:600,color:C.green}}>✓ Atingida</span>}</div><div style={{display:'flex',alignItems:'baseline',gap:5}}><span style={{fontSize:20,fontWeight:600,color:atingida?C.green:C.text,lineHeight:1}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {m}</span><span style={{fontSize:10,fontWeight:700,color:atingida?C.green:cor,marginLeft:'auto'}}>{pct}%</span></div><div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:atingida?C.green:cor,borderRadius:3}}/></div><div style={{fontSize:10,color:atingida?C.green:C.red,fontWeight:600,textAlign:'right'}}>{atingida?'Meta atingida!':'Faltam '+falta}</div></div>);})}
                 </div>
               </Card>
             );
@@ -1000,11 +1000,11 @@ function SDRPage({dateIni,dateFim}){
           </div>
         </div>)}
         {subSDR==='canais'&&(<div style={{display:'flex',flexDirection:'column',gap:11}}>
-          <div style={{display:'flex',gap:9}}>{canalInfo.map(d=>(<div key={d.canal} style={{flex:1,background:C.white,borderRadius:8,padding:'20px',border:`2px solid ${d.fill}`,textAlign:'center',boxShadow:C.shadow}}><div style={{fontSize:32,marginBottom:8}}>{d.icon}</div><div style={{fontSize:36,fontWeight:800,color:d.fill,lineHeight:1}}>{d.qtd}</div><div style={{fontSize:13,fontWeight:700,color:C.text,marginTop:6}}>{d.canal}</div><div style={{fontSize:11,color:C.gray,marginTop:2}}>{d.pct}% do total</div><div style={{marginTop:10,height:8,background:C.grayL,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${d.pct}%`,background:d.fill,borderRadius:4}}/></div></div>))}</div>
+          <div style={{display:'flex',gap:9}}>{canalInfo.map(d=>(<div key={d.canal} style={{flex:1,background:C.white,borderRadius:8,padding:'20px',border:`2px solid ${d.fill}`,textAlign:'center',boxShadow:C.shadow}}><div style={{fontSize:32,marginBottom:8}}>{d.icon}</div><div style={{fontSize:36,fontWeight:600,color:d.fill,lineHeight:1}}>{d.qtd}</div><div style={{fontSize:13,fontWeight:700,color:C.text,marginTop:6}}>{d.canal}</div><div style={{fontSize:11,color:C.gray,marginTop:2}}>{d.pct}% do total</div><div style={{marginTop:10,height:8,background:C.grayL,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${d.pct}%`,background:d.fill,borderRadius:4}}/></div></div>))}</div>
         </div>)}
         {subSDR==='empresas'&&(<div style={{display:'flex',flexDirection:'column',gap:11}}>
           <div style={{display:'flex',gap:9}}><KPICard title="Empresas Contactadas" value={empresaMap.length} icon="🏢"/><KPICard title="Maior Volume" value={empresaMap[0]?empresaMap[0].total:0} icon="🔝" note={empresaMap[0]?empresaMap[0].empresa.split(' ').slice(0,2).join(' '):''}/><KPICard title="So Ligacao" value={empresaMap.filter(e=>e.ligacao>0&&e.email===0).length} icon="📞" note="empresas"/><KPICard title="So E-mail" value={empresaMap.filter(e=>e.email>0&&e.ligacao===0).length} icon="✉️" note="empresas"/><KPICard title="Multi-canal" value={nMultiCanal} icon="🔀" note="ligacao + e-mail"/></div>
-          <Card title={"Atividades por Empresa - "+empresaMap.length+" empresas"}><div style={{overflowX:'auto',borderRadius:5,border:`1px solid ${C.border}`}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11,fontFamily:FONT}}><TblHead cols={['Empresa','Total','Lig.','Email','WhatsApp','Canal']}/><tbody>{empresaMap.map((r,i)=>{const multi=r.ligacao>0&&r.email>0;return(<tr key={i} style={tRow(i)}><td style={{padding:'6px 10px',fontWeight:600,color:C.text,maxWidth:240,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{r.empresa}</td><td style={{padding:'6px 10px',fontWeight:800,fontSize:14,color:C.orange}}>{r.total}</td><td style={{padding:'6px 10px',textAlign:'center'}}>{r.ligacao>0?<span style={{fontWeight:700,color:C.orange,fontSize:13}}>{r.ligacao}</span>:<span style={{color:'#DDD'}}>-</span>}</td><td style={{padding:'6px 10px',textAlign:'center'}}>{r.email>0?<span style={{fontWeight:700,color:'#444',fontSize:13}}>{r.email}</span>:<span style={{color:'#DDD'}}>-</span>}</td><td style={{padding:'6px 10px',textAlign:'center'}}>{r.whatsapp>0?<span style={{fontWeight:700,color:'#AAA',fontSize:13}}>{r.whatsapp}</span>:<span style={{color:'#DDD'}}>-</span>}</td><td style={{padding:'6px 10px'}}>{multi?<Badge label="Multi" color={C.teal} bg={'#E0F2F1'}/>:<Badge label={r.ligacao>0?'Ligacao':r.whatsapp>0?'WhatsApp':'E-mail'} color={r.ligacao>0?C.orange:r.whatsapp>0?'#AAA':'#444'} bg={r.ligacao>0?C.oL:r.whatsapp>0?C.grayL:'#EBEBEB'}/>}</td></tr>);})}</tbody></table></div></Card>
+          <Card title={"Atividades por Empresa - "+empresaMap.length+" empresas"}><div style={{overflowX:'auto',borderRadius:5,border:`1px solid ${C.border}`}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11,fontFamily:FONT}}><TblHead cols={['Empresa','Total','Lig.','Email','WhatsApp','Canal']}/><tbody>{empresaMap.map((r,i)=>{const multi=r.ligacao>0&&r.email>0;return(<tr key={i} style={tRow(i)}><td style={{padding:'6px 10px',fontWeight:600,color:C.text,maxWidth:240,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{r.empresa}</td><td style={{padding:'6px 10px',fontWeight:600,fontSize:14,color:C.orange}}>{r.total}</td><td style={{padding:'6px 10px',textAlign:'center'}}>{r.ligacao>0?<span style={{fontWeight:700,color:C.orange,fontSize:13}}>{r.ligacao}</span>:<span style={{color:'#DDD'}}>-</span>}</td><td style={{padding:'6px 10px',textAlign:'center'}}>{r.email>0?<span style={{fontWeight:700,color:'#444',fontSize:13}}>{r.email}</span>:<span style={{color:'#DDD'}}>-</span>}</td><td style={{padding:'6px 10px',textAlign:'center'}}>{r.whatsapp>0?<span style={{fontWeight:700,color:'#AAA',fontSize:13}}>{r.whatsapp}</span>:<span style={{color:'#DDD'}}>-</span>}</td><td style={{padding:'6px 10px'}}>{multi?<Badge label="Multi" color={C.teal} bg={'#E0F2F1'}/>:<Badge label={r.ligacao>0?'Ligacao':r.whatsapp>0?'WhatsApp':'E-mail'} color={r.ligacao>0?C.orange:r.whatsapp>0?'#AAA':'#444'} bg={r.ligacao>0?C.oL:r.whatsapp>0?C.grayL:'#EBEBEB'}/>}</td></tr>);})}</tbody></table></div></Card>
         </div>)}
         {subSDR==='agendamentos'&&(<div style={{display:'flex',flexDirection:'column',gap:11}}>
           <div style={{display:'flex',gap:9}}><KPICard title="Total Movs." value={totalMov} icon="🔄" note={movFilt.length+' dias'}/><KPICard title="Media/Dia" value={mediaMov} icon="📈" note={'Meta: '+META_DIA+'/dia'}/><KPICard title="Agendamentos" value={totalAgend} icon="📅" note={'Meta: '+META_AGEND_MES}/><KPICard title="Conversao" value={txConv+'%'} icon="🎯" note={totalReal+' realizadas'}/></div>
@@ -1016,7 +1016,7 @@ function SDRPage({dateIni,dateFim}){
                   <XAxis dataKey="label" tick={{fontSize:11,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
                   <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false}/>
                   <Tooltip content={<Tip/>}/>
-                  <Bar dataKey="value" name="Qtd." radius={[5,5,0,0]} barSize={52}>{[C.orange,C.green,C.gray].map((f,i)=>(<Cell key={i} fill={f}/>))}<LabelList dataKey="value" position="top" style={{fontSize:13,fontWeight:800}}/></Bar>
+                  <Bar dataKey="value" name="Qtd." radius={[5,5,0,0]} barSize={52}>{[C.orange,C.green,C.gray].map((f,i)=>(<Cell key={i} fill={f}/>))}<LabelList dataKey="value" position="top" style={{fontSize:13,fontWeight:600}}/></Bar>
                 </BarChart>
               </ResponsiveContainer>
             </Card>
@@ -1028,10 +1028,10 @@ function SDRPage({dateIni,dateFim}){
                   <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} domain={[0,'dataMax+5']}/>
                   <Tooltip content={<Tip/>}/>
                   <ReferenceLine y={META_DIA} stroke={C.green} strokeWidth={2} strokeDasharray="5 3" label={{value:'Meta 25',fill:C.green,fontSize:10,position:'insideTopRight',fontWeight:700}}/>
-                  <Bar dataKey="mov" name="Movimentacoes" radius={[5,5,0,0]} barSize={36}>{movFilt.map((d,i)=>{const col=d.mov>=META_DIA?C.green:d.mov>=11?C.amber:C.red;return(<Cell key={i} fill={col}/>);})}<LabelList dataKey="mov" position="top" style={{fontSize:11,fontWeight:800}}/></Bar>
+                  <Bar dataKey="mov" name="Movimentacoes" radius={[5,5,0,0]} barSize={36}>{movFilt.map((d,i)=>{const col=d.mov>=META_DIA?C.green:d.mov>=11?C.amber:C.red;return(<Cell key={i} fill={col}/>);})}<LabelList dataKey="mov" position="top" style={{fontSize:11,fontWeight:500}}/></Bar>
                 </BarChart>
               </ResponsiveContainer>
-              {(()=>{const META_MES=500;const atual=movFilt.reduce((a,d)=>a+d.mov,0);const pct=Math.min(Math.round(atual/META_MES*100),100);const faltam=Math.max(0,META_MES-atual);return(<div style={{marginTop:14,padding:'12px 14px',background:C.grayL,borderRadius:8}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}><span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span><div style={{display:'flex',gap:10,alignItems:'center'}}><span style={{fontSize:12,fontWeight:800,color:C.orange}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {META_MES}</span><span style={{fontSize:11,fontWeight:700,color:pct>=100?C.green:C.gray}}>{pct}%</span></div></div><div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:pct>=100?C.green:C.orange,borderRadius:6}}/></div><div style={{display:'flex',justifyContent:'space-between',marginTop:5}}><span style={{fontSize:10,color:C.gray}}>125 interacoes/semana - 25/dia</span><span style={{fontSize:10,color:faltam>0?C.red:C.green,fontWeight:600}}>{faltam>0?'Faltam '+faltam+' contatos':'Meta atingida!'}</span></div></div>);})()}
+              {(()=>{const META_MES=500;const atual=movFilt.reduce((a,d)=>a+d.mov,0);const pct=Math.min(Math.round(atual/META_MES*100),100);const faltam=Math.max(0,META_MES-atual);return(<div style={{marginTop:14,padding:'12px 14px',background:C.grayL,borderRadius:8}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}><span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span><div style={{display:'flex',gap:10,alignItems:'center'}}><span style={{fontSize:12,fontWeight:600,color:C.orange}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {META_MES}</span><span style={{fontSize:11,fontWeight:700,color:pct>=100?C.green:C.gray}}>{pct}%</span></div></div><div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:pct>=100?C.green:C.orange,borderRadius:6}}/></div><div style={{display:'flex',justifyContent:'space-between',marginTop:5}}><span style={{fontSize:10,color:C.gray}}>125 interacoes/semana - 25/dia</span><span style={{fontSize:10,color:faltam>0?C.red:C.green,fontWeight:600}}>{faltam>0?'Faltam '+faltam+' contatos':'Meta atingida!'}</span></div></div>);})()}
             </Card>
           </div>
           {selDia&&(()=>{const dayAtiv=SDR_ATIV.filter(d=>d.data===selDia);const ligs=dayAtiv.filter(d=>d.canal==='ligacao');const emls=dayAtiv.filter(d=>d.canal==='email');const whas=dayAtiv.filter(d=>d.canal==='whatsapp');const comps=[...new Set(dayAtiv.map(d=>d.empresa))];return(<Card title={'Detalhe — '+selDia.split('-').slice(1).reverse().join('/')+'  ·  '+dayAtiv.length+' atividades  ·  '+comps.length+' empresas'} action={<button onClick={()=>setSelDia(null)} style={{fontSize:10,padding:'2px 8px',borderRadius:6,border:'1px solid '+C.red,background:C.rL,color:C.red,cursor:'pointer',fontFamily:FONT}}>× Fechar</button>}><div style={{display:'flex',gap:8,marginBottom:10,flexWrap:'wrap'}}><span style={{fontSize:11,fontWeight:700,color:C.orange,background:C.oL,padding:'3px 10px',borderRadius:6}}>{'📞 '+ligs.length+' ligações'}</span><span style={{fontSize:11,fontWeight:700,color:'#444',background:'#EBEBEB',padding:'3px 10px',borderRadius:6}}>{'✉️ '+emls.length+' e-mails'}</span><span style={{fontSize:11,fontWeight:700,color:'#888',background:'#F5F5F5',padding:'3px 10px',borderRadius:6}}>{'💬 '+whas.length+' WhatsApp'}</span></div><div style={{display:'flex',flexWrap:'wrap',gap:5}}>{comps.map((emp,i)=>{const ch=dayAtiv.filter(d=>d.empresa===emp);const hasL=ch.some(d=>d.canal==='ligacao'),hasE=ch.some(d=>d.canal==='email'),hasW=ch.some(d=>d.canal==='whatsapp');return(<span key={i} style={{fontSize:10,padding:'2px 8px',borderRadius:10,background:hasL&&hasE?'#E0F2F1':hasL?C.oL:hasE?'#EBEBEB':'#F5F5F5',color:hasL&&hasE?'#00695C':hasL?C.orange:hasE?'#444':'#888',fontWeight:600}}>{emp+(hasL?' 📞':'')+(hasE?' ✉️':'')+(hasW?' 💬':'')}</span>);})} </div></Card>);})()}
@@ -1041,7 +1041,7 @@ function SDRPage({dateIni,dateFim}){
           <Card title="Bonificacao por Agendamentos - Marco/2026"><div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
             <div><div style={{fontSize:10,fontWeight:700,color:C.gray,textTransform:'uppercase',letterSpacing:'0.07em',marginBottom:8}}>Tabela de Faixas</div><div style={{borderRadius:6,overflow:'hidden',border:`1px solid ${C.border}`}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11,fontFamily:FONT}}><thead><tr style={{background:C.grayL,borderBottom:`1px solid ${C.border}`}}><th style={{padding:'7px 12px',color:'#999',fontWeight:600,fontSize:9,textTransform:'uppercase',letterSpacing:'0.05em',textAlign:'center'}}>Volume</th><th style={{padding:'7px 12px',color:'#999',fontWeight:600,fontSize:9,textTransform:'uppercase',letterSpacing:'0.05em',textAlign:'center'}}>R$/Reuniao</th><th style={{padding:'7px 12px',color:'#999',fontWeight:600,fontSize:9,textTransform:'uppercase',letterSpacing:'0.05em',textAlign:'center'}}>Cenario</th></tr></thead><tbody>{BONIF.map((b,i)=>{const ativa=faixa&&faixa.min===b.min;return(<tr key={i} style={{background:ativa?C.oL:i%2===0?C.white:C.grayL,borderBottom:`1px solid ${C.border}`,fontWeight:ativa?700:400}}><td style={{padding:'9px 12px',color:ativa?C.orange:C.text,textAlign:'center'}}>{b.min}-{b.max}</td><td style={{padding:'9px 12px',textAlign:'center',color:ativa?C.orange:C.text}}>R$ {b.valor},00</td><td style={{padding:'9px 12px',textAlign:'center',color:ativa?C.orange:C.text}}>R$ {b.cenario.toLocaleString('pt-BR')}</td></tr>);})}</tbody></table></div></div>
             <div style={{display:'flex',flexDirection:'column',gap:10}}>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}><div style={{background:C.oL,borderRadius:8,padding:'12px 14px',textAlign:'center',border:`1.5px solid ${C.orange}`}}><div style={{fontSize:10,color:C.gray,textTransform:'uppercase',fontWeight:700,marginBottom:4}}>Agendamentos</div><div style={{fontSize:24,fontWeight:800,color:C.orange}}>{totalAgend}</div></div><div style={{background:C.gL,borderRadius:8,padding:'12px 14px',textAlign:'center',border:`1.5px solid ${C.green}`}}><div style={{fontSize:10,color:C.gray,textTransform:'uppercase',fontWeight:700,marginBottom:4}}>Bonif. Atual</div><div style={{fontSize:20,fontWeight:800,color:C.green}}>R$ {bonifAtual.toLocaleString('pt-BR')}</div></div></div>
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}><div style={{background:C.oL,borderRadius:8,padding:'12px 14px',textAlign:'center',border:`1.5px solid ${C.orange}`}}><div style={{fontSize:10,color:C.gray,textTransform:'uppercase',fontWeight:700,marginBottom:4}}>Agendamentos</div><div style={{fontSize:24,fontWeight:600,color:C.orange}}>{totalAgend}</div></div><div style={{background:C.gL,borderRadius:8,padding:'12px 14px',textAlign:'center',border:`1.5px solid ${C.green}`}}><div style={{fontSize:10,color:C.gray,textTransform:'uppercase',fontWeight:700,marginBottom:4}}>Bonif. Atual</div><div style={{fontSize:20,fontWeight:600,color:C.green}}>R$ {bonifAtual.toLocaleString('pt-BR')}</div></div></div>
               {faixa&&<div><div style={{display:'flex',justifyContent:'space-between',marginBottom:4}}><span style={{fontSize:11,fontWeight:600}}>Progresso ({faixa.min}-{faixa.max})</span><span style={{fontSize:11,color:C.gray}}><strong style={{color:C.orange}}>{totalAgend}</strong>/{faixa.max}</span></div><div style={{height:10,background:C.grayL,borderRadius:5,overflow:'hidden'}}><div style={{height:'100%',width:`${pctFaixa}%`,background:C.orange,borderRadius:5}}/></div></div>}
               {proxFaixa&&faltamProx>0&&<div style={{background:C.grayL,borderRadius:8,padding:'10px 14px'}}><div style={{fontSize:10,color:C.gray,textTransform:'uppercase',fontWeight:700,marginBottom:4}}>Proxima Faixa</div><div style={{fontSize:12,color:C.text}}>Faltam <strong style={{color:C.orange}}>{faltamProx}</strong> para R$ {proxFaixa.valor},00/reuniao</div></div>}
             </div>
@@ -1079,7 +1079,7 @@ export default function App(){
     <style>{`* { font-family: 'Noto Sans', system-ui, sans-serif !important; }`}</style>
     <div style={{background:C.dark,padding:'0 20px',boxShadow:'0 2px 8px rgba(0,0,0,0.3)'}}>
       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',maxWidth:1400,margin:'0 auto',height:52}}>
-        <div style={{display:'flex',alignItems:'center',gap:12}}><div style={{width:30,height:30,borderRadius:6,background:C.orange,display:'flex',alignItems:'center',justifyContent:'center',fontSize:15,fontWeight:900,color:C.white}}>R</div><span style={{color:C.white,fontWeight:800,fontSize:15}}>Rumo Brasil</span><span style={{color:'rgba(255,255,255,0.25)',fontSize:13}}>|</span><span style={{color:'rgba(255,255,255,0.45)',fontSize:12}}>Dashboard Comercial</span></div>
+        <div style={{display:'flex',alignItems:'center',gap:12}}><div style={{width:30,height:30,borderRadius:6,background:C.orange,display:'flex',alignItems:'center',justifyContent:'center',fontSize:15,fontWeight:900,color:C.white}}>R</div><span style={{color:C.white,fontWeight:600,fontSize:15}}>Rumo Brasil</span><span style={{color:'rgba(255,255,255,0.25)',fontSize:13}}>|</span><span style={{color:'rgba(255,255,255,0.45)',fontSize:12}}>Dashboard Comercial</span></div>
         <span style={{color:'rgba(255,255,255,0.5)',fontSize:11}}></span>
       </div>
     </div>
