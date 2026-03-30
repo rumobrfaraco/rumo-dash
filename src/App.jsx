@@ -89,7 +89,7 @@ const SDR_AGENDAMENTOS=[
  
 const SDR_MOV=[
   {dia:'02/mar',data:'2026-03-02',mov:0},{dia:'03/mar',data:'2026-03-03',mov:0},{dia:'04/mar',data:'2026-03-04',mov:0},{dia:'05/mar',data:'2026-03-05',mov:0},{dia:'06/mar',data:'2026-03-06',mov:0},{dia:'07/mar',data:'2026-03-07',mov:0},{dia:'08/mar',data:'2026-03-08',mov:0},{dia:'09/mar',data:'2026-03-09',mov:0},{dia:'10/mar',data:'2026-03-10',mov:0},
-  {dia:'11/mar',data:'2026-03-11',mov:18},{dia:'12/mar',data:'2026-03-12',mov:22},{dia:'13/mar',data:'2026-03-13',mov:27},{dia:'16/mar',data:'2026-03-16',mov:9},{dia:'17/mar',data:'2026-03-17',mov:16},{dia:'18/mar',data:'2026-03-18',mov:21},{dia:'19/mar',data:'2026-03-19',mov:26},{dia:'20/mar',data:'2026-03-20',mov:29},{dia:'23/mar',data:'2026-03-23',mov:8},{dia:'24/mar',data:'2026-03-24',mov:16},{dia:'25/mar',data:'2026-03-25',mov:39},{dia:'26/mar',data:'2026-03-26',mov:25},
+  {dia:'11/mar',data:'2026-03-11',mov:18},{dia:'12/mar',data:'2026-03-12',mov:22},{dia:'13/mar',data:'2026-03-13',mov:27},{dia:'16/mar',data:'2026-03-16',mov:9},{dia:'17/mar',data:'2026-03-17',mov:16},{dia:'18/mar',data:'2026-03-18',mov:21},{dia:'19/mar',data:'2026-03-19',mov:26},{dia:'20/mar',data:'2026-03-20',mov:29},{dia:'23/mar',data:'2026-03-23',mov:8},{dia:'24/mar',data:'2026-03-24',mov:16},{dia:'25/mar',data:'2026-03-25',mov:39},{dia:'26/mar',data:'2026-03-26',mov:25},{dia:'27/mar',data:'2026-03-27',mov:14},
 ];
  
 const SDR_SEMANAS=[
@@ -98,10 +98,10 @@ const SDR_SEMANAS=[
   {semana:'S3 (23/mar)',ligacoes:31,agendamentos:3},
 ];
  
-const SDR_DAYS_LBL=['11/mar','12/mar','13/mar','16/mar','17/mar','18/mar','19/mar','20/mar','23/mar','24/mar','25/mar','26/mar'];
-const SDR_LIG_DIA=[0,0,27,9,16,10,21,14,31,14,14,29];
-const SDR_EML_DIA=[0,22,0,0,0,11,5,0,3,8,7,1];
-const SDR_WHA_DIA=[0,0,0,0,0,0,0,15,15,12,18,27];
+const SDR_DAYS_LBL=['11/mar','12/mar','13/mar','16/mar','17/mar','18/mar','19/mar','20/mar','23/mar','24/mar','25/mar','26/mar','27/mar'];
+const SDR_LIG_DIA=[0,0,27,9,16,10,21,14,31,14,14,29,15];
+const SDR_EML_DIA=[0,22,0,0,0,11,5,0,3,8,7,1,2];
+const SDR_WHA_DIA=[0,0,0,0,0,0,0,15,15,12,18,27,9];
 
 const SDR_AGEND_POR_DATA = {};
 SDR_AGENDAMENTOS.forEach(a => {
@@ -113,7 +113,7 @@ SDR_AGENDAMENTOS.forEach(a => {
 const SDR_ATIV_DATES = [
   '2026-03-11','2026-03-12','2026-03-13',
   '2026-03-16','2026-03-17','2026-03-18','2026-03-19','2026-03-20',
-  '2026-03-23','2026-03-24','2026-03-25','2026-03-26'
+  '2026-03-23','2026-03-24','2026-03-25','2026-03-26','2026-03-27'
 ];
 
 const SDR_AGEND_ACUM = (() => {
@@ -152,6 +152,10 @@ const SDR_ATIV=[
   {data:'2026-03-26',empresa:'PRV TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'PETRA LOG',canal:'ligacao'},{data:'2026-03-26',empresa:'PARCEIRO DO GRAO LOGISTICA',canal:'ligacao'},{data:'2026-03-26',empresa:'TRANSPORTADORA IPE AMARELO',canal:'ligacao'},{data:'2026-03-26',empresa:'TRANSPORTADORA MINAS BRASIL',canal:'ligacao'},{data:'2026-03-26',empresa:'AGS LOG',canal:'ligacao'},{data:'2026-03-26',empresa:'CONCENTO TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'BMG VICENZI TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'TRANSPORTE RICARDO ROSA',canal:'ligacao'},{data:'2026-03-26',empresa:'TSF SANTA FE',canal:'ligacao'},{data:'2026-03-26',empresa:'W&E TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'SLC TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'ROMA TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'TRANSPORTADORA ASA SUL',canal:'ligacao'},{data:'2026-03-26',empresa:'TWF LOGISTICA',canal:'ligacao'},{data:'2026-03-26',empresa:'GABRI CARGO',canal:'ligacao'},{data:'2026-03-26',empresa:'D.E.S TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'TRANSCOURIER',canal:'ligacao'},{data:'2026-03-26',empresa:'SIGA BRASIL',canal:'ligacao'},{data:'2026-03-26',empresa:'DIAMANTE',canal:'ligacao'},{data:'2026-03-26',empresa:'FELLON TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'SGR LOGISTICA',canal:'ligacao'},{data:'2026-03-26',empresa:'FENIX WAY',canal:'ligacao'},{data:'2026-03-26',empresa:'3 W TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'UNICA TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'ALO TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'VELOZ CARGAS',canal:'ligacao'},{data:'2026-03-26',empresa:'SGR LOGISTICA',canal:'ligacao'},{data:'2026-03-26',empresa:'J&P TRANSPORTADORA',canal:'ligacao'},
   {data:'2026-03-26',empresa:'FENIX WAY',canal:'email'},
   {data:'2026-03-26',empresa:'ALO TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'FENIX WAY',canal:'whatsapp'},{data:'2026-03-26',empresa:'TRANSPORTADORA MINAS BRASIL',canal:'whatsapp'},{data:'2026-03-26',empresa:'3 W TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'SIGA BRASIL',canal:'whatsapp'},{data:'2026-03-26',empresa:'SLC TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'ENI TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'ARROW LOGISTICA',canal:'whatsapp'},{data:'2026-03-26',empresa:'DEC LOG',canal:'whatsapp'},{data:'2026-03-26',empresa:'DIAMANTE',canal:'whatsapp'},{data:'2026-03-26',empresa:'PETRA LOG',canal:'whatsapp'},{data:'2026-03-26',empresa:'TRANSPORTADORA IPE AMARELO',canal:'whatsapp'},{data:'2026-03-26',empresa:'AGS LOG',canal:'whatsapp'},{data:'2026-03-26',empresa:'CONCENTO TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'HOLIVER TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'BMG VICENZI TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'TRANSPORTE RICARDO ROSA',canal:'whatsapp'},{data:'2026-03-26',empresa:'TSF SANTA FE',canal:'whatsapp'},{data:'2026-03-26',empresa:'W&E TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'ROMA TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'TWF LOGISTICA',canal:'whatsapp'},{data:'2026-03-26',empresa:'GABRI CARGO',canal:'whatsapp'},{data:'2026-03-26',empresa:'LAGE LOG',canal:'whatsapp'},{data:'2026-03-26',empresa:'MILLENNIUM',canal:'whatsapp'},{data:'2026-03-26',empresa:'FELLON TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'TRANSPORTADORA ASA SUL',canal:'whatsapp'},{data:'2026-03-26',empresa:'DEC LOG TRANSPORTES',canal:'whatsapp'},
+  // ── 27/mar ──
+  {data:'2026-03-27',empresa:'SLC TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'SLC TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'AGS LOG',canal:'ligacao'},{data:'2026-03-27',empresa:'PARCEIRO DO GRAO LOGISTICA',canal:'ligacao'},{data:'2026-03-27',empresa:'CONCENTO TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'BMG VICENZI TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'TRANSPORTE RICARDO ROSA',canal:'ligacao'},{data:'2026-03-27',empresa:'FELLON TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'TRANSPORTADORA ASA SUL',canal:'ligacao'},{data:'2026-03-27',empresa:'DEC LOG TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'LAGE LOG',canal:'ligacao'},{data:'2026-03-27',empresa:'FENIX WAY',canal:'ligacao'},{data:'2026-03-27',empresa:'TRANSPORTADORA MINAS BRASIL',canal:'ligacao'},{data:'2026-03-27',empresa:'3 W TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'SIGA BRASIL',canal:'ligacao'},
+  {data:'2026-03-27',empresa:'UNICA TRANSPORTES',canal:'email'},{data:'2026-03-27',empresa:'AGS LOG',canal:'email'},
+  {data:'2026-03-27',empresa:'TRANSCOURIER',canal:'whatsapp'},{data:'2026-03-27',empresa:'AGS LOG',canal:'whatsapp'},{data:'2026-03-27',empresa:'CONCENTO TRANSPORTES',canal:'whatsapp'},{data:'2026-03-27',empresa:'BMG VICENZI TRANSPORTES',canal:'whatsapp'},{data:'2026-03-27',empresa:'TRANSPORTE RICARDO ROSA',canal:'whatsapp'},{data:'2026-03-27',empresa:'FELLON TRANSPORTES',canal:'whatsapp'},{data:'2026-03-27',empresa:'DEC LOG TRANSPORTES',canal:'whatsapp'},{data:'2026-03-27',empresa:'ARROW LOGISTICA',canal:'whatsapp'},{data:'2026-03-27',empresa:'MILLENNIUM TRANSPORTES',canal:'whatsapp'},
 ];
 
 const EFETIVAS=['ARROW LOGISTICA','DINIZ SARAIVA','GRUPO DTRANS'];
@@ -190,20 +194,20 @@ const SANDRO_REUNIOES=['2026-03-02','2026-03-04','2026-03-09','2026-03-13','2026
 const SANDRO_VISITAS=['2026-03-11','2026-03-13'];
 const CARLA_REUNIOES=['2026-03-05','2026-03-16','2026-03-18'];
 const CARLA_VISITAS=['2026-03-04','2026-03-07','2026-03-07','2026-03-09','2026-03-09','2026-03-09','2026-03-09','2026-03-09','2026-03-09','2026-03-09','2026-03-09','2026-03-09','2026-03-09','2026-03-18','2026-03-18','2026-03-19'];
-const MARCO_REUNIOES=['2026-03-19','2026-03-24','2026-03-25'];
+const MARCO_REUNIOES=['2026-03-19','2026-03-24','2026-03-25','2026-03-27'];
 const MARCO_VISITAS=['2026-03-19'];
 const ISAAC_REUNIOES=[];
-const ISAAC_VISITAS=['2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-20','2026-03-20','2026-03-23','2026-03-24','2026-03-24','2026-03-25','2026-03-26','2026-03-26','2026-03-26','2026-03-26'];
+const ISAAC_VISITAS=['2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-20','2026-03-20','2026-03-23','2026-03-24','2026-03-24','2026-03-25','2026-03-26'];
 
 function buildEvolution(dates,allDays){const counts={};dates.forEach(d=>{counts[d]=(counts[d]||0)+1;});let acc=0;return allDays.map(day=>{acc+=(counts[day]||0);return acc;});}
 function buildMovEvolution(movArr){let acc=0;return ALL_DAYS_MAR.map((_,i)=>{acc+=(movArr[i]||0);return acc;});}
 
 const Tip=({active,payload,label})=>{if(!active||!payload||!payload.length)return null;return(<div style={{background:C.dark,color:'#fff',padding:'10px 14px',borderRadius:6,fontSize:12,fontFamily:FONT,boxShadow:'0 8px 24px rgba(0,0,0,0.35)',border:'1px solid #333',minWidth:120}}><div style={{fontWeight:700,marginBottom:5,color:'#AAA',fontSize:10,textTransform:'uppercase'}}>{label}</div>{payload.map((p,i)=>(<div key={i} style={{display:'flex',gap:8,alignItems:'center',marginBottom:2}}><div style={{width:8,height:8,borderRadius:2,background:p.fill||p.color||C.orange,flexShrink:0}}/><span style={{color:'#CCC',fontSize:11}}>{p.name}:</span><strong style={{color:'white'}}>{typeof p.value==='number'?p.value.toLocaleString('pt-BR'):p.value}</strong></div>))}</div>);};
-function Badge({label,color=C.orange,bg}){return(<span style={{fontSize:10,fontWeight:500,padding:'2px 7px',borderRadius:3,background:bg||color+'18',color,display:'inline-block',lineHeight:1.7,whiteSpace:'nowrap',fontFamily:FONT}}>{label}</span>);}
-function KPICard({title,value,note,icon}){return(<div style={{background:C.white,borderRadius:8,padding:'16px 18px',border:`2px solid ${C.orange}`,boxShadow:C.shadow,flex:1,minWidth:0,fontFamily:FONT,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center'}}><div style={{fontSize:10,color:C.gray,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6,display:'flex',alignItems:'center',justifyContent:'center',gap:5}}>{icon&&<span style={{fontSize:13}}>{icon}</span>}{title}</div><div style={{fontSize:28,fontWeight:600,color:C.orange,lineHeight:1.1}}>{typeof value==='number'?value.toLocaleString('pt-BR'):value}</div>{note&&<div style={{fontSize:11,color:C.gray,marginTop:4}}>{note}</div>}</div>);}
+function Badge({label,color=C.orange,bg}){return(<span style={{fontSize:10,fontWeight:700,padding:'2px 7px',borderRadius:3,background:bg||color+'18',color,display:'inline-block',lineHeight:1.7,whiteSpace:'nowrap',fontFamily:FONT}}>{label}</span>);}
+function KPICard({title,value,note,icon}){return(<div style={{background:C.white,borderRadius:8,padding:'16px 18px',border:`2px solid ${C.orange}`,boxShadow:C.shadow,flex:1,minWidth:0,fontFamily:FONT,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center'}}><div style={{fontSize:10,color:C.gray,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6,display:'flex',alignItems:'center',justifyContent:'center',gap:5}}>{icon&&<span style={{fontSize:13}}>{icon}</span>}{title}</div><div style={{fontSize:28,fontWeight:800,color:C.orange,lineHeight:1.1}}>{typeof value==='number'?value.toLocaleString('pt-BR'):value}</div>{note&&<div style={{fontSize:11,color:C.gray,marginTop:4}}>{note}</div>}</div>);}
 function Card({title,children,style:s={},action}){return(<div style={{background:C.white,borderRadius:8,padding:'14px 16px',boxShadow:C.shadow,overflow:'hidden',fontFamily:FONT,...s}}>{(title||action)&&(<div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:12,gap:8}}><div style={{display:'flex',alignItems:'center',gap:8,minWidth:0}}><div style={{width:3,height:16,background:C.orange,borderRadius:2,flexShrink:0}}/><span style={{fontSize:12,fontWeight:700,color:C.text,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{title}</span></div>{action&&<div style={{flexShrink:0}}>{action}</div>}</div>)}{children}</div>);}
 function PBar({label,actual,meta,color=C.orange}){const p=meta>0?Math.min(actual/meta*100,100):0,over=actual>=meta;return(<div style={{marginBottom:10,fontFamily:FONT}}><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,fontWeight:600,color:C.text}}>{label}</span><span style={{fontSize:11,color:C.gray}}><strong style={{color:over?C.green:C.text}}>{actual}</strong>/{meta}{over&&<span style={{color:C.green,marginLeft:3,fontWeight:700}}>v</span>}</span></div><div style={{height:7,background:C.grayL,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${p}%`,background:over?C.green:color,borderRadius:4}}/></div></div>);}
-function TblHead({cols}){return(<thead><tr style={{background:C.grayL,borderBottom:`1.5px solid ${C.border}`}}>{cols.map(h=>(<th key={h} style={{padding:'7px 10px',textAlign:'left',fontSize:9.5,fontWeight:500,color:C.gray,textTransform:'uppercase',whiteSpace:'nowrap',fontFamily:FONT}}>{h}</th>))}</tr></thead>);}
+function TblHead({cols}){return(<thead><tr style={{background:C.grayL,borderBottom:`1.5px solid ${C.border}`}}>{cols.map(h=>(<th key={h} style={{padding:'7px 10px',textAlign:'left',fontSize:9.5,fontWeight:700,color:C.gray,textTransform:'uppercase',whiteSpace:'nowrap',fontFamily:FONT}}>{h}</th>))}</tr></thead>);}
 const tRow=i=>({borderBottom:`1px solid ${C.border}`,background:i%2===0?C.white:C.grayL});
 function fmtDt(iso){if(!iso)return "—";const p=iso.split("-");return p[2]+"/"+p[1];}
 function calcAging(ini,fim){if(!ini)return null;const f=fim?new Date(fim):new Date();return Math.floor((f-new Date(ini))/864e5);}
@@ -223,8 +227,8 @@ function ParceriasPage(){
   return(<div style={{display:'flex',flexDirection:'column',gap:11}}>
     <div style={{background:C.white,borderRadius:8,padding:'12px 16px',boxShadow:C.shadow}}>
       <div style={{display:'flex',flexDirection:'column',gap:9}}>
-        <div style={{display:'flex',alignItems:'center',gap:8,flexWrap:'wrap'}}><span style={{fontSize:10,fontWeight:500,color:C.gray,textTransform:'uppercase',letterSpacing:'0.07em',minWidth:72}}>Parceiro</span><div style={{display:'flex',gap:5,flexWrap:'wrap'}}>{parceiros.map(p=>(<button key={p} onClick={()=>setSelParceiro(p)} style={slBtn(selParceiro===p,PARTNER_COLORS[p]||C.orange)}>{p}</button>))}</div></div>
-        <div style={{display:'flex',alignItems:'center',gap:8,flexWrap:'wrap'}}><span style={{fontSize:10,fontWeight:500,color:C.gray,textTransform:'uppercase',letterSpacing:'0.07em',minWidth:72}}>Status</span>{['Todos','Em Andamento','Perdida'].map(s=>(<button key={s} onClick={()=>setSelStatus(s)} style={slBtn(selStatus===s,s==='Perdida'?'#4A4B4D':C.orange)}>{s}</button>))}</div>
+        <div style={{display:'flex',alignItems:'center',gap:8,flexWrap:'wrap'}}><span style={{fontSize:10,fontWeight:700,color:C.gray,textTransform:'uppercase',letterSpacing:'0.07em',minWidth:72}}>Parceiro</span><div style={{display:'flex',gap:5,flexWrap:'wrap'}}>{parceiros.map(p=>(<button key={p} onClick={()=>setSelParceiro(p)} style={slBtn(selParceiro===p,PARTNER_COLORS[p]||C.orange)}>{p}</button>))}</div></div>
+        <div style={{display:'flex',alignItems:'center',gap:8,flexWrap:'wrap'}}><span style={{fontSize:10,fontWeight:700,color:C.gray,textTransform:'uppercase',letterSpacing:'0.07em',minWidth:72}}>Status</span>{['Todos','Em Andamento','Perdida'].map(s=>(<button key={s} onClick={()=>setSelStatus(s)} style={slBtn(selStatus===s,s==='Perdida'?'#4A4B4D':C.orange)}>{s}</button>))}</div>
       </div>
     </div>
     <div style={{display:'flex',gap:9}}>
@@ -276,7 +280,7 @@ function ParceriasPage(){
         </ResponsiveContainer>
       </Card>
       <Card title="Etapas do Funil — Parcerias">
-        {porEtapa.map((e,i)=>{const bw=porEtapa[0]?.count>0?pctN(e.count,porEtapa[0].count):0;return(<div key={i} style={{display:'flex',alignItems:'center',gap:6,marginBottom:5}}><div style={{width:130,fontSize:10,color:C.text,textAlign:'right',flexShrink:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{e.etapa}</div><div style={{flex:1,height:14,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${bw}%`,background:i===0?C.orange:i<3?"#8C5200":"#4A4B4D",opacity:Math.max(0.35,1-i*0.06),borderRadius:3}}/></div><span style={{fontSize:10,fontWeight:500,color:C.text,width:28,textAlign:'right',flexShrink:0}}>{e.count}</span></div>);})}
+        {porEtapa.map((e,i)=>{const bw=porEtapa[0]?.count>0?pctN(e.count,porEtapa[0].count):0;return(<div key={i} style={{display:'flex',alignItems:'center',gap:6,marginBottom:5}}><div style={{width:130,fontSize:10,color:C.text,textAlign:'right',flexShrink:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{e.etapa}</div><div style={{flex:1,height:14,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${bw}%`,background:i===0?C.orange:i<3?"#8C5200":"#4A4B4D",opacity:Math.max(0.35,1-i*0.06),borderRadius:3}}/></div><span style={{fontSize:10,fontWeight:700,color:C.text,width:28,textAlign:'right',flexShrink:0}}>{e.count}</span></div>);})}
       </Card>
     </div>
     <Card title={`Leads via Parceiros — ${FL.length} registros`}>
@@ -303,14 +307,14 @@ function DiagPage(){
   const nEnt=DIAG_DATA.filter(d=>d.tam==="Enterprise").length,nPME=DIAG_DATA.filter(d=>d.tam==="PME").length;
   const pctConc=Math.round(nConc/total*100);
   const bs=`1px solid ${C.border}`;
-  const TH={padding:'6px 10px',background:'#F5F5F3',fontSize:10,fontWeight:500,color:'#999',textTransform:'uppercase',letterSpacing:'0.05em',borderBottom:`1px solid ${C.border}`,whiteSpace:'nowrap',textAlign:'left'};
+  const TH={padding:'6px 10px',background:'#F5F5F3',fontSize:10,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.05em',borderBottom:`1px solid ${C.border}`,whiteSpace:'nowrap',textAlign:'left'};
   const THC={...TH,textAlign:'center'};
   const calcAg=(ini,fim)=>{if(!ini)return null;const f=fim?new Date(fim):new Date();return Math.floor((f-new Date(ini))/864e5);};
-  const AgBadge=({d})=>{if(d===null)return <span style={{color:'#CCC'}}>—</span>;const col=d<=15?C.green:d<=30?C.orange:"#B35B00";const bg=d<=15?C.gL:d<=30?C.oL:"#FFF3E0";return <span style={{fontSize:10,fontWeight:500,background:bg,color:col,padding:'2px 7px',borderRadius:10,whiteSpace:'nowrap'}}>{d}d</span>;};
+  const AgBadge=({d})=>{if(d===null)return <span style={{color:'#CCC'}}>—</span>;const col=d<=15?C.green:d<=30?C.orange:"#B35B00";const bg=d<=15?C.gL:d<=30?C.oL:"#FFF3E0";return <span style={{fontSize:10,fontWeight:700,background:bg,color:col,padding:'2px 7px',borderRadius:10,whiteSpace:'nowrap'}}>{d}d</span>;};
   const StBadge=({status})=>{const s=DIAG_STATUS[status]||{dot:C.gray,color:C.gray,label:status};return(<span style={{fontSize:10.5,color:s.color,fontWeight:600,whiteSpace:'nowrap'}}>{s.label}</span>);};
-  const RefBadge=({v})=>{if(!v||v==='—')return <span style={{color:'#CCC'}}>—</span>;return <span style={{fontSize:11,fontWeight:500,color:v==='Sim'?'#2D9E60':C.orange}}>{v}</span>;};
-  const UFBadge=({v})=>v?<span style={{fontSize:11,fontWeight:500,color:C.orange}}>{v}</span>:<span style={{color:'#CCC'}}>—</span>;
-  const SegBadge=({v})=><span style={{fontSize:10,fontWeight:500,color:v==='Enterprise'?C.orange:'#888',background:v==='Enterprise'?C.oL:'#F0F0F0',padding:'2px 6px',borderRadius:4}}>{v==='Enterprise'?'ETP':'PME'}</span>;
+  const RefBadge=({v})=>{if(!v||v==='—')return <span style={{color:'#CCC'}}>—</span>;return <span style={{fontSize:11,fontWeight:700,color:v==='Sim'?'#2D9E60':C.orange}}>{v}</span>;};
+  const UFBadge=({v})=>v?<span style={{fontSize:11,fontWeight:700,color:C.orange}}>{v}</span>:<span style={{color:'#CCC'}}>—</span>;
+  const SegBadge=({v})=><span style={{fontSize:10,fontWeight:700,color:v==='Enterprise'?C.orange:'#888',background:v==='Enterprise'?C.oL:'#F0F0F0',padding:'2px 6px',borderRadius:4}}>{v==='Enterprise'?'ETP':'PME'}</span>;
   return(
   <div style={{display:'flex',flexDirection:'column',gap:10,fontFamily:FONT}}>
     <div style={{background:C.white,borderRadius:8,padding:'14px 20px',border:bs,boxShadow:C.shadow}}>
@@ -321,7 +325,7 @@ function DiagPage(){
     </div>
     <div style={{display:'grid',gridTemplateColumns:'1.4fr 1fr 1fr 1fr 1.6fr',gap:10}}>
       <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center'}}>
-        <div style={{fontSize:9,fontWeight:500,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6}}>Pipeline Total</div>
+        <div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6}}>Pipeline Total</div>
         <div style={{display:'flex',alignItems:'center',gap:10,justifyContent:'center'}}>
           <span style={{fontSize:32,fontWeight:600,color:C.text,lineHeight:1}}>{total}</span>
           <div style={{display:'flex',gap:6}}>
@@ -331,11 +335,11 @@ function DiagPage(){
         </div>
         <div style={{fontSize:10,color:'#AAA',marginTop:5}}>{pctConc}% concluído</div>
       </div>
-      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:500,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Concluídos</div><div style={{fontSize:32,fontWeight:600,color:C.text,lineHeight:1}}>{nConc}</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>{pctConc}% de conclusão</div></div>
-      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:500,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Em Andamento</div><div style={{fontSize:32,fontWeight:600,color:C.text,lineHeight:1}}>{nAtivo}</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>{nAtivo} empresas ativas</div></div>
-      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:500,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Prazo Médio</div><div style={{fontSize:32,fontWeight:600,color:C.text,lineHeight:1}}>{diasM}d</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>média para concluir</div></div>
+      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Concluídos</div><div style={{fontSize:32,fontWeight:600,color:C.text,lineHeight:1}}>{nConc}</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>{pctConc}% de conclusão</div></div>
+      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Em Andamento</div><div style={{fontSize:32,fontWeight:600,color:C.text,lineHeight:1}}>{nAtivo}</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>{nAtivo} empresas ativas</div></div>
+      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Prazo Médio</div><div style={{fontSize:32,fontWeight:600,color:C.text,lineHeight:1}}>{diasM}d</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>média para concluir</div></div>
       <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center'}}>
-        <div style={{fontSize:9,fontWeight:500,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6}}>Reforma Tributária</div>
+        <div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6}}>Reforma Tributária</div>
         <div style={{display:'flex',alignItems:'center',gap:10,justifyContent:'center'}}>
           <span style={{fontSize:32,fontWeight:600,color:C.text,lineHeight:1}}>{nSim}</span>
           <div style={{display:'flex',gap:6}}>
@@ -349,18 +353,18 @@ function DiagPage(){
     </div>
     <div style={{display:'grid',gridTemplateColumns:'260px 1fr',gap:10,alignItems:'stretch'}}>
       <div style={{background:C.white,borderRadius:8,border:bs,boxShadow:C.shadow,overflow:'hidden',display:'flex',flexDirection:'column'}}>
-        <div style={{padding:'7px 12px',borderBottom:bs,background:'#F5F5F3',flexShrink:0}}><span style={{fontSize:9,fontWeight:500,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Pipeline por Fase</span></div>
+        <div style={{padding:'7px 12px',borderBottom:bs,background:'#F5F5F3',flexShrink:0}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Pipeline por Fase</span></div>
         <div style={{flex:1,padding:'12px',display:'flex',flexDirection:'column',justifyContent:'space-evenly',gap:4}}>
           {(()=>{const WIDTHS=[100,86,72,60,46,30];return FUNNEL_PHASES.map((f,i)=>{const cnt=DIAG_DATA.filter(d=>d.status===f.key).length;const col=cnt>0?f.bg:'#E8E8E8';const labelCol=cnt>0?f.bg:'#BBBBBB';const w=WIDTHS[i];return(<div key={f.key} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2}}><span style={{fontSize:11,fontWeight:600,color:labelCol,whiteSpace:'nowrap',lineHeight:1.2,textAlign:'center'}}>{f.label}</span><div style={{width:`${w}%`,height:26,background:col,borderRadius:4,display:'flex',alignItems:'center',justifyContent:'center'}}><span style={{fontSize:12,fontWeight:600,color:'#fff'}}>{cnt}</span></div></div>);});})()}
         </div>
       </div>
       <div style={{background:C.white,borderRadius:8,border:bs,boxShadow:C.shadow,overflow:'hidden'}}>
-        <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:9,fontWeight:500,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Concluídas</span><span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:500}}>{nConc}</span></div>
+        <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Concluídas</span><span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:700}}>{nConc}</span></div>
         <div style={{overflowX:'auto'}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}><thead><tr><th style={{...TH,width:'28%'}}>Empresa</th><th style={{...THC,width:'18%'}}>Executivo</th><th style={{...THC,width:'6%'}}>UF</th><th style={{...THC,width:'7%'}}>Seg.</th><th style={{...THC,width:'13%'}}>Dt. Entrada</th><th style={{...THC,width:'13%'}}>Dt. Conclusão</th><th style={{...THC,width:'9%'}}>Reforma</th></tr></thead><tbody>{concluidos.map((d,i)=>(<tr key={d.id} style={{borderBottom:`1px solid #F2F2F0`,background:i%2===0?C.white:'#FAFAF8'}}><td style={{padding:'7px 10px',fontWeight:700,fontSize:11,color:C.text,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',maxWidth:200}}>{d.empresa}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#666'}}>{d.executivo||'—'}</td><td style={{padding:'7px 10px',textAlign:'center'}}><UFBadge v={d.estado}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><SegBadge v={d.tam}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataInicio)}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataConclusao)}</td><td style={{padding:'7px 10px',textAlign:'center'}}><RefBadge v={d.reforma}/></td></tr>))}</tbody></table></div>
       </div>
     </div>
     <div style={{background:C.white,borderRadius:8,border:bs,boxShadow:C.shadow,overflow:'hidden'}}>
-      <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:9,fontWeight:500,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Em Andamento</span><span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:500}}>{nAtivo}</span></div>
+      <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Em Andamento</span><span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:700}}>{nAtivo}</span></div>
       <div style={{overflowX:'auto'}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}><thead><tr><th style={{...TH,width:'20%'}}>Empresa</th><th style={{...THC,width:'14%'}}>Status</th><th style={{...THC,width:'16%'}}>Executivo(s)</th><th style={{...THC,width:'5%'}}>UF</th><th style={{...THC,width:'6%'}}>Seg.</th><th style={{...THC,width:'10%'}}>Dt. Entrada</th><th style={{...THC,width:'10%'}}>Dt. Conclusão</th><th style={{...THC,width:'7%'}}>Aging</th><th style={{...THC,width:'7%'}}>Reforma</th></tr></thead><tbody>{emAndamento.map((d,i)=>{const ag=calcAg(d.dataInicio,d.dataConclusao);return(<tr key={d.id} style={{borderBottom:`1px solid #F2F2F0`,background:i%2===0?C.white:'#FAFAF8'}}><td style={{padding:'7px 10px',fontWeight:700,fontSize:11,color:C.text,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',maxWidth:220}}>{d.empresa}</td><td style={{padding:'7px 10px',textAlign:'center'}}><StBadge status={d.status}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:10.5,color:'#666'}}>{d.executivo||'—'}</td><td style={{padding:'7px 10px',textAlign:'center'}}><UFBadge v={d.estado}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><SegBadge v={d.tam}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataInicio)}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataConclusao)}</td><td style={{padding:'7px 10px',textAlign:'center'}}><AgBadge d={ag}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><RefBadge v={d.reforma}/></td></tr>);})}</tbody></table></div>
       <div style={{padding:'7px 14px',borderTop:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:12,flexWrap:'wrap'}}>
         <span style={{fontSize:8.5,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.06em'}}>Status:</span>
@@ -376,13 +380,14 @@ const TATIANE_AGENDAMENTOS=[];
 const TATIANE_MOV=[
   {dia:'25/mar',data:'2026-03-25',mov:39},
   {dia:'26/mar',data:'2026-03-26',mov:53},
+  {dia:'27/mar',data:'2026-03-27',mov:17},
 ];
-const TATIANE_REUNIOES=[],TATIANE_VISITAS=[],MOV_TATIANE=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,53];
+const TATIANE_REUNIOES=[],TATIANE_VISITAS=[],MOV_TATIANE=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,53,30];
 // Atividades diárias Tatiane por canal (alinhadas com ALL_DAYS_MAR)
-// [02,03,04,05,06,07,09,10,11,12,13,16,17,18,19,20,22,23,24,25,26]
-const TATIANE_LIG_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,29,52];
-const TATIANE_EML_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1];
-const TATIANE_WHA_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0];
+// [02,03,04,05,06,07,09,10,11,12,13,16,17,18,19,20,22,23,24,25,26,27]
+const TATIANE_LIG_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,29,52,13];
+const TATIANE_EML_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,17];
+const TATIANE_WHA_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0];
 
 function TatianeMixEvolChart(){
   const COL_L=C.orange,COL_E='#444444',COL_W='#AAAAAA';
@@ -425,9 +430,9 @@ function TatianeMixEvolChart(){
       </Card>
       <Card title="Evolucao Diaria - Tatiane Gomes">
         <div style={{display:'flex',gap:12,marginBottom:12,flexWrap:'wrap',alignItems:'center'}}>
-          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_L,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_L}}/><span style={{fontSize:10,fontWeight:500,color:COL_L}}>Ligacoes</span></div>
-          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_E,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_E}}/><span style={{fontSize:10,fontWeight:500,color:COL_E}}>E-mails</span></div>
-          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_W,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_W}}/><span style={{fontSize:10,fontWeight:500,color:COL_W}}>WhatsApp</span></div>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_L,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_L}}/><span style={{fontSize:10,fontWeight:700,color:COL_L}}>Ligacoes</span></div>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_E,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_E}}/><span style={{fontSize:10,fontWeight:700,color:COL_E}}>E-mails</span></div>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_W,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_W}}/><span style={{fontSize:10,fontWeight:700,color:COL_W}}>WhatsApp</span></div>
           <div style={{marginLeft:'auto',display:'flex',gap:8}}>
             <span onClick={()=>setShowLig(v=>!v)} style={tagStyle(showLig,COL_L)}>{totalLig} lig.</span>
             <span onClick={()=>setShowEml(v=>!v)} style={tagStyle(showEml,COL_E)}>{totalEml} email</span>
@@ -489,10 +494,10 @@ function TatianeAtivChart(){
     <Card title="Atividades por Dia — por Canal + Agendamentos Acumulados (Tatiane Gomes)">
       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:10,flexWrap:'wrap',gap:8}}>
         <div style={{display:'flex',gap:12,flexWrap:'wrap',alignItems:'center'}}>
-          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_L,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_L}}/><span style={{fontSize:10,fontWeight:500,color:COL_L}}>Ligacoes</span></div>
-          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_E,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_E}}/><span style={{fontSize:10,fontWeight:500,color:COL_E}}>E-mails</span></div>
-          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_W,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_W}}/><span style={{fontSize:10,fontWeight:500,color:COL_W}}>WhatsApp</span></div>
-          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:20,height:2.5,background:COL_AG,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_AG}}/><span style={{fontSize:10,fontWeight:500,color:COL_AG}}>Agend. Acum. (eixo dir.)</span></div>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_L,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_L}}/><span style={{fontSize:10,fontWeight:700,color:COL_L}}>Ligacoes</span></div>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_E,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_E}}/><span style={{fontSize:10,fontWeight:700,color:COL_E}}>E-mails</span></div>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_W,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_W}}/><span style={{fontSize:10,fontWeight:700,color:COL_W}}>WhatsApp</span></div>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:20,height:2.5,background:COL_AG,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_AG}}/><span style={{fontSize:10,fontWeight:700,color:COL_AG}}>Agend. Acum. (eixo dir.)</span></div>
         </div>
         <div style={{display:'flex',gap:6,alignItems:'center'}}>
           {visMode==='diario'&&<div style={{display:'flex',gap:6}}>
@@ -512,7 +517,7 @@ function TatianeAtivChart(){
           <YAxis yAxisId="right" orientation="right" tick={{fontSize:10,fill:COL_AG,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,maxAgend]}/>
           <Tooltip content={<Tip/>}/>
           <Legend wrapperStyle={{fontSize:10,fontFamily:FONT}}/>
-          {visMode==='diario'&&<ReferenceLine yAxisId="left" y={25} stroke={C.orange} strokeWidth={1.5} strokeDasharray="5 3" label={{value:'Meta 25/dia',fill:C.orange,fontSize:9,fontWeight:500,position:'insideTopRight'}}/>}
+          {visMode==='diario'&&<ReferenceLine yAxisId="left" y={25} stroke={C.orange} strokeWidth={1.5} strokeDasharray="5 3" label={{value:'Meta 25/dia',fill:C.orange,fontSize:9,fontWeight:700,position:'insideTopRight'}}/>}
           {(visMode==='diario'?showLig:true)&&<Bar yAxisId="left" dataKey="ligacao" name="Ligacao" stackId="a" fill={COL_L} barSize={barSize}><LabelList dataKey="ligacao" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>}
           {(visMode==='diario'?showEml:true)&&<Bar yAxisId="left" dataKey="email" name="E-mail" stackId="a" fill={COL_E} barSize={barSize}><LabelList dataKey="email" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>}
           {(visMode==='diario'?showWha:true)&&<Bar yAxisId="left" dataKey="whatsapp" name="WhatsApp" stackId="a" fill={COL_W} radius={[4,4,0,0]} barSize={barSize}><LabelList dataKey="whatsapp" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>}
@@ -520,16 +525,16 @@ function TatianeAtivChart(){
         </ComposedChart>
       </ResponsiveContainer>
       <div style={{display:'flex',gap:8,marginTop:10,flexWrap:'wrap'}}>
-        <div style={{background:C.orange,borderRadius:4,padding:'4px 12px',display:'flex',alignItems:'center',gap:6}}><span style={{fontSize:11,fontWeight:500,color:C.white}}>Meta de Ligações Diárias: <strong>25 ligações/dia</strong></span></div>
-        <div style={{background:C.orange,borderRadius:4,padding:'4px 12px',display:'flex',alignItems:'center',gap:6}}><span style={{fontSize:11,fontWeight:500,color:C.white}}>Meta de Ligações Semanais: <strong>112 ligações/semana</strong></span></div>
+        <div style={{background:C.orange,borderRadius:4,padding:'4px 12px',display:'flex',alignItems:'center',gap:6}}><span style={{fontSize:11,fontWeight:700,color:C.white}}>Meta de Ligações Diárias: <strong>25 ligações/dia</strong></span></div>
+        <div style={{background:C.orange,borderRadius:4,padding:'4px 12px',display:'flex',alignItems:'center',gap:6}}><span style={{fontSize:11,fontWeight:700,color:C.white}}>Meta de Ligações Semanais: <strong>112 ligações/semana</strong></span></div>
       </div>
       <div style={{marginTop:10,padding:'12px 14px',background:C.grayL,borderRadius:8}}>
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}>
-          <span style={{fontSize:11,fontWeight:500,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span>
+          <span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span>
           <div style={{display:'flex',gap:10,alignItems:'center'}}>
             <span style={{fontSize:12,fontWeight:600,color:C.orange}}>{totalCanais}</span>
             <span style={{fontSize:11,color:C.gray}}>/ {META_MES}</span>
-            <span style={{fontSize:11,fontWeight:500,color:pct>=100?C.green:C.gray}}>{pct}%</span>
+            <span style={{fontSize:11,fontWeight:700,color:pct>=100?C.green:C.gray}}>{pct}%</span>
           </div>
         </div>
         <div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:pct>=100?C.green:C.orange,borderRadius:6}}/></div>
@@ -561,9 +566,9 @@ function ExecEvolutionChart({nome,reunioes,visitas,movArr,metaMov}){
   return(
     <Card title={"Evolucao Diaria - "+nome}>
       <div style={{display:'flex',gap:12,marginBottom:12,flexWrap:'wrap',alignItems:'center'}}>
-        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_R,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_R}}/><span style={{fontSize:10,fontWeight:500,color:COL_R}}>Reunioes</span></div>
-        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_V,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_V}}/><span style={{fontSize:10,fontWeight:500,color:COL_V}}>Visitas</span></div>
-        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_M,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_M}}/><span style={{fontSize:10,fontWeight:500,color:COL_M}}>Movimentacoes</span></div>
+        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_R,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_R}}/><span style={{fontSize:10,fontWeight:700,color:COL_R}}>Reunioes</span></div>
+        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_V,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_V}}/><span style={{fontSize:10,fontWeight:700,color:COL_V}}>Visitas</span></div>
+        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_M,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_M}}/><span style={{fontSize:10,fontWeight:700,color:COL_M}}>Movimentacoes</span></div>
         <div style={{marginLeft:'auto',display:'flex',gap:8}}>
           <span onClick={()=>setShowReun(v=>!v)} style={tagStyle(showReun,COL_R)}>{totalReun} reun.</span>
           <span onClick={()=>setShowVis(v=>!v)} style={tagStyle(showVis,COL_V)}>{totalVis} vis.</span>
@@ -586,7 +591,7 @@ function ExecEvolutionChart({nome,reunioes,visitas,movArr,metaMov}){
         </ComposedChart>
       </ResponsiveContainer>
       <div style={{marginTop:12,padding:'10px 12px',background:C.grayL,borderRadius:8}}>
-        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:5}}><span style={{fontSize:11,fontWeight:500,color:C.text}}>Meta de Movimentacoes (Mar/26)</span><div style={{display:'flex',gap:8,alignItems:'center'}}><span style={{fontSize:12,fontWeight:600,color:COL_M}}>{totalMov}</span><span style={{fontSize:11,color:C.gray}}>/ {metaMov||'—'}</span><span style={{fontSize:11,fontWeight:500,color:pctMov>=100?C.green:C.gray}}>{metaMov?pctMov+'%':'—'}</span></div></div>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:5}}><span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta de Movimentacoes (Mar/26)</span><div style={{display:'flex',gap:8,alignItems:'center'}}><span style={{fontSize:12,fontWeight:600,color:COL_M}}>{totalMov}</span><span style={{fontSize:11,color:C.gray}}>/ {metaMov||'—'}</span><span style={{fontSize:11,fontWeight:700,color:pctMov>=100?C.green:C.gray}}>{metaMov?pctMov+'%':'—'}</span></div></div>
         <div style={{height:8,background:C.border,borderRadius:5,overflow:'hidden'}}><div style={{height:'100%',width:`${pctMov}%`,background:pctMov>=100?C.green:COL_M,borderRadius:5}}/></div>
         <div style={{display:'flex',justifyContent:'flex-end',marginTop:4}}><span style={{fontSize:10,color:faltamMov>0?C.red:C.green,fontWeight:600}}>{metaMov?(faltamMov>0?'Faltam '+faltamMov+' movimentacoes':'Meta atingida!'):'Meta a definir'}</span></div>
       </div>
@@ -607,9 +612,9 @@ function SDREvolutionChart(){
   return(
     <Card title="Evolucao Diaria - Fabiana Vaz (SDR)">
       <div style={{display:'flex',gap:12,marginBottom:12,flexWrap:'wrap',alignItems:'center'}}>
-        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_L,borderRadius:2}}/><span style={{fontSize:10,fontWeight:500,color:COL_L}}>Ligacoes</span></div>
-        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_E,borderRadius:2}}/><span style={{fontSize:10,fontWeight:500,color:COL_E}}>E-mails</span></div>
-        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_W,borderRadius:2}}/><span style={{fontSize:10,fontWeight:500,color:COL_W}}>WhatsApp</span></div>
+        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_L,borderRadius:2}}/><span style={{fontSize:10,fontWeight:700,color:COL_L}}>Ligacoes</span></div>
+        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_E,borderRadius:2}}/><span style={{fontSize:10,fontWeight:700,color:COL_E}}>E-mails</span></div>
+        <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_W,borderRadius:2}}/><span style={{fontSize:10,fontWeight:700,color:COL_W}}>WhatsApp</span></div>
         <div style={{marginLeft:'auto',display:'flex',gap:8}}>
           <span onClick={()=>setShowLig(v=>!v)} style={tagStyle(showLig,COL_L)}>{ligAcc[ligAcc.length-1]} lig.</span>
           <span onClick={()=>setShowEml(v=>!v)} style={tagStyle(showEml,COL_E)}>{emlAcc[emlAcc.length-1]} email</span>
@@ -655,8 +660,8 @@ function AcompPage({FL}){
   return(<div style={{display:'flex',flexDirection:'column',gap:11}}>
     <div style={{background:C.white,borderRadius:8,padding:'12px 16px',boxShadow:C.shadow}}>
       <div style={{display:'flex',gap:16,flexWrap:'wrap'}}>
-        <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:10,fontWeight:500,color:C.gray,textTransform:'uppercase'}}>Mes</span><select value={selMes} onChange={e=>setSelMes(e.target.value)} style={{padding:'5px 10px',borderRadius:6,border:`1.5px solid ${C.border}`,fontSize:11,fontFamily:FONT,outline:'none'}}>{ALL_MONTH_OPTS.map(o=><option key={o.key} value={o.key}>{o.label}</option>)}</select></div>
-        <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:10,fontWeight:500,color:C.gray,textTransform:'uppercase'}}>Exec.</span><select value={selExec} onChange={e=>setSelExec(e.target.value)} style={{padding:'5px 10px',borderRadius:6,border:`1.5px solid ${C.border}`,fontSize:11,fontFamily:FONT,outline:'none'}}>{['Todos','Sandro Casagrande','Carla Cristina Lemes','Isaac Santos','Lucas Cavalcante','Rafael Brito'].map(e=><option key={e} value={e}>{e}</option>)}</select></div>
+        <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:10,fontWeight:700,color:C.gray,textTransform:'uppercase'}}>Mes</span><select value={selMes} onChange={e=>setSelMes(e.target.value)} style={{padding:'5px 10px',borderRadius:6,border:`1.5px solid ${C.border}`,fontSize:11,fontFamily:FONT,outline:'none'}}>{ALL_MONTH_OPTS.map(o=><option key={o.key} value={o.key}>{o.label}</option>)}</select></div>
+        <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:10,fontWeight:700,color:C.gray,textTransform:'uppercase'}}>Exec.</span><select value={selExec} onChange={e=>setSelExec(e.target.value)} style={{padding:'5px 10px',borderRadius:6,border:`1.5px solid ${C.border}`,fontSize:11,fontFamily:FONT,outline:'none'}}>{['Todos','Sandro Casagrande','Carla Cristina Lemes','Isaac Santos','Lucas Cavalcante','Rafael Brito'].map(e=><option key={e} value={e}>{e}</option>)}</select></div>
       </div>
     </div>
     <Card title="Equipe - Performance YTD">
@@ -667,16 +672,16 @@ function AcompPage({FL}){
           return(<div key={e.nome} style={{borderRadius:8,padding:'14px',border:`1px solid ${C.border}`,display:'flex',flexDirection:'column',gap:8}}>
             <div style={{display:'flex',alignItems:'center',gap:7}}><div style={{width:10,height:10,borderRadius:'50%',background:e.color}}/><span style={{fontWeight:700,fontSize:13,color:C.text}}>{e.alias}</span></div>
             <div>
-              <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Reunioes YTD{selMes?' (ate '+mesLbl+')':''}</span><span style={{fontSize:11,fontWeight:500}}>{e.reunYTD}/{e.metaVisitasAnual}</span></div>
+              <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Reunioes YTD{selMes?' (ate '+mesLbl+')':''}</span><span style={{fontSize:11,fontWeight:700}}>{e.reunYTD}/{e.metaVisitasAnual}</span></div>
               <div style={{height:6,background:C.grayL,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${e.pctR}%`,background:e.color,borderRadius:4}}/></div>
               <div style={{marginTop:3,fontSize:10,color:C.gray}}>Faltam <strong style={{color:e.faltam>0?C.red:C.green}}>{e.faltam}</strong></div>
               <div style={{marginTop:8}}>
-                <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Meta Mensal Reunioes ({mesLbl})</span><span style={{fontSize:11,fontWeight:500,color:overMes?C.green:C.text}}>{e.reunMes}/{e.metaMensal}{overMes&&<span style={{color:C.green,marginLeft:3}}>v</span>}</span></div>
+                <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Meta Mensal Reunioes ({mesLbl})</span><span style={{fontSize:11,fontWeight:700,color:overMes?C.green:C.text}}>{e.reunMes}/{e.metaMensal}{overMes&&<span style={{color:C.green,marginLeft:3}}>v</span>}</span></div>
                 <div style={{height:6,background:C.grayL,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${pctMes}%`,background:overMes?C.green:e.color,borderRadius:4,opacity:0.75}}/></div>
               </div>
             </div>
-            <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Contratos YTD</span><span style={{fontSize:11,fontWeight:500}}>{e.contrYTD}/{e.metaContratos}</span></div><div style={{height:6,background:C.grayL,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${e.pctC}%`,background:e.contrYTD>=e.metaContratos?C.green:e.color,borderRadius:4}}/></div></div>
-            <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Contratos ({mesLbl})</span><span style={{fontSize:11,fontWeight:500,color:e.contrMes>=e.metaContratosMes?C.green:C.text}}>{e.contrMes}/{e.metaContratosMes}{e.contrMes>=e.metaContratosMes&&<span style={{color:C.green,marginLeft:3}}>✓</span>}</span></div><div style={{height:6,background:C.grayL,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${e.pctCMes}%`,background:e.contrMes>=e.metaContratosMes?C.green:e.color,borderRadius:4,opacity:0.75}}/></div></div>
+            <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Contratos YTD</span><span style={{fontSize:11,fontWeight:700}}>{e.contrYTD}/{e.metaContratos}</span></div><div style={{height:6,background:C.grayL,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${e.pctC}%`,background:e.contrYTD>=e.metaContratos?C.green:e.color,borderRadius:4}}/></div></div>
+            <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Contratos ({mesLbl})</span><span style={{fontSize:11,fontWeight:700,color:e.contrMes>=e.metaContratosMes?C.green:C.text}}>{e.contrMes}/{e.metaContratosMes}{e.contrMes>=e.metaContratosMes&&<span style={{color:C.green,marginLeft:3}}>✓</span>}</span></div><div style={{height:6,background:C.grayL,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${e.pctCMes}%`,background:e.contrMes>=e.metaContratosMes?C.green:e.color,borderRadius:4,opacity:0.75}}/></div></div>
           </div>);
         })}
       </div>
@@ -699,7 +704,7 @@ function InternoPage(){
   const totalEml=TATIANE_EML_DIA.reduce((a,b)=>a+b,0);
   const totalWha=TATIANE_WHA_DIA.reduce((a,b)=>a+b,0);
   const totalCanais=totalLig+totalEml+totalWha;
-  const nEfetivas=8; // atualizado 26/03/2026
+  const nEfetivas=10; // atualizado 27/03/2026
   const diasReg=ALL_DAYS_MAR.filter((_,i)=>MOV_TATIANE[i]>0).length;
   const totalAgend=0; // agendamentos da Tatiane - a definir
   const totalReal=0;
@@ -739,14 +744,14 @@ function InternoPage(){
     <div style={{background:C.gray,borderRadius:8,padding:'16px 20px',boxShadow:C.shadow,display:'flex',alignItems:'center',gap:16,flexWrap:'wrap'}}>
       <div style={{width:48,height:48,borderRadius:'50%',background:C.white,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><span style={{fontSize:16,fontWeight:600,color:C.gray}}>TG</span></div>
       <div>
-        <div style={{color:'rgba(255,255,255,0.75)',fontSize:10,fontWeight:500,textTransform:'uppercase',letterSpacing:'0.08em'}}>Executiva Interna</div>
-        <div style={{color:C.white,fontSize:20,fontWeight:600}}>Tatiane Gomes</div>
+        <div style={{color:'rgba(255,255,255,0.75)',fontSize:10,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em'}}>Executiva Interna</div>
+        <div style={{color:C.white,fontSize:20,fontWeight:800}}>Tatiane Gomes</div>
         <div style={{color:'rgba(255,255,255,0.7)',fontSize:11}}>Inicio: 25/03/2026 — {diasReg} dia{diasReg!==1?'s':''} registrado{diasReg!==1?'s':''}</div>
       </div>
       <div style={{marginLeft:'auto',display:'flex',gap:8,flexWrap:'wrap'}}>
-        {canalInfo.map(d=>(<div key={d.canal} style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>{d.icon}</div><div style={{fontSize:20,fontWeight:600,color:C.white}}>{d.qtd}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>{d.canal}</div></div>))}
-        <div style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>✅</div><div style={{fontSize:20,fontWeight:600,color:C.white}}>{nEfetivas}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>Lig. Efetivas</div></div>
-        <div style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>🏢</div><div style={{fontSize:20,fontWeight:600,color:C.white}}>{empresasTat.length}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>Empresas</div></div>
+        {canalInfo.map(d=>(<div key={d.canal} style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>{d.icon}</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{d.qtd}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>{d.canal}</div></div>))}
+        <div style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>✅</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{nEfetivas}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>Lig. Efetivas</div></div>
+        <div style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>🏢</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{empresasTat.length}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>Empresas</div></div>
       </div>
     </div>
 
@@ -773,19 +778,19 @@ function InternoPage(){
       <div style={{borderRadius:8,padding:'14px',border:`1px solid ${C.border}`,display:'flex',flexDirection:'column',gap:8,background:C.white,boxShadow:C.shadow}}>
         <div style={{display:'flex',alignItems:'center',gap:7}}><div style={{width:10,height:10,borderRadius:'50%',background:C.orange}}/><span style={{fontWeight:700,fontSize:13,color:C.text}}>Tatiane Gomes</span></div>
         {/* Reunioes YTD */}
-        <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Reunioes YTD (Mar/26)</span><span style={{fontSize:11,fontWeight:500,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/><div style={{marginTop:3,fontSize:10,color:C.gray}}>Meta a definir</div></div>
+        <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Reunioes YTD (Mar/26)</span><span style={{fontSize:11,fontWeight:700,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/><div style={{marginTop:3,fontSize:10,color:C.gray}}>Meta a definir</div></div>
         {/* Meta Mensal Reunioes */}
-        <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Meta Mensal Reunioes (Mar/26)</span><span style={{fontSize:11,fontWeight:500,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/></div>
+        <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Meta Mensal Reunioes (Mar/26)</span><span style={{fontSize:11,fontWeight:700,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/></div>
         {/* Contratos YTD */}
-        <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Contratos YTD</span><span style={{fontSize:11,fontWeight:500,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/></div>
+        <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Contratos YTD</span><span style={{fontSize:11,fontWeight:700,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/></div>
         {/* Contratos Mensal */}
-        <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Contratos (Mar/26)</span><span style={{fontSize:11,fontWeight:500,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/></div>
+        <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Contratos (Mar/26)</span><span style={{fontSize:11,fontWeight:700,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/></div>
       </div>
     </div>
 
     {/* ── GRÁFICO ATIVIDADES POR DIA ── */}
     <Card title="Atividades por Dia — por Canal + Agendamentos Acumulados">
-      <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:8}}><div style={{width:20,height:2.5,background:COL_AG,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_AG}}/><span style={{fontSize:10,fontWeight:500,color:COL_AG}}>Agendamentos Acumulados (eixo dir.)</span></div>
+      <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:8}}><div style={{width:20,height:2.5,background:COL_AG,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_AG}}/><span style={{fontSize:10,fontWeight:700,color:COL_AG}}>Agendamentos Acumulados (eixo dir.)</span></div>
       <ResponsiveContainer width="100%" height={240}>
         <ComposedChart data={diaMap} margin={{top:20,right:45,left:0,bottom:0}}>
           <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
@@ -817,14 +822,14 @@ function InternoPage(){
               <XAxis dataKey="dia" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
               <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,60]}/>
               <Tooltip content={<Tip/>}/>
-              <ReferenceLine y={20} stroke={C.orange} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 20',fill:C.orange,fontSize:9,fontWeight:500,position:'insideTopRight'}}/>
-              <ReferenceLine y={40} stroke={C.gray}   strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 40',fill:C.gray,  fontSize:9,fontWeight:500,position:'insideTopRight'}}/>
-              <ReferenceLine y={60} stroke="#AAAAAA"  strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 60',fill:'#AAAAAA',fontSize:9,fontWeight:500,position:'insideTopRight'}}/>
+              <ReferenceLine y={20} stroke={C.orange} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 20',fill:C.orange,fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
+              <ReferenceLine y={40} stroke={C.gray}   strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 40',fill:C.gray,  fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
+              <ReferenceLine y={60} stroke="#AAAAAA"  strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 60',fill:'#AAAAAA',fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
               <Line dataKey="real" name="Acumulado Real" stroke={COL_AG} strokeWidth={1.5} type="monotone" connectNulls dot={mkDotR} label={mkLblR}/>
             </ComposedChart>
           </ResponsiveContainer>
           <div style={{marginTop:12,display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}}>
-            {METAS.map((m,i)=>{const falta=Math.max(0,m-atual);const atingida=atual>=m;const pct=Math.min(Math.round(atual/m*100),100);const cor=CORES[i];return(<div key={m} style={{borderRadius:6,padding:'9px 12px',background:atingida?C.gL:'#FAFAFA',border:`1px solid ${atingida?C.green:cor}`,display:'flex',flexDirection:'column',gap:5}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><span style={{fontSize:9,fontWeight:500,color:cor,textTransform:'uppercase',letterSpacing:'0.06em'}}>Meta {m}</span>{atingida&&<span style={{fontSize:10,fontWeight:600,color:C.green}}>✓ Atingida</span>}</div><div style={{display:'flex',alignItems:'baseline',gap:5}}><span style={{fontSize:20,fontWeight:600,color:atingida?C.green:C.text,lineHeight:1}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {m}</span><span style={{fontSize:10,fontWeight:500,color:atingida?C.green:cor,marginLeft:'auto'}}>{pct}%</span></div><div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:atingida?C.green:cor,borderRadius:3}}/></div><div style={{fontSize:10,color:atingida?C.green:C.red,fontWeight:600,textAlign:'right'}}>{atingida?'Meta atingida!':'Faltam '+falta}</div></div>);})}
+            {METAS.map((m,i)=>{const falta=Math.max(0,m-atual);const atingida=atual>=m;const pct=Math.min(Math.round(atual/m*100),100);const cor=CORES[i];return(<div key={m} style={{borderRadius:6,padding:'9px 12px',background:atingida?C.gL:'#FAFAFA',border:`1px solid ${atingida?C.green:cor}`,display:'flex',flexDirection:'column',gap:5}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><span style={{fontSize:9,fontWeight:700,color:cor,textTransform:'uppercase',letterSpacing:'0.06em'}}>Meta {m}</span>{atingida&&<span style={{fontSize:10,fontWeight:600,color:C.green}}>✓ Atingida</span>}</div><div style={{display:'flex',alignItems:'baseline',gap:5}}><span style={{fontSize:20,fontWeight:600,color:atingida?C.green:C.text,lineHeight:1}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {m}</span><span style={{fontSize:10,fontWeight:700,color:atingida?C.green:cor,marginLeft:'auto'}}>{pct}%</span></div><div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:atingida?C.green:cor,borderRadius:3}}/></div><div style={{fontSize:10,color:atingida?C.green:C.red,fontWeight:600,textAlign:'right'}}>{atingida?'Meta atingida!':'Faltam '+falta}</div></div>);})}
           </div>
         </Card>
       );
@@ -842,9 +847,9 @@ function InternoPage(){
       </Card>
       <Card title="Evolucao Diaria - Tatiane Gomes">
         <div style={{display:'flex',gap:12,marginBottom:12,flexWrap:'wrap',alignItems:'center'}}>
-          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_L,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_L}}/><span style={{fontSize:10,fontWeight:500,color:COL_L}}>Ligacoes</span></div>
-          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_E,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_E}}/><span style={{fontSize:10,fontWeight:500,color:COL_E}}>E-mails</span></div>
-          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_W,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_W}}/><span style={{fontSize:10,fontWeight:500,color:COL_W}}>WhatsApp</span></div>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_L,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_L}}/><span style={{fontSize:10,fontWeight:700,color:COL_L}}>Ligacoes</span></div>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_E,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_E}}/><span style={{fontSize:10,fontWeight:700,color:COL_E}}>E-mails</span></div>
+          <div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:22,height:3,background:COL_W,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_W}}/><span style={{fontSize:10,fontWeight:700,color:COL_W}}>WhatsApp</span></div>
           <div style={{marginLeft:'auto',display:'flex',gap:8}}>
             <span style={{fontSize:10,fontWeight:600,padding:'2px 8px',borderRadius:10,background:COL_L+'18',color:COL_L,border:`1.5px solid ${COL_L}`}}>{totalLig} lig.</span>
             <span style={{fontSize:10,fontWeight:600,padding:'2px 8px',borderRadius:10,background:COL_E+'18',color:COL_E,border:`1.5px solid ${COL_E}`}}>{totalEml} email</span>
@@ -868,11 +873,11 @@ function InternoPage(){
     {/* ── META MENSAL DE CONTATOS ── */}
     <Card>
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}>
-        <span style={{fontSize:11,fontWeight:500,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span>
+        <span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span>
         <div style={{display:'flex',gap:10,alignItems:'center'}}>
           <span style={{fontSize:12,fontWeight:600,color:C.orange}}>{totalCanais}</span>
           <span style={{fontSize:11,color:C.gray}}>/ {META_MES_CONT}</span>
-          <span style={{fontSize:11,fontWeight:500,color:pctCont>=100?C.green:C.gray}}>{pctCont}%</span>
+          <span style={{fontSize:11,fontWeight:700,color:pctCont>=100?C.green:C.gray}}>{pctCont}%</span>
         </div>
       </div>
       <div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${pctCont}%`,background:pctCont>=100?C.green:C.orange,borderRadius:6}}/></div>
@@ -906,7 +911,7 @@ function InternoPage(){
                 <XAxis dataKey="label" tick={{fontSize:11,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
                 <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false}/>
                 <Tooltip content={<Tip/>}/>
-                <Bar dataKey="value" name="Qtd." radius={[5,5,0,0]} barSize={52}>{[C.orange,C.green,C.gray].map((f,i)=>(<Cell key={i} fill={f}/>))}<LabelList dataKey="value" position="top" style={{fontSize:13,fontWeight:500}}/></Bar>
+                <Bar dataKey="value" name="Qtd." radius={[5,5,0,0]} barSize={52}>{[C.orange,C.green,C.gray].map((f,i)=>(<Cell key={i} fill={f}/>))}<LabelList dataKey="value" position="top" style={{fontSize:13,fontWeight:700}}/></Bar>
               </BarChart>
             </ResponsiveContainer>
           </Card>
@@ -918,20 +923,20 @@ function InternoPage(){
                 <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} domain={[0,'dataMax+5']}/>
                 <Tooltip content={<Tip/>}/>
                 <ReferenceLine y={META_DIA} stroke={C.green} strokeWidth={1.5} strokeDasharray="5 3" label={{value:'Meta 25',fill:C.green,fontSize:10,position:'insideTopRight',fontWeight:700}}/>
-                <Bar dataKey="mov" name="Movimentacoes" radius={[5,5,0,0]} barSize={52}>{TATIANE_MOV.map((d,i)=>(<Cell key={i} fill={d.mov>=25?'#2E7D32':d.mov>=11?'#F59E0B':d.mov>0?'#C62828':'#DDDDDD'}/>))}<LabelList dataKey="mov" position="top" style={{fontSize:11,fontWeight:500}}/></Bar>
+                <Bar dataKey="mov" name="Movimentacoes" radius={[5,5,0,0]} barSize={52}>{TATIANE_MOV.map((d,i)=>(<Cell key={i} fill={d.mov>=25?'#2E7D32':d.mov>=11?'#F59E0B':d.mov>0?'#C62828':'#DDDDDD'}/>))}<LabelList dataKey="mov" position="top" style={{fontSize:11,fontWeight:800}}/></Bar>
               </BarChart>
             </ResponsiveContainer>
             <div style={{display:'flex',gap:12,marginTop:10,flexWrap:'wrap',alignItems:'center'}}>
-              <span style={{fontSize:10,fontWeight:500,color:'#888',textTransform:'uppercase',letterSpacing:'0.06em'}}>Legenda:</span>
-              {[{cor:'#C62828',bg:'#FFEBEE',label:'0–10',desc:'Abaixo do esperado'},{cor:'#F59E0B',bg:'#FFFBEB',label:'11–24',desc:'Em progresso'},{cor:'#2E7D32',bg:'#E8F5E9',label:'≥25',desc:'Meta atingida'}].map(f=>(<div key={f.label} style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:12,height:12,borderRadius:3,background:f.cor,flexShrink:0}}/><span style={{fontSize:10,fontWeight:500,color:f.cor,background:f.bg,padding:'1px 6px',borderRadius:4}}>{f.label}</span><span style={{fontSize:10,color:'#666'}}>{f.desc}</span></div>))}
+              <span style={{fontSize:10,fontWeight:700,color:'#888',textTransform:'uppercase',letterSpacing:'0.06em'}}>Legenda:</span>
+              {[{cor:'#C62828',bg:'#FFEBEE',label:'0–10',desc:'Abaixo do esperado'},{cor:'#F59E0B',bg:'#FFFBEB',label:'11–24',desc:'Em progresso'},{cor:'#2E7D32',bg:'#E8F5E9',label:'≥25',desc:'Meta atingida'}].map(f=>(<div key={f.label} style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:12,height:12,borderRadius:3,background:f.cor,flexShrink:0}}/><span style={{fontSize:10,fontWeight:700,color:f.cor,background:f.bg,padding:'1px 6px',borderRadius:4}}>{f.label}</span><span style={{fontSize:10,color:'#666'}}>{f.desc}</span></div>))}
             </div>
             <div style={{marginTop:10,padding:'12px 14px',background:C.grayL,borderRadius:8}}>
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}>
-                <span style={{fontSize:11,fontWeight:500,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span>
+                <span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span>
                 <div style={{display:'flex',gap:10,alignItems:'center'}}>
                   <span style={{fontSize:12,fontWeight:600,color:C.orange}}>{tatTotalMov}</span>
                   <span style={{fontSize:11,color:C.gray}}>/ 500</span>
-                  <span style={{fontSize:11,fontWeight:500,color:C.gray}}>{Math.min(Math.round(tatTotalMov/500*100),100)}%</span>
+                  <span style={{fontSize:11,fontWeight:700,color:C.gray}}>{Math.min(Math.round(tatTotalMov/500*100),100)}%</span>
                 </div>
               </div>
               <div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${Math.min(Math.round(tatTotalMov/500*100),100)}%`,background:C.orange,borderRadius:6}}/></div>
@@ -982,7 +987,7 @@ function SDRAtivChart({diaMap,totalAgend,mkAgendDot,mkAgendLabel}){
     <Card title="Atividades por Dia — por Canal + Agendamentos Acumulados">
       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:10,flexWrap:'wrap',gap:8}}>
         <div style={{display:'flex',alignItems:'center',gap:6}}>
-          <div style={{width:20,height:2.5,background:COL_AGEND_ACUM,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_AGEND_ACUM}}/><span style={{fontSize:10,fontWeight:500,color:COL_AGEND_ACUM}}>Agendamentos Acumulados (eixo dir.)</span>
+          <div style={{width:20,height:2.5,background:COL_AGEND_ACUM,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_AGEND_ACUM}}/><span style={{fontSize:10,fontWeight:700,color:COL_AGEND_ACUM}}>Agendamentos Acumulados (eixo dir.)</span>
         </div>
         <div style={{display:'flex',gap:6}}>
           <button onClick={()=>setVisMode('diario')} style={btnStyle(visMode==='diario')}>📅 Diário (Mar/26)</button>
@@ -1042,11 +1047,11 @@ function SDRPage({dateIni,dateFim}){
   return(<div style={{display:'flex',flexDirection:'column',gap:11,fontFamily:FONT}}>
     <div style={{background:C.gray,borderRadius:8,padding:'16px 20px',boxShadow:C.shadow,display:'flex',alignItems:'center',gap:16,flexWrap:'wrap'}}>
       <div style={{width:48,height:48,borderRadius:'50%',background:C.white,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><span style={{fontSize:16,fontWeight:600,color:C.gray}}>FV</span></div>
-      <div><div style={{color:'rgba(255,255,255,0.75)',fontSize:10,fontWeight:500,textTransform:'uppercase',letterSpacing:'0.08em'}}>SDR</div><div style={{color:C.white,fontSize:20,fontWeight:600}}>Fabiana Vaz</div><div style={{color:'rgba(255,255,255,0.7)',fontSize:11}}>Inicio: 11/03/2026 - {movFilt.length} dias registrados</div></div>
+      <div><div style={{color:'rgba(255,255,255,0.75)',fontSize:10,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em'}}>SDR</div><div style={{color:C.white,fontSize:20,fontWeight:800}}>Fabiana Vaz</div><div style={{color:'rgba(255,255,255,0.7)',fontSize:11}}>Inicio: 11/03/2026 - {movFilt.length} dias registrados</div></div>
       <div style={{marginLeft:'auto',display:'flex',gap:8,flexWrap:'wrap'}}>
-        {canalInfo.map(d=>(<div key={d.canal} style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>{d.icon}</div><div style={{fontSize:20,fontWeight:600,color:C.white}}>{d.qtd}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>{d.canal}</div></div>))}
-        <div style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>✅</div><div style={{fontSize:20,fontWeight:600,color:C.white}}>{nEfetivas}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>Lig. Efetivas</div></div>
-        <div style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>🏢</div><div style={{fontSize:20,fontWeight:600,color:C.white}}>{empresaMap.length}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>Empresas</div></div>
+        {canalInfo.map(d=>(<div key={d.canal} style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>{d.icon}</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{d.qtd}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>{d.canal}</div></div>))}
+        <div style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>✅</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{nEfetivas}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>Lig. Efetivas</div></div>
+        <div style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>🏢</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{empresaMap.length}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>Empresas</div></div>
       </div>
     </div>
     <div style={{background:C.white,borderRadius:8,boxShadow:C.shadow,overflow:'hidden'}}>
@@ -1070,14 +1075,14 @@ function SDRPage({dateIni,dateFim}){
                 <ResponsiveContainer width="100%" height={260}>
                   <ComposedChart data={agendChartData} margin={{top:24,right:20,left:0,bottom:0}}>
                     <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/><XAxis dataKey="dia" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/><YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,60]}/><Tooltip content={<Tip/>}/>
-                    <ReferenceLine y={20} stroke={COL_M1} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 20',fill:COL_M1,fontSize:9,fontWeight:500,position:'insideTopRight'}}/>
-                    <ReferenceLine y={40} stroke={COL_M2} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 40',fill:COL_M2,fontSize:9,fontWeight:500,position:'insideTopRight'}}/>
-                    <ReferenceLine y={60} stroke={COL_M3} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 60',fill:COL_M3,fontSize:9,fontWeight:500,position:'insideTopRight'}}/>
+                    <ReferenceLine y={20} stroke={COL_M1} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 20',fill:COL_M1,fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
+                    <ReferenceLine y={40} stroke={COL_M2} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 40',fill:COL_M2,fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
+                    <ReferenceLine y={60} stroke={COL_M3} strokeWidth={1} strokeDasharray="5 3" label={{value:'Meta 60',fill:COL_M3,fontSize:9,fontWeight:700,position:'insideTopRight'}}/>
                     <Line dataKey="real" name="Acumulado Real" stroke={COL_AGEND_ACUM} strokeWidth={1.5} type="monotone" connectNulls dot={mkDotReal} label={mkLabelReal}/>
                   </ComposedChart>
                 </ResponsiveContainer>
                 <div style={{marginTop:12,display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}}>
-                  {METAS_SDR.map((m,i)=>{const falta=Math.max(0,m-atual);const atingida=atual>=m;const pct=Math.min(Math.round(atual/m*100),100);const cor=metaCores[i];return(<div key={m} style={{borderRadius:6,padding:'9px 12px',background:atingida?C.gL:'#FAFAFA',border:`1px solid ${atingida?C.green:cor}`,display:'flex',flexDirection:'column',gap:5}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><span style={{fontSize:9,fontWeight:500,color:cor,textTransform:'uppercase',letterSpacing:'0.06em'}}>Meta {m}</span>{atingida&&<span style={{fontSize:10,fontWeight:600,color:C.green}}>✓ Atingida</span>}</div><div style={{display:'flex',alignItems:'baseline',gap:5}}><span style={{fontSize:20,fontWeight:600,color:atingida?C.green:C.text,lineHeight:1}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {m}</span><span style={{fontSize:10,fontWeight:500,color:atingida?C.green:cor,marginLeft:'auto'}}>{pct}%</span></div><div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:atingida?C.green:cor,borderRadius:3}}/></div><div style={{fontSize:10,color:atingida?C.green:C.red,fontWeight:600,textAlign:'right'}}>{atingida?'Meta atingida!':'Faltam '+falta}</div></div>);})}
+                  {METAS_SDR.map((m,i)=>{const falta=Math.max(0,m-atual);const atingida=atual>=m;const pct=Math.min(Math.round(atual/m*100),100);const cor=metaCores[i];return(<div key={m} style={{borderRadius:6,padding:'9px 12px',background:atingida?C.gL:'#FAFAFA',border:`1px solid ${atingida?C.green:cor}`,display:'flex',flexDirection:'column',gap:5}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><span style={{fontSize:9,fontWeight:700,color:cor,textTransform:'uppercase',letterSpacing:'0.06em'}}>Meta {m}</span>{atingida&&<span style={{fontSize:10,fontWeight:600,color:C.green}}>✓ Atingida</span>}</div><div style={{display:'flex',alignItems:'baseline',gap:5}}><span style={{fontSize:20,fontWeight:600,color:atingida?C.green:C.text,lineHeight:1}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {m}</span><span style={{fontSize:10,fontWeight:700,color:atingida?C.green:cor,marginLeft:'auto'}}>{pct}%</span></div><div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:atingida?C.green:cor,borderRadius:3}}/></div><div style={{fontSize:10,color:atingida?C.green:C.red,fontWeight:600,textAlign:'right'}}>{atingida?'Meta atingida!':'Faltam '+falta}</div></div>);})}
                 </div>
               </Card>
             );
@@ -1104,7 +1109,7 @@ function SDRPage({dateIni,dateFim}){
                   <XAxis dataKey="label" tick={{fontSize:11,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
                   <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false}/>
                   <Tooltip content={<Tip/>}/>
-                  <Bar dataKey="value" name="Qtd." radius={[5,5,0,0]} barSize={52}>{[C.orange,C.green,C.gray].map((f,i)=>(<Cell key={i} fill={f}/>))}<LabelList dataKey="value" position="top" style={{fontSize:13,fontWeight:500}}/></Bar>
+                  <Bar dataKey="value" name="Qtd." radius={[5,5,0,0]} barSize={52}>{[C.orange,C.green,C.gray].map((f,i)=>(<Cell key={i} fill={f}/>))}<LabelList dataKey="value" position="top" style={{fontSize:13,fontWeight:700}}/></Bar>
                 </BarChart>
               </ResponsiveContainer>
             </Card>
@@ -1116,21 +1121,21 @@ function SDRPage({dateIni,dateFim}){
                   <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} domain={[0,'dataMax+5']}/>
                   <Tooltip content={<Tip/>}/>
                   <ReferenceLine y={META_DIA} stroke={C.green} strokeWidth={1.5} strokeDasharray="5 3" label={{value:'Meta 25',fill:C.green,fontSize:10,position:'insideTopRight',fontWeight:700}}/>
-                  <Bar dataKey="mov" name="Movimentacoes" radius={[5,5,0,0]} barSize={36}>{movFilt.map((d,i)=>(<Cell key={i} fill={d.mov>=25?'#2E7D32':d.mov>=11?'#F59E0B':d.mov>0?'#C62828':'#DDDDDD'}/>))}<LabelList dataKey="mov" position="top" style={{fontSize:11,fontWeight:500}}/></Bar>
+                  <Bar dataKey="mov" name="Movimentacoes" radius={[5,5,0,0]} barSize={36}>{movFilt.map((d,i)=>(<Cell key={i} fill={d.mov>=25?'#2E7D32':d.mov>=11?'#F59E0B':d.mov>0?'#C62828':'#DDDDDD'}/>))}<LabelList dataKey="mov" position="top" style={{fontSize:11,fontWeight:800}}/></Bar>
                 </BarChart>
               </ResponsiveContainer>
               <div style={{display:'flex',gap:12,marginTop:10,flexWrap:'wrap',alignItems:'center'}}>
-                <span style={{fontSize:10,fontWeight:500,color:'#888',textTransform:'uppercase',letterSpacing:'0.06em'}}>Legenda:</span>
-                {[{cor:'#C62828',bg:'#FFEBEE',label:'0–10',desc:'Abaixo do esperado'},{cor:'#F59E0B',bg:'#FFFBEB',label:'11–24',desc:'Em progresso'},{cor:'#2E7D32',bg:'#E8F5E9',label:'≥25',desc:'Meta atingida'}].map(f=>(<div key={f.label} style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:12,height:12,borderRadius:3,background:f.cor,flexShrink:0}}/><span style={{fontSize:10,fontWeight:500,color:f.cor,background:f.bg,padding:'1px 6px',borderRadius:4}}>{f.label}</span><span style={{fontSize:10,color:'#666'}}>{f.desc}</span></div>))}
+                <span style={{fontSize:10,fontWeight:700,color:'#888',textTransform:'uppercase',letterSpacing:'0.06em'}}>Legenda:</span>
+                {[{cor:'#C62828',bg:'#FFEBEE',label:'0–10',desc:'Abaixo do esperado'},{cor:'#F59E0B',bg:'#FFFBEB',label:'11–24',desc:'Em progresso'},{cor:'#2E7D32',bg:'#E8F5E9',label:'≥25',desc:'Meta atingida'}].map(f=>(<div key={f.label} style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:12,height:12,borderRadius:3,background:f.cor,flexShrink:0}}/><span style={{fontSize:10,fontWeight:700,color:f.cor,background:f.bg,padding:'1px 6px',borderRadius:4}}>{f.label}</span><span style={{fontSize:10,color:'#666'}}>{f.desc}</span></div>))}
               </div>
-              {(()=>{const META_MES=500;const atual=movFilt.reduce((a,d)=>a+d.mov,0);const pct=Math.min(Math.round(atual/META_MES*100),100);const faltam=Math.max(0,META_MES-atual);return(<div style={{marginTop:10,padding:'12px 14px',background:C.grayL,borderRadius:8}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}><span style={{fontSize:11,fontWeight:500,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span><div style={{display:'flex',gap:10,alignItems:'center'}}><span style={{fontSize:12,fontWeight:600,color:C.orange}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {META_MES}</span><span style={{fontSize:11,fontWeight:500,color:pct>=100?C.green:C.gray}}>{pct}%</span></div></div><div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:pct>=100?C.green:C.orange,borderRadius:6}}/></div><div style={{display:'flex',justifyContent:'space-between',marginTop:5}}><span style={{fontSize:10,color:C.gray}}>125 interacoes/semana - 25/dia</span><span style={{fontSize:10,color:faltam>0?C.red:C.green,fontWeight:600}}>{faltam>0?'Faltam '+faltam+' contatos':'Meta atingida!'}</span></div></div>);})()}
+              {(()=>{const META_MES=500;const atual=movFilt.reduce((a,d)=>a+d.mov,0);const pct=Math.min(Math.round(atual/META_MES*100),100);const faltam=Math.max(0,META_MES-atual);return(<div style={{marginTop:10,padding:'12px 14px',background:C.grayL,borderRadius:8}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}><span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span><div style={{display:'flex',gap:10,alignItems:'center'}}><span style={{fontSize:12,fontWeight:600,color:C.orange}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {META_MES}</span><span style={{fontSize:11,fontWeight:700,color:pct>=100?C.green:C.gray}}>{pct}%</span></div></div><div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:pct>=100?C.green:C.orange,borderRadius:6}}/></div><div style={{display:'flex',justifyContent:'space-between',marginTop:5}}><span style={{fontSize:10,color:C.gray}}>125 interacoes/semana - 25/dia</span><span style={{fontSize:10,color:faltam>0?C.red:C.green,fontWeight:600}}>{faltam>0?'Faltam '+faltam+' contatos':'Meta atingida!'}</span></div></div>);})()}
             </Card>
           </div>
           <Card title={"Agendamentos Marco - "+SDR_AGENDAMENTOS.length}><div style={{overflowX:'auto',borderRadius:5,border:`1px solid ${C.border}`}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:12,fontFamily:FONT}}><thead><tr style={{background:C.orange}}><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center',width:36}}>#</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'left'}}>Empresa</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Tamanho</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Status</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>CRM</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Motivo de Perda</th></tr></thead><tbody>{SDR_AGENDAMENTOS.map((d,i)=>{const isReal=d.status===STATUS_REALIZADA;const stColor=isReal?C.green:C.orange;const stBg=isReal?C.gL:C.oL;const stLabel=isReal?'Reuniao Realizada':'Reuniao Agendada';const crmColor=d.crm==='Perdida'?C.red:isReal?C.green:C.orange;const crmBg=d.crm==='Perdida'?C.rL:isReal?C.gL:C.oL;return(<tr key={i} style={{...tRow(i),fontSize:12}}><td style={{padding:'9px 12px',color:C.gray,fontWeight:700,textAlign:'center'}}>{i+1}</td><td style={{padding:'9px 12px',fontWeight:700,color:C.text}}>{d.empresa}</td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={d.perfil} color={d.perfil==='ETP'?C.blue:C.orange} bg={d.perfil==='ETP'?C.bL:C.oL}/></td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={stLabel} color={stColor} bg={stBg}/></td><td style={{padding:'9px 12px',textAlign:'center'}}><div style={{display:'flex',flexDirection:'column',gap:3,alignItems:'center'}}><Badge label={d.crm} color={crmColor} bg={crmBg}/>{d.etapaCrm&&<Badge label={d.etapaCrm} color={C.blue} bg={C.bL}/>}</div></td><td style={{padding:'9px 12px',textAlign:'center'}}>{d.motivo?<Badge label={d.motivo} color={C.red} bg={C.rL}/>:<span style={{color:C.gray}}>-</span>}</td></tr>);})}</tbody></table></div><div style={{marginTop:12}}><PBar label={'Meta mensal ('+META_AGEND_MES+')'} actual={totalAgend} meta={META_AGEND_MES}/></div></Card>
         </div>)}
         {subSDR==='bonificacao'&&(<div style={{display:'flex',flexDirection:'column',gap:11}}>
           <Card title="Bonificacao por Agendamentos - Marco/2026"><div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
-            <div><div style={{fontSize:10,fontWeight:500,color:C.gray,textTransform:'uppercase',letterSpacing:'0.07em',marginBottom:8}}>Tabela de Faixas</div><div style={{borderRadius:6,overflow:'hidden',border:`1px solid ${C.border}`}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11,fontFamily:FONT}}><thead><tr style={{background:C.orange}}><th style={{padding:'8px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Volume</th><th style={{padding:'8px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>R$/Reuniao</th><th style={{padding:'8px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Cenario</th></tr></thead><tbody>{BONIF.map((b,i)=>{const ativa=faixa&&faixa.min===b.min;return(<tr key={i} style={{background:ativa?C.oL:i%2===0?C.white:C.grayL,borderBottom:`1px solid ${C.border}`,fontWeight:ativa?700:400}}><td style={{padding:'9px 12px',color:ativa?C.orange:C.text,textAlign:'center'}}>{b.min}-{b.max}</td><td style={{padding:'9px 12px',textAlign:'center',color:ativa?C.orange:C.text}}>R$ {b.valor},00</td><td style={{padding:'9px 12px',textAlign:'center',color:ativa?C.orange:C.text}}>R$ {b.cenario.toLocaleString('pt-BR')}</td></tr>);})}</tbody></table></div></div>
+            <div><div style={{fontSize:10,fontWeight:700,color:C.gray,textTransform:'uppercase',letterSpacing:'0.07em',marginBottom:8}}>Tabela de Faixas</div><div style={{borderRadius:6,overflow:'hidden',border:`1px solid ${C.border}`}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11,fontFamily:FONT}}><thead><tr style={{background:C.orange}}><th style={{padding:'8px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Volume</th><th style={{padding:'8px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>R$/Reuniao</th><th style={{padding:'8px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Cenario</th></tr></thead><tbody>{BONIF.map((b,i)=>{const ativa=faixa&&faixa.min===b.min;return(<tr key={i} style={{background:ativa?C.oL:i%2===0?C.white:C.grayL,borderBottom:`1px solid ${C.border}`,fontWeight:ativa?700:400}}><td style={{padding:'9px 12px',color:ativa?C.orange:C.text,textAlign:'center'}}>{b.min}-{b.max}</td><td style={{padding:'9px 12px',textAlign:'center',color:ativa?C.orange:C.text}}>R$ {b.valor},00</td><td style={{padding:'9px 12px',textAlign:'center',color:ativa?C.orange:C.text}}>R$ {b.cenario.toLocaleString('pt-BR')}</td></tr>);})}</tbody></table></div></div>
             <div style={{display:'flex',flexDirection:'column',gap:10}}>
               <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}><div style={{background:C.oL,borderRadius:8,padding:'12px 14px',textAlign:'center',border:`1.5px solid ${C.orange}`}}><div style={{fontSize:10,color:C.gray,textTransform:'uppercase',fontWeight:700,marginBottom:4}}>Agendamentos</div><div style={{fontSize:24,fontWeight:600,color:C.orange}}>{totalAgend}</div></div><div style={{background:C.gL,borderRadius:8,padding:'12px 14px',textAlign:'center',border:`1.5px solid ${C.green}`}}><div style={{fontSize:10,color:C.gray,textTransform:'uppercase',fontWeight:700,marginBottom:4}}>Bonif. Atual</div><div style={{fontSize:20,fontWeight:600,color:C.green}}>R$ {bonifAtual.toLocaleString('pt-BR')}</div></div></div>
               {faixa&&<div><div style={{display:'flex',justifyContent:'space-between',marginBottom:4}}><span style={{fontSize:11,fontWeight:600}}>Progresso ({faixa.min}-{faixa.max})</span><span style={{fontSize:11,color:C.gray}}><strong style={{color:C.orange}}>{totalAgend}</strong>/{faixa.max}</span></div><div style={{height:10,background:C.grayL,borderRadius:5,overflow:'hidden'}}><div style={{height:'100%',width:`${pctFaixa}%`,background:C.orange,borderRadius:5}}/></div></div>}
@@ -1171,8 +1176,8 @@ export default function App(){
     </div>
     <div style={{background:C.white,borderBottom:`1px solid ${C.border}`,padding:'10px 20px'}}>
       <div style={{maxWidth:1400,margin:'0 auto',display:'flex',alignItems:'center',gap:16,flexWrap:'wrap'}}>
-        <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:10,fontWeight:500,color:C.gray,textTransform:'uppercase',whiteSpace:'nowrap'}}>De</span><input type="date" value={dateIni} onChange={e=>setDateIni(e.target.value)} style={inputStyle}/><span style={{fontSize:10,fontWeight:500,color:C.gray,textTransform:'uppercase',whiteSpace:'nowrap'}}>Ate</span><input type="date" value={dateFim} onChange={e=>setDateFim(e.target.value)} style={inputStyle}/>{hasFilter&&(<button onClick={()=>{setDateIni('');setDateFim('');}} style={{padding:'5px 12px',borderRadius:6,border:`1.5px solid ${C.red}`,background:C.rL,color:C.red,fontSize:11,fontWeight:500,cursor:'pointer',fontFamily:FONT}}>X Limpar</button>)}</div>
-        <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:10,fontWeight:500,color:C.gray,textTransform:'uppercase',whiteSpace:'nowrap'}}>Perfil</span><select value={selPerfil} onChange={e=>setSelPerfil(e.target.value)} style={{...inputStyle,minWidth:110}}><option value="Todos">Todos</option><option value="ETP">ETP</option><option value="PME">PME</option></select></div>
+        <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:10,fontWeight:700,color:C.gray,textTransform:'uppercase',whiteSpace:'nowrap'}}>De</span><input type="date" value={dateIni} onChange={e=>setDateIni(e.target.value)} style={inputStyle}/><span style={{fontSize:10,fontWeight:700,color:C.gray,textTransform:'uppercase',whiteSpace:'nowrap'}}>Ate</span><input type="date" value={dateFim} onChange={e=>setDateFim(e.target.value)} style={inputStyle}/>{hasFilter&&(<button onClick={()=>{setDateIni('');setDateFim('');}} style={{padding:'5px 12px',borderRadius:6,border:`1.5px solid ${C.red}`,background:C.rL,color:C.red,fontSize:11,fontWeight:700,cursor:'pointer',fontFamily:FONT}}>X Limpar</button>)}</div>
+        <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:10,fontWeight:700,color:C.gray,textTransform:'uppercase',whiteSpace:'nowrap'}}>Perfil</span><select value={selPerfil} onChange={e=>setSelPerfil(e.target.value)} style={{...inputStyle,minWidth:110}}><option value="Todos">Todos</option><option value="ETP">ETP</option><option value="PME">PME</option></select></div>
       </div>
     </div>
     <div style={{maxWidth:1400,margin:'0 auto',padding:'16px 20px'}}>
