@@ -1152,6 +1152,10 @@ function OverviewPage(){
   const[data,setData]=useState([]);
   const[loading,setLoading]=useState(true);
   const[fetchErr,setFetchErr]=useState(null);
+  const[selStage,setSelStage]=useState(null);
+  const[selExec,setSelExec]=useState(null);
+  const[selSeg,setSelSeg]=useState(null);
+
   useEffect(()=>{
     fetch('/api/crm')
       .then(r=>r.json())
@@ -1162,229 +1166,437 @@ function OverviewPage(){
       .catch(e=>{setFetchErr(e.message);setLoading(false);});
   },[]);
 
-  if(loading)return(<div style={{display:'flex',alignItems:'center',justifyContent:'center',height:300,gap:12,fontFamily:FONT,color:C.gray}}><div style={{width:22,height:22,border:`3px solid ${C.border}`,borderTopColor:C.orange,borderRadius:'50%',animation:'spin 0.8s linear infinite'}}/><span style={{fontSize:13}}>Carregando base comercial…</span></div>);
-  if(fetchErr)return(<div style={{display:'flex',alignItems:'center',justifyContent:'center',height:300,fontFamily:FONT}}><div style={{background:'#FFF5F5',border:'1px solid #FFCCCC',borderRadius:8,padding:'20px 28px',textAlign:'center'}}><div style={{fontSize:13,fontWeight:700,color:C.red,marginBottom:6}}>Erro ao carregar CRM</div><div style={{fontSize:11,color:C.gray}}>{fetchErr}</div></div></div>);
+  if(loading)return(<div style={{display:'flex',alignItems:'center',justifyContent:'center',height:320,gap:12,fontFamily:FONT,color:C.gray}}><div style={{width:24,height:24,border:`3px solid ${C.border}`,borderTopColor:C.orange,borderRadius:'50%',animation:'spin 0.8s linear infinite'}}/><span style={{fontSize:13}}>Carregando base comercial…</span></div>);
+  if(fetchErr)return(<div style={{display:'flex',alignItems:'center',justifyContent:'center',height:320,fontFamily:FONT}}><div style={{background:'#FFF5F5',border:'1px solid #FFC9C9',borderRadius:10,padding:'24px 32px',textAlign:'center',maxWidth:400}}><div style={{fontSize:30,marginBottom:8}}>!</div><div style={{fontSize:14,fontWeight:700,color:C.red,marginBottom:6}}>Erro ao carregar CRM</div><div style={{fontSize:11,color:C.gray,wordBreak:'break-all'}}>{fetchErr}</div></div></div>);
 
-  const nTotal=data.length;
+  // ── Core derivations ──────────────────────────────────────────────────────
   const vendidas=data.filter(r=>r[F.ESTADO]==='Vendida');
   const perdidas=data.filter(r=>r[F.ESTADO]==='Perdida');
   const ativos=data.filter(r=>r[F.ESTADO]==='Em Andamento');
-  const nVend=vendidas.length,nPerd=perdidas.length,nAtivo=ativos.length;
+  const nTotal=data.length,nVend=vendidas.length,nPerd=perdidas.length,nAtivo=ativos.length;
   const winRate=(nVend+nPerd)>0?Math.round(nVend/(nVend+nPerd)*100):0;
   const YTD='2026-01-01';
-  const vendYTD=vendidas.filter(r=>r[F.DFECH]&&r[F.DFECH]>=YTD);
-  const nVendYTD=vendYTD.length;
-  const META_ANUAL=40;
+  const nVendYTD=vendidas.filter(r=>r[F.DFECH]&&r[F.DFECH]>=YTD).length;
   const diasYTD=Math.floor((new Date()-new Date(YTD))/864e5);
   const paceAnual=diasYTD>0?Math.round(nVendYTD/diasYTD*365):0;
+  const META_ANUAL=40;
   const cycles=vendidas.filter(r=>r[F.DPRIMEIRO]&&r[F.DFECH]).map(r=>Math.floor((new Date(r[F.DFECH])-new Date(r[F.DPRIMEIRO]))/864e5));
-  const avgCycle=cycles.length>0?Math.round(cycles.reduce((a,b)=>a+b,0)/cycles.length):null;
-  const ETAPA_LBL=e=>e==='Solicitacao de Documentos'?'Sol. Docs':e;
-  const funnelData=ETAPA_ORDER.map((etapa,i)=>{const n=data.filter(r=>ETAPA_ORDER.indexOf(r[F.ETAPA])>=i).length;return{etapa:ETAPA_LBL(etapa),count:n,pct:nTotal>0?Math.round(n/nTotal*100):0};});
+  const avgCycle=cycles.length?Math.round(cycles.reduce((a,b)=>a+b,0)/cycles.length):null;
+  const txConv=nTotal>0?Math.round(nVend/nTotal*100):0;
+
+  // ── Funil com taxas de queda por etapa ────────────────────────────────────
+  const EL=e=>e==='Solicitacao de Documentos'?'Sol. Docs':e;
+  const funnelData=ETAPA_ORDER.map((etapa,i)=>{
+    const reached=data.filter(r=>ETAPA_ORDER.indexOf(r[F.ETAPA])>=i).length;
+    const prev=i>0?data.filter(r=>ETAPA_ORDER.indexOf(r[F.ETAPA])>=i-1).length:reached;
+    const lostHere=perdidas.filter(r=>r[F.ETAPA]===etapa).length;
+    const activeHere=ativos.filter(r=>r[F.ETAPA]===etapa).length;
+    const queda=i===0?0:(prev>0?Math.round((1-reached/prev)*100):0);
+    const dropRate=reached>0?Math.round(lostHere/reached*100):0;
+    return{etapa,label:EL(etapa),reached,activeHere,lostHere,queda,dropRate,prev};
+  });
+
+  // ── Aging buckets ─────────────────────────────────────────────────────────
+  const nowMs=Date.now();
+  const getDays=r=>r[F.DPRIMEIRO]?Math.floor((nowMs-new Date(r[F.DPRIMEIRO]))/864e5):null;
+  const agBuckets=[
+    {label:'Recente',sub:'≤ 30d',count:ativos.filter(r=>{const d=getDays(r);return d!==null&&d<=30;}).length,color:C.green,bg:C.gL},
+    {label:'Atenção',sub:'31–90d',count:ativos.filter(r=>{const d=getDays(r);return d!==null&&d>30&&d<=90;}).length,color:C.orange,bg:C.oL},
+    {label:'Crítico',sub:'> 90d',count:ativos.filter(r=>{const d=getDays(r);return d!==null&&d>90;}).length,color:C.red,bg:C.rL},
+  ];
+
+  // ── Exec performance ──────────────────────────────────────────────────────
+  const execMap={};
+  data.forEach(r=>{
+    const n=r[F.RESP]||'Sem Resp.';
+    if(!execMap[n])execMap[n]={nome:n,total:0,ativos:0,vend:0,perd:0};
+    execMap[n].total++;
+    if(r[F.ESTADO]==='Vendida')execMap[n].vend++;
+    else if(r[F.ESTADO]==='Perdida')execMap[n].perd++;
+    else execMap[n].ativos++;
+  });
+  const byExec=Object.values(execMap).map(e=>({...e,wr:(e.vend+e.perd)>0?Math.round(e.vend/(e.vend+e.perd)*100):0})).sort((a,b)=>b.total-a.total);
+
+  // ── Segmentos ETP vs PME ──────────────────────────────────────────────────
+  const byPerfil=['ETP','PME'].map(p=>{
+    const d=data.filter(r=>r[F.PERFIL]===p);
+    const v=d.filter(r=>r[F.ESTADO]==='Vendida').length;
+    const pe=d.filter(r=>r[F.ESTADO]==='Perdida').length;
+    const a=d.filter(r=>r[F.ESTADO]==='Em Andamento').length;
+    return{perfil:p,total:d.length,ativos:a,vend:v,perd:pe,wr:(v+pe)>0?Math.round(v/(v+pe)*100):0};
+  });
+
+  // ── Análise de perdas ─────────────────────────────────────────────────────
   const lossM={};perdidas.forEach(r=>{const m=r[F.MOTIVO]||'Não informado';lossM[m]=(lossM[m]||0)+1;});
-  const lossData=Object.entries(lossM).sort((a,b)=>b[1]-a[1]).map(([motivo,count])=>({motivo,count}));
-  const lossSM={};perdidas.forEach(r=>{const s=r[F.ETAPA];lossSM[s]=(lossSM[s]||0)+1;});
-  const lossStage=ETAPA_ORDER.filter(e=>lossSM[e]).map(e=>({etapa:ETAPA_LBL(e),count:lossSM[e]}));
-  const byPerfil=['ETP','PME'].map(p=>{const d=data.filter(r=>r[F.PERFIL]===p);const v=d.filter(r=>r[F.ESTADO]==='Vendida').length;const per=d.filter(r=>r[F.ESTADO]==='Perdida').length;const a=d.filter(r=>r[F.ESTADO]==='Em Andamento').length;return{perfil:p,total:d.length,ativos:a,vendidas:v,perdidas:per,winRate:(v+per)>0?Math.round(v/(v+per)*100):0};});
-  const execMap={};data.forEach(r=>{const n=r[F.RESP]||'—';if(!execMap[n])execMap[n]={nome:n,ativos:0,vendidas:0,perdidas:0,total:0};execMap[n].total++;if(r[F.ESTADO]==='Vendida')execMap[n].vendidas++;else if(r[F.ESTADO]==='Perdida')execMap[n].perdidas++;else execMap[n].ativos++;});
-  const byExec=Object.values(execMap).map(e=>({...e,winRate:(e.vendidas+e.perdidas)>0?Math.round(e.vendidas/(e.vendidas+e.perdidas)*100):0})).sort((a,b)=>b.total-a.total);
+  const lossData=Object.entries(lossM).sort((a,b)=>b[1]-a[1]).slice(0,7).map(([motivo,count])=>({motivo,count}));
+  const lossByStage=ETAPA_ORDER.map(e=>{
+    const c=perdidas.filter(r=>r[F.ETAPA]===e).length;
+    return{etapa:EL(e),count:c};
+  }).filter(d=>d.count>0).sort((a,b)=>b.count-a.count);
+
+  // ── Timeline últimos 12 meses ─────────────────────────────────────────────
   const contrByMo={},leadsByMo={};
   vendidas.forEach(r=>{if(r[F.DFECH]){const m=r[F.DFECH].slice(0,7);contrByMo[m]=(contrByMo[m]||0)+1;}});
   data.forEach(r=>{if(r[F.DPRIMEIRO]){const m=r[F.DPRIMEIRO].slice(0,7);leadsByMo[m]=(leadsByMo[m]||0)+1;}});
-  const allMo=[...new Set([...Object.keys(contrByMo),...Object.keys(leadsByMo)])].sort();
-  const timelineData=allMo.map(m=>({mes:MONTHS_LBL[MONTHS_KEY.indexOf(m)]||m,contratos:contrByMo[m]||0,leads:leadsByMo[m]||0}));
-  const pipelineData=ETAPA_ORDER.map(e=>({etapa:ETAPA_LBL(e),count:ativos.filter(r=>r[F.ETAPA]===e).length})).filter(d=>d.count>0);
-  const hotDeals=[...ativos].sort((a,b)=>ETAPA_ORDER.indexOf(b[F.ETAPA])-ETAPA_ORDER.indexOf(a[F.ETAPA])).slice(0,10);
+  const allMo=[...new Set([...Object.keys(contrByMo),...Object.keys(leadsByMo)])].sort().slice(-12);
+  const timelineData=allMo.map(m=>({mes:MONTHS_LBL[MONTHS_KEY.indexOf(m)]||m.slice(5),contratos:contrByMo[m]||0,leads:leadsByMo[m]||0}));
+
+  // ── Deals filtrados (interatividade) ──────────────────────────────────────
+  const filteredDeals=ativos.filter(r=>{
+    if(selStage&&r[F.ETAPA]!==selStage)return false;
+    if(selExec&&r[F.RESP]!==selExec)return false;
+    if(selSeg&&r[F.PERFIL]!==selSeg)return false;
+    return true;
+  }).sort((a,b)=>ETAPA_ORDER.indexOf(b[F.ETAPA])-ETAPA_ORDER.indexOf(a[F.ETAPA]));
+
+  const hasFilter=selStage||selExec||selSeg;
+  const clearAll=()=>{setSelStage(null);setSelExec(null);setSelSeg(null);};
+
   const bs=`1px solid ${C.border}`;
+  const card={background:C.white,borderRadius:10,border:bs,boxShadow:C.shadow,overflow:'hidden'};
+  const cPad={padding:'13px 18px'};
+  const secTit={fontSize:9.5,fontWeight:700,color:C.gray,textTransform:'uppercase',letterSpacing:'0.07em',marginBottom:11};
+  const SL={cursor:'pointer'};
+
   return(
     <div style={{display:'flex',flexDirection:'column',gap:11,fontFamily:FONT}}>
-      {/* Header */}
-      <div style={{background:C.dark,borderRadius:8,padding:'16px 22px',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:12}}>
-        <div>
-          <div style={{color:C.white,fontSize:18,fontWeight:800,letterSpacing:'-0.02em'}}>Overview Comercial</div>
-          <div style={{color:'rgba(255,255,255,0.45)',fontSize:11,marginTop:2}}>Base CRM · {nTotal} empresas mapeadas</div>
+
+      {/* Barra de filtros ativos */}
+      {hasFilter&&(
+        <div style={{display:'flex',alignItems:'center',gap:8,padding:'9px 16px',background:'#EBF3FF',borderRadius:8,border:`1px solid ${C.blue}33`,flexWrap:'wrap'}}>
+          <span style={{fontSize:11,color:C.blue,fontWeight:700}}>Filtro ativo —</span>
+          {selStage&&<span style={{fontSize:11,background:C.oL,color:C.orange,padding:'3px 11px',borderRadius:20,fontWeight:600}}>{EL(selStage)}</span>}
+          {selExec&&<span style={{fontSize:11,background:C.bL,color:C.blue,padding:'3px 11px',borderRadius:20,fontWeight:600}}>{selExec.split(' ')[0]}</span>}
+          {selSeg&&<span style={{fontSize:11,background:C.gL,color:C.green,padding:'3px 11px',borderRadius:20,fontWeight:600}}>{selSeg}</span>}
+          <span style={{fontSize:11,color:C.gray,marginLeft:4}}>{filteredDeals.length} deal{filteredDeals.length!==1?'s':''} encontrado{filteredDeals.length!==1?'s':''}</span>
+          <button onClick={clearAll} style={{marginLeft:'auto',fontSize:11,color:C.blue,background:'none',border:`1px solid ${C.blue}`,borderRadius:20,padding:'3px 12px',cursor:'pointer',fontFamily:FONT,fontWeight:600}}>Limpar ×</button>
         </div>
-        <div style={{display:'flex',gap:24}}>
-          {[{label:'Win Rate',value:winRate+'%',color:winRate>=50?C.green:C.orange},{label:'Contratos YTD',value:nVendYTD,color:C.orange},{label:'Pace Anual',value:paceAnual+'/ano',color:paceAnual>=META_ANUAL?C.green:C.amber},{label:'Meta Anual',value:META_ANUAL+'/ano',color:'rgba(255,255,255,0.4)'}].map(k=>(
-            <div key={k.label} style={{textAlign:'center'}}>
-              <div style={{fontSize:22,fontWeight:800,color:k.color,lineHeight:1}}>{k.value}</div>
-              <div style={{fontSize:9,color:'rgba(255,255,255,0.4)',textTransform:'uppercase',letterSpacing:'0.07em',marginTop:3}}>{k.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-      {/* KPIs */}
-      <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:9}}>
+      )}
+
+      {/* KPI strip — 7 big numbers */}
+      <div style={{display:'grid',gridTemplateColumns:'repeat(7,1fr)',gap:8}}>
         {[
-          {title:'Pipeline Total',value:nTotal,note:'empresas no CRM',color:C.text},
-          {title:'Em Andamento',value:nAtivo,note:`${Math.round(nAtivo/nTotal*100)}% do total`,color:C.orange},
-          {title:'Contratos Fechados',value:nVend,note:`${nVendYTD} fechados em 2026`,color:C.green},
-          {title:'Perdidos',value:nPerd,note:`${Math.round(nPerd/nTotal*100)}% do total`,color:C.red},
-          {title:'Ciclo Médio',value:avgCycle?avgCycle+'d':'—',note:'1º contato → fechamento',color:C.blue},
+          {label:'Pipeline Total',value:nTotal,sub:`${nAtivo} ativos`,color:C.text,icon:'◎'},
+          {label:'Em Andamento',value:nAtivo,sub:`${nTotal>0?Math.round(nAtivo/nTotal*100):0}% do total`,color:C.orange,icon:'◉'},
+          {label:'Win Rate',value:winRate+'%',sub:`${nVend} ganhos · ${nPerd} perdidos`,color:winRate>=50?C.green:C.orange,icon:'★'},
+          {label:'Contratos YTD',value:nVendYTD,sub:`meta ${META_ANUAL}`,color:C.green,icon:'✓'},
+          {label:'Pace Anual',value:paceAnual+'/ano',sub:`${paceAnual>=META_ANUAL?'meta atingida':'abaixo da meta'}`,color:paceAnual>=META_ANUAL?C.green:C.amber,icon:'→'},
+          {label:'Ciclo Médio',value:avgCycle?avgCycle+'d':'—',sub:'1º contato → fech.',color:C.blue,icon:'⏱'},
+          {label:'Tx. Conversão',value:txConv+'%',sub:`${nVend} de ${nTotal}`,color:txConv>=10?C.green:C.orange,icon:'%'},
         ].map(k=>(
-          <div key={k.title} style={{background:C.white,borderRadius:8,padding:'14px 16px',border:bs,boxShadow:C.shadow,textAlign:'center'}}>
-            <div style={{fontSize:9,color:C.gray,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.07em',marginBottom:6}}>{k.title}</div>
-            <div style={{fontSize:30,fontWeight:800,color:k.color,lineHeight:1}}>{k.value}</div>
-            <div style={{fontSize:10,color:C.gray,marginTop:5}}>{k.note}</div>
+          <div key={k.label} style={{...card,...cPad,textAlign:'center'}}>
+            <div style={{fontSize:16,color:k.color,marginBottom:5,lineHeight:1,opacity:0.7}}>{k.icon}</div>
+            <div style={{fontSize:26,fontWeight:800,color:k.color,lineHeight:1,letterSpacing:'-0.02em'}}>{k.value}</div>
+            <div style={{fontSize:8.5,fontWeight:700,color:C.gray,textTransform:'uppercase',letterSpacing:'0.07em',margin:'5px 0 3px'}}>{k.label}</div>
+            <div style={{fontSize:9.5,color:C.gray}}>{k.sub}</div>
           </div>
         ))}
       </div>
-      {/* Funil + Pipeline ativo */}
-      <div style={{display:'grid',gridTemplateColumns:'1.2fr 1fr',gap:11}}>
-        <Card title="Funil de Conversão — todos os leads">
-          <div style={{paddingTop:4}}>
+
+      {/* Funil interativo + Aging */}
+      <div style={{display:'grid',gridTemplateColumns:'1.35fr 1fr',gap:11}}>
+
+        {/* Funil com queda por etapa */}
+        <div style={card}>
+          <div style={{...cPad,borderBottom:bs,display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+            <div style={secTit}>Funil de Conversão — clique para filtrar deals</div>
+            <span style={{fontSize:9,color:C.gray}}>Taxa de queda entre etapas</span>
+          </div>
+          <div style={{padding:'10px 18px'}}>
             {funnelData.map((d,i)=>{
-              const prev=i>0?funnelData[i-1].count:d.count;
-              const conv=prev>0?Math.round(d.count/prev*100):100;
-              const w=Math.max(d.pct,6);
-              const isLast=i===funnelData.length-1;
+              const isSel=selStage===d.etapa;
+              const barW=funnelData[0].reached>0?Math.max(d.reached/funnelData[0].reached*100,2):0;
+              const quedaColor=d.queda>40?C.red:d.queda>20?C.amber:C.green;
               return(
-                <div key={d.etapa} style={{display:'flex',alignItems:'center',gap:8,marginBottom:5}}>
-                  <div style={{width:110,fontSize:10,color:C.text,textAlign:'right',flexShrink:0,fontWeight:isLast?700:400,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{d.etapa}</div>
-                  <div style={{flex:1,height:20,background:C.grayL,borderRadius:4,overflow:'hidden',position:'relative'}}>
-                    <div style={{height:'100%',width:`${w}%`,background:isLast?C.green:C.orange,borderRadius:4,opacity:Math.max(0.35,1-i*0.045)}}/>
-                    <span style={{position:'absolute',left:8,top:'50%',transform:'translateY(-50%)',fontSize:10,fontWeight:700,color:w>22?C.white:C.text}}>{d.count}</span>
+                <div key={d.etapa} onClick={()=>setSelStage(isSel?null:d.etapa)}
+                  style={{...SL,marginBottom:5,padding:'7px 10px',borderRadius:7,border:`1.5px solid ${isSel?C.orange:C.border}`,background:isSel?C.oL:'transparent',transition:'background 0.15s'}}>
+                  <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:d.lostHere>0?4:0}}>
+                    <div style={{width:96,fontSize:9.5,fontWeight:isSel?700:400,color:isSel?C.orange:C.text,flexShrink:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{d.label}</div>
+                    <div style={{flex:1,height:18,background:C.grayL,borderRadius:4,overflow:'hidden',position:'relative'}}>
+                      <div style={{position:'absolute',inset:0,width:`${barW}%`,background:isSel?C.orange:'#C8C8C8',borderRadius:4}}/>
+                      <span style={{position:'absolute',left:8,top:'50%',transform:'translateY(-50%)',fontSize:10,fontWeight:700,color:barW>20?C.white:C.text,zIndex:1}}>{d.reached}</span>
+                    </div>
+                    <div style={{display:'flex',gap:5,flexShrink:0,alignItems:'center'}}>
+                      <span style={{fontSize:9,background:C.bL,color:C.blue,padding:'2px 6px',borderRadius:10,fontWeight:600}}>{d.activeHere}</span>
+                      {i>0&&<span style={{fontSize:9,background:quedaColor===C.red?C.rL:quedaColor===C.amber?C.oL:C.gL,color:quedaColor,padding:'2px 6px',borderRadius:10,fontWeight:700,minWidth:42,textAlign:'center'}}>-{d.queda}%</span>}
+                    </div>
                   </div>
-                  <span style={{fontSize:9,color:C.gray,width:34,textAlign:'right',flexShrink:0}}>{d.pct}%</span>
-                  {i>0&&conv<100&&<span style={{fontSize:9,color:conv>=75?'#2D9E60':C.amber,width:36,textAlign:'right',flexShrink:0,fontWeight:700}}>↓{conv}%</span>}
-                  {i===0&&<span style={{fontSize:9,color:'transparent',width:36,flexShrink:0}}>—</span>}
+                  {d.lostHere>0&&(
+                    <div style={{display:'flex',alignItems:'center',gap:6,marginLeft:104}}>
+                      <div style={{flex:1,height:3,background:C.grayL,borderRadius:2,overflow:'hidden'}}>
+                        <div style={{height:'100%',width:`${d.dropRate}%`,background:quedaColor,borderRadius:2}}/>
+                      </div>
+                      <span style={{fontSize:9,color:quedaColor,fontWeight:600,flexShrink:0}}>{d.lostHere} perdas</span>
+                    </div>
+                  )}
                 </div>
               );
             })}
           </div>
-        </Card>
-        <Card title="Pipeline Ativo — distribuição por etapa">
-          <ResponsiveContainer width="100%" height={270}>
-            <BarChart data={pipelineData} layout="vertical" margin={{top:4,right:36,left:0,bottom:4}}>
-              <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} horizontal={false}/>
-              <XAxis type="number" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false}/>
-              <YAxis dataKey="etapa" type="category" tick={{fontSize:9.5,fill:C.gray,fontFamily:FONT}} width={110} axisLine={false} tickLine={false}/>
-              <Tooltip content={<Tip/>}/>
-              <Bar dataKey="count" name="Em Andamento" fill={C.orange} radius={[0,4,4,0]} barSize={18}>
-                <LabelList dataKey="count" position="right" style={{fontSize:11,fontWeight:800,fill:C.text}}/>
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </Card>
-      </div>
-      {/* Win Rate ETP vs PME + Perdas */}
-      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:11}}>
-        <Card title="Win Rate por Segmento">
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:12}}>
-            {byPerfil.map(p=>{
-              const col=p.perfil==='ETP'?C.orange:C.blue;
-              return(
-                <div key={p.perfil} style={{background:C.grayL,borderRadius:8,padding:'14px 16px',textAlign:'center'}}>
-                  <div style={{fontSize:11,fontWeight:800,color:col,marginBottom:8}}>{p.perfil}</div>
-                  <div style={{fontSize:34,fontWeight:800,color:C.text,lineHeight:1}}>{p.winRate}%</div>
-                  <div style={{fontSize:10,color:C.gray,marginTop:3}}>win rate</div>
-                  <div style={{marginTop:8,height:6,background:C.border,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${p.winRate}%`,background:col,borderRadius:4}}/></div>
-                  <div style={{display:'flex',justifyContent:'space-around',marginTop:10}}>
-                    {[{v:p.ativos,l:'Ativos',c:C.orange},{v:p.vendidas,l:'Ganhos',c:C.green},{v:p.perdidas,l:'Perdidos',c:C.red}].map(x=>(
-                      <div key={x.l} style={{textAlign:'center'}}><div style={{fontSize:16,fontWeight:800,color:x.c}}>{x.v}</div><div style={{fontSize:8,color:C.gray,textTransform:'uppercase',marginTop:2}}>{x.l}</div></div>
-                    ))}
+        </div>
+
+        {/* Coluna direita: aging + pipeline ativo */}
+        <div style={{display:'flex',flexDirection:'column',gap:11}}>
+
+          {/* Aging */}
+          <div style={card}>
+            <div style={{...cPad,borderBottom:bs}}>
+              <div style={secTit}>Saúde do Pipeline — aging dos {nAtivo} deals ativos</div>
+            </div>
+            <div style={{padding:'12px 18px'}}>
+              <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginBottom:10}}>
+                {agBuckets.map(b=>(
+                  <div key={b.label} style={{background:b.bg,borderRadius:8,padding:'11px 8px',textAlign:'center'}}>
+                    <div style={{fontSize:26,fontWeight:800,color:b.color,lineHeight:1}}>{b.count}</div>
+                    <div style={{fontSize:9,fontWeight:700,color:b.color,textTransform:'uppercase',marginTop:4}}>{b.label}</div>
+                    <div style={{fontSize:9,color:b.color,opacity:0.75,marginTop:2}}>{b.sub}</div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-          <div style={{display:'flex',alignItems:'center',gap:10,padding:'10px 14px',background:C.oL,borderRadius:8}}>
-            <span style={{fontSize:11,color:C.text}}>Win rate geral: <strong style={{color:C.orange,fontSize:15}}>{winRate}%</strong></span>
-            <span style={{fontSize:10,color:C.gray,marginLeft:'auto'}}>{nVend} ganhos · {nPerd} perdidos · {nVend+nPerd} encerrados</span>
-          </div>
-        </Card>
-        <Card title="Análise de Perdas">
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14}}>
-            <div>
-              <div style={{fontSize:9,fontWeight:700,color:C.gray,textTransform:'uppercase',letterSpacing:'0.07em',marginBottom:10}}>Por Motivo</div>
-              {lossData.map((d,i)=>(
-                <div key={i} style={{marginBottom:8}}>
-                  <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:10,color:C.text}}>{d.motivo}</span><span style={{fontSize:10,fontWeight:700}}>{d.count}</span></div>
-                  <div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${Math.round(d.count/nPerd*100)}%`,background:'#4A4B4D',borderRadius:3}}/></div>
-                </div>
-              ))}
-            </div>
-            <div>
-              <div style={{fontSize:9,fontWeight:700,color:C.gray,textTransform:'uppercase',letterSpacing:'0.07em',marginBottom:10}}>Por Etapa</div>
-              {lossStage.map((d,i)=>(
-                <div key={i} style={{marginBottom:8}}>
-                  <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:10,color:C.text}}>{d.etapa}</span><span style={{fontSize:10,fontWeight:700}}>{d.count}</span></div>
-                  <div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${Math.round(d.count/nPerd*100)}%`,background:C.red,borderRadius:3}}/></div>
-                </div>
-              ))}
+                ))}
+              </div>
+              <div style={{height:7,background:C.grayL,borderRadius:4,overflow:'hidden',display:'flex'}}>
+                {agBuckets.map(b=>(
+                  <div key={b.label} style={{height:'100%',width:`${nAtivo>0?b.count/nAtivo*100:0}%`,background:b.color,transition:'width 0.3s'}}/>
+                ))}
+              </div>
+              <div style={{display:'flex',justifyContent:'space-between',marginTop:5}}>
+                {agBuckets.map(b=><span key={b.label} style={{fontSize:9,color:b.color,fontWeight:600}}>{nAtivo>0?Math.round(b.count/nAtivo*100):0}%</span>)}
+              </div>
             </div>
           </div>
-        </Card>
+
+          {/* Pipeline ativo por etapa — clicável */}
+          <div style={{...card,flex:1}}>
+            <div style={{...cPad,borderBottom:bs}}>
+              <div style={secTit}>Pipeline ativo por etapa</div>
+            </div>
+            <div style={{padding:'8px 16px 12px'}}>
+              {ETAPA_ORDER.map(e=>{
+                const cnt=ativos.filter(r=>r[F.ETAPA]===e).length;
+                if(!cnt)return null;
+                const maxCnt=Math.max(...ETAPA_ORDER.map(et=>ativos.filter(r=>r[F.ETAPA]===et).length),1);
+                const isSel=selStage===e;
+                return(
+                  <div key={e} onClick={()=>setSelStage(isSel?null:e)}
+                    style={{...SL,display:'flex',alignItems:'center',gap:8,marginBottom:5,padding:'4px 6px',borderRadius:5,background:isSel?C.oL:'transparent'}}>
+                    <div style={{width:80,fontSize:9.5,color:isSel?C.orange:C.text,fontWeight:isSel?700:400,flexShrink:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{EL(e)}</div>
+                    <div style={{flex:1,height:13,background:C.grayL,borderRadius:3,overflow:'hidden'}}>
+                      <div style={{height:'100%',width:`${Math.round(cnt/maxCnt*100)}%`,background:isSel?C.orange:C.border,borderRadius:3}}/>
+                    </div>
+                    <span style={{fontSize:10,fontWeight:700,color:isSel?C.orange:C.text,width:20,textAlign:'right'}}>{cnt}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
+
       {/* Timeline + Exec */}
       <div style={{display:'grid',gridTemplateColumns:'1.5fr 1fr',gap:11}}>
-        <Card title="Novos Leads e Contratos por Mês">
-          <ResponsiveContainer width="100%" height={220}>
-            <ComposedChart data={timelineData} margin={{top:20,right:20,left:0,bottom:0}}>
-              <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
-              <XAxis dataKey="mes" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
-              <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false}/>
-              <Tooltip content={<Tip/>}/>
-              <Legend wrapperStyle={{fontSize:10,fontFamily:FONT}}/>
-              <Bar dataKey="leads" name="Novos Leads" fill={C.grayL} stroke={C.border} radius={[3,3,0,0]} barSize={28}>
-                <LabelList dataKey="leads" position="top" style={{fontSize:9,fill:C.gray,fontWeight:700}} formatter={v=>v>0?v:''}/>
-              </Bar>
-              <Line dataKey="contratos" name="Contratos Fechados" stroke={C.green} strokeWidth={2.5} type="monotone" dot={{r:5,fill:C.green,stroke:'#fff',strokeWidth:2}}>
-                <LabelList dataKey="contratos" position="top" style={{fontSize:10,fill:C.green,fontWeight:800}} formatter={v=>v>0?v:''}/>
-              </Line>
-            </ComposedChart>
-          </ResponsiveContainer>
-        </Card>
-        <Card title="Performance por Responsável">
-          <div style={{overflowX:'auto',borderRadius:6,border:`1px solid ${C.border}`}}>
-            <table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}>
-              <TblHead cols={['Resp.','Total','Ativos','Ganhos','Perdidos','WR']}/>
-              <tbody>{byExec.map((e,i)=>{
-                const meta=EXEC_METAS.find(m=>m.nome===e.nome);
+
+        {/* Timeline */}
+        <div style={card}>
+          <div style={{...cPad,borderBottom:bs}}>
+            <div style={secTit}>Novos leads e contratos por mês — últimos 12 meses</div>
+          </div>
+          <div style={{padding:'8px 18px 14px'}}>
+            <ResponsiveContainer width="100%" height={195}>
+              <ComposedChart data={timelineData} margin={{top:18,right:18,left:0,bottom:0}}>
+                <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
+                <XAxis dataKey="mes" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
+                <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false}/>
+                <Tooltip content={<Tip/>}/>
+                <Legend wrapperStyle={{fontSize:10,fontFamily:FONT}}/>
+                <Bar dataKey="leads" name="Novos Leads" fill="#E0E0E0" stroke={C.border} radius={[3,3,0,0]} barSize={22}>
+                  <LabelList dataKey="leads" position="top" style={{fontSize:9,fill:C.gray,fontWeight:700}} formatter={v=>v>0?v:''}/>
+                </Bar>
+                <Line dataKey="contratos" name="Contratos" stroke={C.green} strokeWidth={2.5} type="monotone" dot={{r:4,fill:C.green,stroke:'#fff',strokeWidth:2}}>
+                  <LabelList dataKey="contratos" position="top" style={{fontSize:10,fill:C.green,fontWeight:800}} formatter={v=>v>0?v:''}/>
+                </Line>
+              </ComposedChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Exec leaderboard clicável */}
+        <div style={card}>
+          <div style={{...cPad,borderBottom:bs}}>
+            <div style={secTit}>Performance por executivo — clique para filtrar</div>
+          </div>
+          <div>
+            {byExec.map((e,i)=>{
+              const isSel=selExec===e.nome;
+              const meta=EXEC_METAS.find(m=>m.nome===e.nome);
+              const col=meta?meta.color:C.gray;
+              const maxT=byExec[0]?.total||1;
+              return(
+                <div key={e.nome} onClick={()=>setSelExec(isSel?null:e.nome)}
+                  style={{...SL,padding:'9px 18px',borderBottom:`1px solid ${C.border}99`,background:isSel?C.oL:'transparent',transition:'background 0.15s'}}>
+                  <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:5}}>
+                    <div style={{width:8,height:8,borderRadius:'50%',background:col,flexShrink:0}}/>
+                    <span style={{fontSize:11,fontWeight:700,color:isSel?C.orange:C.text,flex:1}}>{e.nome.split(' ')[0]}</span>
+                    <div style={{display:'flex',gap:5,fontSize:10}}>
+                      <span style={{color:C.orange,fontWeight:700}}>{e.ativos}at</span>
+                      <span style={{color:C.green,fontWeight:700}}>{e.vend}gn</span>
+                      <span style={{color:e.perd>0?C.red:C.gray,fontWeight:700}}>{e.perd}pd</span>
+                      {(e.vend+e.perd)>0&&<span style={{background:e.wr>=50?C.gL:C.rL,color:e.wr>=50?C.green:C.red,padding:'1px 7px',borderRadius:10,fontWeight:700}}>{e.wr}%</span>}
+                    </div>
+                  </div>
+                  <div style={{display:'flex',gap:4,alignItems:'center',marginLeft:16}}>
+                    <div style={{flex:1,height:4,background:C.grayL,borderRadius:2,overflow:'hidden'}}>
+                      <div style={{height:'100%',width:`${Math.round(e.total/maxT*100)}%`,background:isSel?C.orange:col,borderRadius:2,opacity:0.7}}/>
+                    </div>
+                    <span style={{fontSize:9,color:C.gray,width:44,textAlign:'right'}}>{e.total} total</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Segmentos + Perdas */}
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:11}}>
+
+        {/* ETP vs PME clicável */}
+        <div style={card}>
+          <div style={{...cPad,borderBottom:bs}}>
+            <div style={secTit}>Segmentos ETP vs PME — clique para filtrar</div>
+          </div>
+          <div style={{padding:'12px 18px'}}>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:12}}>
+              {byPerfil.map(p=>{
+                const isSel=selSeg===p.perfil;
+                const col=p.perfil==='ETP'?C.orange:C.blue;
+                const bg=p.perfil==='ETP'?C.oL:C.bL;
+                return(
+                  <div key={p.perfil} onClick={()=>setSelSeg(isSel?null:p.perfil)}
+                    style={{...SL,borderRadius:10,padding:'14px',border:`2px solid ${isSel?col:C.border}`,background:isSel?bg:'#FAFAFA',transition:'all 0.15s'}}>
+                    <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:8}}>
+                      <span style={{fontSize:13,fontWeight:800,color:col}}>{p.perfil}</span>
+                      <span style={{fontSize:9.5,color:C.gray}}>{p.total}</span>
+                    </div>
+                    <div style={{fontSize:30,fontWeight:800,color:col,lineHeight:1,marginBottom:3}}>{p.wr}%</div>
+                    <div style={{fontSize:9,color:C.gray,marginBottom:8}}>win rate</div>
+                    <div style={{height:5,background:C.border,borderRadius:3,overflow:'hidden',marginBottom:10}}>
+                      <div style={{height:'100%',width:`${p.wr}%`,background:col,borderRadius:3}}/>
+                    </div>
+                    <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:4}}>
+                      {[{v:p.ativos,l:'Ativos',c:C.orange},{v:p.vend,l:'Ganhos',c:C.green},{v:p.perd,l:'Perdidos',c:C.red}].map(x=>(
+                        <div key={x.l} style={{textAlign:'center',background:C.grayL,borderRadius:5,padding:'5px 0'}}>
+                          <div style={{fontSize:14,fontWeight:800,color:x.c}}>{x.v}</div>
+                          <div style={{fontSize:8,color:C.gray,textTransform:'uppercase',marginTop:1}}>{x.l}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div style={{padding:'10px 14px',background:C.grayL,borderRadius:8,display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+              <span style={{fontSize:11,color:C.text}}>Win rate consolidado</span>
+              <div style={{display:'flex',alignItems:'center',gap:10}}>
+                <div style={{width:80,height:5,background:C.border,borderRadius:3,overflow:'hidden'}}>
+                  <div style={{height:'100%',width:`${winRate}%`,background:winRate>=50?C.green:C.orange,borderRadius:3}}/>
+                </div>
+                <span style={{fontSize:15,fontWeight:800,color:winRate>=50?C.green:C.orange}}>{winRate}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Análise de perdas */}
+        <div style={card}>
+          <div style={{...cPad,borderBottom:bs,display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+            <div style={secTit}>Análise de perdas — {nPerd} deals perdidos</div>
+            <span style={{fontSize:9,color:C.gray}}>{nTotal>0?Math.round(nPerd/nTotal*100):0}% do total</span>
+          </div>
+          <div style={{padding:'12px 18px',display:'grid',gridTemplateColumns:'1fr 1fr',gap:16}}>
+            <div>
+              <div style={{fontSize:9,fontWeight:700,color:C.gray,textTransform:'uppercase',letterSpacing:'0.06em',marginBottom:10}}>Por Motivo</div>
+              {lossData.map((d,i)=>(
+                <div key={i} style={{marginBottom:8}}>
+                  <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}>
+                    <span style={{fontSize:10,color:C.text}}>{d.motivo}</span>
+                    <span style={{fontSize:10,fontWeight:700,color:C.red}}>{d.count}</span>
+                  </div>
+                  <div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}>
+                    <div style={{height:'100%',width:`${nPerd>0?Math.round(d.count/nPerd*100):0}%`,background:C.red,borderRadius:3,opacity:0.5+i*0.08}}/>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div>
+              <div style={{fontSize:9,fontWeight:700,color:C.gray,textTransform:'uppercase',letterSpacing:'0.06em',marginBottom:10}}>Onde se perde no funil</div>
+              {lossByStage.map((d,i)=>(
+                <div key={i} style={{marginBottom:8}}>
+                  <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}>
+                    <span style={{fontSize:10,color:C.text}}>{d.etapa}</span>
+                    <span style={{fontSize:10,fontWeight:700,color:'#4A4B4D'}}>{d.count}</span>
+                  </div>
+                  <div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}>
+                    <div style={{height:'100%',width:`${nPerd>0?Math.round(d.count/nPerd*100):0}%`,background:'#4A4B4D',borderRadius:3}}/>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Tabela de deals filtrada e interativa */}
+      <div style={card}>
+        <div style={{...cPad,borderBottom:bs,display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:8}}>
+          <div>
+            <div style={secTit}>{hasFilter?'Deals filtrados':'Deals ativos — mais avançados no funil'}</div>
+            <span style={{fontSize:11,color:C.gray}}>{filteredDeals.length} deal{filteredDeals.length!==1?'s':''} {hasFilter?'encontrado':'ativo'}{filteredDeals.length!==1?'s':''}</span>
+          </div>
+          {hasFilter&&<button onClick={clearAll} style={{fontSize:10,color:C.blue,background:C.bL,border:'none',borderRadius:20,padding:'4px 12px',cursor:'pointer',fontFamily:FONT,fontWeight:600}}>Limpar filtros ×</button>}
+        </div>
+        <div style={{overflowX:'auto'}}>
+          <table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}>
+            <TblHead cols={['Empresa','Responsável','Segmento','Etapa','Dias no Funil','Último Contato']}/>
+            <tbody>
+              {filteredDeals.slice(0,50).map((r,i)=>{
+                const ageDays=getDays(r);
+                const meta=EXEC_METAS.find(m=>m.nome===r[F.RESP]);
                 const col=meta?meta.color:C.gray;
+                const lastContact=r[F.DREUNIAO]||r[F.DPRIMEIRO];
                 return(
                   <tr key={i} style={tRow(i)}>
-                    <td style={{padding:'6px 10px'}}><div style={{display:'flex',alignItems:'center',gap:6}}><div style={{width:8,height:8,borderRadius:'50%',background:col,flexShrink:0}}/><span style={{fontWeight:700,fontSize:11}}>{e.nome.split(' ')[0]}</span></div></td>
-                    <td style={{padding:'6px 8px',fontWeight:800,color:C.text,textAlign:'center'}}>{e.total}</td>
-                    <td style={{padding:'6px 8px',color:C.orange,fontWeight:700,textAlign:'center'}}>{e.ativos||'—'}</td>
-                    <td style={{padding:'6px 8px',color:C.green,fontWeight:700,textAlign:'center'}}>{e.vendidas||'—'}</td>
-                    <td style={{padding:'6px 8px',color:e.perdidas>0?C.red:C.gray,fontWeight:700,textAlign:'center'}}>{e.perdidas||'—'}</td>
-                    <td style={{padding:'6px 8px',textAlign:'center'}}>
-                      {(e.vendidas+e.perdidas)>0?<span style={{fontSize:10,fontWeight:700,background:e.winRate>=50?C.gL:C.rL,color:e.winRate>=50?C.green:C.red,padding:'2px 7px',borderRadius:10}}>{e.winRate}%</span>:<span style={{color:'#CCC'}}>—</span>}
+                    <td style={{padding:'7px 14px',fontWeight:700,color:C.text,maxWidth:220,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{r[F.NOME]||'—'}</td>
+                    <td style={{padding:'7px 10px'}}>
+                      <div style={{display:'flex',alignItems:'center',gap:6}}>
+                        <div style={{width:8,height:8,borderRadius:'50%',background:col,flexShrink:0}}/>
+                        <span>{(r[F.RESP]||'—').split(' ')[0]}</span>
+                      </div>
                     </td>
+                    <td style={{padding:'7px 10px'}}>
+                      <span style={{fontSize:10,fontWeight:700,background:r[F.PERFIL]==='ETP'?C.oL:C.bL,color:r[F.PERFIL]==='ETP'?C.orange:C.blue,padding:'2px 8px',borderRadius:10}}>{r[F.PERFIL]||'—'}</span>
+                    </td>
+                    <td style={{padding:'7px 10px'}}>
+                      <Badge label={EL(r[F.ETAPA]||'—')} color={C.orange}/>
+                    </td>
+                    <td style={{padding:'7px 10px'}}>
+                      {ageDays!==null?<span style={{fontSize:10,fontWeight:700,background:ageDays<=30?C.gL:ageDays<=90?C.oL:C.rL,color:ageDays<=30?C.green:ageDays<=90?C.orange:C.red,padding:'2px 8px',borderRadius:10}}>{ageDays}d</span>:<span style={{color:'#CCC'}}>—</span>}
+                    </td>
+                    <td style={{padding:'7px 10px',color:C.gray}}>{fmtDt(lastContact)}</td>
                   </tr>
                 );
-              })}</tbody>
-            </table>
-          </div>
-        </Card>
-      </div>
-      {/* Hot deals */}
-      <Card title={`Oportunidades Mais Avançadas — top ${hotDeals.length} deals ativos`}>
-        <div style={{overflowX:'auto',borderRadius:6,border:`1px solid ${C.border}`}}>
-          <table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}>
-            <TblHead cols={['Empresa','Responsável','Perfil','Etapa','Último Contato','Aging']}/>
-            <tbody>{hotDeals.map((r,i)=>{
-              const aging=r[F.DPRIMEIRO]?Math.floor((new Date()-new Date(r[F.DPRIMEIRO]))/864e5):null;
-              const meta=EXEC_METAS.find(m=>m.nome===r[F.RESP]);
-              const col=meta?meta.color:C.gray;
-              const lastContact=r[F.DREUNIAO]||r[F.DPRIMEIRO];
-              return(
-                <tr key={i} style={tRow(i)}>
-                  <td style={{padding:'7px 10px',fontWeight:700,color:C.text}}>{r[F.NOME]}</td>
-                  <td style={{padding:'7px 10px'}}><div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:7,height:7,borderRadius:'50%',background:col}}/><span style={{fontSize:10.5}}>{(r[F.RESP]||'—').split(' ')[0]}</span></div></td>
-                  <td style={{padding:'7px 10px'}}><span style={{fontSize:10,fontWeight:700,background:r[F.PERFIL]==='ETP'?C.oL:C.bL,color:r[F.PERFIL]==='ETP'?C.orange:C.blue,padding:'1px 6px',borderRadius:4}}>{r[F.PERFIL]}</span></td>
-                  <td style={{padding:'7px 10px'}}><Badge label={ETAPA_LBL(r[F.ETAPA])} color={C.orange}/></td>
-                  <td style={{padding:'7px 10px',color:C.gray,fontSize:10.5}}>{fmtDt(lastContact)}</td>
-                  <td style={{padding:'7px 10px'}}>
-                    {aging!==null?<span style={{fontSize:10,fontWeight:700,background:aging<=90?C.gL:aging<=180?C.oL:C.rL,color:aging<=90?C.green:aging<=180?C.orange:C.red,padding:'2px 7px',borderRadius:10}}>{aging}d</span>:<span style={{color:'#CCC'}}>—</span>}
-                  </td>
-                </tr>
-              );
-            })}</tbody>
+              })}
+              {filteredDeals.length===0&&(
+                <tr><td colSpan={6} style={{padding:'36px',textAlign:'center',color:C.gray,fontSize:12}}>Nenhum deal encontrado para os filtros selecionados.</td></tr>
+              )}
+            </tbody>
           </table>
+          {filteredDeals.length>50&&(
+            <div style={{padding:'10px 14px',textAlign:'center',fontSize:11,color:C.gray,background:C.grayL,borderTop:bs}}>
+              Exibindo 50 de {filteredDeals.length} deals. Use os filtros para refinar.
+            </div>
+          )}
         </div>
-      </Card>
+      </div>
+
     </div>
   );
 }
