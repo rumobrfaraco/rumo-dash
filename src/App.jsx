@@ -1154,10 +1154,16 @@ function OverviewPage(){
   const[fetchErr,setFetchErr]=useState(null);
   useEffect(()=>{
     fetch('/api/crm')
-      .then(r=>{if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json();})
-      .then(d=>{setData(d);setLoading(false);})
+      .then(r=>r.json())
+      .then(d=>{
+        if(!Array.isArray(d))throw new Error(d?.error||JSON.stringify(d));
+        setData(d);setLoading(false);
+      })
       .catch(e=>{setFetchErr(e.message);setLoading(false);});
   },[]);
+
+  if(loading)return(<div style={{display:'flex',alignItems:'center',justifyContent:'center',height:300,gap:12,fontFamily:FONT,color:C.gray}}><div style={{width:22,height:22,border:`3px solid ${C.border}`,borderTopColor:C.orange,borderRadius:'50%',animation:'spin 0.8s linear infinite'}}/><span style={{fontSize:13}}>Carregando base comercial…</span></div>);
+  if(fetchErr)return(<div style={{display:'flex',alignItems:'center',justifyContent:'center',height:300,fontFamily:FONT}}><div style={{background:'#FFF5F5',border:'1px solid #FFCCCC',borderRadius:8,padding:'20px 28px',textAlign:'center'}}><div style={{fontSize:13,fontWeight:700,color:C.red,marginBottom:6}}>Erro ao carregar CRM</div><div style={{fontSize:11,color:C.gray}}>{fetchErr}</div></div></div>);
 
   const nTotal=data.length;
   const vendidas=data.filter(r=>r[F.ESTADO]==='Vendida');
@@ -1190,8 +1196,6 @@ function OverviewPage(){
   const pipelineData=ETAPA_ORDER.map(e=>({etapa:ETAPA_LBL(e),count:ativos.filter(r=>r[F.ETAPA]===e).length})).filter(d=>d.count>0);
   const hotDeals=[...ativos].sort((a,b)=>ETAPA_ORDER.indexOf(b[F.ETAPA])-ETAPA_ORDER.indexOf(a[F.ETAPA])).slice(0,10);
   const bs=`1px solid ${C.border}`;
-  if(loading)return(<div style={{display:'flex',alignItems:'center',justifyContent:'center',height:300,gap:12,fontFamily:FONT,color:C.gray}}><div style={{width:22,height:22,border:`3px solid ${C.border}`,borderTopColor:C.orange,borderRadius:'50%',animation:'spin 0.8s linear infinite'}}/><span style={{fontSize:13}}>Carregando base comercial…</span></div>);
-  if(fetchErr)return(<div style={{display:'flex',alignItems:'center',justifyContent:'center',height:300,fontFamily:FONT}}><div style={{background:'#FFF5F5',border:'1px solid #FFCCCC',borderRadius:8,padding:'20px 28px',textAlign:'center'}}><div style={{fontSize:13,fontWeight:700,color:C.red,marginBottom:6}}>Erro ao carregar CRM</div><div style={{fontSize:11,color:C.gray}}>{fetchErr}</div></div></div>);
   return(
     <div style={{display:'flex',flexDirection:'column',gap:11,fontFamily:FONT}}>
       {/* Header */}
