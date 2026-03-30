@@ -181,11 +181,11 @@ const DIAG_DATA=[
 const DIAG_STATUS={"COMPLETE":{dot:"#2D9E60",color:"#2D9E60",label:"Concluido"},"AGUARDANDO DOCUMENTACAO":{dot:"#888",color:"#888",label:"Aguardando Documento"},"EM PROCESSO":{dot:C.orange,color:C.orange,label:"Em Processo"},"REVALIDACAO":{dot:"#B35B00",color:"#B35B00",label:"Revalidacao"},"APRESENTACAO":{dot:"#CC6C00",color:"#CC6C00",label:"Apresentacao"},"NAO INICIADA":{dot:"#4A4B4D",color:"#4A4B4D",label:"Nao Iniciada"},"DESCARTADA":{dot:"#C62828",color:"#C62828",label:"Descartada"}};
 const FUNNEL_PHASES=[{key:"NAO INICIADA",label:"Nao Iniciada",bg:"#4A4B4D"},{key:"AGUARDANDO DOCUMENTACAO",label:"Aguardando Documento",bg:"#888"},{key:"EM PROCESSO",label:"Em Processo",bg:C.orange},{key:"REVALIDACAO",label:"Revalidacao",bg:"#B35B00"},{key:"APRESENTACAO",label:"Apresentacao",bg:"#CC6C00"},{key:"COMPLETE",label:"Concluido",bg:"#2D9E60"},{key:"DESCARTADA",label:"Descartada",bg:"#C62828"}];
 
-const ALL_DAYS_MAR=['2026-03-02','2026-03-03','2026-03-04','2026-03-05','2026-03-06','2026-03-07','2026-03-09','2026-03-10','2026-03-11','2026-03-12','2026-03-13','2026-03-16','2026-03-17','2026-03-18','2026-03-19','2026-03-20','2026-03-22','2026-03-23','2026-03-24','2026-03-25','2026-03-26'];
-const MOV_CARLA=[8,0,4,0,0,4,0,13,13,14,0,0,14,17,0,0,15,14,15,16,15];
-const MOV_SANDRO=[2,8,0,0,0,0,0,7,0,1,1,3,7,8,1,6,0,20,8,3,5];
-const MOV_MARCO=[0,0,0,0,0,0,0,0,0,0,0,4,6,0,5,0,0,6,5,16,5];
-const MOV_ISAAC=[0,0,0,0,0,0,0,0,0,0,0,3,9,3,5,0,0,3,9,12,11];
+const ALL_DAYS_MAR=['2026-03-02','2026-03-03','2026-03-04','2026-03-05','2026-03-06','2026-03-07','2026-03-09','2026-03-10','2026-03-11','2026-03-12','2026-03-13','2026-03-16','2026-03-17','2026-03-18','2026-03-19','2026-03-20','2026-03-22','2026-03-23','2026-03-24','2026-03-25','2026-03-26','2026-03-27'];
+const MOV_CARLA=[8,0,4,0,0,4,0,13,13,14,0,0,14,17,0,0,15,14,15,16,15,11];
+const MOV_SANDRO=[2,8,0,0,0,0,0,7,0,1,1,3,7,8,1,6,0,20,8,3,5,1];
+const MOV_MARCO=[0,0,0,0,0,0,0,0,0,0,0,4,6,0,5,0,0,6,5,16,5,6];
+const MOV_ISAAC=[0,0,0,0,0,0,0,0,0,0,0,3,9,3,5,0,0,3,9,12,11,2];
 const SANDRO_REUNIOES=['2026-03-02','2026-03-04','2026-03-09','2026-03-13','2026-03-17','2026-03-18','2026-03-26'];
 const SANDRO_VISITAS=['2026-03-11','2026-03-13'];
 const CARLA_REUNIOES=['2026-03-05','2026-03-16','2026-03-18'];
