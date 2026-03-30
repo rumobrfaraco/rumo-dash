@@ -1174,7 +1174,7 @@ function OverviewPage(){
   const cycles=vendidas.filter(r=>r[F.DPRIMEIRO]&&r[F.DFECH]).map(r=>Math.floor((new Date(r[F.DFECH])-new Date(r[F.DPRIMEIRO]))/864e5));
   const avgCycle=cycles.length>0?Math.round(cycles.reduce((a,b)=>a+b,0)/cycles.length):null;
   const ETAPA_LBL=e=>e==='Solicitacao de Documentos'?'Sol. Docs':e;
-  const funnelData=nTotal>0?ETAPA_ORDER.map((etapa,i)=>{const n=data.filter(r=>ETAPA_ORDER.indexOf(r[F.ETAPA])>=i).length;return{etapa:ETAPA_LBL(etapa),count:n,pct:Math.round(n/nTotal*100);};}):[];
+  const funnelData=ETAPA_ORDER.map((etapa,i)=>{const n=data.filter(r=>ETAPA_ORDER.indexOf(r[F.ETAPA])>=i).length;return{etapa:ETAPA_LBL(etapa),count:n,pct:nTotal>0?Math.round(n/nTotal*100):0};});
   const lossM={};perdidas.forEach(r=>{const m=r[F.MOTIVO]||'Não informado';lossM[m]=(lossM[m]||0)+1;});
   const lossData=Object.entries(lossM).sort((a,b)=>b[1]-a[1]).map(([motivo,count])=>({motivo,count}));
   const lossSM={};perdidas.forEach(r=>{const s=r[F.ETAPA];lossSM[s]=(lossSM[s]||0)+1;});
