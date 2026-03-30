@@ -1148,7 +1148,232 @@ function SDRPage({dateIni,dateFim}){
   </div>);
 }
 
-const TABS=[{id:'acomp',label:'Executivos Externos'},{id:'interno',label:'Executivos Internos'},{id:'sdr',label:'SDR'},{id:'diag',label:'Diagnostico'},{id:'parcerias',label:'Parcerias'}];
+function OverviewPage(){
+  const nTotal=RAW.length;
+  const vendidas=RAW.filter(r=>r[F.ESTADO]==='Vendida');
+  const perdidas=RAW.filter(r=>r[F.ESTADO]==='Perdida');
+  const ativos=RAW.filter(r=>r[F.ESTADO]==='Em Andamento');
+  const nVend=vendidas.length,nPerd=perdidas.length,nAtivo=ativos.length;
+  const winRate=(nVend+nPerd)>0?Math.round(nVend/(nVend+nPerd)*100):0;
+  const YTD='2026-01-01';
+  const vendYTD=vendidas.filter(r=>r[F.DFECH]&&r[F.DFECH]>=YTD);
+  const nVendYTD=vendYTD.length;
+  const META_ANUAL=40;
+  const diasYTD=Math.floor((new Date()-new Date(YTD))/864e5);
+  const paceAnual=diasYTD>0?Math.round(nVendYTD/diasYTD*365):0;
+  const cycles=vendidas.filter(r=>r[F.DPRIMEIRO]&&r[F.DFECH]).map(r=>Math.floor((new Date(r[F.DFECH])-new Date(r[F.DPRIMEIRO]))/864e5));
+  const avgCycle=cycles.length>0?Math.round(cycles.reduce((a,b)=>a+b,0)/cycles.length):null;
+  const ETAPA_LBL=e=>e==='Solicitacao de Documentos'?'Sol. Docs':e;
+  const funnelData=ETAPA_ORDER.map((etapa,i)=>{const n=RAW.filter(r=>ETAPA_ORDER.indexOf(r[F.ETAPA])>=i).length;return{etapa:ETAPA_LBL(etapa),count:n,pct:Math.round(n/nTotal*100)};});
+  const lossM={};perdidas.forEach(r=>{const m=r[F.MOTIVO]||'Não informado';lossM[m]=(lossM[m]||0)+1;});
+  const lossData=Object.entries(lossM).sort((a,b)=>b[1]-a[1]).map(([motivo,count])=>({motivo,count}));
+  const lossSM={};perdidas.forEach(r=>{const s=r[F.ETAPA];lossSM[s]=(lossSM[s]||0)+1;});
+  const lossStage=ETAPA_ORDER.filter(e=>lossSM[e]).map(e=>({etapa:ETAPA_LBL(e),count:lossSM[e]}));
+  const byPerfil=['ETP','PME'].map(p=>{const d=RAW.filter(r=>r[F.PERFIL]===p);const v=d.filter(r=>r[F.ESTADO]==='Vendida').length;const per=d.filter(r=>r[F.ESTADO]==='Perdida').length;const a=d.filter(r=>r[F.ESTADO]==='Em Andamento').length;return{perfil:p,total:d.length,ativos:a,vendidas:v,perdidas:per,winRate:(v+per)>0?Math.round(v/(v+per)*100):0};});
+  const execMap={};RAW.forEach(r=>{const n=r[F.RESP]||'—';if(!execMap[n])execMap[n]={nome:n,ativos:0,vendidas:0,perdidas:0,total:0};execMap[n].total++;if(r[F.ESTADO]==='Vendida')execMap[n].vendidas++;else if(r[F.ESTADO]==='Perdida')execMap[n].perdidas++;else execMap[n].ativos++;});
+  const byExec=Object.values(execMap).map(e=>({...e,winRate:(e.vendidas+e.perdidas)>0?Math.round(e.vendidas/(e.vendidas+e.perdidas)*100):0})).sort((a,b)=>b.total-a.total);
+  const contrByMo={},leadsByMo={};
+  vendidas.forEach(r=>{if(r[F.DFECH]){const m=r[F.DFECH].slice(0,7);contrByMo[m]=(contrByMo[m]||0)+1;}});
+  RAW.forEach(r=>{if(r[F.DPRIMEIRO]){const m=r[F.DPRIMEIRO].slice(0,7);leadsByMo[m]=(leadsByMo[m]||0)+1;}});
+  const allMo=[...new Set([...Object.keys(contrByMo),...Object.keys(leadsByMo)])].sort();
+  const timelineData=allMo.map(m=>({mes:MONTHS_LBL[MONTHS_KEY.indexOf(m)]||m,contratos:contrByMo[m]||0,leads:leadsByMo[m]||0}));
+  const pipelineData=ETAPA_ORDER.map(e=>({etapa:ETAPA_LBL(e),count:ativos.filter(r=>r[F.ETAPA]===e).length})).filter(d=>d.count>0);
+  const hotDeals=[...ativos].sort((a,b)=>ETAPA_ORDER.indexOf(b[F.ETAPA])-ETAPA_ORDER.indexOf(a[F.ETAPA])).slice(0,10);
+  const bs=`1px solid ${C.border}`;
+  return(
+    <div style={{display:'flex',flexDirection:'column',gap:11,fontFamily:FONT}}>
+      {/* Header */}
+      <div style={{background:C.dark,borderRadius:8,padding:'16px 22px',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:12}}>
+        <div>
+          <div style={{color:C.white,fontSize:18,fontWeight:800,letterSpacing:'-0.02em'}}>Overview Comercial</div>
+          <div style={{color:'rgba(255,255,255,0.45)',fontSize:11,marginTop:2}}>Base CRM · {nTotal} empresas mapeadas</div>
+        </div>
+        <div style={{display:'flex',gap:24}}>
+          {[{label:'Win Rate',value:winRate+'%',color:winRate>=50?C.green:C.orange},{label:'Contratos YTD',value:nVendYTD,color:C.orange},{label:'Pace Anual',value:paceAnual+'/ano',color:paceAnual>=META_ANUAL?C.green:C.amber},{label:'Meta Anual',value:META_ANUAL+'/ano',color:'rgba(255,255,255,0.4)'}].map(k=>(
+            <div key={k.label} style={{textAlign:'center'}}>
+              <div style={{fontSize:22,fontWeight:800,color:k.color,lineHeight:1}}>{k.value}</div>
+              <div style={{fontSize:9,color:'rgba(255,255,255,0.4)',textTransform:'uppercase',letterSpacing:'0.07em',marginTop:3}}>{k.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* KPIs */}
+      <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:9}}>
+        {[
+          {title:'Pipeline Total',value:nTotal,note:'empresas no CRM',color:C.text},
+          {title:'Em Andamento',value:nAtivo,note:`${Math.round(nAtivo/nTotal*100)}% do total`,color:C.orange},
+          {title:'Contratos Fechados',value:nVend,note:`${nVendYTD} fechados em 2026`,color:C.green},
+          {title:'Perdidos',value:nPerd,note:`${Math.round(nPerd/nTotal*100)}% do total`,color:C.red},
+          {title:'Ciclo Médio',value:avgCycle?avgCycle+'d':'—',note:'1º contato → fechamento',color:C.blue},
+        ].map(k=>(
+          <div key={k.title} style={{background:C.white,borderRadius:8,padding:'14px 16px',border:bs,boxShadow:C.shadow,textAlign:'center'}}>
+            <div style={{fontSize:9,color:C.gray,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.07em',marginBottom:6}}>{k.title}</div>
+            <div style={{fontSize:30,fontWeight:800,color:k.color,lineHeight:1}}>{k.value}</div>
+            <div style={{fontSize:10,color:C.gray,marginTop:5}}>{k.note}</div>
+          </div>
+        ))}
+      </div>
+      {/* Funil + Pipeline ativo */}
+      <div style={{display:'grid',gridTemplateColumns:'1.2fr 1fr',gap:11}}>
+        <Card title="Funil de Conversão — todos os leads">
+          <div style={{paddingTop:4}}>
+            {funnelData.map((d,i)=>{
+              const prev=i>0?funnelData[i-1].count:d.count;
+              const conv=prev>0?Math.round(d.count/prev*100):100;
+              const w=Math.max(d.pct,6);
+              const isLast=i===funnelData.length-1;
+              return(
+                <div key={d.etapa} style={{display:'flex',alignItems:'center',gap:8,marginBottom:5}}>
+                  <div style={{width:110,fontSize:10,color:C.text,textAlign:'right',flexShrink:0,fontWeight:isLast?700:400,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{d.etapa}</div>
+                  <div style={{flex:1,height:20,background:C.grayL,borderRadius:4,overflow:'hidden',position:'relative'}}>
+                    <div style={{height:'100%',width:`${w}%`,background:isLast?C.green:C.orange,borderRadius:4,opacity:Math.max(0.35,1-i*0.045)}}/>
+                    <span style={{position:'absolute',left:8,top:'50%',transform:'translateY(-50%)',fontSize:10,fontWeight:700,color:w>22?C.white:C.text}}>{d.count}</span>
+                  </div>
+                  <span style={{fontSize:9,color:C.gray,width:34,textAlign:'right',flexShrink:0}}>{d.pct}%</span>
+                  {i>0&&conv<100&&<span style={{fontSize:9,color:conv>=75?'#2D9E60':C.amber,width:36,textAlign:'right',flexShrink:0,fontWeight:700}}>↓{conv}%</span>}
+                  {i===0&&<span style={{fontSize:9,color:'transparent',width:36,flexShrink:0}}>—</span>}
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+        <Card title="Pipeline Ativo — distribuição por etapa">
+          <ResponsiveContainer width="100%" height={270}>
+            <BarChart data={pipelineData} layout="vertical" margin={{top:4,right:36,left:0,bottom:4}}>
+              <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} horizontal={false}/>
+              <XAxis type="number" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false}/>
+              <YAxis dataKey="etapa" type="category" tick={{fontSize:9.5,fill:C.gray,fontFamily:FONT}} width={110} axisLine={false} tickLine={false}/>
+              <Tooltip content={<Tip/>}/>
+              <Bar dataKey="count" name="Em Andamento" fill={C.orange} radius={[0,4,4,0]} barSize={18}>
+                <LabelList dataKey="count" position="right" style={{fontSize:11,fontWeight:800,fill:C.text}}/>
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </Card>
+      </div>
+      {/* Win Rate ETP vs PME + Perdas */}
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:11}}>
+        <Card title="Win Rate por Segmento">
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginBottom:12}}>
+            {byPerfil.map(p=>{
+              const col=p.perfil==='ETP'?C.orange:C.blue;
+              return(
+                <div key={p.perfil} style={{background:C.grayL,borderRadius:8,padding:'14px 16px',textAlign:'center'}}>
+                  <div style={{fontSize:11,fontWeight:800,color:col,marginBottom:8}}>{p.perfil}</div>
+                  <div style={{fontSize:34,fontWeight:800,color:C.text,lineHeight:1}}>{p.winRate}%</div>
+                  <div style={{fontSize:10,color:C.gray,marginTop:3}}>win rate</div>
+                  <div style={{marginTop:8,height:6,background:C.border,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${p.winRate}%`,background:col,borderRadius:4}}/></div>
+                  <div style={{display:'flex',justifyContent:'space-around',marginTop:10}}>
+                    {[{v:p.ativos,l:'Ativos',c:C.orange},{v:p.vendidas,l:'Ganhos',c:C.green},{v:p.perdidas,l:'Perdidos',c:C.red}].map(x=>(
+                      <div key={x.l} style={{textAlign:'center'}}><div style={{fontSize:16,fontWeight:800,color:x.c}}>{x.v}</div><div style={{fontSize:8,color:C.gray,textTransform:'uppercase',marginTop:2}}>{x.l}</div></div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div style={{display:'flex',alignItems:'center',gap:10,padding:'10px 14px',background:C.oL,borderRadius:8}}>
+            <span style={{fontSize:11,color:C.text}}>Win rate geral: <strong style={{color:C.orange,fontSize:15}}>{winRate}%</strong></span>
+            <span style={{fontSize:10,color:C.gray,marginLeft:'auto'}}>{nVend} ganhos · {nPerd} perdidos · {nVend+nPerd} encerrados</span>
+          </div>
+        </Card>
+        <Card title="Análise de Perdas">
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14}}>
+            <div>
+              <div style={{fontSize:9,fontWeight:700,color:C.gray,textTransform:'uppercase',letterSpacing:'0.07em',marginBottom:10}}>Por Motivo</div>
+              {lossData.map((d,i)=>(
+                <div key={i} style={{marginBottom:8}}>
+                  <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:10,color:C.text}}>{d.motivo}</span><span style={{fontSize:10,fontWeight:700}}>{d.count}</span></div>
+                  <div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${Math.round(d.count/nPerd*100)}%`,background:'#4A4B4D',borderRadius:3}}/></div>
+                </div>
+              ))}
+            </div>
+            <div>
+              <div style={{fontSize:9,fontWeight:700,color:C.gray,textTransform:'uppercase',letterSpacing:'0.07em',marginBottom:10}}>Por Etapa</div>
+              {lossStage.map((d,i)=>(
+                <div key={i} style={{marginBottom:8}}>
+                  <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:10,color:C.text}}>{d.etapa}</span><span style={{fontSize:10,fontWeight:700}}>{d.count}</span></div>
+                  <div style={{height:5,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${Math.round(d.count/nPerd*100)}%`,background:C.red,borderRadius:3}}/></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Card>
+      </div>
+      {/* Timeline + Exec */}
+      <div style={{display:'grid',gridTemplateColumns:'1.5fr 1fr',gap:11}}>
+        <Card title="Novos Leads e Contratos por Mês">
+          <ResponsiveContainer width="100%" height={220}>
+            <ComposedChart data={timelineData} margin={{top:20,right:20,left:0,bottom:0}}>
+              <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
+              <XAxis dataKey="mes" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
+              <YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false}/>
+              <Tooltip content={<Tip/>}/>
+              <Legend wrapperStyle={{fontSize:10,fontFamily:FONT}}/>
+              <Bar dataKey="leads" name="Novos Leads" fill={C.grayL} stroke={C.border} radius={[3,3,0,0]} barSize={28}>
+                <LabelList dataKey="leads" position="top" style={{fontSize:9,fill:C.gray,fontWeight:700}} formatter={v=>v>0?v:''}/>
+              </Bar>
+              <Line dataKey="contratos" name="Contratos Fechados" stroke={C.green} strokeWidth={2.5} type="monotone" dot={{r:5,fill:C.green,stroke:'#fff',strokeWidth:2}}>
+                <LabelList dataKey="contratos" position="top" style={{fontSize:10,fill:C.green,fontWeight:800}} formatter={v=>v>0?v:''}/>
+              </Line>
+            </ComposedChart>
+          </ResponsiveContainer>
+        </Card>
+        <Card title="Performance por Responsável">
+          <div style={{overflowX:'auto',borderRadius:6,border:`1px solid ${C.border}`}}>
+            <table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}>
+              <TblHead cols={['Resp.','Total','Ativos','Ganhos','Perdidos','WR']}/>
+              <tbody>{byExec.map((e,i)=>{
+                const meta=EXEC_METAS.find(m=>m.nome===e.nome);
+                const col=meta?meta.color:C.gray;
+                return(
+                  <tr key={i} style={tRow(i)}>
+                    <td style={{padding:'6px 10px'}}><div style={{display:'flex',alignItems:'center',gap:6}}><div style={{width:8,height:8,borderRadius:'50%',background:col,flexShrink:0}}/><span style={{fontWeight:700,fontSize:11}}>{e.nome.split(' ')[0]}</span></div></td>
+                    <td style={{padding:'6px 8px',fontWeight:800,color:C.text,textAlign:'center'}}>{e.total}</td>
+                    <td style={{padding:'6px 8px',color:C.orange,fontWeight:700,textAlign:'center'}}>{e.ativos||'—'}</td>
+                    <td style={{padding:'6px 8px',color:C.green,fontWeight:700,textAlign:'center'}}>{e.vendidas||'—'}</td>
+                    <td style={{padding:'6px 8px',color:e.perdidas>0?C.red:C.gray,fontWeight:700,textAlign:'center'}}>{e.perdidas||'—'}</td>
+                    <td style={{padding:'6px 8px',textAlign:'center'}}>
+                      {(e.vendidas+e.perdidas)>0?<span style={{fontSize:10,fontWeight:700,background:e.winRate>=50?C.gL:C.rL,color:e.winRate>=50?C.green:C.red,padding:'2px 7px',borderRadius:10}}>{e.winRate}%</span>:<span style={{color:'#CCC'}}>—</span>}
+                    </td>
+                  </tr>
+                );
+              })}</tbody>
+            </table>
+          </div>
+        </Card>
+      </div>
+      {/* Hot deals */}
+      <Card title={`Oportunidades Mais Avançadas — top ${hotDeals.length} deals ativos`}>
+        <div style={{overflowX:'auto',borderRadius:6,border:`1px solid ${C.border}`}}>
+          <table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}>
+            <TblHead cols={['Empresa','Responsável','Perfil','Etapa','Último Contato','Aging']}/>
+            <tbody>{hotDeals.map((r,i)=>{
+              const aging=r[F.DPRIMEIRO]?Math.floor((new Date()-new Date(r[F.DPRIMEIRO]))/864e5):null;
+              const meta=EXEC_METAS.find(m=>m.nome===r[F.RESP]);
+              const col=meta?meta.color:C.gray;
+              const lastContact=r[F.DREUNIAO]||r[F.DPRIMEIRO];
+              return(
+                <tr key={i} style={tRow(i)}>
+                  <td style={{padding:'7px 10px',fontWeight:700,color:C.text}}>{r[F.NOME]}</td>
+                  <td style={{padding:'7px 10px'}}><div style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:7,height:7,borderRadius:'50%',background:col}}/><span style={{fontSize:10.5}}>{(r[F.RESP]||'—').split(' ')[0]}</span></div></td>
+                  <td style={{padding:'7px 10px'}}><span style={{fontSize:10,fontWeight:700,background:r[F.PERFIL]==='ETP'?C.oL:C.bL,color:r[F.PERFIL]==='ETP'?C.orange:C.blue,padding:'1px 6px',borderRadius:4}}>{r[F.PERFIL]}</span></td>
+                  <td style={{padding:'7px 10px'}}><Badge label={ETAPA_LBL(r[F.ETAPA])} color={C.orange}/></td>
+                  <td style={{padding:'7px 10px',color:C.gray,fontSize:10.5}}>{fmtDt(lastContact)}</td>
+                  <td style={{padding:'7px 10px'}}>
+                    {aging!==null?<span style={{fontSize:10,fontWeight:700,background:aging<=90?C.gL:aging<=180?C.oL:C.rL,color:aging<=90?C.green:aging<=180?C.orange:C.red,padding:'2px 7px',borderRadius:10}}>{aging}d</span>:<span style={{color:'#CCC'}}>—</span>}
+                  </td>
+                </tr>
+              );
+            })}</tbody>
+          </table>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+const TABS=[{id:'overview',label:'Overview'},{id:'acomp',label:'Executivos Externos'},{id:'interno',label:'Executivos Internos'},{id:'sdr',label:'SDR'},{id:'diag',label:'Diagnostico'},{id:'parcerias',label:'Parcerias'}];
 
 export default function App(){
   const[tab,setTab]=useState('acomp');
@@ -1181,6 +1406,7 @@ export default function App(){
       </div>
     </div>
     <div style={{maxWidth:1400,margin:'0 auto',padding:'16px 20px'}}>
+      {tab==='overview'&&<OverviewPage/>}
       {tab==='acomp'&&<AcompPage FL={FL}/>}
       {tab==='interno'&&<InternoPage/>}
       {tab==='sdr'&&<SDRPage dateIni={dateIni} dateFim={dateFim}/>}
