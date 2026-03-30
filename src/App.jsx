@@ -1149,10 +1149,20 @@ function SDRPage({dateIni,dateFim}){
 }
 
 function OverviewPage(){
-  const nTotal=RAW.length;
-  const vendidas=RAW.filter(r=>r[F.ESTADO]==='Vendida');
-  const perdidas=RAW.filter(r=>r[F.ESTADO]==='Perdida');
-  const ativos=RAW.filter(r=>r[F.ESTADO]==='Em Andamento');
+  const[data,setData]=useState([]);
+  const[loading,setLoading]=useState(true);
+  const[fetchErr,setFetchErr]=useState(null);
+  useEffect(()=>{
+    fetch('/api/crm')
+      .then(r=>{if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json();})
+      .then(d=>{setData(d);setLoading(false);})
+      .catch(e=>{setFetchErr(e.message);setLoading(false);});
+  },[]);
+
+  const nTotal=data.length;
+  const vendidas=data.filter(r=>r[F.ESTADO]==='Vendida');
+  const perdidas=data.filter(r=>r[F.ESTADO]==='Perdida');
+  const ativos=data.filter(r=>r[F.ESTADO]==='Em Andamento');
   const nVend=vendidas.length,nPerd=perdidas.length,nAtivo=ativos.length;
   const winRate=(nVend+nPerd)>0?Math.round(nVend/(nVend+nPerd)*100):0;
   const YTD='2026-01-01';
@@ -1164,22 +1174,24 @@ function OverviewPage(){
   const cycles=vendidas.filter(r=>r[F.DPRIMEIRO]&&r[F.DFECH]).map(r=>Math.floor((new Date(r[F.DFECH])-new Date(r[F.DPRIMEIRO]))/864e5));
   const avgCycle=cycles.length>0?Math.round(cycles.reduce((a,b)=>a+b,0)/cycles.length):null;
   const ETAPA_LBL=e=>e==='Solicitacao de Documentos'?'Sol. Docs':e;
-  const funnelData=ETAPA_ORDER.map((etapa,i)=>{const n=RAW.filter(r=>ETAPA_ORDER.indexOf(r[F.ETAPA])>=i).length;return{etapa:ETAPA_LBL(etapa),count:n,pct:Math.round(n/nTotal*100)};});
+  const funnelData=nTotal>0?ETAPA_ORDER.map((etapa,i)=>{const n=data.filter(r=>ETAPA_ORDER.indexOf(r[F.ETAPA])>=i).length;return{etapa:ETAPA_LBL(etapa),count:n,pct:Math.round(n/nTotal*100);};}):[];
   const lossM={};perdidas.forEach(r=>{const m=r[F.MOTIVO]||'Não informado';lossM[m]=(lossM[m]||0)+1;});
   const lossData=Object.entries(lossM).sort((a,b)=>b[1]-a[1]).map(([motivo,count])=>({motivo,count}));
   const lossSM={};perdidas.forEach(r=>{const s=r[F.ETAPA];lossSM[s]=(lossSM[s]||0)+1;});
   const lossStage=ETAPA_ORDER.filter(e=>lossSM[e]).map(e=>({etapa:ETAPA_LBL(e),count:lossSM[e]}));
-  const byPerfil=['ETP','PME'].map(p=>{const d=RAW.filter(r=>r[F.PERFIL]===p);const v=d.filter(r=>r[F.ESTADO]==='Vendida').length;const per=d.filter(r=>r[F.ESTADO]==='Perdida').length;const a=d.filter(r=>r[F.ESTADO]==='Em Andamento').length;return{perfil:p,total:d.length,ativos:a,vendidas:v,perdidas:per,winRate:(v+per)>0?Math.round(v/(v+per)*100):0};});
-  const execMap={};RAW.forEach(r=>{const n=r[F.RESP]||'—';if(!execMap[n])execMap[n]={nome:n,ativos:0,vendidas:0,perdidas:0,total:0};execMap[n].total++;if(r[F.ESTADO]==='Vendida')execMap[n].vendidas++;else if(r[F.ESTADO]==='Perdida')execMap[n].perdidas++;else execMap[n].ativos++;});
+  const byPerfil=['ETP','PME'].map(p=>{const d=data.filter(r=>r[F.PERFIL]===p);const v=d.filter(r=>r[F.ESTADO]==='Vendida').length;const per=d.filter(r=>r[F.ESTADO]==='Perdida').length;const a=d.filter(r=>r[F.ESTADO]==='Em Andamento').length;return{perfil:p,total:d.length,ativos:a,vendidas:v,perdidas:per,winRate:(v+per)>0?Math.round(v/(v+per)*100):0};});
+  const execMap={};data.forEach(r=>{const n=r[F.RESP]||'—';if(!execMap[n])execMap[n]={nome:n,ativos:0,vendidas:0,perdidas:0,total:0};execMap[n].total++;if(r[F.ESTADO]==='Vendida')execMap[n].vendidas++;else if(r[F.ESTADO]==='Perdida')execMap[n].perdidas++;else execMap[n].ativos++;});
   const byExec=Object.values(execMap).map(e=>({...e,winRate:(e.vendidas+e.perdidas)>0?Math.round(e.vendidas/(e.vendidas+e.perdidas)*100):0})).sort((a,b)=>b.total-a.total);
   const contrByMo={},leadsByMo={};
   vendidas.forEach(r=>{if(r[F.DFECH]){const m=r[F.DFECH].slice(0,7);contrByMo[m]=(contrByMo[m]||0)+1;}});
-  RAW.forEach(r=>{if(r[F.DPRIMEIRO]){const m=r[F.DPRIMEIRO].slice(0,7);leadsByMo[m]=(leadsByMo[m]||0)+1;}});
+  data.forEach(r=>{if(r[F.DPRIMEIRO]){const m=r[F.DPRIMEIRO].slice(0,7);leadsByMo[m]=(leadsByMo[m]||0)+1;}});
   const allMo=[...new Set([...Object.keys(contrByMo),...Object.keys(leadsByMo)])].sort();
   const timelineData=allMo.map(m=>({mes:MONTHS_LBL[MONTHS_KEY.indexOf(m)]||m,contratos:contrByMo[m]||0,leads:leadsByMo[m]||0}));
   const pipelineData=ETAPA_ORDER.map(e=>({etapa:ETAPA_LBL(e),count:ativos.filter(r=>r[F.ETAPA]===e).length})).filter(d=>d.count>0);
   const hotDeals=[...ativos].sort((a,b)=>ETAPA_ORDER.indexOf(b[F.ETAPA])-ETAPA_ORDER.indexOf(a[F.ETAPA])).slice(0,10);
   const bs=`1px solid ${C.border}`;
+  if(loading)return(<div style={{display:'flex',alignItems:'center',justifyContent:'center',height:300,gap:12,fontFamily:FONT,color:C.gray}}><div style={{width:22,height:22,border:`3px solid ${C.border}`,borderTopColor:C.orange,borderRadius:'50%',animation:'spin 0.8s linear infinite'}}/><span style={{fontSize:13}}>Carregando base comercial…</span></div>);
+  if(fetchErr)return(<div style={{display:'flex',alignItems:'center',justifyContent:'center',height:300,fontFamily:FONT}}><div style={{background:'#FFF5F5',border:'1px solid #FFCCCC',borderRadius:8,padding:'20px 28px',textAlign:'center'}}><div style={{fontSize:13,fontWeight:700,color:C.red,marginBottom:6}}>Erro ao carregar CRM</div><div style={{fontSize:11,color:C.gray}}>{fetchErr}</div></div></div>);
   return(
     <div style={{display:'flex',flexDirection:'column',gap:11,fontFamily:FONT}}>
       {/* Header */}
