@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ComposedChart, LabelList, ReferenceLine, Legend, Cell, Line } from "recharts";
  
 const C={orange:"#FF8200",oL:"#FFF0E0",gray:"#6F7072",grayL:"#ECEDEC",white:"#FFFFFF",dark:"#1A1A1C",text:"#1A1A1C",border:"#DCDCDC",green:"#2E7D32",gL:"#E8F5E9",red:"#C62828",rL:"#FFEBEE",blue:"#1565C0",bL:"#E3F2FD",amber:"#E65100",aL:"#FFF3E0",teal:"#00695C",shadow:"0 1px 3px rgba(0,0,0,0.08)"};
