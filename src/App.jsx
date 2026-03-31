@@ -640,7 +640,7 @@ function AcompPage({FL}){
   const[selMes,setSelMes]=useState('2026-03');
   const[selExec,setSelExec]=useState('Todos');
   const dados=useMemo(()=>selExec==='Todos'?FL:FL.filter(r=>r[F.RESP]===selExec),[FL,selExec]);
-  const REUN_MANUAL={'Sandro Casagrande':{'2026-02':9,'2026-03':7},'Carla Cristina Lemes':{'2026-02':2,'2026-03':4},'Marco':{'2026-03':3}};
+  const REUN_MANUAL={'Sandro Casagrande':{'2026-02':9,'2026-03':7},'Carla Cristina Lemes':{'2026-02':2,'2026-03':4},'Marco':{'2026-03':4}};
   const getReunMes=(nome,mes)=>{if(REUN_MANUAL[nome]&&REUN_MANUAL[nome][mes]!==undefined)return REUN_MANUAL[nome][mes];return dados.filter(r=>r[F.RESP]===nome&&r[F.DREUNIAO]&&mo(r[F.DREUNIAO])===mes).length;};
   const execStats=useMemo(()=>EXEC_METAS.map(e=>{
     const mesLimite=selMes||'2026-03';

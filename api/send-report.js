@@ -22,7 +22,7 @@ const EXEC_SNAP = [
   { alias: 'Sandro', color: '#FF8200', reunMes: 7,  metaReunMes: 10, contrYTD: 6, contrMes: 1, metaContratos: 11 },
   { alias: 'Carla',  color: '#1565C0', reunMes: 3,  metaReunMes: 10, contrYTD: 1, contrMes: 0, metaContratos: 11 },
   { alias: 'Isaac',  color: '#2E7D32', reunMes: 0,  metaReunMes: 5,  contrYTD: 0, contrMes: 0, metaContratos: 9  },
-  { alias: 'Marco',  color: '#6F7072', reunMes: 0,  metaReunMes: 5,  contrYTD: 0, contrMes: 0, metaContratos: 9  },
+  { alias: 'Marco',  color: '#6F7072', reunMes: 4,  metaReunMes: 5,  contrYTD: 0, contrMes: 0, metaContratos: 9  },
 ];
 const SDR_SNAP = { agendamentos: 10, realizadas: 6, metaAgend: 20, totalAtiv: 0 };
 const MES_LABEL = 'Mar/26';
