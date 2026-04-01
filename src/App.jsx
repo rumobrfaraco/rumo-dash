@@ -79,17 +79,17 @@ const SDR_AGENDAMENTOS=[
   {empresa:'PARCEIRO DO GRAO LOGISTICA',perfil:'PME',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-16'},
   {empresa:'GOMES E ALVES TRANSPORTES LTDA',perfil:'PME',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-17'},
   {empresa:'EXPRESSO RODOFRIO',perfil:'PME',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-17'},
-  {empresa:'DIAMANTE S/A',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-18'},
+  {empresa:'DIAMANTE S/A',perfil:'ETP',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-18'},
   {empresa:'GRUPO DTRANS',perfil:'PME',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-19',etapaCrm:'Negociacao'},
   {empresa:'EXPRESSO 9002 TRANSPORTES',perfil:'PME',status:STATUS_REALIZADA,crm:'Perdida',motivo:'Sem Interesse no Momento',dataAgend:'2026-03-23'},
-  {empresa:'VIA TERRESTRE TRANSPORTE E LOGISTICA',perfil:'PME',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-23'},
+  {empresa:'VIA TERRESTRE TRANSPORTE E LOGISTICA',perfil:'PME',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-23',etapaCrm:'Proposta'},
   {empresa:'RTT LOG',perfil:'PME',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-23',etapaCrm:'Proposta'},
   {empresa:'ENI TRANSPORTES',perfil:'PME',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-24'},
 ];
  
 const SDR_MOV=[
   {dia:'02/mar',data:'2026-03-02',mov:0},{dia:'03/mar',data:'2026-03-03',mov:0},{dia:'04/mar',data:'2026-03-04',mov:0},{dia:'05/mar',data:'2026-03-05',mov:0},{dia:'06/mar',data:'2026-03-06',mov:0},{dia:'07/mar',data:'2026-03-07',mov:0},{dia:'08/mar',data:'2026-03-08',mov:0},{dia:'09/mar',data:'2026-03-09',mov:0},{dia:'10/mar',data:'2026-03-10',mov:0},
-  {dia:'11/mar',data:'2026-03-11',mov:18},{dia:'12/mar',data:'2026-03-12',mov:22},{dia:'13/mar',data:'2026-03-13',mov:27},{dia:'16/mar',data:'2026-03-16',mov:9},{dia:'17/mar',data:'2026-03-17',mov:16},{dia:'18/mar',data:'2026-03-18',mov:21},{dia:'19/mar',data:'2026-03-19',mov:26},{dia:'20/mar',data:'2026-03-20',mov:29},{dia:'23/mar',data:'2026-03-23',mov:8},{dia:'24/mar',data:'2026-03-24',mov:16},{dia:'25/mar',data:'2026-03-25',mov:39},{dia:'26/mar',data:'2026-03-26',mov:25},{dia:'27/mar',data:'2026-03-27',mov:14},
+  {dia:'11/mar',data:'2026-03-11',mov:18},{dia:'12/mar',data:'2026-03-12',mov:22},{dia:'13/mar',data:'2026-03-13',mov:27},{dia:'16/mar',data:'2026-03-16',mov:9},{dia:'17/mar',data:'2026-03-17',mov:16},{dia:'18/mar',data:'2026-03-18',mov:21},{dia:'19/mar',data:'2026-03-19',mov:26},{dia:'20/mar',data:'2026-03-20',mov:29},{dia:'23/mar',data:'2026-03-23',mov:8},{dia:'24/mar',data:'2026-03-24',mov:16},{dia:'25/mar',data:'2026-03-25',mov:39},{dia:'26/mar',data:'2026-03-26',mov:25},{dia:'27/mar',data:'2026-03-27',mov:14},{dia:'30/mar',data:'2026-03-30',mov:0},{dia:'31/mar',data:'2026-03-31',mov:8},
 ];
  
 const SDR_SEMANAS=[
@@ -98,10 +98,10 @@ const SDR_SEMANAS=[
   {semana:'S3 (23/mar)',ligacoes:31,agendamentos:3},
 ];
  
-const SDR_DAYS_LBL=['11/mar','12/mar','13/mar','16/mar','17/mar','18/mar','19/mar','20/mar','23/mar','24/mar','25/mar','26/mar','27/mar'];
-const SDR_LIG_DIA=[0,0,27,9,16,10,21,14,31,14,14,29,15];
-const SDR_EML_DIA=[0,22,0,0,0,11,5,0,3,8,7,1,2];
-const SDR_WHA_DIA=[0,0,0,0,0,0,0,15,15,12,18,27,9];
+const SDR_DAYS_LBL=['11/mar','12/mar','13/mar','16/mar','17/mar','18/mar','19/mar','20/mar','23/mar','24/mar','25/mar','26/mar','27/mar','30/mar','31/mar'];
+const SDR_LIG_DIA=[0,0,27,9,16,10,21,14,31,14,14,29,15,0,7];
+const SDR_EML_DIA=[0,22,0,0,0,11,5,0,3,8,7,1,2,0,4];
+const SDR_WHA_DIA=[0,0,0,0,0,0,0,15,15,12,18,27,9,0,1];
 
 const SDR_AGEND_POR_DATA = {};
 SDR_AGENDAMENTOS.forEach(a => {
@@ -113,7 +113,8 @@ SDR_AGENDAMENTOS.forEach(a => {
 const SDR_ATIV_DATES = [
   '2026-03-11','2026-03-12','2026-03-13',
   '2026-03-16','2026-03-17','2026-03-18','2026-03-19','2026-03-20',
-  '2026-03-23','2026-03-24','2026-03-25','2026-03-26','2026-03-27'
+  '2026-03-23','2026-03-24','2026-03-25','2026-03-26','2026-03-27',
+  '2026-03-30','2026-03-31'
 ];
 
 const SDR_AGEND_ACUM = (() => {
@@ -156,40 +157,45 @@ const SDR_ATIV=[
   {data:'2026-03-27',empresa:'SLC TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'SLC TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'AGS LOG',canal:'ligacao'},{data:'2026-03-27',empresa:'PARCEIRO DO GRAO LOGISTICA',canal:'ligacao'},{data:'2026-03-27',empresa:'CONCENTO TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'BMG VICENZI TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'TRANSPORTE RICARDO ROSA',canal:'ligacao'},{data:'2026-03-27',empresa:'FELLON TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'TRANSPORTADORA ASA SUL',canal:'ligacao'},{data:'2026-03-27',empresa:'DEC LOG TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'LAGE LOG',canal:'ligacao'},{data:'2026-03-27',empresa:'FENIX WAY',canal:'ligacao'},{data:'2026-03-27',empresa:'TRANSPORTADORA MINAS BRASIL',canal:'ligacao'},{data:'2026-03-27',empresa:'3 W TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'SIGA BRASIL',canal:'ligacao'},
   {data:'2026-03-27',empresa:'UNICA TRANSPORTES',canal:'email'},{data:'2026-03-27',empresa:'AGS LOG',canal:'email'},
   {data:'2026-03-27',empresa:'TRANSCOURIER',canal:'whatsapp'},{data:'2026-03-27',empresa:'AGS LOG',canal:'whatsapp'},{data:'2026-03-27',empresa:'CONCENTO TRANSPORTES',canal:'whatsapp'},{data:'2026-03-27',empresa:'BMG VICENZI TRANSPORTES',canal:'whatsapp'},{data:'2026-03-27',empresa:'TRANSPORTE RICARDO ROSA',canal:'whatsapp'},{data:'2026-03-27',empresa:'FELLON TRANSPORTES',canal:'whatsapp'},{data:'2026-03-27',empresa:'DEC LOG TRANSPORTES',canal:'whatsapp'},{data:'2026-03-27',empresa:'ARROW LOGISTICA',canal:'whatsapp'},{data:'2026-03-27',empresa:'MILLENNIUM TRANSPORTES',canal:'whatsapp'},
+  // ── 31/mar ──
+  {data:'2026-03-31',empresa:'SANTISSIMA TRINDADE',canal:'ligacao'},{data:'2026-03-31',empresa:'SANTISSIMA TRINDADE',canal:'ligacao'},{data:'2026-03-31',empresa:'CW3 TRANSPORTES',canal:'ligacao'},{data:'2026-03-31',empresa:'RONDA TRANSPORTES',canal:'ligacao'},{data:'2026-03-31',empresa:'TPL3 TRANSPORTES',canal:'ligacao'},{data:'2026-03-31',empresa:'IB LOGISTICA',canal:'ligacao'},{data:'2026-03-31',empresa:'BONO TRANSPORTES',canal:'ligacao'},
+  {data:'2026-03-31',empresa:'SANTISSIMA TRINDADE',canal:'email'},{data:'2026-03-31',empresa:'CW3 TRANSPORTES',canal:'email'},{data:'2026-03-31',empresa:'RONDA TRANSPORTES',canal:'email'},{data:'2026-03-31',empresa:'IB LOGISTICA',canal:'email'},
+  {data:'2026-03-31',empresa:'SANTISSIMA TRINDADE',canal:'whatsapp'},
 ];
 
 const EFETIVAS=['ARROW LOGISTICA','DINIZ SARAIVA','GRUPO DTRANS'];
 
 const DIAG_DATA=[
-  {id:1,empresa:"DAMACEL TRANSPORTES",status:"COMPLETE",executivo:"Matheus Cambui",estado:"RS",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
-  {id:2,empresa:"S E TRANSPORTES",status:"COMPLETE",executivo:"",estado:"GO",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
-  {id:3,empresa:"RODOCELL TRANSPORTES",status:"COMPLETE",executivo:"Matheus Cambui",estado:"RS",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
-  {id:4,empresa:"GOVEIA RODRIGUES TRANSPORTES",status:"COMPLETE",executivo:"Matheus Cambui",estado:"SP",reforma:"Nao",dias:30,tam:"PME",dataInicio:"2026-02-04",dataConclusao:"2026-03-06"},
-  {id:5,empresa:"GRUPO RODOXISTO",status:"COMPLETE",executivo:"Matheus Cambui",estado:"PR",reforma:"Sim",dias:30,tam:"Enterprise",dataInicio:"2026-02-25",dataConclusao:"2026-03-27"},
-  {id:6,empresa:"RODOLIVIA",status:"COMPLETE",executivo:"Matheus Cambui",estado:"MT",reforma:"Sim",dias:25,tam:"Enterprise",dataInicio:"2025-12-11",dataConclusao:"2026-01-05"},
-  {id:7,empresa:"JORGINHO TRANSPORTES",status:"COMPLETE",executivo:"",estado:"RS",reforma:"Sim",dias:38,tam:"Enterprise",dataInicio:"2025-12-22",dataConclusao:"2026-01-29"},
-  {id:8,empresa:"CENTRAL DE TRANSPORTES E SERVICOS",status:"COMPLETE",executivo:"",estado:"SE",reforma:"Sim",dias:15,tam:"Enterprise",dataInicio:"2026-01-28",dataConclusao:"2026-02-12"},
-  {id:9,empresa:"JULITAGO BIOENERGIA",status:"COMPLETE",executivo:"",estado:"PR",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
-  {id:10,empresa:"VITILOG",status:"REVALIDACAO",executivo:"",estado:"",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:"2025-12-15",dataConclusao:"2026-01-12"},
-  {id:11,empresa:"STEFANI TRANSPORTES",status:"REVALIDACAO",executivo:"Matheus Cambui",estado:"",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:"2025-12-18",dataConclusao:"2026-01-16"},
-  {id:12,empresa:"DEXLOG",status:"APRESENTACAO",executivo:"",estado:"PR",reforma:"Sim",dias:null,tam:"PME",dataInicio:"2026-01-22",dataConclusao:"2026-02-23"},
-  {id:13,empresa:"TRANSPORTADORA HAMMES",status:"EM PROCESSO",executivo:"Matheus Cambui",estado:"RS",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:"2026-02-11",dataConclusao:"2026-03-13"},
-  {id:14,empresa:"JS LOGISTICA",status:"EM PROCESSO",executivo:"Luana/Matheus/Vivian",estado:"MG",reforma:"Sim",dias:null,tam:"PME",dataInicio:"2026-02-25",dataConclusao:"2026-03-27"},
-  {id:15,empresa:"EXCELLENCE TRANSPORTES",status:"AGUARDANDO DOCUMENTACAO",executivo:"",estado:"PR",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
-  {id:16,empresa:"MODO AGROLOGISTICA",status:"DESCARTADA",executivo:"",estado:"PR",reforma:"Nao",dias:null,tam:"PME",dataInicio:null,dataConclusao:null},
-  {id:17,empresa:"TRANSPORTES BRASIL",status:"EM PROCESSO",executivo:"Luana Alves Fontana",estado:"PR",reforma:"Nao",dias:null,tam:"PME",dataInicio:null,dataConclusao:"2026-04-20"},
-  {id:18,empresa:"PONTAL LOGISTICA",status:"NAO INICIADA",executivo:"Luana Alves Fontana",estado:"GO",reforma:"Sim",dias:null,tam:"PME",dataInicio:null,dataConclusao:null},
-  {id:19,empresa:"RT RANGEL",status:"NAO INICIADA",executivo:"Luana/Vivian",estado:"RJ",reforma:"Sim",dias:null,tam:"PME",dataInicio:"2026-02-19",dataConclusao:"2026-03-27"},
+  {id:1,empresa:"DAMACEL TRANSPORTES",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"RS",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
+  {id:2,empresa:"S E TRANSPORTES",status:"COMPLETE",accountExecutive:"",executivo:"",estado:"GO",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
+  {id:3,empresa:"RODOCELL TRANSPORTES",status:"COMPLETE",accountExecutive:"",executivo:"Matheus Cambui",estado:"RS",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
+  {id:4,empresa:"GOVEIA RODRIGUES TRANSPORTES",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"SP",reforma:"Nao",dias:30,tam:"PME",dataInicio:"2026-02-04",dataConclusao:"2026-03-06"},
+  {id:5,empresa:"GRUPO RODOXISTO",status:"COMPLETE",accountExecutive:"",executivo:"Matheus Cambui",estado:"PR",reforma:"Sim",dias:30,tam:"Enterprise",dataInicio:"2026-02-25",dataConclusao:"2026-03-27"},
+  {id:6,empresa:"RODOLIVIA",status:"COMPLETE",accountExecutive:"",executivo:"Matheus Cambui",estado:"MT",reforma:"Sim",dias:25,tam:"Enterprise",dataInicio:"2025-12-11",dataConclusao:"2026-01-05"},
+  {id:7,empresa:"JORGINHO TRANSPORTES",status:"COMPLETE",accountExecutive:"",executivo:"",estado:"RS",reforma:"Sim",dias:38,tam:"Enterprise",dataInicio:"2025-12-22",dataConclusao:"2026-01-29"},
+  {id:8,empresa:"CENTRAL DE TRANSPORTES E SERVICOS",status:"COMPLETE",accountExecutive:"",executivo:"",estado:"SE",reforma:"Sim",dias:15,tam:"Enterprise",dataInicio:"2026-01-28",dataConclusao:"2026-02-12"},
+  {id:9,empresa:"JULITAGO BIOENERGIA",status:"COMPLETE",accountExecutive:"",executivo:"",estado:"PR",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
+  {id:10,empresa:"VITILOG",status:"REVALIDACAO",accountExecutive:"",executivo:"",estado:"",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:"2025-12-15",dataConclusao:"2026-01-12"},
+  {id:11,empresa:"STEFANI TRANSPORTES",status:"REVALIDACAO",accountExecutive:"",executivo:"Matheus Cambui",estado:"",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:"2025-12-18",dataConclusao:"2026-01-16"},
+  {id:12,empresa:"DEXLOG",status:"APRESENTACAO",accountExecutive:"",executivo:"",estado:"PR",reforma:"Sim",dias:null,tam:"PME",dataInicio:"2026-01-22",dataConclusao:"2026-02-23"},
+  {id:13,empresa:"TRANSPORTADORA HAMMES",status:"EM PROCESSO",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"RS",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:"2026-02-11",dataConclusao:"2026-03-13"},
+  {id:14,empresa:"JS LOGISTICA",status:"EM PROCESSO",accountExecutive:"Sandro Casagrande",executivo:"Luana/Matheus/Vivian",estado:"MG",reforma:"Sim",dias:null,tam:"PME",dataInicio:"2026-02-25",dataConclusao:"2026-03-27"},
+  {id:15,empresa:"EXCELLENCE TRANSPORTES",status:"AGUARDANDO DOCUMENTACAO",accountExecutive:"",executivo:"",estado:"PR",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
+  {id:16,empresa:"MODO AGROLOGISTICA",status:"DESCARTADA",accountExecutive:"",executivo:"",estado:"PR",reforma:"Nao",dias:null,tam:"PME",dataInicio:null,dataConclusao:null},
+  {id:17,empresa:"TRANSPORTES BRASIL",status:"EM PROCESSO",accountExecutive:"",executivo:"Luana Alves Fontana",estado:"PR",reforma:"Nao",dias:null,tam:"PME",dataInicio:null,dataConclusao:"2026-04-20"},
+  {id:18,empresa:"PONTAL LOGISTICA",status:"NAO INICIADA",accountExecutive:"Sandro Casagrande",executivo:"Luana Alves Fontana",estado:"GO",reforma:"Sim",dias:null,tam:"PME",dataInicio:null,dataConclusao:null},
+  {id:19,empresa:"RT RANGEL",status:"NAO INICIADA",accountExecutive:"",executivo:"Luana/Vivian",estado:"RJ",reforma:"Sim",dias:null,tam:"PME",dataInicio:"2026-02-19",dataConclusao:"2026-03-27"},
+  {id:20,empresa:"FRIZON TRANSPORTES",status:"AGUARDANDO DOCUMENTACAO",accountExecutive:"Carla Lemes",executivo:"Luana/Vivian",estado:"MT",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
 ];
 
 const DIAG_STATUS={"COMPLETE":{dot:"#2D9E60",color:"#2D9E60",label:"Concluido"},"AGUARDANDO DOCUMENTACAO":{dot:"#888",color:"#888",label:"Aguardando Documento"},"EM PROCESSO":{dot:C.orange,color:C.orange,label:"Em Processo"},"REVALIDACAO":{dot:"#B35B00",color:"#B35B00",label:"Revalidacao"},"APRESENTACAO":{dot:"#CC6C00",color:"#CC6C00",label:"Apresentacao"},"NAO INICIADA":{dot:"#4A4B4D",color:"#4A4B4D",label:"Nao Iniciada"},"DESCARTADA":{dot:"#C62828",color:"#C62828",label:"Descartada"}};
 const FUNNEL_PHASES=[{key:"NAO INICIADA",label:"Nao Iniciada",bg:"#4A4B4D"},{key:"AGUARDANDO DOCUMENTACAO",label:"Aguardando Documento",bg:"#888"},{key:"EM PROCESSO",label:"Em Processo",bg:C.orange},{key:"REVALIDACAO",label:"Revalidacao",bg:"#B35B00"},{key:"APRESENTACAO",label:"Apresentacao",bg:"#CC6C00"},{key:"COMPLETE",label:"Concluido",bg:"#2D9E60"},{key:"DESCARTADA",label:"Descartada",bg:"#C62828"}];
 
-const ALL_DAYS_MAR=['2026-03-02','2026-03-03','2026-03-04','2026-03-05','2026-03-06','2026-03-07','2026-03-09','2026-03-10','2026-03-11','2026-03-12','2026-03-13','2026-03-16','2026-03-17','2026-03-18','2026-03-19','2026-03-20','2026-03-22','2026-03-23','2026-03-24','2026-03-25','2026-03-26','2026-03-27'];
-const MOV_CARLA=[8,0,4,0,0,4,0,13,13,14,0,0,14,17,0,0,15,14,15,16,15,11];
-const MOV_SANDRO=[2,8,0,0,0,0,0,7,0,1,1,3,7,8,1,6,0,20,8,3,5,1];
-const MOV_MARCO=[0,0,0,0,0,0,0,0,0,0,0,4,6,0,5,0,0,6,5,16,5,6];
-const MOV_ISAAC=[0,0,0,0,0,0,0,0,0,0,0,3,9,3,5,0,0,3,9,12,11,2];
+const ALL_DAYS_MAR=['2026-03-02','2026-03-03','2026-03-04','2026-03-05','2026-03-06','2026-03-07','2026-03-09','2026-03-10','2026-03-11','2026-03-12','2026-03-13','2026-03-16','2026-03-17','2026-03-18','2026-03-19','2026-03-20','2026-03-22','2026-03-23','2026-03-24','2026-03-25','2026-03-26','2026-03-27','2026-03-30','2026-03-31'];
+const MOV_CARLA=[8,0,4,0,0,4,0,13,13,14,0,0,14,17,0,0,15,14,15,16,15,11,0,1];
+const MOV_SANDRO=[2,8,0,0,0,0,0,7,0,1,1,3,7,8,1,6,0,20,8,3,5,1,1,1];
+const MOV_MARCO=[0,0,0,0,0,0,0,0,0,0,0,4,6,0,5,0,0,6,5,16,5,6,2,11];
+const MOV_ISAAC=[0,0,0,0,0,0,0,0,0,0,0,3,9,3,5,0,0,3,9,12,11,2,10,8];
 const SANDRO_REUNIOES=['2026-03-02','2026-03-04','2026-03-09','2026-03-13','2026-03-17','2026-03-18','2026-03-26','2026-03-31'];
 const SANDRO_VISITAS=['2026-03-11','2026-03-13'];
 const CARLA_REUNIOES=['2026-03-05','2026-03-16','2026-03-18'];
@@ -197,7 +203,7 @@ const CARLA_VISITAS=['2026-03-04','2026-03-07','2026-03-07','2026-03-09','2026-0
 const MARCO_REUNIOES=['2026-03-19','2026-03-24','2026-03-25','2026-03-27'];
 const MARCO_VISITAS=['2026-03-19'];
 const ISAAC_REUNIOES=[];
-const ISAAC_VISITAS=['2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-20','2026-03-20','2026-03-23','2026-03-24','2026-03-24','2026-03-25','2026-03-26'];
+const ISAAC_VISITAS=['2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-20','2026-03-20','2026-03-23','2026-03-24','2026-03-24','2026-03-25','2026-03-26','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-31','2026-03-31','2026-03-31'];
 
 function buildEvolution(dates,allDays){const counts={};dates.forEach(d=>{counts[d]=(counts[d]||0)+1;});let acc=0;return allDays.map(day=>{acc+=(counts[day]||0);return acc;});}
 function buildMovEvolution(movArr){let acc=0;return ALL_DAYS_MAR.map((_,i)=>{acc+=(movArr[i]||0);return acc;});}
@@ -360,12 +366,12 @@ function DiagPage(){
       </div>
       <div style={{background:C.white,borderRadius:8,border:bs,boxShadow:C.shadow,overflow:'hidden'}}>
         <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Concluídas</span><span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:700}}>{nConc}</span></div>
-        <div style={{overflowX:'auto'}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}><thead><tr><th style={{...TH,width:'28%'}}>Empresa</th><th style={{...THC,width:'18%'}}>Executivo</th><th style={{...THC,width:'6%'}}>UF</th><th style={{...THC,width:'7%'}}>Seg.</th><th style={{...THC,width:'13%'}}>Dt. Entrada</th><th style={{...THC,width:'13%'}}>Dt. Conclusão</th><th style={{...THC,width:'9%'}}>Reforma</th></tr></thead><tbody>{concluidos.map((d,i)=>(<tr key={d.id} style={{borderBottom:`1px solid #F2F2F0`,background:i%2===0?C.white:'#FAFAF8'}}><td style={{padding:'7px 10px',fontWeight:700,fontSize:11,color:C.text,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',maxWidth:200}}>{d.empresa}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#666'}}>{d.executivo||'—'}</td><td style={{padding:'7px 10px',textAlign:'center'}}><UFBadge v={d.estado}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><SegBadge v={d.tam}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataInicio)}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataConclusao)}</td><td style={{padding:'7px 10px',textAlign:'center'}}><RefBadge v={d.reforma}/></td></tr>))}</tbody></table></div>
+        <div style={{overflowX:'auto'}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}><thead><tr><th style={{...TH,width:'24%'}}>Empresa</th><th style={{...THC,width:'14%'}}>Account Executive</th><th style={{...THC,width:'14%'}}>Responsável</th><th style={{...THC,width:'6%'}}>UF</th><th style={{...THC,width:'7%'}}>Seg.</th><th style={{...THC,width:'11%'}}>Dt. Entrada</th><th style={{...THC,width:'11%'}}>Dt. Conclusão</th><th style={{...THC,width:'9%'}}>Reforma</th></tr></thead><tbody>{concluidos.map((d,i)=>(<tr key={d.id} style={{borderBottom:`1px solid #F2F2F0`,background:i%2===0?C.white:'#FAFAF8'}}><td style={{padding:'7px 10px',fontWeight:700,fontSize:11,color:C.text,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',maxWidth:200}}>{d.empresa}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#666'}}>{d.accountExecutive||'—'}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#666'}}>{d.executivo||'—'}</td><td style={{padding:'7px 10px',textAlign:'center'}}><UFBadge v={d.estado}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><SegBadge v={d.tam}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataInicio)}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataConclusao)}</td><td style={{padding:'7px 10px',textAlign:'center'}}><RefBadge v={d.reforma}/></td></tr>))}</tbody></table></div>
       </div>
     </div>
     <div style={{background:C.white,borderRadius:8,border:bs,boxShadow:C.shadow,overflow:'hidden'}}>
       <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Em Andamento</span><span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:700}}>{nAtivo}</span></div>
-      <div style={{overflowX:'auto'}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}><thead><tr><th style={{...TH,width:'20%'}}>Empresa</th><th style={{...THC,width:'14%'}}>Status</th><th style={{...THC,width:'16%'}}>Executivo(s)</th><th style={{...THC,width:'5%'}}>UF</th><th style={{...THC,width:'6%'}}>Seg.</th><th style={{...THC,width:'10%'}}>Dt. Entrada</th><th style={{...THC,width:'10%'}}>Dt. Conclusão</th><th style={{...THC,width:'7%'}}>Aging</th><th style={{...THC,width:'7%'}}>Reforma</th></tr></thead><tbody>{emAndamento.map((d,i)=>{const ag=calcAg(d.dataInicio,d.dataConclusao);return(<tr key={d.id} style={{borderBottom:`1px solid #F2F2F0`,background:i%2===0?C.white:'#FAFAF8'}}><td style={{padding:'7px 10px',fontWeight:700,fontSize:11,color:C.text,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',maxWidth:220}}>{d.empresa}</td><td style={{padding:'7px 10px',textAlign:'center'}}><StBadge status={d.status}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:10.5,color:'#666'}}>{d.executivo||'—'}</td><td style={{padding:'7px 10px',textAlign:'center'}}><UFBadge v={d.estado}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><SegBadge v={d.tam}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataInicio)}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataConclusao)}</td><td style={{padding:'7px 10px',textAlign:'center'}}><AgBadge d={ag}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><RefBadge v={d.reforma}/></td></tr>);})}</tbody></table></div>
+      <div style={{overflowX:'auto'}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}><thead><tr><th style={{...TH,width:'17%'}}>Empresa</th><th style={{...THC,width:'11%'}}>Status</th><th style={{...THC,width:'12%'}}>Account Executive</th><th style={{...THC,width:'13%'}}>Responsável</th><th style={{...THC,width:'5%'}}>UF</th><th style={{...THC,width:'5%'}}>Seg.</th><th style={{...THC,width:'9%'}}>Dt. Entrada</th><th style={{...THC,width:'9%'}}>Dt. Conclusão</th><th style={{...THC,width:'7%'}}>Aging</th><th style={{...THC,width:'7%'}}>Reforma</th></tr></thead><tbody>{emAndamento.map((d,i)=>{const ag=calcAg(d.dataInicio,d.dataConclusao);return(<tr key={d.id} style={{borderBottom:`1px solid #F2F2F0`,background:i%2===0?C.white:'#FAFAF8'}}><td style={{padding:'7px 10px',fontWeight:700,fontSize:11,color:C.text,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',maxWidth:160}}>{d.empresa}</td><td style={{padding:'7px 10px',textAlign:'center'}}><StBadge status={d.status}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:10.5,color:'#666'}}>{d.accountExecutive||'—'}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:10.5,color:'#666'}}>{d.executivo||'—'}</td><td style={{padding:'7px 10px',textAlign:'center'}}><UFBadge v={d.estado}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><SegBadge v={d.tam}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataInicio)}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataConclusao)}</td><td style={{padding:'7px 10px',textAlign:'center'}}><AgBadge d={ag}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><RefBadge v={d.reforma}/></td></tr>);})}</tbody></table></div>
       <div style={{padding:'7px 14px',borderTop:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:12,flexWrap:'wrap'}}>
         <span style={{fontSize:8.5,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.06em'}}>Status:</span>
         {FUNNEL_PHASES.filter(f=>f.key!=='NAO INICIADA').map(f=>(<div key={f.key} style={{display:'flex',alignItems:'center',gap:3}}><div style={{width:7,height:7,borderRadius:'50%',background:f.bg}}/><span style={{fontSize:9,color:'#555'}}>{f.label}</span></div>))}
@@ -381,13 +387,15 @@ const TATIANE_MOV=[
   {dia:'25/mar',data:'2026-03-25',mov:39},
   {dia:'26/mar',data:'2026-03-26',mov:53},
   {dia:'27/mar',data:'2026-03-27',mov:17},
+  {dia:'30/mar',data:'2026-03-30',mov:22},
+  {dia:'31/mar',data:'2026-03-31',mov:52},
 ];
-const TATIANE_REUNIOES=[],TATIANE_VISITAS=[],MOV_TATIANE=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,53,30];
+const TATIANE_REUNIOES=[],TATIANE_VISITAS=[],MOV_TATIANE=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,53,30,40,29];
 // Atividades diárias Tatiane por canal (alinhadas com ALL_DAYS_MAR)
-// [02,03,04,05,06,07,09,10,11,12,13,16,17,18,19,20,22,23,24,25,26,27]
-const TATIANE_LIG_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,29,52,13];
-const TATIANE_EML_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,17];
-const TATIANE_WHA_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0];
+// [02,03,04,05,06,07,09,10,11,12,13,16,17,18,19,20,22,23,24,25,26,27,30,31]
+const TATIANE_LIG_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,29,52,13,35,20];
+const TATIANE_EML_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,17,5,9];
+const TATIANE_WHA_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0];
 
 function TatianeMixEvolChart(){
   const COL_L=C.orange,COL_E='#444444',COL_W='#AAAAAA';
@@ -704,7 +712,7 @@ function InternoPage(){
   const totalEml=TATIANE_EML_DIA.reduce((a,b)=>a+b,0);
   const totalWha=TATIANE_WHA_DIA.reduce((a,b)=>a+b,0);
   const totalCanais=totalLig+totalEml+totalWha;
-  const nEfetivas=10; // atualizado 27/03/2026
+  const nEfetivas=13; // atualizado 31/03/2026
   const diasReg=ALL_DAYS_MAR.filter((_,i)=>MOV_TATIANE[i]>0).length;
   const totalAgend=0; // agendamentos da Tatiane - a definir
   const totalReal=0;
