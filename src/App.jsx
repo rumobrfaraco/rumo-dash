@@ -5,8 +5,8 @@ const C={orange:"#FF8200",oL:"#FFF0E0",gray:"#6F7072",grayL:"#ECEDEC",white:"#FF
 const FONT="'Noto Sans',system-ui,sans-serif";
 const F={ID:0,NOME:1,RESP:2,ETAPA:3,ESTADO:4,PERFIL:5,MOTIVO:6,DPRIMEIRO:7,DREUNIAO:8,SOLDOC:9,DFECH:10};
 const P={ID:0,EMPRESA:1,PARCEIRO:2,STATUS:3,ETAPA:4,MOTIVO:5,FONTE:6,RESP:7,PAIS:8,UF:9,MESO:10,PERFIL:11,REUNIAO:12,DECISOR:13,FROTA:14,DATA_IND:15,DATA_REUN:16,CONTRATO:17,ANO:18,MES:19};
-const MONTHS_KEY=['2025-05','2025-06','2025-07','2025-08','2025-09','2025-10','2025-11','2025-12','2026-01','2026-02','2026-03'];
-const MONTHS_LBL=['Mai/25','Jun/25','Jul/25','Ago/25','Set/25','Out/25','Nov/25','Dez/25','Jan/26','Fev/26','Mar/26'];
+const MONTHS_KEY=['2025-05','2025-06','2025-07','2025-08','2025-09','2025-10','2025-11','2025-12','2026-01','2026-02','2026-03','2026-04'];
+const MONTHS_LBL=['Mai/25','Jun/25','Jul/25','Ago/25','Set/25','Out/25','Nov/25','Dez/25','Jan/26','Fev/26','Mar/26','Abr/26'];
 const ALL_MONTH_OPTS=[{key:'',label:'Todos os meses'},...MONTHS_KEY.map((k,i)=>({key:k,label:MONTHS_LBL[i]}))];
 const ETAPA_ORDER=['Entrada','Follow-up Inicial','Reuniao Agendada','Reuniao Realizada','Raio-X','Diagnostico','Solicitacao de Documentos','Apresentacao','Proposta','Negociacao','Fechamento'];
 const PARTNER_COLORS={"FB Consult":C.orange,"4DGroup":"#4A4B4D","Saionara | Raster GR":"#8C5200","Anderson FF":"#A0A0A0","Daniel | Raster":"#6F7072","Eusimar | Raster":"#333333","Sem parceiro":"#C0C0C0"};
@@ -75,48 +75,39 @@ const PARCERIAS_RAW=[
 ];
  
 const SDR_AGENDAMENTOS=[
-  {empresa:'A.BECCHI & CIA',perfil:'PME',status:STATUS_REALIZADA,crm:'Perdida',motivo:'Sem Interesse no Momento',dataAgend:'2026-03-16'},
-  {empresa:'PARCEIRO DO GRAO LOGISTICA',perfil:'PME',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-16'},
-  {empresa:'GOMES E ALVES TRANSPORTES LTDA',perfil:'PME',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-17'},
-  {empresa:'EXPRESSO RODOFRIO',perfil:'PME',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-17'},
-  {empresa:'DIAMANTE S/A',perfil:'ETP',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-18'},
-  {empresa:'GRUPO DTRANS',perfil:'PME',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-19',etapaCrm:'Negociacao'},
-  {empresa:'EXPRESSO 9002 TRANSPORTES',perfil:'PME',status:STATUS_REALIZADA,crm:'Perdida',motivo:'Sem Interesse no Momento',dataAgend:'2026-03-23'},
-  {empresa:'VIA TERRESTRE TRANSPORTE E LOGISTICA',perfil:'PME',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-23',etapaCrm:'Proposta'},
-  {empresa:'RTT LOG',perfil:'PME',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-23',etapaCrm:'Proposta'},
-  {empresa:'ENI TRANSPORTES',perfil:'PME',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-03-24'},
+  {empresa:'SANTISSIMA TRINDADE PARTICIPACOES E LOGISTICA LTDA',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-01'},
 ];
  
 const SDR_MOV=[
-  {dia:'02/mar',data:'2026-03-02',mov:0},{dia:'03/mar',data:'2026-03-03',mov:0},{dia:'04/mar',data:'2026-03-04',mov:0},{dia:'05/mar',data:'2026-03-05',mov:0},{dia:'06/mar',data:'2026-03-06',mov:0},{dia:'07/mar',data:'2026-03-07',mov:0},{dia:'08/mar',data:'2026-03-08',mov:0},{dia:'09/mar',data:'2026-03-09',mov:0},{dia:'10/mar',data:'2026-03-10',mov:0},
-  {dia:'11/mar',data:'2026-03-11',mov:18},{dia:'12/mar',data:'2026-03-12',mov:22},{dia:'13/mar',data:'2026-03-13',mov:27},{dia:'16/mar',data:'2026-03-16',mov:9},{dia:'17/mar',data:'2026-03-17',mov:16},{dia:'18/mar',data:'2026-03-18',mov:21},{dia:'19/mar',data:'2026-03-19',mov:26},{dia:'20/mar',data:'2026-03-20',mov:29},{dia:'23/mar',data:'2026-03-23',mov:8},{dia:'24/mar',data:'2026-03-24',mov:16},{dia:'25/mar',data:'2026-03-25',mov:39},{dia:'26/mar',data:'2026-03-26',mov:25},{dia:'27/mar',data:'2026-03-27',mov:14},{dia:'30/mar',data:'2026-03-30',mov:0},{dia:'31/mar',data:'2026-03-31',mov:8},
+  {dia:'01/abr',data:'2026-04-01',mov:10},
+  {dia:'02/abr',data:'2026-04-02',mov:12},
 ];
  
 const SDR_SEMANAS=[
-  {semana:'S1 (11-13/mar)',ligacoes:18+22+27,agendamentos:1},
-  {semana:'S2 (16-20/mar)',ligacoes:9+16+10+21+14,agendamentos:5},
-  {semana:'S3 (23/mar)',ligacoes:31,agendamentos:3},
+  {semana:'S1 (01/abr)',ligacoes:8,agendamentos:1},
 ];
  
-const SDR_DAYS_LBL=['11/mar','12/mar','13/mar','16/mar','17/mar','18/mar','19/mar','20/mar','23/mar','24/mar','25/mar','26/mar','27/mar','30/mar','31/mar'];
-const SDR_LIG_DIA=[0,0,27,9,16,10,21,14,31,14,14,29,15,0,7];
-const SDR_EML_DIA=[0,22,0,0,0,11,5,0,3,8,7,1,2,0,4];
-const SDR_WHA_DIA=[0,0,0,0,0,0,0,15,15,12,18,27,9,0,1];
- 
+const SDR_DAYS_LBL_MAR=['11/mar','12/mar','13/mar','16/mar','17/mar','18/mar','19/mar','20/mar','23/mar','24/mar','25/mar','26/mar','27/mar','30/mar','31/mar'];
+const SDR_LIG_DIA_MAR=[0,0,27,9,16,10,21,14,31,14,14,29,15,0,7];
+const SDR_EML_DIA_MAR=[0,22,0,0,0,11,5,0,3,8,7,1,2,0,4];
+const SDR_WHA_DIA_MAR=[0,0,0,0,0,0,0,15,15,12,18,27,9,0,1];
+
+const SDR_DAYS_LBL=['01/abr','02/abr'];
+const SDR_LIG_DIA=[8,10];
+const SDR_EML_DIA=[5,2];
+const SDR_WHA_DIA=[3,1];
+
 const SDR_AGEND_POR_DATA = {};
 SDR_AGENDAMENTOS.forEach(a => {
   if (a.dataAgend) {
     SDR_AGEND_POR_DATA[a.dataAgend] = (SDR_AGEND_POR_DATA[a.dataAgend] || 0) + 1;
   }
 });
- 
+
 const SDR_ATIV_DATES = [
-  '2026-03-11','2026-03-12','2026-03-13',
-  '2026-03-16','2026-03-17','2026-03-18','2026-03-19','2026-03-20',
-  '2026-03-23','2026-03-24','2026-03-25','2026-03-26','2026-03-27',
-  '2026-03-30','2026-03-31'
+  '2026-04-01','2026-04-02'
 ];
- 
+
 const SDR_AGEND_ACUM = (() => {
   let acc = 0;
   return SDR_ATIV_DATES.map(date => {
@@ -124,47 +115,30 @@ const SDR_AGEND_ACUM = (() => {
     return acc;
   });
 })();
- 
- 
+
+
 // ── DADOS MENSAIS COMPILADOS SDR ──────────────────
-// Totais por mês (Mar/26 é o mês atual, demais a definir quando houver histórico)
+// Totais por mês compilado (histórico + atual)
 const SDR_MENSAL=[
-  {mes:'Mar/26',key:'2026-03',ligacao:SDR_LIG_DIA.reduce((a,b)=>a+b,0),email:SDR_EML_DIA.reduce((a,b)=>a+b,0),whatsapp:SDR_WHA_DIA.reduce((a,b)=>a+b,0),agendamentos:10},
+  {mes:'Mar/26',key:'2026-03',ligacao:SDR_LIG_DIA_MAR.reduce((a,b)=>a+b,0),email:SDR_EML_DIA_MAR.reduce((a,b)=>a+b,0),whatsapp:SDR_WHA_DIA_MAR.reduce((a,b)=>a+b,0),agendamentos:10},
+  {mes:'Abr/26',key:'2026-04',ligacao:8+10,email:5+2,whatsapp:3+1,agendamentos:1},
 ];
- 
+
 function buildSdrEvol(arr){let acc=0;return arr.map(v=>{acc+=v;return acc;});}
- 
+
 const SDR_ATIV=[
-  {data:'2026-03-11',empresa:'RT TRANSPORTES',canal:'ligacao'},
-  {data:'2026-03-12',empresa:'JB TRANSPORTES',canal:'ligacao'},{data:'2026-03-12',empresa:'GABRI CARGO',canal:'ligacao'},{data:'2026-03-12',empresa:'LTSL ENCOMENDAS',canal:'email'},{data:'2026-03-12',empresa:'TSF TRANSPORTADORA',canal:'ligacao'},{data:'2026-03-12',empresa:'RT TRANSPORTES',canal:'ligacao'},{data:'2026-03-12',empresa:'W&E TRANSPORTES',canal:'ligacao'},{data:'2026-03-12',empresa:'ALENCAR LOG',canal:'ligacao'},{data:'2026-03-12',empresa:'TRANSPORTADORA IPE',canal:'ligacao'},{data:'2026-03-12',empresa:'TWF LOGISTICA',canal:'ligacao'},{data:'2026-03-12',empresa:'ROMA TRANSPORTES',canal:'ligacao'},{data:'2026-03-12',empresa:'M ANDRADE',canal:'ligacao'},{data:'2026-03-12',empresa:'LOBS TRANSPORTES',canal:'ligacao'},{data:'2026-03-12',empresa:'A.BECCHI',canal:'email'},{data:'2026-03-12',empresa:'TRANSPEREGO',canal:'ligacao'},{data:'2026-03-12',empresa:'AGROVELOZ',canal:'ligacao'},{data:'2026-03-12',empresa:'EXPRESSO GOIAS',canal:'ligacao'},{data:'2026-03-12',empresa:'PETRA LOG',canal:'ligacao'},{data:'2026-03-12',empresa:'CELTA TRANSPORTES',canal:'ligacao'},{data:'2026-03-12',empresa:'ESPANSUL',canal:'ligacao'},{data:'2026-03-12',empresa:'DUEMAFE LOGISTICA',canal:'ligacao'},{data:'2026-03-12',empresa:'TRANSPORTADORA CLASSE A',canal:'ligacao'},{data:'2026-03-12',empresa:'J DALAVALLE',canal:'ligacao'},{data:'2026-03-12',empresa:'J DALAVALLE',canal:'email'},
-  {data:'2026-03-13',empresa:'TWF LOGISTICA',canal:'ligacao'},{data:'2026-03-13',empresa:'MILLENNIUM',canal:'email'},{data:'2026-03-13',empresa:'LGP TRANSPORTES',canal:'ligacao'},{data:'2026-03-13',empresa:'LAGE LOG',canal:'email'},{data:'2026-03-13',empresa:'LALOG',canal:'email'},{data:'2026-03-13',empresa:'TWF LOGISTICA',canal:'email'},{data:'2026-03-13',empresa:'JOMAVE',canal:'email'},{data:'2026-03-13',empresa:'JAT TRANSPORTES',canal:'email'},{data:'2026-03-13',empresa:'J&P TRANSPORTADORA',canal:'email'},{data:'2026-03-13',empresa:'GUTO LOGISTICA',canal:'email'},{data:'2026-03-13',empresa:'GOMES E ALVES',canal:'email'},{data:'2026-03-13',empresa:'FERREIRA VILACA',canal:'email'},{data:'2026-03-13',empresa:'EXPRESSO RODOFRIO',canal:'email'},{data:'2026-03-13',empresa:'COMERCIAL MULT MIX',canal:'email'},{data:'2026-03-13',empresa:'ALO TRANSPORTES',canal:'email'},{data:'2026-03-13',empresa:'MCR TRANSPORTES',canal:'email'},{data:'2026-03-13',empresa:'ROMA TRANSPORTES',canal:'ligacao'},{data:'2026-03-13',empresa:'M ANDRADE',canal:'ligacao'},{data:'2026-03-13',empresa:'GABRI CARGO',canal:'ligacao'},{data:'2026-03-13',empresa:'LOBS TRANSPORTES',canal:'ligacao'},{data:'2026-03-13',empresa:'W&E TRANSPORTES',canal:'ligacao'},{data:'2026-03-13',empresa:'TSF TRANSPORTADORA',canal:'ligacao'},{data:'2026-03-13',empresa:'TRANSPORTADORA IPE',canal:'ligacao'},{data:'2026-03-13',empresa:'DUEMAFE LOGISTICA',canal:'ligacao'},{data:'2026-03-13',empresa:'TRANSPEREGO',canal:'ligacao'},{data:'2026-03-13',empresa:'EXPRESSO GOIAS',canal:'ligacao'},{data:'2026-03-13',empresa:'JAT TRANSPORTES',canal:'ligacao'},{data:'2026-03-13',empresa:'J&P TRANSPORTADORA',canal:'ligacao'},{data:'2026-03-13',empresa:'ALO TRANSPORTES',canal:'ligacao'},{data:'2026-03-13',empresa:'GUTO LOGISTICA',canal:'ligacao'},{data:'2026-03-13',empresa:'GOMES E ALVES',canal:'ligacao'},{data:'2026-03-13',empresa:'FERREIRA VILACA',canal:'ligacao'},{data:'2026-03-13',empresa:'EXPRESSO RODOFRIO',canal:'ligacao'},{data:'2026-03-13',empresa:'COMERCIAL MULT MIX',canal:'ligacao'},{data:'2026-03-13',empresa:'RLP TRANSPORTES',canal:'ligacao'},{data:'2026-03-13',empresa:'MILLENNIUM',canal:'ligacao'},{data:'2026-03-13',empresa:'MCR TRANSPORTES',canal:'ligacao'},{data:'2026-03-13',empresa:'LGP TRANSPORTES',canal:'ligacao'},{data:'2026-03-13',empresa:'LALOG',canal:'ligacao'},{data:'2026-03-13',empresa:'LAGE LOG',canal:'ligacao'},{data:'2026-03-13',empresa:'JOMAVE',canal:'ligacao'},{data:'2026-03-13',empresa:'PARCEIRO DO GRAO',canal:'ligacao'},
-  {data:'2026-03-16',empresa:'JOMAVE',canal:'ligacao'},{data:'2026-03-16',empresa:'MCR TRANSPORTES',canal:'ligacao'},{data:'2026-03-16',empresa:'LAGE LOG',canal:'ligacao'},{data:'2026-03-16',empresa:'GUTO LOGISTICA',canal:'ligacao'},{data:'2026-03-16',empresa:'JAT TRANSPORTES',canal:'ligacao'},{data:'2026-03-16',empresa:'GOMES E ALVES',canal:'ligacao'},{data:'2026-03-16',empresa:'FERREIRA VILACA',canal:'ligacao'},{data:'2026-03-16',empresa:'ALO TRANSPORTES',canal:'ligacao'},{data:'2026-03-16',empresa:'MILLENNIUM',canal:'ligacao'},{data:'2026-03-16',empresa:'EXPRESSO RODOFRIO',canal:'ligacao'},{data:'2026-03-16',empresa:'COMERCIAL MULT MIX',canal:'ligacao'},{data:'2026-03-16',empresa:'J&P TRANSPORTADORA',canal:'ligacao'},{data:'2026-03-16',empresa:'GABRI CARGO',canal:'ligacao'},{data:'2026-03-16',empresa:'M ANDRADE',canal:'ligacao'},{data:'2026-03-16',empresa:'TWF LOGISTICA',canal:'ligacao'},{data:'2026-03-16',empresa:'PARCEIRO DO GRAO',canal:'ligacao'},{data:'2026-03-16',empresa:'ROMA TRANSPORTES',canal:'ligacao'},{data:'2026-03-16',empresa:'RLP TRANSPORTES',canal:'ligacao'},{data:'2026-03-16',empresa:'MILLENNIUM',canal:'email'},{data:'2026-03-16',empresa:'J&P TRANSPORTADORA',canal:'ligacao'},{data:'2026-03-16',empresa:'GOMES E ALVES',canal:'ligacao'},{data:'2026-03-16',empresa:'A.BECCHI',canal:'ligacao'},
-  {data:'2026-03-17',empresa:'J DALAVALLE',canal:'ligacao'},{data:'2026-03-17',empresa:'LGP TRANSPORTES',canal:'ligacao'},{data:'2026-03-17',empresa:'DUEMAFE LOGISTICA',canal:'ligacao'},{data:'2026-03-17',empresa:'EXPRESSO RODOFRIO',canal:'ligacao'},{data:'2026-03-17',empresa:'GUTO LOGISTICA',canal:'ligacao'},{data:'2026-03-17',empresa:'J&P TRANSPORTADORA',canal:'ligacao'},{data:'2026-03-17',empresa:'DIAMANTE',canal:'email'},{data:'2026-03-17',empresa:'LALOG',canal:'ligacao'},{data:'2026-03-17',empresa:'EXPRESSO GOIAS',canal:'email'},{data:'2026-03-17',empresa:'ESPANSUL',canal:'email'},{data:'2026-03-17',empresa:'J DALAVALLE',canal:'email'},{data:'2026-03-17',empresa:'LAGE LOG',canal:'ligacao'},{data:'2026-03-17',empresa:'TRANSPORTADORA CLASSE A',canal:'email'},{data:'2026-03-17',empresa:'JOMAVE',canal:'ligacao'},{data:'2026-03-17',empresa:'JAT TRANSPORTES',canal:'ligacao'},{data:'2026-03-17',empresa:'A.BECCHI',canal:'email'},{data:'2026-03-17',empresa:'CELTA TRANSPORTES',canal:'email'},{data:'2026-03-17',empresa:'W&E TRANSPORTES',canal:'ligacao'},{data:'2026-03-17',empresa:'LOBS TRANSPORTES',canal:'ligacao'},{data:'2026-03-17',empresa:'RLP TRANSPORTES',canal:'email'},{data:'2026-03-17',empresa:'MILLENNIUM',canal:'email'},{data:'2026-03-17',empresa:'J&P TRANSPORTADORA',canal:'email'},{data:'2026-03-17',empresa:'RT TRANSPORTES',canal:'email'},{data:'2026-03-17',empresa:'LGP TRANSPORTES',canal:'email'},{data:'2026-03-17',empresa:'SUPERIOR TRANSPORTES',canal:'ligacao'},{data:'2026-03-17',empresa:'ALO TRANSPORTES',canal:'email'},{data:'2026-03-17',empresa:'W&E TRANSPORTES',canal:'email'},{data:'2026-03-17',empresa:'LOBS TRANSPORTES',canal:'email'},{data:'2026-03-17',empresa:'M ANDRADE',canal:'email'},{data:'2026-03-17',empresa:'UES TRANSPORTES',canal:'ligacao'},{data:'2026-03-17',empresa:'TRANSCOURIER',canal:'ligacao'},{data:'2026-03-17',empresa:'SLC TRANSPORTES',canal:'ligacao'},{data:'2026-03-17',empresa:'VKEFILHOS',canal:'ligacao'},{data:'2026-03-17',empresa:'TRANSPORTADORA MINAS BRASIL',canal:'ligacao'},{data:'2026-03-17',empresa:'TRANSPORTADORA ASA SUL',canal:'ligacao'},{data:'2026-03-17',empresa:'VALLENCE',canal:'ligacao'},{data:'2026-03-17',empresa:'VIA TERRESTRE',canal:'ligacao'},{data:'2026-03-17',empresa:'VELOZ CARGAS',canal:'ligacao'},{data:'2026-03-17',empresa:'UNICA TRANSPORTES',canal:'ligacao'},
-  {data:'2026-03-18',empresa:'RT TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'RLP TRANSPORTES',canal:'ligacao'},{data:'2026-03-18',empresa:'MCR TRANSPORTES',canal:'ligacao'},{data:'2026-03-18',empresa:'TRANSPORTADORA IPE',canal:'ligacao'},{data:'2026-03-18',empresa:'VKEFILHOS',canal:'email'},{data:'2026-03-18',empresa:'VIA TERRESTRE',canal:'email'},{data:'2026-03-18',empresa:'VELOZ CARGAS',canal:'email'},{data:'2026-03-18',empresa:'VALLENCE',canal:'email'},{data:'2026-03-18',empresa:'SIGA BRASIL',canal:'ligacao'},{data:'2026-03-18',empresa:'SGR LOGISTICA',canal:'ligacao'},{data:'2026-03-18',empresa:'UNICA TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'UES TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'EXPRESSO GOIAS',canal:'ligacao'},{data:'2026-03-18',empresa:'TRANSPORTADORA MINAS BRASIL',canal:'email'},{data:'2026-03-18',empresa:'TRANSPORTADORA ASA SUL',canal:'email'},{data:'2026-03-18',empresa:'TRANSCOURIER',canal:'email'},{data:'2026-03-18',empresa:'ESPANSUL',canal:'ligacao'},{data:'2026-03-18',empresa:'SLC TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'SIGA BRASIL',canal:'email'},{data:'2026-03-18',empresa:'SGR LOGISTICA',canal:'email'},{data:'2026-03-18',empresa:'DIAMANTE',canal:'ligacao'},{data:'2026-03-18',empresa:'VALLENCE',canal:'ligacao'},{data:'2026-03-18',empresa:'RLP TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'MCR TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'LAGE LOG',canal:'email'},{data:'2026-03-18',empresa:'JAT TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'GUTO LOGISTICA',canal:'email'},{data:'2026-03-18',empresa:'PARCEIRO DO GRAO',canal:'ligacao'},{data:'2026-03-18',empresa:'COMERCIAL MULT MIX',canal:'email'},{data:'2026-03-18',empresa:'GABRI CARGO',canal:'email'},{data:'2026-03-18',empresa:'TWF LOGISTICA',canal:'email'},{data:'2026-03-18',empresa:'ROMA TRANSPORTES',canal:'email'},{data:'2026-03-18',empresa:'TRANSPORTADORA IPE',canal:'email'},
-  {data:'2026-03-19',empresa:'VALLENCE',canal:'ligacao'},{data:'2026-03-19',empresa:'M ANDRADE',canal:'ligacao'},{data:'2026-03-19',empresa:'LOBS TRANSPORTES',canal:'ligacao'},{data:'2026-03-19',empresa:'CELTA TRANSPORTES',canal:'ligacao'},{data:'2026-03-19',empresa:'D.E.S TRANSPORTES',canal:'ligacao'},{data:'2026-03-19',empresa:'ARAGAO CAMINHOES',canal:'ligacao'},{data:'2026-03-19',empresa:'DEC LOG',canal:'ligacao'},{data:'2026-03-19',empresa:'AGROVERDE CEREAIS',canal:'ligacao'},{data:'2026-03-19',empresa:'UNICA TRANSPORTES',canal:'ligacao'},{data:'2026-03-19',empresa:'VIA TERRESTRE',canal:'ligacao'},{data:'2026-03-19',empresa:'VELOZ CARGAS',canal:'ligacao'},{data:'2026-03-19',empresa:'FERREIRA VILACA',canal:'ligacao'},{data:'2026-03-19',empresa:'3 W TRANSPORTES',canal:'ligacao'},{data:'2026-03-19',empresa:'SLC TRANSPORTES',canal:'ligacao'},{data:'2026-03-19',empresa:'SIGA BRASIL',canal:'ligacao'},{data:'2026-03-19',empresa:'ARROW LOGISTICA',canal:'ligacao'},{data:'2026-03-19',empresa:'DINIZ SARAIVA',canal:'ligacao'},{data:'2026-03-19',empresa:'GRUPO DTRANS',canal:'ligacao'},{data:'2026-03-19',empresa:'EXPRESSO 9002',canal:'ligacao'},{data:'2026-03-19',empresa:'FENIX WAY',canal:'ligacao'},{data:'2026-03-19',empresa:'TRANSPORTE RICARDO ROSA',canal:'ligacao'},{data:'2026-03-19',empresa:'MILLENNIUM',canal:'email'},{data:'2026-03-19',empresa:'PETRA LOG',canal:'email'},{data:'2026-03-19',empresa:'LGP TRANSPORTES',canal:'email'},{data:'2026-03-19',empresa:'ALO TRANSPORTES',canal:'email'},{data:'2026-03-19',empresa:'FELLON TRANSPORTES',canal:'email'},{data:'2026-03-19',empresa:'TRANSPORTE RICARDO ROSA',canal:'email'},{data:'2026-03-19',empresa:'J&P TRANSPORTADORA',canal:'email'},{data:'2026-03-19',empresa:'FERREIRA VILACA',canal:'email'},{data:'2026-03-19',empresa:'3 W TRANSPORTES',canal:'email'},{data:'2026-03-19',empresa:'HOLIVER TRANSPORTES',canal:'email'},{data:'2026-03-19',empresa:'GRUPO DTRANS',canal:'email'},{data:'2026-03-19',empresa:'FENIX WAY',canal:'email'},{data:'2026-03-19',empresa:'EXPRESSO 9002',canal:'email'},{data:'2026-03-19',empresa:'D.E.S TRANSPORTES',canal:'whatsapp'},{data:'2026-03-19',empresa:'ARROW LOGISTICA',canal:'whatsapp'},{data:'2026-03-19',empresa:'ARAGAO CAMINHOES',canal:'whatsapp'},{data:'2026-03-19',empresa:'AGROVERDE CEREAIS',canal:'whatsapp'},{data:'2026-03-19',empresa:'FELLON TRANSPORTES',canal:'whatsapp'},{data:'2026-03-19',empresa:'CELTA TRANSPORTES',canal:'whatsapp'},{data:'2026-03-19',empresa:'M ANDRADE',canal:'whatsapp'},{data:'2026-03-19',empresa:'VIA TERRESTRE',canal:'whatsapp'},{data:'2026-03-19',empresa:'TRANSPORTE RICARDO ROSA',canal:'whatsapp'},{data:'2026-03-19',empresa:'UNICA TRANSPORTES',canal:'whatsapp'},{data:'2026-03-19',empresa:'GRUPO DTRANS',canal:'whatsapp'},{data:'2026-03-19',empresa:'VELOZ CARGAS',canal:'whatsapp'},{data:'2026-03-19',empresa:'3 W TRANSPORTES',canal:'whatsapp'},{data:'2026-03-19',empresa:'EXPRESSO 9002',canal:'whatsapp'},
-  {data:'2026-03-20',empresa:'AGROVELOZ',canal:'whatsapp'},{data:'2026-03-20',empresa:'LGP TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'ALO TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'TRANSPORTADORA MINAS BRASIL',canal:'whatsapp'},{data:'2026-03-20',empresa:'TRANSCOURIER',canal:'whatsapp'},{data:'2026-03-20',empresa:'HOLIVER TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'FENIX WAY',canal:'whatsapp'},{data:'2026-03-20',empresa:'J&P TRANSPORTADORA',canal:'whatsapp'},{data:'2026-03-20',empresa:'SLC TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'TSF TRANSPORTADORA',canal:'whatsapp'},{data:'2026-03-20',empresa:'SIGA BRASIL',canal:'whatsapp'},{data:'2026-03-20',empresa:'LOBS TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'TRANSPEREGO',canal:'whatsapp'},{data:'2026-03-20',empresa:'UNICA TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'JAT TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'GUTO LOGISTICA',canal:'whatsapp'},{data:'2026-03-20',empresa:'MCR TRANSPORTES',canal:'whatsapp'},{data:'2026-03-20',empresa:'LAGE LOG',canal:'whatsapp'},{data:'2026-03-20',empresa:'PETRA LOG',canal:'whatsapp'},{data:'2026-03-20',empresa:'EXPRESSO GOIAS',canal:'ligacao'},{data:'2026-03-20',empresa:'ESPANSUL',canal:'ligacao'},{data:'2026-03-20',empresa:'CELTA TRANSPORTES',canal:'ligacao'},{data:'2026-03-20',empresa:'TRANSPEREGO',canal:'ligacao'},{data:'2026-03-20',empresa:'TRANSPORTADORA CLASSE A',canal:'ligacao'},{data:'2026-03-20',empresa:'PETRA LOG',canal:'ligacao'},{data:'2026-03-20',empresa:'TSF TRANSPORTADORA',canal:'ligacao'},{data:'2026-03-20',empresa:'RLP TRANSPORTES',canal:'ligacao'},{data:'2026-03-20',empresa:'MCR TRANSPORTES',canal:'ligacao'},{data:'2026-03-20',empresa:'LAGE LOG',canal:'ligacao'},{data:'2026-03-20',empresa:'UNICA TRANSPORTES',canal:'ligacao'},{data:'2026-03-20',empresa:'JAT TRANSPORTES',canal:'ligacao'},{data:'2026-03-20',empresa:'GUTO LOGISTICA',canal:'ligacao'},{data:'2026-03-20',empresa:'COMERCIAL MULT MIX',canal:'ligacao'},
-  {data:'2026-03-23',empresa:'FENIX WAY',canal:'ligacao'},{data:'2026-03-23',empresa:'MILLENNIUM',canal:'ligacao'},{data:'2026-03-23',empresa:'TRANSPORTADORA MINAS BRASIL',canal:'ligacao'},{data:'2026-03-23',empresa:'VIA TERRESTRE',canal:'ligacao'},{data:'2026-03-23',empresa:'W&E TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'SLC TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'DINIZ SARAIVA',canal:'ligacao'},{data:'2026-03-23',empresa:'DEC LOG',canal:'ligacao'},{data:'2026-03-23',empresa:'TRANSCOURIER',canal:'ligacao'},{data:'2026-03-23',empresa:'D.E.S TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'ARROW LOGISTICA',canal:'ligacao'},{data:'2026-03-23',empresa:'ARAGAO CAMINHOES',canal:'ligacao'},{data:'2026-03-23',empresa:'DIAMANTE',canal:'ligacao'},{data:'2026-03-23',empresa:'ALO TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'HOLIVER TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'TRANSPORTE RICARDO ROSA',canal:'ligacao'},{data:'2026-03-23',empresa:'FELLON TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'J&P TRANSPORTADORA',canal:'ligacao'},{data:'2026-03-23',empresa:'VELOZ CARGAS',canal:'ligacao'},{data:'2026-03-23',empresa:'3 W TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'EXPRESSO 9002',canal:'ligacao'},{data:'2026-03-23',empresa:'PRV TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'ANSELMINI',canal:'ligacao'},{data:'2026-03-23',empresa:'BMG VICENZI',canal:'ligacao'},{data:'2026-03-23',empresa:'KJUNIOR',canal:'ligacao'},{data:'2026-03-23',empresa:'M A TRANSPORTADORA',canal:'ligacao'},{data:'2026-03-23',empresa:'AGS LOG',canal:'ligacao'},{data:'2026-03-23',empresa:'ENI TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'LOG MASTER',canal:'ligacao'},{data:'2026-03-23',empresa:'ALBANI TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'CONCENTO TRANSPORTES',canal:'ligacao'},{data:'2026-03-23',empresa:'RTT LOG',canal:'whatsapp'},{data:'2026-03-23',empresa:'TRANSPORTADORA CLASSE A',canal:'whatsapp'},{data:'2026-03-23',empresa:'LOBS TRANSPORTES',canal:'whatsapp'},{data:'2026-03-23',empresa:'M ANDRADE',canal:'whatsapp'},{data:'2026-03-23',empresa:'TRANSPEREGO',canal:'whatsapp'},{data:'2026-03-23',empresa:'VIA TERRESTRE',canal:'whatsapp'},{data:'2026-03-23',empresa:'TRANSPORTADORA ASA SUL',canal:'whatsapp'},{data:'2026-03-23',empresa:'CELTA TRANSPORTES',canal:'whatsapp'},{data:'2026-03-23',empresa:'PARCEIRO DO GRAO',canal:'whatsapp'},{data:'2026-03-23',empresa:'MCR TRANSPORTES',canal:'whatsapp'},{data:'2026-03-23',empresa:'JAT TRANSPORTES',canal:'whatsapp'},{data:'2026-03-23',empresa:'GUTO LOGISTICA',canal:'whatsapp'},{data:'2026-03-23',empresa:'TRANSPORTADORA CLASSE A',canal:'whatsapp'},{data:'2026-03-23',empresa:'DIAMANTE',canal:'email'},{data:'2026-03-23',empresa:'EXPRESSO 9002',canal:'email'},
-  {data:'2026-03-24',empresa:'ENI TRANSPORTES',canal:'ligacao'},{data:'2026-03-24',empresa:'PRV TRANSPORTES',canal:'ligacao'},{data:'2026-03-24',empresa:'TSF TRANSPORTADORA SANTA FE',canal:'ligacao'},{data:'2026-03-24',empresa:'TRANSPORTADORA ASA SUL',canal:'ligacao'},{data:'2026-03-24',empresa:'SIGA BRASIL',canal:'ligacao'},{data:'2026-03-24',empresa:'LOBS TRANSPORTES',canal:'ligacao'},{data:'2026-03-24',empresa:'TRANSPEREGO',canal:'ligacao'},{data:'2026-03-24',empresa:'LGP TRANSPORTES',canal:'ligacao'},{data:'2026-03-24',empresa:'PETRA LOG',canal:'ligacao'},{data:'2026-03-24',empresa:'GABRI CARGO',canal:'ligacao'},{data:'2026-03-24',empresa:'TWF LOGISTICA',canal:'ligacao'},{data:'2026-03-24',empresa:'ROMA TRANSPORTES',canal:'ligacao'},{data:'2026-03-24',empresa:'TRANSPORTADORA IPE AMARELO',canal:'ligacao'},{data:'2026-03-24',empresa:'LOG MASTER',canal:'email'},{data:'2026-03-24',empresa:'BMG VICENZI',canal:'email'},{data:'2026-03-24',empresa:'FELLON TRANSPORTES',canal:'email'},{data:'2026-03-24',empresa:'VELOZ CARGAS',canal:'email'},{data:'2026-03-24',empresa:'UNICA TRANSPORTES',canal:'email'},{data:'2026-03-24',empresa:'PARCEIRO DO GRAO',canal:'whatsapp'},{data:'2026-03-24',empresa:'PRV TRANSPORTES',canal:'whatsapp'},{data:'2026-03-24',empresa:'GRUPO DTRANS',canal:'whatsapp'},{data:'2026-03-24',empresa:'RTT LOG',canal:'whatsapp'},{data:'2026-03-24',empresa:'AGS LOG',canal:'whatsapp'},{data:'2026-03-24',empresa:'LOBS TRANSPORTES',canal:'whatsapp'},{data:'2026-03-24',empresa:'TRANSPEREGO',canal:'whatsapp'},{data:'2026-03-24',empresa:'LOG MASTER',canal:'whatsapp'},{data:'2026-03-24',empresa:'UNICA TRANSPORTES',canal:'whatsapp'},{data:'2026-03-24',empresa:'GRUPO DTRANS',canal:'whatsapp'},{data:'2026-03-24',empresa:'TRANSPORTADORA CLASSE A',canal:'whatsapp'},
-  // ── 25/mar ──
-  {data:'2026-03-25',empresa:'PRV TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'LOG MASTER TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'AGS LOG',canal:'ligacao'},{data:'2026-03-25',empresa:'CONCENTO TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'BMG VICENZI TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'TRANSPORTE RICARDO ROSA',canal:'ligacao'},{data:'2026-03-25',empresa:'W&E TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'TRANSPORTADORA CLASSE A',canal:'ligacao'},{data:'2026-03-25',empresa:'ARROW LOGISTICA',canal:'ligacao'},{data:'2026-03-25',empresa:'D.E.S TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'DEC LOG TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'RTT LOG',canal:'ligacao'},{data:'2026-03-25',empresa:'SUPERIOR TRANSPORTES',canal:'ligacao'},{data:'2026-03-25',empresa:'ENI TRANSPORTES',canal:'ligacao'},
-  {data:'2026-03-25',empresa:'AGS LOG',canal:'email'},{data:'2026-03-25',empresa:'CONCENTO TRANSPORTES',canal:'email'},{data:'2026-03-25',empresa:'BMG VICENZI TRANSPORTES',canal:'email'},{data:'2026-03-25',empresa:'TRANSPORTE RICARDO ROSA',canal:'email'},{data:'2026-03-25',empresa:'TSF TRANSPORTADORA SANTA FE',canal:'email'},{data:'2026-03-25',empresa:'DEC LOG TRANSPORTES',canal:'email'},{data:'2026-03-25',empresa:'SUPERIOR TRANSPORTES',canal:'email'},
-  {data:'2026-03-25',empresa:'PRV TRANSPORTES',canal:'whatsapp'},{data:'2026-03-25',empresa:'PETRA LOG',canal:'whatsapp'},{data:'2026-03-25',empresa:'TRANSPORTADORA IPE AMARELO',canal:'whatsapp'},{data:'2026-03-25',empresa:'AGS LOG',canal:'whatsapp'},{data:'2026-03-25',empresa:'CONCENTO TRANSPORTES',canal:'whatsapp'},{data:'2026-03-25',empresa:'BMG VICENZI TRANSPORTES',canal:'whatsapp'},{data:'2026-03-25',empresa:'TRANSPORTE RICARDO ROSA',canal:'whatsapp'},{data:'2026-03-25',empresa:'TSF TRANSPORTADORA SANTA FE',canal:'whatsapp'},{data:'2026-03-25',empresa:'W&E TRANSPORTES',canal:'whatsapp'},{data:'2026-03-25',empresa:'ROMA TRANSPORTES',canal:'whatsapp'},{data:'2026-03-25',empresa:'TWF LOGISTICA',canal:'whatsapp'},{data:'2026-03-25',empresa:'GABRI CARGO',canal:'whatsapp'},{data:'2026-03-25',empresa:'ARROW LOGISTICA',canal:'whatsapp'},{data:'2026-03-25',empresa:'D.E.S TRANSPORTES',canal:'whatsapp'},{data:'2026-03-25',empresa:'DEC LOG TRANSPORTES',canal:'whatsapp'},{data:'2026-03-25',empresa:'RTT LOG',canal:'whatsapp'},{data:'2026-03-25',empresa:'DINIZ SARAIVA',canal:'whatsapp'},{data:'2026-03-25',empresa:'FENIX WAY',canal:'whatsapp'},
-  // ── 26/mar ──
-  {data:'2026-03-26',empresa:'PRV TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'PETRA LOG',canal:'ligacao'},{data:'2026-03-26',empresa:'PARCEIRO DO GRAO LOGISTICA',canal:'ligacao'},{data:'2026-03-26',empresa:'TRANSPORTADORA IPE AMARELO',canal:'ligacao'},{data:'2026-03-26',empresa:'TRANSPORTADORA MINAS BRASIL',canal:'ligacao'},{data:'2026-03-26',empresa:'AGS LOG',canal:'ligacao'},{data:'2026-03-26',empresa:'CONCENTO TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'BMG VICENZI TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'TRANSPORTE RICARDO ROSA',canal:'ligacao'},{data:'2026-03-26',empresa:'TSF SANTA FE',canal:'ligacao'},{data:'2026-03-26',empresa:'W&E TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'SLC TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'ROMA TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'TRANSPORTADORA ASA SUL',canal:'ligacao'},{data:'2026-03-26',empresa:'TWF LOGISTICA',canal:'ligacao'},{data:'2026-03-26',empresa:'GABRI CARGO',canal:'ligacao'},{data:'2026-03-26',empresa:'D.E.S TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'TRANSCOURIER',canal:'ligacao'},{data:'2026-03-26',empresa:'SIGA BRASIL',canal:'ligacao'},{data:'2026-03-26',empresa:'DIAMANTE',canal:'ligacao'},{data:'2026-03-26',empresa:'FELLON TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'SGR LOGISTICA',canal:'ligacao'},{data:'2026-03-26',empresa:'FENIX WAY',canal:'ligacao'},{data:'2026-03-26',empresa:'3 W TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'UNICA TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'ALO TRANSPORTES',canal:'ligacao'},{data:'2026-03-26',empresa:'VELOZ CARGAS',canal:'ligacao'},{data:'2026-03-26',empresa:'SGR LOGISTICA',canal:'ligacao'},{data:'2026-03-26',empresa:'J&P TRANSPORTADORA',canal:'ligacao'},
-  {data:'2026-03-26',empresa:'FENIX WAY',canal:'email'},
-  {data:'2026-03-26',empresa:'ALO TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'FENIX WAY',canal:'whatsapp'},{data:'2026-03-26',empresa:'TRANSPORTADORA MINAS BRASIL',canal:'whatsapp'},{data:'2026-03-26',empresa:'3 W TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'SIGA BRASIL',canal:'whatsapp'},{data:'2026-03-26',empresa:'SLC TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'ENI TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'ARROW LOGISTICA',canal:'whatsapp'},{data:'2026-03-26',empresa:'DEC LOG',canal:'whatsapp'},{data:'2026-03-26',empresa:'DIAMANTE',canal:'whatsapp'},{data:'2026-03-26',empresa:'PETRA LOG',canal:'whatsapp'},{data:'2026-03-26',empresa:'TRANSPORTADORA IPE AMARELO',canal:'whatsapp'},{data:'2026-03-26',empresa:'AGS LOG',canal:'whatsapp'},{data:'2026-03-26',empresa:'CONCENTO TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'HOLIVER TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'BMG VICENZI TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'TRANSPORTE RICARDO ROSA',canal:'whatsapp'},{data:'2026-03-26',empresa:'TSF SANTA FE',canal:'whatsapp'},{data:'2026-03-26',empresa:'W&E TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'ROMA TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'TWF LOGISTICA',canal:'whatsapp'},{data:'2026-03-26',empresa:'GABRI CARGO',canal:'whatsapp'},{data:'2026-03-26',empresa:'LAGE LOG',canal:'whatsapp'},{data:'2026-03-26',empresa:'MILLENNIUM',canal:'whatsapp'},{data:'2026-03-26',empresa:'FELLON TRANSPORTES',canal:'whatsapp'},{data:'2026-03-26',empresa:'TRANSPORTADORA ASA SUL',canal:'whatsapp'},{data:'2026-03-26',empresa:'DEC LOG TRANSPORTES',canal:'whatsapp'},
-  // ── 27/mar ──
-  {data:'2026-03-27',empresa:'SLC TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'SLC TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'AGS LOG',canal:'ligacao'},{data:'2026-03-27',empresa:'PARCEIRO DO GRAO LOGISTICA',canal:'ligacao'},{data:'2026-03-27',empresa:'CONCENTO TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'BMG VICENZI TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'TRANSPORTE RICARDO ROSA',canal:'ligacao'},{data:'2026-03-27',empresa:'FELLON TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'TRANSPORTADORA ASA SUL',canal:'ligacao'},{data:'2026-03-27',empresa:'DEC LOG TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'LAGE LOG',canal:'ligacao'},{data:'2026-03-27',empresa:'FENIX WAY',canal:'ligacao'},{data:'2026-03-27',empresa:'TRANSPORTADORA MINAS BRASIL',canal:'ligacao'},{data:'2026-03-27',empresa:'3 W TRANSPORTES',canal:'ligacao'},{data:'2026-03-27',empresa:'SIGA BRASIL',canal:'ligacao'},
-  {data:'2026-03-27',empresa:'UNICA TRANSPORTES',canal:'email'},{data:'2026-03-27',empresa:'AGS LOG',canal:'email'},
-  {data:'2026-03-27',empresa:'TRANSCOURIER',canal:'whatsapp'},{data:'2026-03-27',empresa:'AGS LOG',canal:'whatsapp'},{data:'2026-03-27',empresa:'CONCENTO TRANSPORTES',canal:'whatsapp'},{data:'2026-03-27',empresa:'BMG VICENZI TRANSPORTES',canal:'whatsapp'},{data:'2026-03-27',empresa:'TRANSPORTE RICARDO ROSA',canal:'whatsapp'},{data:'2026-03-27',empresa:'FELLON TRANSPORTES',canal:'whatsapp'},{data:'2026-03-27',empresa:'DEC LOG TRANSPORTES',canal:'whatsapp'},{data:'2026-03-27',empresa:'ARROW LOGISTICA',canal:'whatsapp'},{data:'2026-03-27',empresa:'MILLENNIUM TRANSPORTES',canal:'whatsapp'},
-  // ── 31/mar ──
-  {data:'2026-03-31',empresa:'SANTISSIMA TRINDADE',canal:'ligacao'},{data:'2026-03-31',empresa:'SANTISSIMA TRINDADE',canal:'ligacao'},{data:'2026-03-31',empresa:'CW3 TRANSPORTES',canal:'ligacao'},{data:'2026-03-31',empresa:'RONDA TRANSPORTES',canal:'ligacao'},{data:'2026-03-31',empresa:'TPL3 TRANSPORTES',canal:'ligacao'},{data:'2026-03-31',empresa:'IB LOGISTICA',canal:'ligacao'},{data:'2026-03-31',empresa:'BONO TRANSPORTES',canal:'ligacao'},
-  {data:'2026-03-31',empresa:'SANTISSIMA TRINDADE',canal:'email'},{data:'2026-03-31',empresa:'CW3 TRANSPORTES',canal:'email'},{data:'2026-03-31',empresa:'RONDA TRANSPORTES',canal:'email'},{data:'2026-03-31',empresa:'IB LOGISTICA',canal:'email'},
-  {data:'2026-03-31',empresa:'SANTISSIMA TRINDADE',canal:'whatsapp'},
+  // ── 01/abr ──
+  {data:'2026-04-01',empresa:'TRANSLIGUE TRANSPORTES',canal:'ligacao'},{data:'2026-04-01',empresa:'SEKALOG TRANSPORTES',canal:'ligacao'},{data:'2026-04-01',empresa:'TRANS GOBBI',canal:'ligacao'},{data:'2026-04-01',empresa:'AZURELOG TRANSPORTES',canal:'ligacao'},{data:'2026-04-01',empresa:'TRANSJOI TRANSPORTES',canal:'ligacao'},{data:'2026-04-01',empresa:'RODOLOG LOGISTICA',canal:'ligacao'},{data:'2026-04-01',empresa:'RODALOG SOLUCOES',canal:'ligacao'},{data:'2026-04-01',empresa:'TRANSPORTES CRUZADO',canal:'ligacao'},
+  {data:'2026-04-01',empresa:'TRANSLIGUE TRANSPORTES',canal:'email'},{data:'2026-04-01',empresa:'SEKALOG TRANSPORTES',canal:'email'},{data:'2026-04-01',empresa:'TRANS GOBBI',canal:'email'},{data:'2026-04-01',empresa:'AZURELOG TRANSPORTES',canal:'email'},{data:'2026-04-01',empresa:'TRANSJOI TRANSPORTES',canal:'email'},
+  {data:'2026-04-01',empresa:'RODOLOG LOGISTICA',canal:'whatsapp'},{data:'2026-04-01',empresa:'RODALOG SOLUCOES',canal:'whatsapp'},{data:'2026-04-01',empresa:'TRANSPORTES CRUZADO',canal:'whatsapp'},
+  // ── 02/abr ──
+  {data:'2026-04-02',empresa:'GRUPO TPC',canal:'ligacao'},{data:'2026-04-02',empresa:'GRUPO TPC',canal:'ligacao'},{data:'2026-04-02',empresa:'TRANSPORTADORA PRIMEIRA DO NORDESTE',canal:'ligacao'},{data:'2026-04-02',empresa:'TRANSPREX TRANSPORTADORA',canal:'ligacao'},{data:'2026-04-02',empresa:'BRASQUIMICA TRANSPORTES',canal:'ligacao'},{data:'2026-04-02',empresa:'GRUPO LAMONICA',canal:'ligacao'},{data:'2026-04-02',empresa:'DECSA LOGISTICA',canal:'ligacao'},{data:'2026-04-02',empresa:'RAJAN TRANSPORTES',canal:'ligacao'},{data:'2026-04-02',empresa:'GRV LOGISTICA',canal:'ligacao'},{data:'2026-04-02',empresa:'BAHIA SUL TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-02',empresa:'DECSA LOGISTICA',canal:'email'},{data:'2026-04-02',empresa:'GRV LOGISTICA',canal:'email'},
+  {data:'2026-04-02',empresa:'GRUPO TPC',canal:'whatsapp'},
 ];
- 
+
 const EFETIVAS=['ARROW LOGISTICA','DINIZ SARAIVA','GRUPO DTRANS'];
- 
+
 const DIAG_DATA=[
   {id:1,empresa:"DAMACEL TRANSPORTES",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"RS",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
   {id:2,empresa:"S E TRANSPORTES",status:"COMPLETE",accountExecutive:"",executivo:"",estado:"GO",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
@@ -184,13 +158,13 @@ const DIAG_DATA=[
   {id:16,empresa:"MODO AGROLOGISTICA",status:"DESCARTADA",accountExecutive:"",executivo:"",estado:"PR",reforma:"Nao",dias:null,tam:"PME",dataInicio:null,dataConclusao:null},
   {id:17,empresa:"TRANSPORTES BRASIL",status:"EM PROCESSO",accountExecutive:"",executivo:"Luana Alves Fontana",estado:"PR",reforma:"Nao",dias:null,tam:"PME",dataInicio:null,dataConclusao:"2026-04-20"},
   {id:18,empresa:"PONTAL LOGISTICA",status:"NAO INICIADA",accountExecutive:"Sandro Casagrande",executivo:"Luana Alves Fontana",estado:"GO",reforma:"Sim",dias:null,tam:"PME",dataInicio:null,dataConclusao:null},
-  {id:19,empresa:"RT RANGEL",status:"NAO INICIADA",accountExecutive:"",executivo:"Luana/Vivian",estado:"RJ",reforma:"Sim",dias:null,tam:"PME",dataInicio:"2026-02-19",dataConclusao:"2026-03-27"},
+  {id:19,empresa:"RT RANGEL",status:"EM PROCESSO",accountExecutive:"",executivo:"Luana/Vivian",estado:"RJ",reforma:"Sim",dias:null,tam:"PME",dataInicio:"2026-02-19",dataConclusao:"2026-03-27"},
   {id:20,empresa:"FRIZON TRANSPORTES",status:"AGUARDANDO DOCUMENTACAO",accountExecutive:"Carla Lemes",executivo:"Luana/Vivian",estado:"MT",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
 ];
- 
+
 const DIAG_STATUS={"COMPLETE":{dot:"#2D9E60",color:"#2D9E60",label:"Concluido"},"AGUARDANDO DOCUMENTACAO":{dot:"#888",color:"#888",label:"Aguardando Documento"},"EM PROCESSO":{dot:C.orange,color:C.orange,label:"Em Processo"},"REVALIDACAO":{dot:"#B35B00",color:"#B35B00",label:"Revalidacao"},"APRESENTACAO":{dot:"#CC6C00",color:"#CC6C00",label:"Apresentacao"},"NAO INICIADA":{dot:"#4A4B4D",color:"#4A4B4D",label:"Nao Iniciada"},"DESCARTADA":{dot:"#C62828",color:"#C62828",label:"Descartada"}};
 const FUNNEL_PHASES=[{key:"NAO INICIADA",label:"Nao Iniciada",bg:"#4A4B4D"},{key:"AGUARDANDO DOCUMENTACAO",label:"Aguardando Documento",bg:"#888"},{key:"EM PROCESSO",label:"Em Processo",bg:C.orange},{key:"REVALIDACAO",label:"Revalidacao",bg:"#B35B00"},{key:"APRESENTACAO",label:"Apresentacao",bg:"#CC6C00"},{key:"COMPLETE",label:"Concluido",bg:"#2D9E60"},{key:"DESCARTADA",label:"Descartada",bg:"#C62828"}];
- 
+
 const ALL_DAYS_MAR=['2026-03-02','2026-03-03','2026-03-04','2026-03-05','2026-03-06','2026-03-07','2026-03-09','2026-03-10','2026-03-11','2026-03-12','2026-03-13','2026-03-16','2026-03-17','2026-03-18','2026-03-19','2026-03-20','2026-03-22','2026-03-23','2026-03-24','2026-03-25','2026-03-26','2026-03-27','2026-03-30','2026-03-31'];
 const MOV_CARLA=[8,0,4,0,0,4,0,13,13,14,0,0,14,17,0,0,15,14,15,16,15,11,0,1];
 const MOV_SANDRO=[2,8,0,0,0,0,0,7,0,1,1,3,7,8,1,6,0,20,8,3,5,1,1,1];
@@ -204,10 +178,24 @@ const MARCO_REUNIOES=['2026-03-19','2026-03-24','2026-03-25','2026-03-27'];
 const MARCO_VISITAS=['2026-03-19'];
 const ISAAC_REUNIOES=[];
 const ISAAC_VISITAS=['2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-20','2026-03-20','2026-03-23','2026-03-24','2026-03-24','2026-03-25','2026-03-26','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-31','2026-03-31','2026-03-31'];
- 
+
+const ALL_DAYS_ABR=['2026-04-01','2026-04-02'];
+const MOV_CARLA_ABR=[2,0];
+const MOV_SANDRO_ABR=[0,0];
+const MOV_MARCO_ABR=[1,1];
+const MOV_ISAAC_ABR=[12,8];
+const SANDRO_REUNIOES_ABR=[];
+const SANDRO_VISITAS_ABR=[];
+const CARLA_REUNIOES_ABR=['2026-04-01'];
+const CARLA_VISITAS_ABR=[];
+const MARCO_REUNIOES_ABR=['2026-04-02'];
+const MARCO_VISITAS_ABR=[];
+const ISAAC_REUNIOES_ABR=[];
+const ISAAC_VISITAS_ABR=['2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-02','2026-04-02'];
+
 function buildEvolution(dates,allDays){const counts={};dates.forEach(d=>{counts[d]=(counts[d]||0)+1;});let acc=0;return allDays.map(day=>{acc+=(counts[day]||0);return acc;});}
 function buildMovEvolution(movArr){let acc=0;return ALL_DAYS_MAR.map((_,i)=>{acc+=(movArr[i]||0);return acc;});}
- 
+
 const Tip=({active,payload,label})=>{if(!active||!payload||!payload.length)return null;return(<div style={{background:C.dark,color:'#fff',padding:'10px 14px',borderRadius:6,fontSize:12,fontFamily:FONT,boxShadow:'0 8px 24px rgba(0,0,0,0.35)',border:'1px solid #333',minWidth:120}}><div style={{fontWeight:700,marginBottom:5,color:'#AAA',fontSize:10,textTransform:'uppercase'}}>{label}</div>{payload.map((p,i)=>(<div key={i} style={{display:'flex',gap:8,alignItems:'center',marginBottom:2}}><div style={{width:8,height:8,borderRadius:2,background:p.fill||p.color||C.orange,flexShrink:0}}/><span style={{color:'#CCC',fontSize:11}}>{p.name}:</span><strong style={{color:'white'}}>{typeof p.value==='number'?p.value.toLocaleString('pt-BR'):p.value}</strong></div>))}</div>);};
 function Badge({label,color=C.orange,bg}){return(<span style={{fontSize:10,fontWeight:700,padding:'2px 7px',borderRadius:3,background:bg||color+'18',color,display:'inline-block',lineHeight:1.7,whiteSpace:'nowrap',fontFamily:FONT}}>{label}</span>);}
 function KPICard({title,value,note,icon}){return(<div style={{background:C.white,borderRadius:8,padding:'16px 18px',border:`2px solid ${C.orange}`,boxShadow:C.shadow,flex:1,minWidth:0,fontFamily:FONT,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center'}}><div style={{fontSize:10,color:C.gray,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6,display:'flex',alignItems:'center',justifyContent:'center',gap:5}}>{icon&&<span style={{fontSize:13}}>{icon}</span>}{title}</div><div style={{fontSize:28,fontWeight:800,color:C.orange,lineHeight:1.1}}>{typeof value==='number'?value.toLocaleString('pt-BR'):value}</div>{note&&<div style={{fontSize:11,color:C.gray,marginTop:4}}>{note}</div>}</div>);}
@@ -217,7 +205,7 @@ function TblHead({cols}){return(<thead><tr style={{background:C.grayL,borderBott
 const tRow=i=>({borderBottom:`1px solid ${C.border}`,background:i%2===0?C.white:C.grayL});
 function fmtDt(iso){if(!iso)return "—";const p=iso.split("-");return p[2]+"/"+p[1];}
 function calcAging(ini,fim){if(!ini)return null;const f=fim?new Date(fim):new Date();return Math.floor((f-new Date(ini))/864e5);}
- 
+
 function ParceriasPage(){
   const[selParceiro,setSelParceiro]=useState('Todos');
   const[selStatus,setSelStatus]=useState('Todos');
@@ -300,7 +288,7 @@ function ParceriasPage(){
     </Card>
   </div>);
 }
- 
+
 function DiagPage(){
   const total=DIAG_DATA.length;
   const concluidos=DIAG_DATA.filter(d=>d.status==="COMPLETE").sort((a,b)=>a.empresa.localeCompare(b.empresa,"pt-BR"));
@@ -381,14 +369,18 @@ function DiagPage(){
     </div>
   </div>);
 }
- 
+
 const TATIANE_AGENDAMENTOS=[];
-const TATIANE_MOV=[
+const TATIANE_MOV_MAR=[
   {dia:'25/mar',data:'2026-03-25',mov:39},
   {dia:'26/mar',data:'2026-03-26',mov:53},
   {dia:'27/mar',data:'2026-03-27',mov:17},
   {dia:'30/mar',data:'2026-03-30',mov:22},
   {dia:'31/mar',data:'2026-03-31',mov:52},
+];
+const TATIANE_MOV=[
+  {dia:'01/abr',data:'2026-04-01',mov:43},
+  {dia:'02/abr',data:'2026-04-02',mov:44},
 ];
 const TATIANE_REUNIOES=[],TATIANE_VISITAS=[],MOV_TATIANE=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,53,30,40,29];
 // Atividades diárias Tatiane por canal (alinhadas com ALL_DAYS_MAR)
@@ -396,21 +388,28 @@ const TATIANE_REUNIOES=[],TATIANE_VISITAS=[],MOV_TATIANE=[0,0,0,0,0,0,0,0,0,0,0,
 const TATIANE_LIG_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,29,52,13,35,20];
 const TATIANE_EML_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,17,5,9];
 const TATIANE_WHA_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0];
- 
-function TatianeMixEvolChart(){
+
+// ── Abril/26 ──
+const ALL_DAYS_ABR_TAT=['2026-04-01','2026-04-02'];
+const MOV_TATIANE_ABR=[48,52];
+const TATIANE_LIG_DIA_ABR=[25,20];
+const TATIANE_EML_DIA_ABR=[1,0];
+const TATIANE_WHA_DIA_ABR=[22,32];
+
+function TatianeMixEvolChart({ligDia,emlDia,whaDia,allDays,dayLbl}){
   const COL_L=C.orange,COL_E='#444444',COL_W='#AAAAAA';
   const[showLig,setShowLig]=useState(true);
   const[showEml,setShowEml]=useState(true);
   const[showWha,setShowWha]=useState(true);
-  const ligAcc=buildSdrEvol(TATIANE_LIG_DIA);
-  const emlAcc=buildSdrEvol(TATIANE_EML_DIA);
-  const whaAcc=buildSdrEvol(TATIANE_WHA_DIA);
+  const ligAcc=buildSdrEvol(ligDia);
+  const emlAcc=buildSdrEvol(emlDia);
+  const whaAcc=buildSdrEvol(whaDia);
   const totalLig=ligAcc[ligAcc.length-1];
   const totalEml=emlAcc[emlAcc.length-1];
   const totalWha=whaAcc[whaAcc.length-1];
   const totalCanais=totalLig+totalEml+totalWha;
-  const evolData=ALL_DAYS_MAR.map((d,i)=>({
-    dia:String(parseInt(d.slice(8)))+'/mar',
+  const evolData=allDays.map((d,i)=>({
+    dia:String(parseInt(d.slice(8)))+'/'+dayLbl,
     ligacao:ligAcc[i],
     email:emlAcc[i],
     whatsapp:whaAcc[i],
@@ -462,32 +461,32 @@ function TatianeMixEvolChart(){
     </div>
   );
 }
- 
-function TatianeAtivChart(){
+
+function TatianeAtivChart({ligDia,emlDia,whaDia,allDays,dayLbl}){
   const COL_L=C.orange,COL_E='#444444',COL_W='#AAAAAA',COL_AG='#1B5E20';
   const[showLig,setShowLig]=useState(true);
   const[showEml,setShowEml]=useState(true);
   const[showWha,setShowWha]=useState(true);
   const[visMode,setVisMode]=useState('diario');
-  const ligAcc=buildSdrEvol(TATIANE_LIG_DIA);
-  const emlAcc=buildSdrEvol(TATIANE_EML_DIA);
-  const whaAcc=buildSdrEvol(TATIANE_WHA_DIA);
-  const tatAgendAcum=ALL_DAYS_MAR.map(()=>0);
+  const ligAcc=buildSdrEvol(ligDia);
+  const emlAcc=buildSdrEvol(emlDia);
+  const whaAcc=buildSdrEvol(whaDia);
+  const tatAgendAcum=allDays.map(()=>0);
   const totalLig=ligAcc[ligAcc.length-1],totalEml=emlAcc[emlAcc.length-1],totalWha=whaAcc[whaAcc.length-1];
   const totalCanais=totalLig+totalEml+totalWha;
   const totalAg=tatAgendAcum[tatAgendAcum.length-1];
   const META_MES=500;
   const pct=Math.min(Math.round(totalCanais/META_MES*100),100);
   const faltam=Math.max(0,META_MES-totalCanais);
-  // Dados mensais Tatiane
   const TATIANE_MENSAL=[
-    {mes:'Mar/26',key:'2026-03',ligacao:totalLig,email:totalEml,whatsapp:totalWha,agendamentosAcum:0},
+    {mes:'Mar/26',key:'2026-03',ligacao:TATIANE_LIG_DIA.reduce((a,b)=>a+b,0),email:TATIANE_EML_DIA.reduce((a,b)=>a+b,0),whatsapp:TATIANE_WHA_DIA.reduce((a,b)=>a+b,0),agendamentosAcum:0},
+    ...(dayLbl==='abr'?[{mes:'Abr/26',key:'2026-04',ligacao:totalLig,email:totalEml,whatsapp:totalWha,agendamentosAcum:0}]:[]),
   ];
-  const diarioData=ALL_DAYS_MAR.map((d,i)=>({
-    dia:String(parseInt(d.slice(8)))+'/mar',
-    ligacao:TATIANE_LIG_DIA[i]>0?TATIANE_LIG_DIA[i]:0,
-    email:TATIANE_EML_DIA[i]>0?TATIANE_EML_DIA[i]:0,
-    whatsapp:TATIANE_WHA_DIA[i]>0?TATIANE_WHA_DIA[i]:0,
+  const diarioData=allDays.map((d,i)=>({
+    dia:String(parseInt(d.slice(8)))+'/'+dayLbl,
+    ligacao:ligDia[i]>0?ligDia[i]:0,
+    email:emlDia[i]>0?emlDia[i]:0,
+    whatsapp:whaDia[i]>0?whaDia[i]:0,
     agendamentosAcum:tatAgendAcum[i]>0?tatAgendAcum[i]:null,
   }));
   const mensalData=TATIANE_MENSAL.map(m=>({dia:m.mes,ligacao:m.ligacao,email:m.email,whatsapp:m.whatsapp,agendamentosAcum:m.agendamentosAcum||null}));
@@ -513,7 +512,7 @@ function TatianeAtivChart(){
             <span onClick={()=>setShowEml(v=>!v)} style={tagStyle(showEml,COL_E)}>{totalEml} email</span>
             <span onClick={()=>setShowWha(v=>!v)} style={tagStyle(showWha,COL_W)}>{totalWha} whats</span>
           </div>}
-          <button onClick={()=>setVisMode('diario')} style={btnStyle(visMode==='diario')}>📅 Diário (Mar/26)</button>
+          <button onClick={()=>setVisMode('diario')} style={btnStyle(visMode==='diario')}>📅 Diário (Abr/26)</button>
           <button onClick={()=>setVisMode('mensal')} style={btnStyle(visMode==='mensal')}>📊 Compilado Mensal</button>
         </div>
       </div>
@@ -538,7 +537,7 @@ function TatianeAtivChart(){
       </div>
       <div style={{marginTop:10,padding:'12px 14px',background:C.grayL,borderRadius:8}}>
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}>
-          <span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span>
+          <span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Abr/26)</span>
           <div style={{display:'flex',gap:10,alignItems:'center'}}>
             <span style={{fontSize:12,fontWeight:800,color:C.orange}}>{totalCanais}</span>
             <span style={{fontSize:11,color:C.gray}}>/ {META_MES}</span>
@@ -555,15 +554,19 @@ function TatianeAtivChart(){
   );
 }
 const EXEC_INTERNOS=[{nome:"Tatiane Gomes",alias:"Tatiane",color:C.orange,metaVisitasAnual:0,metaContratos:0,metaVisitasMar:0}];
- 
-function ExecEvolutionChart({nome,reunioes,visitas,movArr,metaMov}){
+
+function ExecEvolutionChart({nome,reunioes,visitas,movArr,metaMov,allDays,dayLabel}){
   const[showReun,setShowReun]=useState(true);
   const[showVis,setShowVis]=useState(true);
   const[showMov,setShowMov]=useState(true);
-  const reunAcc=buildEvolution(reunioes,ALL_DAYS_MAR);
-  const visAcc=buildEvolution(visitas,ALL_DAYS_MAR);
-  const movAcc=buildMovEvolution(movArr);
-  const data=ALL_DAYS_MAR.map((d,i)=>({dia:String(parseInt(d.slice(8)))+'/mar',reunioes:reunAcc[i],visitas:visAcc[i],movimentacoes:movAcc[i]}));
+  const days=allDays||ALL_DAYS_MAR;
+  const lbl=dayLabel||'mar';
+  function buildEv(dates){const counts={};dates.forEach(d=>{counts[d]=(counts[d]||0)+1;});let acc=0;return days.map(day=>{acc+=(counts[day]||0);return acc;});}
+  function buildMov(arr){let acc=0;return days.map((_,i)=>{acc+=(arr[i]||0);return acc;});}
+  const reunAcc=buildEv(reunioes);
+  const visAcc=buildEv(visitas);
+  const movAcc=buildMov(movArr);
+  const data=days.map((d,i)=>({dia:String(parseInt(d.slice(8)))+'/'+lbl,reunioes:reunAcc[i],visitas:visAcc[i],movimentacoes:movAcc[i]}));
   const totalReun=reunAcc[reunAcc.length-1],totalVis=visAcc[visAcc.length-1],totalMov=movAcc[movAcc.length-1];
   const pctMov=metaMov>0?Math.min(Math.round(totalMov/metaMov*100),100):0;
   const faltamMov=Math.max(0,metaMov-totalMov);
@@ -599,14 +602,14 @@ function ExecEvolutionChart({nome,reunioes,visitas,movArr,metaMov}){
         </ComposedChart>
       </ResponsiveContainer>
       <div style={{marginTop:12,padding:'10px 12px',background:C.grayL,borderRadius:8}}>
-        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:5}}><span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta de Movimentacoes (Mar/26)</span><div style={{display:'flex',gap:8,alignItems:'center'}}><span style={{fontSize:12,fontWeight:800,color:COL_M}}>{totalMov}</span><span style={{fontSize:11,color:C.gray}}>/ {metaMov||'—'}</span><span style={{fontSize:11,fontWeight:700,color:pctMov>=100?C.green:C.gray}}>{metaMov?pctMov+'%':'—'}</span></div></div>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:5}}><span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta de Movimentacoes (Abr/26)</span><div style={{display:'flex',gap:8,alignItems:'center'}}><span style={{fontSize:12,fontWeight:800,color:COL_M}}>{totalMov}</span><span style={{fontSize:11,color:C.gray}}>/ {metaMov||'—'}</span><span style={{fontSize:11,fontWeight:700,color:pctMov>=100?C.green:C.gray}}>{metaMov?pctMov+'%':'—'}</span></div></div>
         <div style={{height:8,background:C.border,borderRadius:5,overflow:'hidden'}}><div style={{height:'100%',width:`${pctMov}%`,background:pctMov>=100?C.green:COL_M,borderRadius:5}}/></div>
         <div style={{display:'flex',justifyContent:'flex-end',marginTop:4}}><span style={{fontSize:10,color:faltamMov>0?C.red:C.green,fontWeight:600}}>{metaMov?(faltamMov>0?'Faltam '+faltamMov+' movimentacoes':'Meta atingida!'):'Meta a definir'}</span></div>
       </div>
     </Card>
   );
 }
- 
+
 function SDREvolutionChart(){
   const[showLig,setShowLig]=useState(true);
   const[showEml,setShowEml]=useState(true);
@@ -643,15 +646,15 @@ function SDREvolutionChart(){
     </Card>
   );
 }
- 
+
 function AcompPage({FL}){
-  const[selMes,setSelMes]=useState('2026-03');
+  const[selMes,setSelMes]=useState('2026-04');
   const[selExec,setSelExec]=useState('Todos');
   const dados=useMemo(()=>selExec==='Todos'?FL:FL.filter(r=>r[F.RESP]===selExec),[FL,selExec]);
-  const REUN_MANUAL={'Sandro Casagrande':{'2026-02':9,'2026-03':8},'Carla Cristina Lemes':{'2026-02':2,'2026-03':4},'Marco':{'2026-03':4}};
+  const REUN_MANUAL={'Sandro Casagrande':{'2026-02':9,'2026-03':8},'Carla Cristina Lemes':{'2026-02':2,'2026-03':4,'2026-04':1},'Marco':{'2026-03':4,'2026-04':1}};
   const getReunMes=(nome,mes)=>{if(REUN_MANUAL[nome]&&REUN_MANUAL[nome][mes]!==undefined)return REUN_MANUAL[nome][mes];return dados.filter(r=>r[F.RESP]===nome&&r[F.DREUNIAO]&&mo(r[F.DREUNIAO])===mes).length;};
   const execStats=useMemo(()=>EXEC_METAS.map(e=>{
-    const mesLimite=selMes||'2026-03';
+    const mesLimite=selMes||'2026-04';
     const eLeads=dados.filter(r=>r[F.RESP]===e.nome);
     const mesesAte=MONTHS_KEY.filter(k=>k>='2026-01'&&k<=mesLimite);
     const reunYTD=mesesAte.reduce((acc,m)=>acc+getReunMes(e.nome,m),0);
@@ -662,7 +665,7 @@ function AcompPage({FL}){
     const pctC=e.metaContratos>0?Math.min(contrYTD/e.metaContratos*100,100):0;
     const pctCMes=e.metaContratosMes>0?Math.min(contrMes/e.metaContratosMes*100,100):0;
     const reunMes=getReunMes(e.nome,mesLimite);
-    const metaMensal=mesLimite==='2026-03'?(e.metaVisitasMar||e.metaVisitas):e.metaVisitas;
+    const metaMensal=mesLimite==='2026-03'?(e.metaVisitasMar||e.metaVisitas):mesLimite==='2026-04'?10:e.metaVisitas;
     return{...e,reunYTD,faltam,pctR,contrYTD,contrMes,pctC,pctCMes,total:eLeads.length,eLeads,reunMes,metaMensal};
   }),[dados,selMes]);
   return(<div style={{display:'flex',flexDirection:'column',gap:11}}>
@@ -675,7 +678,7 @@ function AcompPage({FL}){
     <Card title="Equipe - Performance YTD">
       <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:10}}>
         {execStats.map(e=>{
-          const mesLbl=MONTHS_LBL[MONTHS_KEY.indexOf(selMes||'2026-03')]||(selMes||'2026-03');
+          const mesLbl=MONTHS_LBL[MONTHS_KEY.indexOf(selMes||'2026-04')]||(selMes||'2026-04');
           const overMes=e.reunMes>=e.metaMensal,pctMes=e.metaMensal>0?Math.min(e.reunMes/e.metaMensal*100,100):0;
           return(<div key={e.nome} style={{borderRadius:8,padding:'14px',border:`1px solid ${C.border}`,display:'flex',flexDirection:'column',gap:8}}>
             <div style={{display:'flex',alignItems:'center',gap:7}}><div style={{width:10,height:10,borderRadius:'50%',background:e.color}}/><span style={{fontWeight:700,fontSize:13,color:C.text}}>{e.alias}</span></div>
@@ -695,25 +698,33 @@ function AcompPage({FL}){
       </div>
     </Card>
     <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:11}}>
-      <ExecEvolutionChart nome="Sandro Casagrande" reunioes={SANDRO_REUNIOES} visitas={SANDRO_VISITAS} movArr={MOV_SANDRO} metaMov={315}/>
-      <ExecEvolutionChart nome="Carla Cristina Lemes" reunioes={CARLA_REUNIOES} visitas={CARLA_VISITAS} movArr={MOV_CARLA} metaMov={315}/>
+      <ExecEvolutionChart nome="Sandro Casagrande" reunioes={selMes==='2026-04'?SANDRO_REUNIOES_ABR:SANDRO_REUNIOES} visitas={selMes==='2026-04'?SANDRO_VISITAS_ABR:SANDRO_VISITAS} movArr={selMes==='2026-04'?MOV_SANDRO_ABR:MOV_SANDRO} metaMov={selMes==='2026-04'?300:315} allDays={selMes==='2026-04'?ALL_DAYS_ABR:ALL_DAYS_MAR} dayLabel={selMes==='2026-04'?'abr':'mar'}/>
+      <ExecEvolutionChart nome="Carla Cristina Lemes" reunioes={selMes==='2026-04'?CARLA_REUNIOES_ABR:CARLA_REUNIOES} visitas={selMes==='2026-04'?CARLA_VISITAS_ABR:CARLA_VISITAS} movArr={selMes==='2026-04'?MOV_CARLA_ABR:MOV_CARLA} metaMov={selMes==='2026-04'?300:315} allDays={selMes==='2026-04'?ALL_DAYS_ABR:ALL_DAYS_MAR} dayLabel={selMes==='2026-04'?'abr':'mar'}/>
     </div>
     <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:11}}>
-      <ExecEvolutionChart nome="Marco Antonio" reunioes={MARCO_REUNIOES} visitas={MARCO_VISITAS} movArr={MOV_MARCO} metaMov={158}/>
-      <ExecEvolutionChart nome="Isaac Santos" reunioes={ISAAC_REUNIOES} visitas={ISAAC_VISITAS} movArr={MOV_ISAAC} metaMov={158}/>
+      <ExecEvolutionChart nome="Marco Antonio" reunioes={selMes==='2026-04'?MARCO_REUNIOES_ABR:MARCO_REUNIOES} visitas={selMes==='2026-04'?MARCO_VISITAS_ABR:MARCO_VISITAS} movArr={selMes==='2026-04'?MOV_MARCO_ABR:MOV_MARCO} metaMov={selMes==='2026-04'?150:158} allDays={selMes==='2026-04'?ALL_DAYS_ABR:ALL_DAYS_MAR} dayLabel={selMes==='2026-04'?'abr':'mar'}/>
+      <ExecEvolutionChart nome="Isaac Santos" reunioes={selMes==='2026-04'?ISAAC_REUNIOES_ABR:ISAAC_REUNIOES} visitas={selMes==='2026-04'?ISAAC_VISITAS_ABR:ISAAC_VISITAS} movArr={selMes==='2026-04'?MOV_ISAAC_ABR:MOV_ISAAC} metaMov={selMes==='2026-04'?150:158} allDays={selMes==='2026-04'?ALL_DAYS_ABR:ALL_DAYS_MAR} dayLabel={selMes==='2026-04'?'abr':'mar'}/>
     </div>
   </div>);
 }
- 
+
 function InternoPage(){
   const COL_AG='#1B5E20';
   const[subTab,setSubTab]=useState('overview');
-  const totalLig=TATIANE_LIG_DIA.reduce((a,b)=>a+b,0);
-  const totalEml=TATIANE_EML_DIA.reduce((a,b)=>a+b,0);
-  const totalWha=TATIANE_WHA_DIA.reduce((a,b)=>a+b,0);
+  const[selMesInt,setSelMesInt]=useState('2026-04');
+  const isAbr=selMesInt==='2026-04';
+  const ligDia=isAbr?TATIANE_LIG_DIA_ABR:TATIANE_LIG_DIA;
+  const emlDia=isAbr?TATIANE_EML_DIA_ABR:TATIANE_EML_DIA;
+  const whaDia=isAbr?TATIANE_WHA_DIA_ABR:TATIANE_WHA_DIA;
+  const movDia=isAbr?MOV_TATIANE_ABR:MOV_TATIANE;
+  const allDaysInt=isAbr?ALL_DAYS_ABR_TAT:ALL_DAYS_MAR;
+  const dayLblInt=isAbr?'abr':'mar';
+  const totalLig=ligDia.reduce((a,b)=>a+b,0);
+  const totalEml=emlDia.reduce((a,b)=>a+b,0);
+  const totalWha=whaDia.reduce((a,b)=>a+b,0);
   const totalCanais=totalLig+totalEml+totalWha;
-  const nEfetivas=13; // atualizado 31/03/2026
-  const diasReg=ALL_DAYS_MAR.filter((_,i)=>MOV_TATIANE[i]>0).length;
+  const nEfetivas=isAbr?23:13;
+  const diasReg=allDaysInt.filter((_,i)=>movDia[i]>0).length;
   const totalAgend=0; // agendamentos da Tatiane - a definir
   const totalReal=0;
   const txConv=0;
@@ -727,15 +738,15 @@ function InternoPage(){
     const nomes=['PSM TRANSPORTES','PRESTES E VARGAS TRANSPORTES','NOMI E SOUZA TRANSPORTES','RDL LOGISTICA','TRANS FELIPPI','PEPECE TRANSPORTES','RODOMAXLOG','SAO JOAO ENCOMENDAS','MRX TRANSPORTES','TRANS TAVARES LOGISTICA','RV TRANSPORTES','RODOBECKER','RODO W CARLI','SILO FORTE TRANSPORTES','RODO ALDO','NEHRING TRANSPORTES','TRANSIVANDO TRANSPORTES','TRANSFOGUINHO TRANSPORTES','TANQUESUL TRANSPORTES','FARMLOG','SULCARGAS TRANSPORTES','SUL GRAOS TRANSPORTES','SEIKA TRANSPORTES','SALVADORI BENINI','SAJOB OPERACOES','ROSCHILDT TRANSPORTES','PAZINI GATTERMANN','NASA TRANSPORTES','TR BODINHO','TRANS OTTO','STURMER TAMANINI','TRANS MIGUEL','RODO W CARLI MAPEAMENTO'];
     return nomes;
   },[]);
-  const ligAcc=buildSdrEvol(TATIANE_LIG_DIA);
-  const emlAcc=buildSdrEvol(TATIANE_EML_DIA);
-  const whaAcc=buildSdrEvol(TATIANE_WHA_DIA);
-  const tatAgendAcum=ALL_DAYS_MAR.map(()=>0);
-  const diaMap=ALL_DAYS_MAR.map((d,i)=>({
-    dia:String(parseInt(d.slice(8)))+'/mar',
-    ligacao:TATIANE_LIG_DIA[i]>0?TATIANE_LIG_DIA[i]:0,
-    email:TATIANE_EML_DIA[i]>0?TATIANE_EML_DIA[i]:0,
-    whatsapp:TATIANE_WHA_DIA[i]>0?TATIANE_WHA_DIA[i]:0,
+  const ligAcc=buildSdrEvol(ligDia);
+  const emlAcc=buildSdrEvol(emlDia);
+  const whaAcc=buildSdrEvol(whaDia);
+  const tatAgendAcum=allDaysInt.map(()=>0);
+  const diaMap=allDaysInt.map((d,i)=>({
+    dia:String(parseInt(d.slice(8)))+'/'+dayLblInt,
+    ligacao:ligDia[i]>0?ligDia[i]:0,
+    email:emlDia[i]>0?emlDia[i]:0,
+    whatsapp:whaDia[i]>0?whaDia[i]:0,
     agendamentosAcum:tatAgendAcum[i]>0?tatAgendAcum[i]:null,
   }));
   const META_MES_CONT=500;
@@ -746,7 +757,7 @@ function InternoPage(){
   const COL_L=C.orange,COL_E='#444444',COL_W='#AAAAAA';
   const mkDot=(key,col)=>(props)=>{const{cx,cy,index}=props;const val=diaMap[index][key];const prev=index>0?diaMap[index-1][key]:null;if(val===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={5} fill={col} stroke="#fff" strokeWidth={2}/>;};
   const mkLabel=(key,col)=>(props)=>{const{x,y,index}=props;const val=diaMap[index][key];const prev=index>0?diaMap[index-1][key]:null;if(val===prev&&index>0)return null;return <text key={index} x={x} y={y-10} textAnchor="middle" fill={col} fontSize={10} fontWeight={800} fontFamily={FONT}>{val||''}</text>;};
- 
+
   return(<div style={{display:'flex',flexDirection:'column',gap:11,fontFamily:FONT}}>
     {/* ── HEADER ── */}
     <div style={{background:C.gray,borderRadius:8,padding:'16px 20px',boxShadow:C.shadow,display:'flex',alignItems:'center',gap:16,flexWrap:'wrap'}}>
@@ -756,13 +767,20 @@ function InternoPage(){
         <div style={{color:C.white,fontSize:20,fontWeight:800}}>Tatiane Gomes</div>
         <div style={{color:'rgba(255,255,255,0.7)',fontSize:11}}>Inicio: 25/03/2026 — {diasReg} dia{diasReg!==1?'s':''} registrado{diasReg!==1?'s':''}</div>
       </div>
+      <div style={{display:'flex',alignItems:'center',gap:8,marginLeft:16}}>
+        <span style={{fontSize:10,fontWeight:700,color:'rgba(255,255,255,0.75)',textTransform:'uppercase'}}>Mês</span>
+        <select value={selMesInt} onChange={e=>setSelMesInt(e.target.value)} style={{padding:'5px 10px',borderRadius:6,border:'1.5px solid rgba(255,255,255,0.3)',background:'rgba(255,255,255,0.15)',color:C.white,fontSize:11,fontFamily:FONT,outline:'none'}}>
+          <option value="2026-03" style={{color:C.text,background:C.white}}>Mar/26</option>
+          <option value="2026-04" style={{color:C.text,background:C.white}}>Abr/26</option>
+        </select>
+      </div>
       <div style={{marginLeft:'auto',display:'flex',gap:8,flexWrap:'wrap'}}>
         {canalInfo.map(d=>(<div key={d.canal} style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>{d.icon}</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{d.qtd}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>{d.canal}</div></div>))}
         <div style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>✅</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{nEfetivas}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>Lig. Efetivas</div></div>
         <div style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>🏢</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{empresasTat.length}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>Empresas</div></div>
       </div>
     </div>
- 
+
     {/* ── SUB-TABS ── */}
     <div style={{background:C.white,borderRadius:8,boxShadow:C.shadow,overflow:'hidden'}}>
       <div style={{display:'flex',borderBottom:`1px solid ${C.border}`}}>
@@ -780,46 +798,31 @@ function InternoPage(){
       <KPICard title="Empresas" value={empresasTat.length} icon="🏢"/>
       <KPICard title="Agendamentos" value={totalAgend} icon="📅" note={'Meta: '+META_AGEND_MES}/>
     </div>
- 
+
     {/* ── PERFORMANCE CARD ── */}
     <div style={{maxWidth:320}}>
       <div style={{borderRadius:8,padding:'14px',border:`1px solid ${C.border}`,display:'flex',flexDirection:'column',gap:8,background:C.white,boxShadow:C.shadow}}>
         <div style={{display:'flex',alignItems:'center',gap:7}}><div style={{width:10,height:10,borderRadius:'50%',background:C.orange}}/><span style={{fontWeight:700,fontSize:13,color:C.text}}>Tatiane Gomes</span></div>
         {/* Reunioes YTD */}
-        <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Reunioes YTD (Mar/26)</span><span style={{fontSize:11,fontWeight:700,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/><div style={{marginTop:3,fontSize:10,color:C.gray}}>Meta a definir</div></div>
+        <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Reunioes YTD (Abr/26)</span><span style={{fontSize:11,fontWeight:700,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/><div style={{marginTop:3,fontSize:10,color:C.gray}}>Meta a definir</div></div>
         {/* Meta Mensal Reunioes */}
-        <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Meta Mensal Reunioes (Mar/26)</span><span style={{fontSize:11,fontWeight:700,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/></div>
+        <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Meta Mensal Reunioes (Abr/26)</span><span style={{fontSize:11,fontWeight:700,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/></div>
         {/* Contratos YTD */}
         <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Contratos YTD</span><span style={{fontSize:11,fontWeight:700,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/></div>
         {/* Contratos Mensal */}
-        <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Contratos (Mar/26)</span><span style={{fontSize:11,fontWeight:700,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/></div>
+        <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Contratos (Abr/26)</span><span style={{fontSize:11,fontWeight:700,color:C.gray}}>— / —</span></div><div style={{height:6,background:C.grayL,borderRadius:4}}/></div>
       </div>
     </div>
- 
+
     {/* ── GRÁFICO ATIVIDADES POR DIA ── */}
-    <Card title="Atividades por Dia — por Canal + Agendamentos Acumulados">
-      <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:8}}><div style={{width:20,height:2.5,background:COL_AG,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_AG}}/><span style={{fontSize:10,fontWeight:700,color:COL_AG}}>Agendamentos Acumulados (eixo dir.)</span></div>
-      <ResponsiveContainer width="100%" height={240}>
-        <ComposedChart data={diaMap} margin={{top:20,right:45,left:0,bottom:0}}>
-          <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} vertical={false}/>
-          <XAxis dataKey="dia" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
-          <YAxis yAxisId="left" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}} axisLine={false} tickLine={false}/>
-          <YAxis yAxisId="right" orientation="right" tick={{fontSize:10,fill:COL_AG,fontFamily:FONT}} axisLine={false} tickLine={false} allowDecimals={false} domain={[0,Math.max(totalAgend+2,5)]}/>
-          <Tooltip content={<Tip/>}/><Legend wrapperStyle={{fontSize:10,fontFamily:FONT}}/>
-          <Bar yAxisId="left" dataKey="ligacao" name="Ligacao" stackId="a" fill={C.orange} barSize={40}><LabelList dataKey="ligacao" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
-          <Bar yAxisId="left" dataKey="email" name="E-mail" stackId="a" fill="#444444" barSize={40}><LabelList dataKey="email" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
-          <Bar yAxisId="left" dataKey="whatsapp" name="WhatsApp" stackId="a" fill="#AAAAAA" radius={[4,4,0,0]} barSize={40}><LabelList dataKey="whatsapp" position="inside" style={{fontSize:9,fill:'#fff',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
-          <Line yAxisId="right" dataKey="agendamentosAcum" name="Agend. Acumulados" stroke={COL_AG} strokeWidth={2.5} type="monotone" connectNulls={true} dot={mkAgendDot} label={mkAgendLabel}/>
-        </ComposedChart>
-      </ResponsiveContainer>
-    </Card>
- 
+    <TatianeAtivChart ligDia={ligDia} emlDia={emlDia} whaDia={whaDia} allDays={allDaysInt} dayLbl={dayLblInt}/>
+
     {/* ── AGENDAMENTOS ACUMULADOS VS METAS ── */}
     {(()=>{
       const METAS=[20,40,60];
       const CORES=[C.orange,C.gray,'#AAAAAA'];
       const atual=totalAgend;
-      const chartData=ALL_DAYS_MAR.map((d,i)=>({dia:String(parseInt(d.slice(8)))+'/mar',real:tatAgendAcum[i]}));
+      const chartData=allDaysInt.map((d,i)=>({dia:String(parseInt(d.slice(8)))+'/'+dayLblInt,real:tatAgendAcum[i]}));
       const mkDotR=(props)=>{const{cx,cy,index,value}=props;const prev=index>0?chartData[index-1]?.real:null;if(value===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={6} fill={COL_AG} stroke="#fff" strokeWidth={2}/>;};
       const mkLblR=(props)=>{const{x,y,index,value}=props;const prev=index>0?chartData[index-1]?.real:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AG} fontSize={12} fontWeight={800} fontFamily={FONT}>{value}</text>;};
       return(
@@ -842,7 +845,7 @@ function InternoPage(){
         </Card>
       );
     })()}
- 
+
     {/* ── MIX DE CANAIS + EVOLUÇÃO DIÁRIA ── */}
     <div style={{display:'grid',gridTemplateColumns:'1fr 1.8fr',gap:11}}>
       <Card title="Mix de Canais">
@@ -877,11 +880,11 @@ function InternoPage(){
         </ResponsiveContainer>
       </Card>
     </div>
- 
+
     {/* ── META MENSAL DE CONTATOS ── */}
     <Card>
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}>
-        <span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span>
+        <span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Abr/26)</span>
         <div style={{display:'flex',gap:10,alignItems:'center'}}>
           <span style={{fontSize:12,fontWeight:800,color:C.orange}}>{totalCanais}</span>
           <span style={{fontSize:11,color:C.gray}}>/ {META_MES_CONT}</span>
@@ -895,7 +898,7 @@ function InternoPage(){
       </div>
     </Card>
       </div>)}
- 
+
     {/* ── AGENDAMENTOS ── */}
       {subTab==='agendamentos'&&(<div style={{display:'flex',flexDirection:'column',gap:11}}>
       {(()=>{
@@ -940,7 +943,7 @@ function InternoPage(){
             </div>
             <div style={{marginTop:10,padding:'12px 14px',background:C.grayL,borderRadius:8}}>
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}>
-                <span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span>
+                <span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Abr/26)</span>
                 <div style={{display:'flex',gap:10,alignItems:'center'}}>
                   <span style={{fontSize:12,fontWeight:800,color:C.orange}}>{tatTotalMov}</span>
                   <span style={{fontSize:11,color:C.gray}}>/ 500</span>
@@ -955,7 +958,7 @@ function InternoPage(){
             </div>
           </Card>
         </div>
-        <Card title={"Agendamentos Marco - "+tatTotalAgend}>
+        <Card title={"Agendamentos Abril - "+tatTotalAgend}>
           <div style={{overflowX:'auto',borderRadius:5,border:`1px solid ${C.border}`}}>
             <table style={{width:'100%',borderCollapse:'collapse',fontSize:12,fontFamily:FONT}}>
               <thead><tr style={{background:C.orange}}>
@@ -981,9 +984,9 @@ function InternoPage(){
     </div>
   </div>);
 }
- 
+
 const COL_AGEND_ACUM='#1B5E20';
- 
+
 function SDRAtivChart({diaMap,totalAgend,mkAgendDot,mkAgendLabel}){
   const[visMode,setVisMode]=useState('diario');
   const btnStyle=(active)=>({padding:'4px 14px',borderRadius:20,border:`1.5px solid ${active?C.orange:C.border}`,background:active?C.orange:C.white,color:active?C.white:C.gray,fontSize:11,fontWeight:600,cursor:'pointer',fontFamily:FONT});
@@ -998,7 +1001,7 @@ function SDRAtivChart({diaMap,totalAgend,mkAgendDot,mkAgendLabel}){
           <div style={{width:20,height:2.5,background:COL_AGEND_ACUM,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_AGEND_ACUM}}/><span style={{fontSize:10,fontWeight:700,color:COL_AGEND_ACUM}}>Agendamentos Acumulados (eixo dir.)</span>
         </div>
         <div style={{display:'flex',gap:6}}>
-          <button onClick={()=>setVisMode('diario')} style={btnStyle(visMode==='diario')}>📅 Diário (Mar/26)</button>
+          <button onClick={()=>setVisMode('diario')} style={btnStyle(visMode==='diario')}>📅 Diário (Abr/26)</button>
           <button onClick={()=>setVisMode('mensal')} style={btnStyle(visMode==='mensal')}>📊 Compilado Mensal</button>
         </div>
       </div>
@@ -1019,7 +1022,7 @@ function SDRAtivChart({diaMap,totalAgend,mkAgendDot,mkAgendLabel}){
     </Card>
   );
 }
- 
+
 function SDRPage({dateIni,dateFim}){
   const[subSDR,setSubSDR]=useState('overview');
   const hasFilter=dateIni||dateFim;
@@ -1030,7 +1033,7 @@ function SDRPage({dateIni,dateFim}){
   const totalAgend=SDR_AGENDAMENTOS.length,totalReal=SDR_AGENDAMENTOS.filter(d=>d.status===STATUS_REALIZADA).length;
   const txConv=totalAgend>0?Math.round(totalReal/totalAgend*100):0;
   const nLig=ativFilt.filter(d=>d.canal==='ligacao').length,nEmail=ativFilt.filter(d=>d.canal==='email').length,nWhats=ativFilt.filter(d=>d.canal==='whatsapp').length;
-  const nEfetivas=ativFilt.filter(d=>d.canal==='ligacao'&&EFETIVAS.includes(d.empresa)).length+9;
+  const nEfetivas=ativFilt.filter(d=>d.canal==='ligacao'&&EFETIVAS.includes(d.empresa)).length;
   const totalCanais=nLig+nEmail+nWhats;
   const canalInfo=[{canal:'Ligacao',qtd:nLig,pct:totalCanais>0?Math.round(nLig/totalCanais*100):0,fill:C.orange,icon:'📞'},{canal:'E-mail',qtd:nEmail,pct:totalCanais>0?Math.round(nEmail/totalCanais*100):0,fill:'#444444',icon:'✉️'},{canal:'WhatsApp',qtd:nWhats,pct:totalCanais>0?Math.round(nWhats/totalCanais*100):0,fill:'#AAAAAA',icon:'💬'}];
   const empresaMap=useMemo(()=>{const m={};ativFilt.forEach(d=>{if(!m[d.empresa])m[d.empresa]={empresa:d.empresa,ligacao:0,email:0,whatsapp:0,total:0};m[d.empresa][d.canal]=(m[d.empresa][d.canal]||0)+1;m[d.empresa].total++;});return Object.values(m).sort((a,b)=>b.total-a.total);},[ativFilt]);
@@ -1051,11 +1054,11 @@ function SDRPage({dateIni,dateFim}){
   const subTabs=[{id:'overview',l:'Overview'},{id:'canais',l:'Canais'},{id:'empresas',l:'Empresas'},{id:'agendamentos',l:'Agendamentos'},{id:'bonificacao',l:'Bonificacao'}];
   const mkAgendDot=(props)=>{const{cx,cy,index,value}=props;if(value===null||value===undefined)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;const prev=index>0?diaMap[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={6} fill={COL_AGEND_ACUM} stroke="#fff" strokeWidth={2}/>;};
   const mkAgendLabel=(props)=>{const{x,y,index,value}=props;if(value===null||value===undefined)return null;const prev=index>0?diaMap[index-1]?.agendamentosAcum:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AGEND_ACUM} fontSize={11} fontWeight={800} fontFamily={FONT}>{value}</text>;};
- 
+
   return(<div style={{display:'flex',flexDirection:'column',gap:11,fontFamily:FONT}}>
     <div style={{background:C.gray,borderRadius:8,padding:'16px 20px',boxShadow:C.shadow,display:'flex',alignItems:'center',gap:16,flexWrap:'wrap'}}>
       <div style={{width:48,height:48,borderRadius:'50%',background:C.white,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><span style={{fontSize:16,fontWeight:800,color:C.gray}}>FV</span></div>
-      <div><div style={{color:'rgba(255,255,255,0.75)',fontSize:10,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em'}}>SDR</div><div style={{color:C.white,fontSize:20,fontWeight:800}}>Fabiana Vaz</div><div style={{color:'rgba(255,255,255,0.7)',fontSize:11}}>Inicio: 11/03/2026 - {movFilt.length} dias registrados</div></div>
+      <div><div style={{color:'rgba(255,255,255,0.75)',fontSize:10,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em'}}>SDR</div><div style={{color:C.white,fontSize:20,fontWeight:800}}>Fabiana Vaz</div><div style={{color:'rgba(255,255,255,0.7)',fontSize:11}}>Inicio: 01/04/2026 — {movFilt.length} dias registrados</div></div>
       <div style={{marginLeft:'auto',display:'flex',gap:8,flexWrap:'wrap'}}>
         {canalInfo.map(d=>(<div key={d.canal} style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>{d.icon}</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{d.qtd}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>{d.canal}</div></div>))}
         <div style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>✅</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{nEfetivas}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>Lig. Efetivas</div></div>
@@ -1074,7 +1077,7 @@ function SDRPage({dateIni,dateFim}){
             const METAS_SDR=[20,40,60];
             const COL_M1=C.orange,COL_M2=C.gray,COL_M3='#AAAAAA';
             const metaCores=[COL_M1,COL_M2,COL_M3];
-            const agendChartData=SDR_ATIV_DATES.map((date,i)=>({dia:date.slice(8).replace(/^0/,'')+'/mar',real:SDR_AGEND_ACUM[i],meta1:20,meta2:40,meta3:60}));
+            const agendChartData=SDR_ATIV_DATES.map((date,i)=>{const lbl=date.startsWith('2026-04')?date.slice(8).replace(/^0/,'')+'/abr':date.slice(8).replace(/^0/,'')+'/mar';return({dia:lbl,real:SDR_AGEND_ACUM[i],meta1:20,meta2:40,meta3:60});});
             const atual=totalAgend;
             const mkDotReal=(props)=>{const{cx,cy,index,value}=props;const prev=index>0?agendChartData[index-1]?.real:null;if(value===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={6} fill={COL_AGEND_ACUM} stroke="#fff" strokeWidth={2}/>;};
             const mkLabelReal=(props)=>{const{x,y,index,value}=props;const prev=index>0?agendChartData[index-1]?.real:null;if(value===prev&&index>0)return null;return <text key={index} x={x} y={y-11} textAnchor="middle" fill={COL_AGEND_ACUM} fontSize={12} fontWeight={800} fontFamily={FONT}>{value}</text>;};
@@ -1136,13 +1139,13 @@ function SDRPage({dateIni,dateFim}){
                 <span style={{fontSize:10,fontWeight:700,color:'#888',textTransform:'uppercase',letterSpacing:'0.06em'}}>Legenda:</span>
                 {[{cor:'#C62828',bg:'#FFEBEE',label:'0–10',desc:'Abaixo do esperado'},{cor:'#F59E0B',bg:'#FFFBEB',label:'11–24',desc:'Em progresso'},{cor:'#2E7D32',bg:'#E8F5E9',label:'≥25',desc:'Meta atingida'}].map(f=>(<div key={f.label} style={{display:'flex',alignItems:'center',gap:5}}><div style={{width:12,height:12,borderRadius:3,background:f.cor,flexShrink:0}}/><span style={{fontSize:10,fontWeight:700,color:f.cor,background:f.bg,padding:'1px 6px',borderRadius:4}}>{f.label}</span><span style={{fontSize:10,color:'#666'}}>{f.desc}</span></div>))}
               </div>
-              {(()=>{const META_MES=500;const atual=movFilt.reduce((a,d)=>a+d.mov,0);const pct=Math.min(Math.round(atual/META_MES*100),100);const faltam=Math.max(0,META_MES-atual);return(<div style={{marginTop:10,padding:'12px 14px',background:C.grayL,borderRadius:8}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}><span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Mar/26)</span><div style={{display:'flex',gap:10,alignItems:'center'}}><span style={{fontSize:12,fontWeight:800,color:C.orange}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {META_MES}</span><span style={{fontSize:11,fontWeight:700,color:pct>=100?C.green:C.gray}}>{pct}%</span></div></div><div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:pct>=100?C.green:C.orange,borderRadius:6}}/></div><div style={{display:'flex',justifyContent:'space-between',marginTop:5}}><span style={{fontSize:10,color:C.gray}}>125 interacoes/semana - 25/dia</span><span style={{fontSize:10,color:faltam>0?C.red:C.green,fontWeight:600}}>{faltam>0?'Faltam '+faltam+' contatos':'Meta atingida!'}</span></div></div>);})()}
+              {(()=>{const META_MES=500;const atual=movFilt.reduce((a,d)=>a+d.mov,0);const pct=Math.min(Math.round(atual/META_MES*100),100);const faltam=Math.max(0,META_MES-atual);return(<div style={{marginTop:10,padding:'12px 14px',background:C.grayL,borderRadius:8}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}><span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Abr/26)</span><div style={{display:'flex',gap:10,alignItems:'center'}}><span style={{fontSize:12,fontWeight:800,color:C.orange}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {META_MES}</span><span style={{fontSize:11,fontWeight:700,color:pct>=100?C.green:C.gray}}>{pct}%</span></div></div><div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:pct>=100?C.green:C.orange,borderRadius:6}}/></div><div style={{display:'flex',justifyContent:'space-between',marginTop:5}}><span style={{fontSize:10,color:C.gray}}>125 interacoes/semana - 25/dia</span><span style={{fontSize:10,color:faltam>0?C.red:C.green,fontWeight:600}}>{faltam>0?'Faltam '+faltam+' contatos':'Meta atingida!'}</span></div></div>);})()}
             </Card>
           </div>
-          <Card title={"Agendamentos Marco - "+SDR_AGENDAMENTOS.length}><div style={{overflowX:'auto',borderRadius:5,border:`1px solid ${C.border}`}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:12,fontFamily:FONT}}><thead><tr style={{background:C.orange}}><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center',width:36}}>#</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'left'}}>Empresa</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Tamanho</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Status</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>CRM</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Motivo de Perda</th></tr></thead><tbody>{SDR_AGENDAMENTOS.map((d,i)=>{const isReal=d.status===STATUS_REALIZADA;const stColor=isReal?C.green:C.orange;const stBg=isReal?C.gL:C.oL;const stLabel=isReal?'Reuniao Realizada':'Reuniao Agendada';const crmColor=d.crm==='Perdida'?C.red:isReal?C.green:C.orange;const crmBg=d.crm==='Perdida'?C.rL:isReal?C.gL:C.oL;return(<tr key={i} style={{...tRow(i),fontSize:12}}><td style={{padding:'9px 12px',color:C.gray,fontWeight:700,textAlign:'center'}}>{i+1}</td><td style={{padding:'9px 12px',fontWeight:700,color:C.text}}>{d.empresa}</td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={d.perfil} color={d.perfil==='ETP'?C.blue:C.orange} bg={d.perfil==='ETP'?C.bL:C.oL}/></td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={stLabel} color={stColor} bg={stBg}/></td><td style={{padding:'9px 12px',textAlign:'center'}}><div style={{display:'flex',flexDirection:'column',gap:3,alignItems:'center'}}><Badge label={d.crm} color={crmColor} bg={crmBg}/>{d.etapaCrm&&<Badge label={d.etapaCrm} color={C.blue} bg={C.bL}/>}</div></td><td style={{padding:'9px 12px',textAlign:'center'}}>{d.motivo?<Badge label={d.motivo} color={C.red} bg={C.rL}/>:<span style={{color:C.gray}}>-</span>}</td></tr>);})}</tbody></table></div><div style={{marginTop:12}}><PBar label={'Meta mensal ('+META_AGEND_MES+')'} actual={totalAgend} meta={META_AGEND_MES}/></div></Card>
+          <Card title={"Agendamentos Abril - "+SDR_AGENDAMENTOS.length}><div style={{overflowX:'auto',borderRadius:5,border:`1px solid ${C.border}`}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:12,fontFamily:FONT}}><thead><tr style={{background:C.orange}}><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center',width:36}}>#</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'left'}}>Empresa</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Tamanho</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Status</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>CRM</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Motivo de Perda</th></tr></thead><tbody>{SDR_AGENDAMENTOS.map((d,i)=>{const isReal=d.status===STATUS_REALIZADA;const stColor=isReal?C.green:C.orange;const stBg=isReal?C.gL:C.oL;const stLabel=isReal?'Reuniao Realizada':'Reuniao Agendada';const crmColor=d.crm==='Perdida'?C.red:isReal?C.green:C.orange;const crmBg=d.crm==='Perdida'?C.rL:isReal?C.gL:C.oL;return(<tr key={i} style={{...tRow(i),fontSize:12}}><td style={{padding:'9px 12px',color:C.gray,fontWeight:700,textAlign:'center'}}>{i+1}</td><td style={{padding:'9px 12px',fontWeight:700,color:C.text}}>{d.empresa}</td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={d.perfil} color={d.perfil==='ETP'?C.blue:C.orange} bg={d.perfil==='ETP'?C.bL:C.oL}/></td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={stLabel} color={stColor} bg={stBg}/></td><td style={{padding:'9px 12px',textAlign:'center'}}><div style={{display:'flex',flexDirection:'column',gap:3,alignItems:'center'}}><Badge label={d.crm} color={crmColor} bg={crmBg}/>{d.etapaCrm&&<Badge label={d.etapaCrm} color={C.blue} bg={C.bL}/>}</div></td><td style={{padding:'9px 12px',textAlign:'center'}}>{d.motivo?<Badge label={d.motivo} color={C.red} bg={C.rL}/>:<span style={{color:C.gray}}>-</span>}</td></tr>);})}</tbody></table></div><div style={{marginTop:12}}><PBar label={'Meta mensal ('+META_AGEND_MES+')'} actual={totalAgend} meta={META_AGEND_MES}/></div></Card>
         </div>)}
         {subSDR==='bonificacao'&&(<div style={{display:'flex',flexDirection:'column',gap:11}}>
-          <Card title="Bonificacao por Agendamentos - Marco/2026"><div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
+          <Card title="Bonificacao por Agendamentos - Abril/2026"><div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
             <div><div style={{fontSize:10,fontWeight:700,color:C.gray,textTransform:'uppercase',letterSpacing:'0.07em',marginBottom:8}}>Tabela de Faixas</div><div style={{borderRadius:6,overflow:'hidden',border:`1px solid ${C.border}`}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11,fontFamily:FONT}}><thead><tr style={{background:C.orange}}><th style={{padding:'8px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Volume</th><th style={{padding:'8px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>R$/Reuniao</th><th style={{padding:'8px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Cenario</th></tr></thead><tbody>{BONIF.map((b,i)=>{const ativa=faixa&&faixa.min===b.min;return(<tr key={i} style={{background:ativa?C.oL:i%2===0?C.white:C.grayL,borderBottom:`1px solid ${C.border}`,fontWeight:ativa?700:400}}><td style={{padding:'9px 12px',color:ativa?C.orange:C.text,textAlign:'center'}}>{b.min}-{b.max}</td><td style={{padding:'9px 12px',textAlign:'center',color:ativa?C.orange:C.text}}>R$ {b.valor},00</td><td style={{padding:'9px 12px',textAlign:'center',color:ativa?C.orange:C.text}}>R$ {b.cenario.toLocaleString('pt-BR')}</td></tr>);})}</tbody></table></div></div>
             <div style={{display:'flex',flexDirection:'column',gap:10}}>
               <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}><div style={{background:C.oL,borderRadius:8,padding:'12px 14px',textAlign:'center',border:`1.5px solid ${C.orange}`}}><div style={{fontSize:10,color:C.gray,textTransform:'uppercase',fontWeight:700,marginBottom:4}}>Agendamentos</div><div style={{fontSize:24,fontWeight:800,color:C.orange}}>{totalAgend}</div></div><div style={{background:C.gL,borderRadius:8,padding:'12px 14px',textAlign:'center',border:`1.5px solid ${C.green}`}}><div style={{fontSize:10,color:C.gray,textTransform:'uppercase',fontWeight:700,marginBottom:4}}>Bonif. Atual</div><div style={{fontSize:20,fontWeight:800,color:C.green}}>R$ {bonifAtual.toLocaleString('pt-BR')}</div></div></div>
@@ -1155,9 +1158,9 @@ function SDRPage({dateIni,dateFim}){
     </div>
   </div>);
 }
- 
+
 const TABS=[{id:'acomp',label:'Executivos Externos'},{id:'interno',label:'Executivos Internos'},{id:'sdr',label:'SDR'},{id:'diag',label:'Diagnostico'},{id:'parcerias',label:'Parcerias'}];
- 
+
 export default function App(){
   const[tab,setTab]=useState('acomp');
   const[selPerfil,setSelPerfil]=useState('Todos');
