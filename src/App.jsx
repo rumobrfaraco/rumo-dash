@@ -76,8 +76,36 @@ const PARCERIAS_RAW=[
  
 const SDR_AGENDAMENTOS=[
   {empresa:'SANTISSIMA TRINDADE PARTICIPACOES E LOGISTICA LTDA',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-01'},
-  {empresa:'TRANS OLIVEIRA',perfil:'PME',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-07'},
 ];
+
+// ── Movimentações SDR Março ──
+const SDR_MOV_MAR=[
+  {dia:'11/mar',data:'2026-03-11',mov:0},{dia:'12/mar',data:'2026-03-12',mov:22},{dia:'13/mar',data:'2026-03-13',mov:27},
+  {dia:'16/mar',data:'2026-03-16',mov:9},{dia:'17/mar',data:'2026-03-17',mov:16},{dia:'18/mar',data:'2026-03-18',mov:21},
+  {dia:'19/mar',data:'2026-03-19',mov:19},{dia:'20/mar',data:'2026-03-20',mov:29},{dia:'23/mar',data:'2026-03-23',mov:49},
+  {dia:'24/mar',data:'2026-03-24',mov:42},{dia:'25/mar',data:'2026-03-25',mov:39},{dia:'26/mar',data:'2026-03-26',mov:57},
+  {dia:'27/mar',data:'2026-03-27',mov:26},{dia:'30/mar',data:'2026-03-30',mov:0},{dia:'31/mar',data:'2026-03-31',mov:12},
+];
+
+// ── Atividades SDR Março (por canal, alinhadas com SDR_DAYS_LBL_MAR) ──
+const SDR_ATIV_MAR=(()=>{
+  const dias=['2026-03-11','2026-03-12','2026-03-13','2026-03-16','2026-03-17','2026-03-18','2026-03-19','2026-03-20','2026-03-23','2026-03-24','2026-03-25','2026-03-26','2026-03-27','2026-03-30','2026-03-31'];
+  const ligs=  [0,0,27,9,16,10,21,14,31,14,14,29,15,0,7];
+  const emls=  [0,22,0,0,0,11,5,0,3,8,7,1,2,0,4];
+  const whats= [0,0,0,0,0,0,0,15,15,12,18,27,9,0,1];
+  const ativ=[];
+  dias.forEach((data,i)=>{
+    for(let j=0;j<ligs[i];j++)ativ.push({data,empresa:'SDR_MAR_LIG_'+data+'_'+j,canal:'ligacao'});
+    for(let j=0;j<emls[i];j++)ativ.push({data,empresa:'SDR_MAR_EML_'+data+'_'+j,canal:'email'});
+    for(let j=0;j<whats[i];j++)ativ.push({data,empresa:'SDR_MAR_WHA_'+data+'_'+j,canal:'whatsapp'});
+  });
+  return ativ;
+})();
+
+// Agendamentos de Março (10 no total)
+const SDR_AGEND_MAR=10;
+const SDR_ATIV_DATES_MAR=['2026-03-11','2026-03-12','2026-03-13','2026-03-16','2026-03-17','2026-03-18','2026-03-19','2026-03-20','2026-03-23','2026-03-24','2026-03-25','2026-03-26','2026-03-27','2026-03-30','2026-03-31'];
+const SDR_AGEND_ACUM_MAR=(()=>{let acc=0;return SDR_ATIV_DATES_MAR.map(()=>{return acc;});})(); // acumulado mar não disponível dia a dia
  
 const SDR_MOV=[
   {dia:'01/abr',data:'2026-04-01',mov:10},
@@ -88,7 +116,6 @@ const SDR_MOV=[
  
 const SDR_SEMANAS=[
   {semana:'S1 (01/abr)',ligacoes:8,agendamentos:1},
-  {semana:'S2 (06/abr)',ligacoes:16,agendamentos:1},
 ];
  
 const SDR_DAYS_LBL_MAR=['11/mar','12/mar','13/mar','16/mar','17/mar','18/mar','19/mar','20/mar','23/mar','24/mar','25/mar','26/mar','27/mar','30/mar','31/mar'];
@@ -125,7 +152,7 @@ const SDR_AGEND_ACUM = (() => {
 // Totais por mês compilado (histórico + atual)
 const SDR_MENSAL=[
   {mes:'Mar/26',key:'2026-03',ligacao:SDR_LIG_DIA_MAR.reduce((a,b)=>a+b,0),email:SDR_EML_DIA_MAR.reduce((a,b)=>a+b,0),whatsapp:SDR_WHA_DIA_MAR.reduce((a,b)=>a+b,0),agendamentos:10},
-  {mes:'Abr/26',key:'2026-04',ligacao:8+10+16+8,email:5+2+0+3,whatsapp:3+1+0+0,agendamentos:2},
+  {mes:'Abr/26',key:'2026-04',ligacao:8+10+16+8,email:5+2+0+3,whatsapp:3+1+0+0,agendamentos:1},
 ];
 
 function buildSdrEvol(arr){let acc=0;return arr.map(v=>{acc+=v;return acc;});}
@@ -140,38 +167,75 @@ const SDR_ATIV=[
   {data:'2026-04-02',empresa:'DECSA LOGISTICA',canal:'email'},{data:'2026-04-02',empresa:'GRV LOGISTICA',canal:'email'},
   {data:'2026-04-02',empresa:'GRUPO TPC',canal:'whatsapp'},
   // ── 06/abr ──
-  {data:'2026-04-06',empresa:'TRANSPORTES ALPHA',canal:'ligacao'},{data:'2026-04-06',empresa:'LOGISTICA NORTE',canal:'ligacao'},{data:'2026-04-06',empresa:'TRANS VALE',canal:'ligacao'},{data:'2026-04-06',empresa:'ROTA EXPRESS',canal:'ligacao'},{data:'2026-04-06',empresa:'CARGO FAST',canal:'ligacao'},{data:'2026-04-06',empresa:'MULTI LOG',canal:'ligacao'},{data:'2026-04-06',empresa:'AGILE FRETE',canal:'ligacao'},{data:'2026-04-06',empresa:'SUDLOG TRANSPORTES',canal:'ligacao'},{data:'2026-04-06',empresa:'VIALOG BRASIL',canal:'ligacao'},{data:'2026-04-06',empresa:'NOVA ROTA',canal:'ligacao'},{data:'2026-04-06',empresa:'TRANS BOESSIO',canal:'ligacao'},{data:'2026-04-06',empresa:'EXPRESSO RAPIDO',canal:'ligacao'},{data:'2026-04-06',empresa:'CARGOMAX',canal:'ligacao'},{data:'2026-04-06',empresa:'LOGPRIME',canal:'ligacao'},{data:'2026-04-06',empresa:'TRANSLOG BRASIL',canal:'ligacao'},{data:'2026-04-06',empresa:'FROTA DINAMICA',canal:'ligacao'},
+  {data:'2026-04-06',empresa:'TRANSPORTADORA PRIMEIRA DO NORDESTE',canal:'ligacao'},{data:'2026-04-06',empresa:'ENGAGE TRANSPORTES E SERVICOS LOGISTICOS',canal:'ligacao'},{data:'2026-04-06',empresa:'TRANSPORTES SAO BENTO',canal:'ligacao'},{data:'2026-04-06',empresa:'RPG TRANSPORTES DE CARGAS',canal:'ligacao'},{data:'2026-04-06',empresa:'POLIMODAL',canal:'ligacao'},{data:'2026-04-06',empresa:'JULY QUARTZO',canal:'ligacao'},{data:'2026-04-06',empresa:'TRANSPREX TRANSPORTADORA',canal:'ligacao'},{data:'2026-04-06',empresa:'GRUPO LAMONICA',canal:'ligacao'},{data:'2026-04-06',empresa:'TRANSPORTADORA PRIMEIRA DO NORDESTE',canal:'ligacao'},{data:'2026-04-06',empresa:'POLIMODAL',canal:'ligacao'},{data:'2026-04-06',empresa:'TRANSPARANA',canal:'ligacao'},{data:'2026-04-06',empresa:'BAHIA SUL TRANSPORTES E LOGISTICA',canal:'ligacao'},{data:'2026-04-06',empresa:'BAHIA SUL TRANSPORTES E LOGISTICA',canal:'ligacao'},{data:'2026-04-06',empresa:'LOGIC SOLUCOES LOGISTICAS',canal:'ligacao'},{data:'2026-04-06',empresa:'ENGAGE TRANSPORTES E SERVICOS LOGISTICOS',canal:'ligacao'},{data:'2026-04-06',empresa:'TRANSPORTES SAO BENTO',canal:'ligacao'},
   // ── 07/abr ──
-  {data:'2026-04-07',empresa:'TRANS OLIVEIRA',canal:'ligacao'},{data:'2026-04-07',empresa:'DEXTER TRANSPORTES',canal:'ligacao'},{data:'2026-04-07',empresa:'RORAIMA LOG',canal:'ligacao'},{data:'2026-04-07',empresa:'HP DE OLIVEIRA',canal:'ligacao'},{data:'2026-04-07',empresa:'CENTROESTE FRETE',canal:'ligacao'},{data:'2026-04-07',empresa:'MULTILOG SUL',canal:'ligacao'},{data:'2026-04-07',empresa:'NEXLOG',canal:'ligacao'},{data:'2026-04-07',empresa:'TRANSPORTES DINIZ',canal:'ligacao'},
-  {data:'2026-04-07',empresa:'TRANS OLIVEIRA',canal:'email'},{data:'2026-04-07',empresa:'HP DE OLIVEIRA',canal:'email'},{data:'2026-04-07',empresa:'NEXLOG',canal:'email'},
+  {data:'2026-04-07',empresa:'TRANS-WAR TRANSPORTES',canal:'ligacao'},{data:'2026-04-07',empresa:'TRANSPORTADORA OTAVIANA',canal:'ligacao'},{data:'2026-04-07',empresa:'JOFER TRANSPORTE',canal:'ligacao'},{data:'2026-04-07',empresa:'RIOLOG',canal:'ligacao'},{data:'2026-04-07',empresa:'BRASIL CARGO',canal:'ligacao'},{data:'2026-04-07',empresa:'MOPRI TRANSPORTES',canal:'ligacao'},{data:'2026-04-07',empresa:'VALNI TRANSPORTES',canal:'ligacao'},{data:'2026-04-07',empresa:'BRASIL CARGO',canal:'ligacao'},
+  {data:'2026-04-07',empresa:'TRANS-WAR TRANSPORTES',canal:'email'},{data:'2026-04-07',empresa:'JOFER TRANSPORTE',canal:'email'},{data:'2026-04-07',empresa:'BRASIL CARGO',canal:'email'},
 ];
 
 const EFETIVAS=['ARROW LOGISTICA','DINIZ SARAIVA','GRUPO DTRANS'];
 
 const DIAG_DATA=[
-  {id:1,empresa:"DAMACEL TRANSPORTES",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"RS",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
-  {id:2,empresa:"S E TRANSPORTES",status:"COMPLETE",accountExecutive:"",executivo:"",estado:"GO",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
-  {id:3,empresa:"RODOCELL TRANSPORTES",status:"COMPLETE",accountExecutive:"",executivo:"Matheus Cambui",estado:"RS",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
+  {id:1,empresa:"DAMACEL TRANSPORTES",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"RS",reforma:"Nao",dias:8,tam:"Enterprise",dataInicio:"2026-01-14",dataConclusao:"2026-01-22"},
+  {id:2,empresa:"S E TRANSPORTES",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"",estado:"GO",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
+  {id:3,empresa:"RODOCELL TRANSPORTES",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"RS",reforma:"Sim",dias:3,tam:"Enterprise",dataInicio:"2026-01-26",dataConclusao:"2026-01-29"},
   {id:4,empresa:"GOVEIA RODRIGUES TRANSPORTES",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"SP",reforma:"Nao",dias:30,tam:"PME",dataInicio:"2026-02-04",dataConclusao:"2026-03-06"},
-  {id:5,empresa:"GRUPO RODOXISTO",status:"COMPLETE",accountExecutive:"",executivo:"Matheus Cambui",estado:"PR",reforma:"Sim",dias:30,tam:"Enterprise",dataInicio:"2026-02-25",dataConclusao:"2026-03-27"},
-  {id:6,empresa:"RODOLIVIA",status:"COMPLETE",accountExecutive:"",executivo:"Matheus Cambui",estado:"MT",reforma:"Sim",dias:25,tam:"Enterprise",dataInicio:"2025-12-11",dataConclusao:"2026-01-05"},
-  {id:7,empresa:"JORGINHO TRANSPORTES",status:"COMPLETE",accountExecutive:"",executivo:"",estado:"RS",reforma:"Sim",dias:38,tam:"Enterprise",dataInicio:"2025-12-22",dataConclusao:"2026-01-29"},
-  {id:8,empresa:"CENTRAL DE TRANSPORTES E SERVICOS",status:"COMPLETE",accountExecutive:"",executivo:"",estado:"SE",reforma:"Sim",dias:15,tam:"Enterprise",dataInicio:"2026-01-28",dataConclusao:"2026-02-12"},
-  {id:9,empresa:"JULITAGO BIOENERGIA",status:"COMPLETE",accountExecutive:"",executivo:"",estado:"PR",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
-  {id:10,empresa:"VITILOG",status:"REVALIDACAO",accountExecutive:"",executivo:"",estado:"",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:"2025-12-15",dataConclusao:"2026-01-12"},
-  {id:11,empresa:"STEFANI TRANSPORTES",status:"REVALIDACAO",accountExecutive:"",executivo:"Matheus Cambui",estado:"",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:"2025-12-18",dataConclusao:"2026-01-16"},
-  {id:12,empresa:"DEXLOG",status:"APRESENTACAO",accountExecutive:"",executivo:"",estado:"PR",reforma:"Sim",dias:null,tam:"PME",dataInicio:"2026-01-22",dataConclusao:"2026-02-23"},
-  {id:13,empresa:"TRANSPORTADORA HAMMES",status:"EM PROCESSO",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"RS",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:"2026-02-11",dataConclusao:"2026-03-13"},
-  {id:14,empresa:"JS LOGISTICA",status:"EM PROCESSO",accountExecutive:"Sandro Casagrande",executivo:"Luana/Matheus/Vivian",estado:"MG",reforma:"Sim",dias:null,tam:"PME",dataInicio:"2026-02-25",dataConclusao:"2026-03-27"},
-  {id:15,empresa:"EXCELLENCE TRANSPORTES",status:"AGUARDANDO DOCUMENTACAO",accountExecutive:"",executivo:"",estado:"PR",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
-  {id:16,empresa:"MODO AGROLOGISTICA",status:"DESCARTADA",accountExecutive:"",executivo:"",estado:"PR",reforma:"Nao",dias:null,tam:"PME",dataInicio:null,dataConclusao:null},
-  {id:17,empresa:"TRANSPORTES BRASIL",status:"EM PROCESSO",accountExecutive:"",executivo:"Luana Alves Fontana",estado:"PR",reforma:"Nao",dias:null,tam:"PME",dataInicio:null,dataConclusao:"2026-04-20"},
+  {id:5,empresa:"GRUPO RODOXISTO",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"PR",reforma:"Sim",dias:14,tam:"Enterprise",dataInicio:"2026-02-25",dataConclusao:"2026-03-11"},
+  {id:6,empresa:"RODOLIVIA",status:"COMPLETE",accountExecutive:"Rafael",executivo:"Matheus Cambui",estado:"MT",reforma:"Sim",dias:25,tam:"Enterprise",dataInicio:"2025-12-11",dataConclusao:"2026-01-05"},
+  {id:7,empresa:"JORGINHO TRANSPORTES",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"Luana Alves Fontana",estado:"RS",reforma:"Sim",dias:38,tam:"Enterprise",dataInicio:"2025-12-22",dataConclusao:"2026-01-29"},
+  {id:8,empresa:"CENTRAL DE TRANSPORTES E SERVICOS",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"Luana Alves Fontana",estado:"SE",reforma:"Sim",dias:15,tam:"Enterprise",dataInicio:"2026-01-28",dataConclusao:"2026-02-12"},
+  {id:9,empresa:"JULITAGO BIOENERGIA",status:"COMPLETE",accountExecutive:"Rafael",executivo:"Luana Alves Fontana",estado:"PR",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
+  {id:10,empresa:"VITILOG",status:"REVALIDACAO",accountExecutive:"Sandro Casagrande",executivo:"Luana Alves Fontana",estado:"RS",reforma:"Nao",dias:28,tam:"Enterprise",dataInicio:"2025-12-15",dataConclusao:"2026-01-12"},
+  {id:11,empresa:"STEFANI TRANSPORTES",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"RS",reforma:"Sim",dias:29,tam:"Enterprise",dataInicio:"2025-12-18",dataConclusao:"2026-01-16"},
+  {id:12,empresa:"DEXLOG",status:"APRESENTACAO",accountExecutive:"Sandro Casagrande",executivo:"Luana Alves Fontana",estado:"PR",reforma:"Sim",dias:32,tam:"PME",dataInicio:"2026-01-22",dataConclusao:"2026-02-23"},
+  {id:13,empresa:"TRANSPORTADORA HAMMES",status:"EM PROCESSO",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"RS",reforma:"Sim",dias:30,tam:"Enterprise",dataInicio:"2026-02-11",dataConclusao:"2026-03-13"},
+  {id:14,empresa:"JS LOGISTICA",status:"APRESENTACAO",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui/Vivian Vilanova",estado:"MG",reforma:"Sim",dias:15,tam:"Enterprise",dataInicio:"2026-03-18",dataConclusao:"2026-04-02"},
+  {id:15,empresa:"EXCELLENCE TRANSPORTES",status:"DESCARTADA",accountExecutive:"",executivo:"Luana Alves Fontana",estado:"PR",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
+  {id:16,empresa:"MODO AGROLOGISTICA",status:"DESCARTADA",accountExecutive:"",executivo:"Luana Alves Fontana",estado:"PR",reforma:"Nao",dias:null,tam:"PME",dataInicio:null,dataConclusao:null},
+  {id:17,empresa:"TRANSPORTES BRASIL",status:"EM PROCESSO",accountExecutive:"Carla Lemes",executivo:"Luana Alves Fontana",estado:"PR",reforma:"Nao",dias:null,tam:"PME",dataInicio:"2026-03-20",dataConclusao:null},
   {id:18,empresa:"PONTAL LOGISTICA",status:"NAO INICIADA",accountExecutive:"Sandro Casagrande",executivo:"Luana Alves Fontana",estado:"GO",reforma:"Sim",dias:null,tam:"PME",dataInicio:null,dataConclusao:null},
-  {id:19,empresa:"RT RANGEL",status:"EM PROCESSO",accountExecutive:"",executivo:"Luana/Vivian",estado:"RJ",reforma:"Sim",dias:null,tam:"PME",dataInicio:"2026-02-19",dataConclusao:"2026-03-27"},
+  {id:19,empresa:"RT RANGEL",status:"EM PROCESSO",accountExecutive:"Sandro Casagrande",executivo:"Luana/Vivian",estado:"RJ",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:"2026-03-26",dataConclusao:null},
   {id:20,empresa:"FRIZON TRANSPORTES",status:"AGUARDANDO DOCUMENTACAO",accountExecutive:"Carla Lemes",executivo:"Luana/Vivian",estado:"MT",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null},
 ];
 
 const DIAG_STATUS={"COMPLETE":{dot:"#2D9E60",color:"#2D9E60",label:"Concluido"},"AGUARDANDO DOCUMENTACAO":{dot:"#888",color:"#888",label:"Aguardando Documento"},"EM PROCESSO":{dot:C.orange,color:C.orange,label:"Em Processo"},"REVALIDACAO":{dot:"#B35B00",color:"#B35B00",label:"Revalidacao"},"APRESENTACAO":{dot:"#CC6C00",color:"#CC6C00",label:"Apresentacao"},"NAO INICIADA":{dot:"#4A4B4D",color:"#4A4B4D",label:"Nao Iniciada"},"DESCARTADA":{dot:"#C62828",color:"#C62828",label:"Descartada"}};
+
+const DIAG_RTC_DATA=[
+  {id:1,empresa:"JS LOGÍSTICA",status:"PROGRAMACAO",responsavel:"Luana/Matheus",dataInicio:"2026-04-06",dataConclusao:"2026-04-08",dias:2},
+  {id:2,empresa:"HAMMES",status:"PROGRAMACAO",responsavel:"Luana/Vivian",dataInicio:"2026-04-06",dataConclusao:"2026-04-08",dias:2},
+  {id:3,empresa:"MEICAM",status:"ENCERRADO",responsavel:"Osmario",dataInicio:"2026-03-10",dataConclusao:"2026-03-11",dias:1},
+  {id:4,empresa:"RODOXISTO",status:"ENCERRADO",responsavel:"Robson",dataInicio:null,dataConclusao:"2026-03-11",dias:null},
+  {id:5,empresa:"CENTRAL TRANSPORTES",status:"ENCERRADO",responsavel:"Jeann",dataInicio:null,dataConclusao:"2026-02-12",dias:null},
+  {id:6,empresa:"CRJ",status:"ENCERRADO",responsavel:"Thatiele",dataInicio:null,dataConclusao:"2026-02-10",dias:null},
+  {id:7,empresa:"STEFANI 2025",status:"ENCERRADO",responsavel:"Osmario",dataInicio:null,dataConclusao:"2026-01-21",dias:null},
+  {id:8,empresa:"RODOMACRO",status:"ENCERRADO",responsavel:"Brian",dataInicio:null,dataConclusao:"2026-01-24",dias:null},
+  {id:9,empresa:"DAS NEVES TRANSPORTES",status:"ENCERRADO",responsavel:"Osmario",dataInicio:null,dataConclusao:"2026-02-06",dias:null},
+  {id:10,empresa:"SE TRANSPORTES",status:"ENCERRADO",responsavel:"Robson",dataInicio:null,dataConclusao:"2026-01-20",dias:null},
+  {id:11,empresa:"R ROSSETO E CIA LTDA",status:"ENCERRADO",responsavel:"Robson",dataInicio:null,dataConclusao:"2026-01-07",dias:null},
+  {id:12,empresa:"STEFANI 2024",status:"ENCERRADO",responsavel:"Osmario",dataInicio:null,dataConclusao:"2026-01-23",dias:null},
+  {id:13,empresa:"RODOLIVIA",status:"ENCERRADO",responsavel:"",dataInicio:null,dataConclusao:"2026-01-07",dias:null},
+  {id:14,empresa:"VIDAL",status:"ENCERRADO",responsavel:"Jeann",dataInicio:null,dataConclusao:null,dias:null},
+  {id:15,empresa:"BRASIL CENTRAL",status:"ENCERRADO",responsavel:"Jeann",dataInicio:null,dataConclusao:null,dias:null},
+  {id:16,empresa:"PACTUS TRANSPORTES LTDA",status:"ENCERRADO",responsavel:"Brian",dataInicio:null,dataConclusao:null,dias:null},
+  {id:17,empresa:"LONTANO TRANSPORTES LTDA",status:"ENCERRADO",responsavel:"Robson",dataInicio:null,dataConclusao:"2025-10-17",dias:null},
+  {id:18,empresa:"SKALA TRANSPORTES",status:"ENCERRADO",responsavel:"Brian",dataInicio:null,dataConclusao:null,dias:null},
+  {id:19,empresa:"CEU AZUL",status:"ENCERRADO",responsavel:"Osmario",dataInicio:null,dataConclusao:"2025-12-18",dias:null},
+  {id:20,empresa:"MAGNABOSCO COMERCIO E TRANSPORTES LTDA",status:"ENCERRADO",responsavel:"Osmario",dataInicio:null,dataConclusao:null,dias:null},
+  {id:21,empresa:"ATACAMA EXPRESSA TRANSPORTES DE CARGAS LTDA",status:"ENCERRADO",responsavel:"Osmario",dataInicio:null,dataConclusao:"2025-12-17",dias:null},
+  {id:22,empresa:"RODORRISO TRANSPORTES JZ LTDA",status:"ENCERRADO",responsavel:"Osmario",dataInicio:null,dataConclusao:"2025-12-17",dias:null},
+  {id:23,empresa:"JUND TRANSPORTES LTDA",status:"ENCERRADO",responsavel:"Brian",dataInicio:null,dataConclusao:"2025-12-23",dias:null},
+  {id:24,empresa:"TRANSPORTADORA SUDOESTE",status:"ENCERRADO",responsavel:"Brian",dataInicio:null,dataConclusao:"2026-01-09",dias:null},
+  {id:25,empresa:"BELLUNO LOGISTICA E TRANSPORTE LTDA",status:"ENCERRADO",responsavel:"Robson",dataInicio:null,dataConclusao:"2025-12-17",dias:null},
+  {id:26,empresa:"G10",status:"ENCERRADO",responsavel:"Jeann",dataInicio:null,dataConclusao:"2025-12-10",dias:null},
+  {id:27,empresa:"JORGINHO TRANSPORTES",status:"ENCERRADO",responsavel:"Robson",dataInicio:null,dataConclusao:"2026-01-29",dias:null},
+  {id:28,empresa:"JULITAGO",status:"ENCERRADO",responsavel:"Thatiele",dataInicio:null,dataConclusao:"2026-02-03",dias:null},
+  {id:29,empresa:"RODOCEL TRANSPORTES",status:"ENCERRADO",responsavel:"Osmario",dataInicio:null,dataConclusao:"2026-01-27",dias:null},
+  {id:30,empresa:"VITLOG",status:"ENCERRADO",responsavel:"Jeann",dataInicio:null,dataConclusao:"2026-01-07",dias:null},
+  {id:31,empresa:"CLIENTE X",status:"ENCERRADO",responsavel:"",dataInicio:null,dataConclusao:null,dias:null},
+];
+
+const RTC_STATUS={"ENCERRADO":{dot:"#2D9E60",color:"#2D9E60",label:"Encerrado"},"PROGRAMACAO":{dot:C.orange,color:C.orange,label:"Programacao"},"NAO INICIADO":{dot:"#4A4B4D",color:"#4A4B4D",label:"Nao Iniciado"}};
+const RTC_FUNNEL_PHASES=[{key:"NAO INICIADO",label:"Nao Iniciado",bg:"#4A4B4D"},{key:"PROGRAMACAO",label:"Programacao",bg:C.orange},{key:"ENCERRADO",label:"Encerrado",bg:"#2D9E60"}];
 const FUNNEL_PHASES=[{key:"NAO INICIADA",label:"Nao Iniciada",bg:"#4A4B4D"},{key:"AGUARDANDO DOCUMENTACAO",label:"Aguardando Documento",bg:"#888"},{key:"EM PROCESSO",label:"Em Processo",bg:C.orange},{key:"REVALIDACAO",label:"Revalidacao",bg:"#B35B00"},{key:"APRESENTACAO",label:"Apresentacao",bg:"#CC6C00"},{key:"COMPLETE",label:"Concluido",bg:"#2D9E60"},{key:"DESCARTADA",label:"Descartada",bg:"#C62828"}];
 
 const ALL_DAYS_MAR=['2026-03-02','2026-03-03','2026-03-04','2026-03-05','2026-03-06','2026-03-07','2026-03-09','2026-03-10','2026-03-11','2026-03-12','2026-03-13','2026-03-16','2026-03-17','2026-03-18','2026-03-19','2026-03-20','2026-03-22','2026-03-23','2026-03-24','2026-03-25','2026-03-26','2026-03-27','2026-03-30','2026-03-31'];
@@ -196,7 +260,7 @@ const MOV_ISAAC_ABR=[12,8,5,0];
 const SANDRO_REUNIOES_ABR=[];
 const SANDRO_VISITAS_ABR=[];
 const CARLA_REUNIOES_ABR=['2026-04-01','2026-04-06'];
-const CARLA_VISITAS_ABR=[];
+const CARLA_VISITAS_ABR=['2026-04-07','2026-04-07'];
 const MARCO_REUNIOES_ABR=['2026-04-02','2026-04-07'];
 const MARCO_VISITAS_ABR=[];
 const ISAAC_REUNIOES_ABR=[];
@@ -215,11 +279,22 @@ const tRow=i=>({borderBottom:`1px solid ${C.border}`,background:i%2===0?C.white:
 function fmtDt(iso){if(!iso)return "—";const p=iso.split("-");return p[2]+"/"+p[1];}
 function calcAging(ini,fim){if(!ini)return null;const f=fim?new Date(fim):new Date();return Math.floor((f-new Date(ini))/864e5);}
 
-function ParceriasPage(){
+function ParceriasPage({dateIni,dateFim}){
   const[selParceiro,setSelParceiro]=useState('Todos');
   const[selStatus,setSelStatus]=useState('Todos');
   const parceiros=useMemo(()=>['Todos',...[...new Set(PARCERIAS_RAW.map(r=>r[P.PARCEIRO]))].sort()],[]);
-  const FL=useMemo(()=>PARCERIAS_RAW.filter(r=>{if(selParceiro!=='Todos'&&r[P.PARCEIRO]!==selParceiro)return false;if(selStatus!=='Todos'&&r[P.STATUS]!==selStatus)return false;return true;}),[selParceiro,selStatus]);
+  const FL=useMemo(()=>PARCERIAS_RAW.filter(r=>{
+    if(selParceiro!=='Todos'&&r[P.PARCEIRO]!==selParceiro)return false;
+    if(selStatus!=='Todos'&&r[P.STATUS]!==selStatus)return false;
+    if(dateIni||dateFim){
+      if(!r[P.DATA_IND])return false;
+      const parts=r[P.DATA_IND].split('/');
+      if(parts.length<3)return false;
+      const iso=`${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`;
+      if(!inRange(iso,dateIni,dateFim))return false;
+    }
+    return true;
+  }),[selParceiro,selStatus,dateIni,dateFim]);
   const perdidos=FL.filter(r=>r[P.STATUS]==='Perdida').length,ativos=FL.filter(r=>r[P.STATUS]==='Em Andamento').length,total=ativos,comReuniao=FL.filter(r=>r[P.STATUS]==='Em Andamento'&&r[P.REUNIAO]==='Sim').length;
   const porParceiro=useMemo(()=>{const m={};PARCERIAS_RAW.forEach(r=>{const p=r[P.PARCEIRO];if(!m[p])m[p]={parceiro:p,total:0,ativos:0,perdidos:0,reunioes:0};m[p].total++;if(r[P.STATUS]==='Em Andamento')m[p].ativos++;if(r[P.STATUS]==='Perdida')m[p].perdidos++;if(r[P.REUNIAO]==='Sim')m[p].reunioes++;});return Object.values(m).sort((a,b)=>b.total-a.total);},[]);
   const porMes=useMemo(()=>{const m={};FL.forEach(r=>{if(!r[P.DATA_IND])return;const parts=r[P.DATA_IND].split('/');if(parts.length<3)return;if(parts[2]!=='2026')return;const key=`${parts[2]}-${parts[1].padStart(2,'0')}`;if(!m[key])m[key]={label:`${parts[1].padStart(2,'0')}/${parts[2].slice(2)}`,key,leads:0,reunioes:0};m[key].leads++;if(r[P.REUNIAO]==='Sim')m[key].reunioes++;});return Object.values(m).sort((a,b)=>a.key.localeCompare(b.key));},[FL]);
@@ -298,17 +373,25 @@ function ParceriasPage(){
   </div>);
 }
 
-function DiagPage(){
-  const total=DIAG_DATA.length;
-  const concluidos=DIAG_DATA.filter(d=>d.status==="COMPLETE").sort((a,b)=>a.empresa.localeCompare(b.empresa,"pt-BR"));
-  const emAndamento=DIAG_DATA.filter(d=>d.status!=="COMPLETE").sort((a,b)=>a.empresa.localeCompare(b.empresa,"pt-BR"));
+function DiagPage({dateIni,dateFim}){
+  const DATA=useMemo(()=>{
+    if(!dateIni&&!dateFim)return DIAG_DATA;
+    return DIAG_DATA.filter(d=>{
+      const datas=[d.dataInicio,d.dataConclusao].filter(Boolean);
+      if(!datas.length)return !dateIni&&!dateFim;
+      return datas.some(dt=>inRange(dt,dateIni,dateFim));
+    });
+  },[dateIni,dateFim]);
+  const total=DATA.length;
+  const concluidos=DATA.filter(d=>d.status==="COMPLETE").sort((a,b)=>a.empresa.localeCompare(b.empresa,"pt-BR"));
+  const emAndamento=DATA.filter(d=>d.status!=="COMPLETE").sort((a,b)=>a.empresa.localeCompare(b.empresa,"pt-BR"));
   const nConc=concluidos.length,nAtivo=emAndamento.length;
-  const diasArr=DIAG_DATA.filter(d=>d.dias!=null).map(d=>d.dias);
+  const diasArr=DATA.filter(d=>d.dias!=null).map(d=>d.dias);
   const diasM=diasArr.length>0?Math.round(diasArr.reduce((a,b)=>a+b,0)/diasArr.length):0;
-  const nSim=DIAG_DATA.filter(d=>d.reforma==="Sim").length,nNao=DIAG_DATA.filter(d=>d.reforma==="Nao").length;
+  const nSim=DATA.filter(d=>d.reforma==="Sim").length,nNao=DATA.filter(d=>d.reforma==="Nao").length;
   const nSimConc=concluidos.filter(d=>d.reforma==="Sim").length,nSimAtivo=emAndamento.filter(d=>d.reforma==="Sim").length;
-  const nEnt=DIAG_DATA.filter(d=>d.tam==="Enterprise").length,nPME=DIAG_DATA.filter(d=>d.tam==="PME").length;
-  const pctConc=Math.round(nConc/total*100);
+  const nEnt=DATA.filter(d=>d.tam==="Enterprise").length,nPME=DATA.filter(d=>d.tam==="PME").length;
+  const pctConc=total>0?Math.round(nConc/total*100):0;
   const bs=`1px solid ${C.border}`;
   const TH={padding:'6px 10px',background:'#F5F5F3',fontSize:10,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.05em',borderBottom:`1px solid ${C.border}`,whiteSpace:'nowrap',textAlign:'left'};
   const THC={...TH,textAlign:'center'};
@@ -376,13 +459,64 @@ function DiagPage(){
         {[['≤15d',C.green,C.gL,'Recente'],['16–30d',C.orange,C.oL,'Atenção'],['> 30d','#B35B00','#FFF3E0','Crítico']].map(([v,c,bg,l])=>(<div key={v} style={{display:'flex',alignItems:'center',gap:4}}><span style={{fontSize:9,background:bg,color:c,padding:'1px 6px',borderRadius:8,fontWeight:700}}>{v}</span><span style={{fontSize:9,color:'#555'}}>{l}</span></div>))}
       </div>
     </div>
+    <DiagRTCPage/>
+  </div>);
+}
+
+function DiagRTCPage(){
+  const total=DIAG_RTC_DATA.length;
+  const encerrados=DIAG_RTC_DATA.filter(d=>d.status==="ENCERRADO").sort((a,b)=>a.empresa.localeCompare(b.empresa,"pt-BR"));
+  const emAndamento=DIAG_RTC_DATA.filter(d=>d.status!=="ENCERRADO").sort((a,b)=>a.empresa.localeCompare(b.empresa,"pt-BR"));
+  const nEnc=encerrados.length,nAtivo=emAndamento.length;
+  const pctEnc=Math.round(nEnc/total*100);
+  const bs=`1px solid ${C.border}`;
+  const TH={padding:'6px 10px',background:'#F5F5F3',fontSize:10,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.05em',borderBottom:`1px solid ${C.border}`,whiteSpace:'nowrap',textAlign:'left'};
+  const THC={...TH,textAlign:'center'};
+  const StBadge=({status})=>{const s=RTC_STATUS[status]||{color:C.gray,label:status};return(<span style={{fontSize:10.5,color:s.color,fontWeight:600,whiteSpace:'nowrap'}}>{s.label}</span>);};
+  const AgBadge=({d})=>{if(d===null)return <span style={{color:'#CCC'}}>—</span>;const col=d<=15?C.green:d<=30?C.orange:"#B35B00";const bg=d<=15?C.gL:d<=30?C.oL:"#FFF3E0";return <span style={{fontSize:10,fontWeight:700,background:bg,color:col,padding:'2px 7px',borderRadius:10,whiteSpace:'nowrap'}}>{d}d</span>;};
+  return(
+  <div style={{display:'flex',flexDirection:'column',gap:10,fontFamily:FONT,marginTop:20}}>
+    <div style={{background:C.white,borderRadius:8,padding:'14px 20px',border:bs,boxShadow:C.shadow}}>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',flexWrap:'wrap',gap:8}}>
+        <div><div style={{fontSize:14,fontWeight:800,color:C.text,letterSpacing:'-0.01em'}}>REPORT DIAGNÓSTICO REFORMA</div><div style={{fontSize:11,color:C.gray,marginTop:2}}>{new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})}</div></div>
+        <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:13,fontWeight:800,color:C.dark,letterSpacing:'-0.02em'}}>RumoBrasil</span><div style={{width:28,height:28,borderRadius:6,background:C.orange,display:'flex',alignItems:'center',justifyContent:'center'}}><span style={{fontSize:13,fontWeight:900,color:'#fff'}}>R</span></div></div>
+      </div>
+    </div>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10}}>
+      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center'}}>
+        <div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:6}}>Pipeline Total</div>
+        <div style={{fontSize:32,fontWeight:800,color:C.text,lineHeight:1}}>{total}</div>
+        <div style={{fontSize:10,color:'#AAA',marginTop:5}}>{pctEnc}% concluído</div>
+      </div>
+      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Concluídos</div><div style={{fontSize:32,fontWeight:800,color:C.text,lineHeight:1}}>{nEnc}</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>{pctEnc}% de conclusão</div></div>
+      <div style={{background:C.white,borderRadius:8,padding:'12px 16px',border:bs,boxShadow:C.shadow,textAlign:'center',display:'flex',flexDirection:'column',alignItems:'center'}}><div style={{fontSize:9,fontWeight:700,color:'#AAA',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:4}}>Em Andamento</div><div style={{fontSize:32,fontWeight:800,color:C.text,lineHeight:1}}>{nAtivo}</div><div style={{fontSize:10,color:'#AAA',marginTop:4}}>{nAtivo} empresas ativas</div></div>
+    </div>
+    <div style={{display:'grid',gridTemplateColumns:'260px 1fr',gap:10,alignItems:'stretch'}}>
+      <div style={{background:C.white,borderRadius:8,border:bs,boxShadow:C.shadow,overflow:'hidden',display:'flex',flexDirection:'column'}}>
+        <div style={{padding:'7px 12px',borderBottom:bs,background:'#F5F5F3',flexShrink:0}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Pipeline por Fase</span></div>
+        <div style={{flex:1,padding:'12px',display:'flex',flexDirection:'column',justifyContent:'space-evenly',gap:6}}>
+          {(()=>{const WIDTHS=[100,72,40];return RTC_FUNNEL_PHASES.map((f,i)=>{const cnt=DIAG_RTC_DATA.filter(d=>d.status===f.key).length;const col=cnt>0?f.bg:'#E8E8E8';const labelCol=cnt>0?f.bg:'#BBBBBB';const w=WIDTHS[i];return(<div key={f.key} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2}}><span style={{fontSize:11,fontWeight:600,color:labelCol,whiteSpace:'nowrap',lineHeight:1.2,textAlign:'center'}}>{f.label}</span><div style={{width:`${w}%`,height:26,background:col,borderRadius:4,display:'flex',alignItems:'center',justifyContent:'center'}}><span style={{fontSize:12,fontWeight:800,color:'#fff'}}>{cnt}</span></div></div>);});})()}
+        </div>
+      </div>
+      <div style={{background:C.white,borderRadius:8,border:bs,boxShadow:C.shadow,overflow:'hidden'}}>
+        <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Em Andamento / Programação</span><span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:800}}>{nAtivo}</span></div>
+        <div style={{overflowX:'auto'}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}><thead><tr><th style={{...TH,width:'30%'}}>Empresa</th><th style={{...THC,width:'15%'}}>Status</th><th style={{...THC,width:'20%'}}>Responsável</th><th style={{...THC,width:'15%'}}>Dt. Início</th><th style={{...THC,width:'15%'}}>Dt. Conclusão</th><th style={{...THC,width:'10%'}}>Aging</th></tr></thead><tbody>{emAndamento.map((d,i)=>{const ag=calcAging(d.dataInicio,d.dataConclusao);return(<tr key={d.id} style={{borderBottom:`1px solid #F2F2F0`,background:i%2===0?C.white:'#FAFAF8'}}><td style={{padding:'7px 10px',fontWeight:700,fontSize:11,color:C.text,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',maxWidth:200}}>{d.empresa}</td><td style={{padding:'7px 10px',textAlign:'center'}}><StBadge status={d.status}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#666'}}>{d.responsavel||'—'}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataInicio)}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataConclusao)}</td><td style={{padding:'7px 10px',textAlign:'center'}}><AgBadge d={ag}/></td></tr>);})}</tbody></table></div>
+        <div style={{padding:'7px 14px',borderTop:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:12,flexWrap:'wrap'}}>
+          {RTC_FUNNEL_PHASES.filter(f=>f.key!=='ENCERRADO').map(f=>(<div key={f.key} style={{display:'flex',alignItems:'center',gap:3}}><div style={{width:7,height:7,borderRadius:'50%',background:f.bg}}/><span style={{fontSize:9,color:'#555'}}>{f.label}</span></div>))}
+        </div>
+      </div>
+    </div>
+    <div style={{background:C.white,borderRadius:8,border:bs,boxShadow:C.shadow,overflow:'hidden'}}>
+      <div style={{padding:'7px 14px',borderBottom:bs,background:'#F5F5F3',display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Concluídos</span><span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:800}}>{nEnc}</span></div>
+      <div style={{overflowX:'auto'}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}><thead><tr><th style={{...TH,width:'30%'}}>Empresa</th><th style={{...THC,width:'20%'}}>Responsável</th><th style={{...THC,width:'15%'}}>Dt. Início</th><th style={{...THC,width:'15%'}}>Dt. Conclusão</th><th style={{...THC,width:'10%'}}>Prazo</th></tr></thead><tbody>{encerrados.map((d,i)=>(<tr key={d.id} style={{borderBottom:`1px solid #F2F2F0`,background:i%2===0?C.white:'#FAFAF8'}}><td style={{padding:'7px 10px',fontWeight:700,fontSize:11,color:C.text,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',maxWidth:200}}>{d.empresa}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#666'}}>{d.responsavel||'—'}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataInicio)}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataConclusao)}</td><td style={{padding:'7px 10px',textAlign:'center'}}>{d.dias!=null?<span style={{fontSize:10,fontWeight:700,background:C.gL,color:C.green,padding:'2px 7px',borderRadius:10}}>{d.dias}d</span>:<span style={{color:'#CCC'}}>—</span>}</td></tr>))}</tbody></table></div>
+    </div>
   </div>);
 }
 
 const TATIANE_AGENDAMENTOS=[
-  {empresa:'TORMANN TRANSPORTES',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-02'},
-  {empresa:'TRANS BOESSIO',perfil:'PME',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-06'},
-  {empresa:'HP DE OLIVEIRA TRANSPORTES',perfil:'PME',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-07'},
+  {empresa:'TORMANN TRANSPORTES',perfil:'ETP',status:'Reuniao Agendada',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-02',decisor:'Agendado',tipo:'Online'},
+  {empresa:'TRANS BOESSIO',perfil:'ETP',status:'Reuniao Agendada',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-06',decisor:'Agendado',tipo:'Online'},
+  {empresa:'HP DE OLIVEIRA TRANSPORTES',perfil:'ETP',status:'Reuniao Agendada',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-07',decisor:'Agendado',tipo:'Online'},
 ];
 const TATIANE_MOV_MAR=[
   {dia:'25/mar',data:'2026-03-25',mov:39},
@@ -486,7 +620,8 @@ function TatianeAtivChart({ligDia,emlDia,whaDia,allDays,dayLbl}){
   const ligAcc=buildSdrEvol(ligDia);
   const emlAcc=buildSdrEvol(emlDia);
   const whaAcc=buildSdrEvol(whaDia);
-  const tatAgendAcum=allDays.map(()=>0);
+  const tatAgendPorDataChart={'2026-04-02':1,'2026-04-06':1,'2026-04-07':1};
+  const tatAgendAcum=(()=>{let acc=0;return allDays.map(d=>{acc+=(tatAgendPorDataChart[d]||0);return acc;});})();
   const totalLig=ligAcc[ligAcc.length-1],totalEml=emlAcc[emlAcc.length-1],totalWha=whaAcc[whaAcc.length-1];
   const totalCanais=totalLig+totalEml+totalWha;
   const totalAg=tatAgendAcum[tatAgendAcum.length-1];
@@ -495,7 +630,7 @@ function TatianeAtivChart({ligDia,emlDia,whaDia,allDays,dayLbl}){
   const faltam=Math.max(0,META_MES-totalCanais);
   const TATIANE_MENSAL=[
     {mes:'Mar/26',key:'2026-03',ligacao:TATIANE_LIG_DIA.reduce((a,b)=>a+b,0),email:TATIANE_EML_DIA.reduce((a,b)=>a+b,0),whatsapp:TATIANE_WHA_DIA.reduce((a,b)=>a+b,0),agendamentosAcum:0},
-    ...(dayLbl==='abr'?[{mes:'Abr/26',key:'2026-04',ligacao:totalLig,email:totalEml,whatsapp:totalWha,agendamentosAcum:0}]:[]),
+    ...(dayLbl==='abr'?[{mes:'Abr/26',key:'2026-04',ligacao:totalLig,email:totalEml,whatsapp:totalWha,agendamentosAcum:totalAg}]:[]),
   ];
   const diarioData=allDays.map((d,i)=>({
     dia:String(parseInt(d.slice(8)))+'/'+dayLbl,
@@ -625,12 +760,17 @@ function ExecEvolutionChart({nome,reunioes,visitas,movArr,metaMov,allDays,dayLab
   );
 }
 
-function SDREvolutionChart(){
+function SDREvolutionChart({ligDia,emlDia,whaDia,dayLbl}){
+  const lbl=dayLbl||'abr';
+  const days=lbl==='mar'?SDR_DAYS_LBL_MAR:SDR_DAYS_LBL;
+  const ligD=ligDia||SDR_LIG_DIA;
+  const emlD=emlDia||SDR_EML_DIA;
+  const whaD=whaDia||SDR_WHA_DIA;
   const[showLig,setShowLig]=useState(true);
   const[showEml,setShowEml]=useState(true);
   const[showWha,setShowWha]=useState(true);
-  const ligAcc=buildSdrEvol(SDR_LIG_DIA),emlAcc=buildSdrEvol(SDR_EML_DIA),whaAcc=buildSdrEvol(SDR_WHA_DIA);
-  const data=SDR_DAYS_LBL.map((dia,i)=>({dia,ligacao:ligAcc[i],email:emlAcc[i],whatsapp:whaAcc[i]}));
+  const ligAcc=buildSdrEvol(ligD),emlAcc=buildSdrEvol(emlD),whaAcc=buildSdrEvol(whaD);
+  const data=days.map((dia,i)=>({dia,ligacao:ligAcc[i],email:emlAcc[i],whatsapp:whaAcc[i]}));
   const COL_L=C.orange,COL_E='#444444',COL_W='#AAAAAA';
   const mkDot=(key,col)=>(props)=>{const{cx,cy,index}=props;const val=data[index][key];const prev=index>0?data[index-1][key]:null;if(val===prev&&index>0)return <circle key={index} cx={cx} cy={cy} r={0} fill="none"/>;return <circle key={index} cx={cx} cy={cy} r={5} fill={col} stroke="#fff" strokeWidth={2}/>;};
   const mkLabel=(key,col)=>(props)=>{const{x,y,index}=props;const val=data[index][key];const prev=index>0?data[index-1][key]:null;if(val===prev&&index>0)return null;return <text key={index} x={x} y={y-10} textAnchor="middle" fill={col} fontSize={10} fontWeight={800} fontFamily={FONT}>{val}</text>;};
@@ -681,7 +821,10 @@ function AcompPage({FL}){
     const pctCMes=e.metaContratosMes>0?Math.min(contrMes/e.metaContratosMes*100,100):0;
     const reunMes=getReunMes(e.nome,mesLimite);
     const metaMensal=mesLimite==='2026-03'?(e.metaVisitasMar||e.metaVisitas):mesLimite==='2026-04'?10:e.metaVisitas;
-    return{...e,reunYTD,faltam,pctR,contrYTD,contrMes,pctC,pctCMes,total:eLeads.length,eLeads,reunMes,metaMensal};
+    const META_BONUS_TRI=3;
+    const contrBonus=eLeads.filter(r=>r[F.ESTADO]==='Vendida'&&r[F.DFECH]&&mo(r[F.DFECH])>='2026-04'&&mo(r[F.DFECH])<='2026-06').length;
+    const pctBonus=META_BONUS_TRI>0?Math.min(contrBonus/META_BONUS_TRI*100,100):0;
+    return{...e,reunYTD,faltam,pctR,contrYTD,contrMes,pctC,pctCMes,total:eLeads.length,eLeads,reunMes,metaMensal,contrBonus,pctBonus,META_BONUS_TRI};
   }),[dados,selMes]);
   return(<div style={{display:'flex',flexDirection:'column',gap:11}}>
     <div style={{background:C.white,borderRadius:8,padding:'12px 16px',boxShadow:C.shadow}}>
@@ -708,6 +851,7 @@ function AcompPage({FL}){
             </div>
             <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Contratos YTD</span><span style={{fontSize:11,fontWeight:700}}>{e.contrYTD}/{e.metaContratos}</span></div><div style={{height:6,background:C.grayL,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${e.pctC}%`,background:e.contrYTD>=e.metaContratos?C.green:e.color,borderRadius:4}}/></div></div>
             <div><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.gray}}>Contratos ({mesLbl})</span><span style={{fontSize:11,fontWeight:700,color:e.contrMes>=e.metaContratosMes?C.green:C.text}}>{e.contrMes}/{e.metaContratosMes}{e.contrMes>=e.metaContratosMes&&<span style={{color:C.green,marginLeft:3}}>✓</span>}</span></div><div style={{height:6,background:C.grayL,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${e.pctCMes}%`,background:e.contrMes>=e.metaContratosMes?C.green:e.color,borderRadius:4,opacity:0.75}}/></div></div>
+            <div style={{borderTop:`1px dashed ${C.border}`,paddingTop:8}}><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:11,color:C.teal,fontWeight:600}}>Bônus Trimestral <span style={{fontSize:9,fontWeight:400,color:C.gray}}>(Abr-Jun)</span></span><span style={{fontSize:11,fontWeight:700,color:e.contrBonus>=e.META_BONUS_TRI?C.green:C.teal}}>{e.contrBonus}/{e.META_BONUS_TRI}{e.contrBonus>=e.META_BONUS_TRI&&<span style={{color:C.green,marginLeft:3}}>🏆</span>}</span></div><div style={{height:6,background:C.grayL,borderRadius:4,overflow:'hidden'}}><div style={{height:'100%',width:`${e.pctBonus}%`,background:e.contrBonus>=e.META_BONUS_TRI?C.green:C.teal,borderRadius:4,opacity:0.85}}/></div><div style={{marginTop:3,fontSize:10,color:C.gray}}>Faltam <strong style={{color:Math.max(0,e.META_BONUS_TRI-e.contrBonus)>0?C.red:C.green}}>{Math.max(0,e.META_BONUS_TRI-e.contrBonus)}</strong></div></div>
           </div>);
         })}
       </div>
@@ -723,11 +867,19 @@ function AcompPage({FL}){
   </div>);
 }
 
-function InternoPage(){
+function InternoPage({dateIni,dateFim}){
   const COL_AG='#1B5E20';
   const[subTab,setSubTab]=useState('overview');
   const[selMesInt,setSelMesInt]=useState('2026-04');
-  const isAbr=selMesInt==='2026-04';
+  // Se filtro global de data estiver ativo, usa o mês da data inicial
+  const mesFiltrado=useMemo(()=>{
+    if(dateIni&&dateIni.startsWith('2026-03'))return'2026-03';
+    if(dateIni&&dateIni.startsWith('2026-04'))return'2026-04';
+    if(dateFim&&dateFim.startsWith('2026-03'))return'2026-03';
+    if(dateFim&&dateFim.startsWith('2026-04'))return'2026-04';
+    return selMesInt;
+  },[dateIni,dateFim,selMesInt]);
+  const isAbr=mesFiltrado==='2026-04';
   const ligDia=isAbr?TATIANE_LIG_DIA_ABR:TATIANE_LIG_DIA;
   const emlDia=isAbr?TATIANE_EML_DIA_ABR:TATIANE_EML_DIA;
   const whaDia=isAbr?TATIANE_WHA_DIA_ABR:TATIANE_WHA_DIA;
@@ -740,9 +892,9 @@ function InternoPage(){
   const totalCanais=totalLig+totalEml+totalWha;
   const nEfetivas=isAbr?38:13;
   const diasReg=allDaysInt.filter((_,i)=>movDia[i]>0).length;
-  const totalAgend=0; // agendamentos da Tatiane - a definir
-  const totalReal=0;
-  const txConv=0;
+  const totalAgend=TATIANE_AGENDAMENTOS.length;
+  const totalReal=TATIANE_AGENDAMENTOS.filter(d=>d.status===STATUS_REALIZADA).length;
+  const txConv=totalAgend>0?Math.round(totalReal/totalAgend*100):0;
   const canalInfo=[
     {canal:'Ligacao',qtd:totalLig,pct:totalCanais>0?Math.round(totalLig/totalCanais*100):0,fill:C.orange,icon:'📞'},
     {canal:'E-mail', qtd:totalEml,pct:totalCanais>0?Math.round(totalEml/totalCanais*100):0,fill:'#444444',icon:'✉️'},
@@ -750,13 +902,21 @@ function InternoPage(){
   ];
   // empresas contactadas pela Tatiane
   const empresasTat=useMemo(()=>{
-    const nomes=['PSM TRANSPORTES','PRESTES E VARGAS TRANSPORTES','NOMI E SOUZA TRANSPORTES','RDL LOGISTICA','TRANS FELIPPI','PEPECE TRANSPORTES','RODOMAXLOG','SAO JOAO ENCOMENDAS','MRX TRANSPORTES','TRANS TAVARES LOGISTICA','RV TRANSPORTES','RODOBECKER','RODO W CARLI','SILO FORTE TRANSPORTES','RODO ALDO','NEHRING TRANSPORTES','TRANSIVANDO TRANSPORTES','TRANSFOGUINHO TRANSPORTES','TANQUESUL TRANSPORTES','FARMLOG','SULCARGAS TRANSPORTES','SUL GRAOS TRANSPORTES','SEIKA TRANSPORTES','SALVADORI BENINI','SAJOB OPERACOES','ROSCHILDT TRANSPORTES','PAZINI GATTERMANN','NASA TRANSPORTES','TR BODINHO','TRANS OTTO','STURMER TAMANINI','TRANS MIGUEL','RODO W CARLI MAPEAMENTO'];
-    return nomes;
+    const nomes=[
+      // Mar/26
+      'PSM TRANSPORTES','PRESTES E VARGAS TRANSPORTES','NOMI E SOUZA TRANSPORTES','RDL LOGISTICA','TRANS FELIPPI','PEPECE TRANSPORTES','RODOMAXLOG','SAO JOAO ENCOMENDAS','MRX TRANSPORTES','TRANS TAVARES LOGISTICA','RV TRANSPORTES','RODOBECKER','RODO W CARLI','SILO FORTE TRANSPORTES','RODO ALDO','NEHRING TRANSPORTES','TRANSIVANDO TRANSPORTES','TRANSFOGUINHO TRANSPORTES','TANQUESUL TRANSPORTES','FARMLOG','SULCARGAS TRANSPORTES','SUL GRAOS TRANSPORTES','SEIKA TRANSPORTES','SALVADORI BENINI','SAJOB OPERACOES','ROSCHILDT TRANSPORTES','PAZINI GATTERMANN','NASA TRANSPORTES','TR BODINHO','TRANS OTTO','STURMER TAMANINI','TRANS MIGUEL','RODO W CARLI MAPEAMENTO',
+      // 06/abr
+      'JCLOG TRANSPORTE','RODOBECKER COMERCIO DE CEREAIS E TRANSPORTES','FRITZ EXPRESS','ENGEL TRANSPORTES','ASAVEL TRANSPORTES DE CARGAS','AGROCARGAS TRANSPORTE E COMERCIO','EXTRA TRANSPORTES','JGC TRANSPORTES','GIRO TRANSPORTES RODOVIARIOS LTDA','EXPRESUL TRANSPORTES','SANTA LOG OPERACOES LOGISTICAS','SANTA MONICA','AHJ TRANSPORTES RODOVIARIOS LTDA','TRANS BOESSIO','FIDUCIA TRANSPORTES','FILIPPINI & CADORE','RR MUNARETTO TRANSPORTES','FM TRANSPORTES','LUMACEL LOGISTICA E TRANSPORTE','SILPAR TRANSPORTE RODOVIARIO LTDA','MUTTONI TRANSPORTES','HP DE OLIVEIRA TRANSPORTES','REBINIC MADEIRAS','SALVADORI BENINI TRANSPORTES','ADUPAMPA COMERCIO E DISTRIBUICAO DE FERTILIZANTES','IMPOEX-IMPORTADORA E EXPORTADORA','CONTINENTAL EXPRESS TRANSPORTES','MAVE TRANSPORTES',
+      // 07/abr
+      'KTL TRANSPORTE E COMERCIO','DINAMICA TRANSPORTES','MANN TRANSPORTES','KWS DISTRIBUIDORA DE ALIMENTOS','BRANCHER TRANSPORTES RODOVIARIOS','LOUROSS TRANSPORTES','CRUZANDO TRANSPORTES','TRANSPORTADORA FERREIRA JUNIOR','BONIFACIO TRANSPORTE DE CARGA',
+    ];
+    return [...new Set(nomes)];
   },[]);
   const ligAcc=buildSdrEvol(ligDia);
   const emlAcc=buildSdrEvol(emlDia);
   const whaAcc=buildSdrEvol(whaDia);
-  const tatAgendAcum=allDaysInt.map(()=>0);
+  const tatAgendPorData={'2026-04-02':1,'2026-04-06':1,'2026-04-07':1};
+  const tatAgendAcum=(()=>{let acc=0;return allDaysInt.map(d=>{acc+=(tatAgendPorData[d]||0);return acc;});})();
   const diaMap=allDaysInt.map((d,i)=>({
     dia:String(parseInt(d.slice(8)))+'/'+dayLblInt,
     ligacao:ligDia[i]>0?ligDia[i]:0,
@@ -784,10 +944,11 @@ function InternoPage(){
       </div>
       <div style={{display:'flex',alignItems:'center',gap:8,marginLeft:16}}>
         <span style={{fontSize:10,fontWeight:700,color:'rgba(255,255,255,0.75)',textTransform:'uppercase'}}>Mês</span>
-        <select value={selMesInt} onChange={e=>setSelMesInt(e.target.value)} style={{padding:'5px 10px',borderRadius:6,border:'1.5px solid rgba(255,255,255,0.3)',background:'rgba(255,255,255,0.15)',color:C.white,fontSize:11,fontFamily:FONT,outline:'none'}}>
+        <select value={mesFiltrado} onChange={e=>setSelMesInt(e.target.value)} style={{padding:'5px 10px',borderRadius:6,border:'1.5px solid rgba(255,255,255,0.3)',background:'rgba(255,255,255,0.15)',color:C.white,fontSize:11,fontFamily:FONT,outline:'none'}}>
           <option value="2026-03" style={{color:C.text,background:C.white}}>Mar/26</option>
           <option value="2026-04" style={{color:C.text,background:C.white}}>Abr/26</option>
         </select>
+        {(dateIni||dateFim)&&<span style={{fontSize:9,color:'rgba(255,255,0,0.8)',fontWeight:700}}>⚠ Filtro ativo</span>}
       </div>
       <div style={{marginLeft:'auto',display:'flex',gap:8,flexWrap:'wrap'}}>
         {canalInfo.map(d=>(<div key={d.canal} style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>{d.icon}</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{d.qtd}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>{d.canal}</div></div>))}
@@ -979,14 +1140,14 @@ function InternoPage(){
               <thead><tr style={{background:C.orange}}>
                 <th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center',width:36}}>#</th>
                 <th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'left'}}>Empresa</th>
-                <th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Tamanho</th>
+                <th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Decisor</th>
+                <th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Tipo</th>
+                <th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Data</th>
                 <th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Status</th>
-                <th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>CRM</th>
-                <th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Motivo de Perda</th>
               </tr></thead>
               <tbody>
                 {tatTotalAgend===0&&(<tr><td colSpan={6} style={{padding:'24px',textAlign:'center',color:C.gray,fontSize:12}}>Nenhum agendamento registrado ainda.</td></tr>)}
-                {TATIANE_AGENDAMENTOS.map((d,i)=>{const isReal=d.status===STATUS_REALIZADA;const stColor=isReal?C.green:C.orange;const stBg=isReal?C.gL:C.oL;const stLabel=isReal?'Reuniao Realizada':'Reuniao Agendada';const crmColor=d.crm==='Perdida'?C.red:isReal?C.green:C.orange;const crmBg=d.crm==='Perdida'?C.rL:isReal?C.gL:C.oL;return(<tr key={i} style={{...tRow(i),fontSize:12}}><td style={{padding:'9px 12px',color:C.gray,fontWeight:700,textAlign:'center'}}>{i+1}</td><td style={{padding:'9px 12px',fontWeight:700,color:C.text}}>{d.empresa}</td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={d.perfil} color={d.perfil==='ETP'?C.blue:C.orange} bg={d.perfil==='ETP'?C.bL:C.oL}/></td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={stLabel} color={stColor} bg={stBg}/></td><td style={{padding:'9px 12px',textAlign:'center'}}><div style={{display:'flex',flexDirection:'column',gap:3,alignItems:'center'}}><Badge label={d.crm} color={crmColor} bg={crmBg}/>{d.etapaCrm&&<Badge label={d.etapaCrm} color={C.blue} bg={C.bL}/>}</div></td><td style={{padding:'9px 12px',textAlign:'center'}}>{d.motivo?<Badge label={d.motivo} color={C.red} bg={C.rL}/>:<span style={{color:C.gray}}>-</span>}</td></tr>);})}
+                {TATIANE_AGENDAMENTOS.map((d,i)=>{const isReal=d.status===STATUS_REALIZADA;const stColor=isReal?C.green:C.orange;const stBg=isReal?C.gL:C.oL;const stLabel=isReal?'Reuniao Realizada':'Reuniao Agendada';const dataFmt=d.dataAgend?d.dataAgend.split('-').reverse().slice(0,2).join('/'):'-';return(<tr key={i} style={{...tRow(i),fontSize:12}}><td style={{padding:'9px 12px',color:C.gray,fontWeight:700,textAlign:'center'}}>{i+1}</td><td style={{padding:'9px 12px',fontWeight:700,color:C.text}}>{d.empresa}</td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={d.decisor||'—'} color={C.orange} bg={C.oL}/></td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={d.tipo||'—'} color={C.blue} bg={C.bL}/></td><td style={{padding:'9px 12px',textAlign:'center',fontWeight:700,color:C.gray}}>{dataFmt}</td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={stLabel} color={stColor} bg={stBg}/></td></tr>);})}
               </tbody>
             </table>
           </div>
@@ -1002,13 +1163,14 @@ function InternoPage(){
 
 const COL_AGEND_ACUM='#1B5E20';
 
-function SDRAtivChart({diaMap,totalAgend,mkAgendDot,mkAgendLabel}){
+function SDRAtivChart({diaMap,totalAgend,mkAgendDot,mkAgendLabel,mesLbl}){
   const[visMode,setVisMode]=useState('diario');
   const btnStyle=(active)=>({padding:'4px 14px',borderRadius:20,border:`1.5px solid ${active?C.orange:C.border}`,background:active?C.orange:C.white,color:active?C.white:C.gray,fontSize:11,fontWeight:600,cursor:'pointer',fontFamily:FONT});
   const mensalData=SDR_MENSAL.map(m=>({dia:m.mes,ligacao:m.ligacao,email:m.email,whatsapp:m.whatsapp,agendamentosAcum:m.agendamentos}));
   const chartData=visMode==='diario'?diaMap:mensalData;
   const maxAgend=visMode==='diario'?totalAgend+2:Math.max(...SDR_MENSAL.map(m=>m.agendamentos))+2;
   const barSize=visMode==='mensal'?80:40;
+  const lbl=mesLbl||'Abr/26';
   return(
     <Card title="Atividades por Dia — por Canal + Agendamentos Acumulados">
       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:10,flexWrap:'wrap',gap:8}}>
@@ -1016,7 +1178,7 @@ function SDRAtivChart({diaMap,totalAgend,mkAgendDot,mkAgendLabel}){
           <div style={{width:20,height:2.5,background:COL_AGEND_ACUM,borderRadius:2}}/><div style={{width:7,height:7,borderRadius:'50%',background:COL_AGEND_ACUM}}/><span style={{fontSize:10,fontWeight:700,color:COL_AGEND_ACUM}}>Agendamentos Acumulados (eixo dir.)</span>
         </div>
         <div style={{display:'flex',gap:6}}>
-          <button onClick={()=>setVisMode('diario')} style={btnStyle(visMode==='diario')}>📅 Diário (Abr/26)</button>
+          <button onClick={()=>setVisMode('diario')} style={btnStyle(visMode==='diario')}>📅 Diário ({lbl})</button>
           <button onClick={()=>setVisMode('mensal')} style={btnStyle(visMode==='mensal')}>📊 Compilado Mensal</button>
         </div>
       </div>
@@ -1040,12 +1202,24 @@ function SDRAtivChart({diaMap,totalAgend,mkAgendDot,mkAgendLabel}){
 
 function SDRPage({dateIni,dateFim}){
   const[subSDR,setSubSDR]=useState('overview');
+  const[selMesSDR,setSelMesSDR]=useState('2026-04');
+  const isAbrSDR=selMesSDR==='2026-04';
+  // Dados por mês
+  const SDR_MOV_MES=isAbrSDR?SDR_MOV:SDR_MOV_MAR;
+  const SDR_ATIV_MES=isAbrSDR?SDR_ATIV:SDR_ATIV_MAR;
+  const SDR_DAYS_LBL_ATUAL=isAbrSDR?SDR_DAYS_LBL:SDR_DAYS_LBL_MAR;
+  const SDR_LIG_ATUAL=isAbrSDR?SDR_LIG_DIA:SDR_LIG_DIA_MAR;
+  const SDR_EML_ATUAL=isAbrSDR?SDR_EML_DIA:SDR_EML_DIA_MAR;
+  const SDR_WHA_ATUAL=isAbrSDR?SDR_WHA_DIA:SDR_WHA_DIA_MAR;
+  const SDR_ATIV_DATES_ATUAL=isAbrSDR?SDR_ATIV_DATES:SDR_ATIV_DATES_MAR;
+  const SDR_AGEND_ACUM_ATUAL=isAbrSDR?SDR_AGEND_ACUM:SDR_AGEND_ACUM_MAR;
   const hasFilter=dateIni||dateFim;
-  const movFilt=useMemo(()=>hasFilter?SDR_MOV.filter(d=>inRange(d.data,dateIni,dateFim)):SDR_MOV,[dateIni,dateFim,hasFilter]);
-  const ativNorm=useMemo(()=>SDR_ATIV.map(d=>({...d})),[]);
+  const movFilt=useMemo(()=>hasFilter?SDR_MOV_MES.filter(d=>inRange(d.data,dateIni,dateFim)):SDR_MOV_MES,[dateIni,dateFim,hasFilter,SDR_MOV_MES]);
+  const ativNorm=useMemo(()=>SDR_ATIV_MES.map(d=>({...d})),[SDR_ATIV_MES]);
   const ativFilt=useMemo(()=>hasFilter?ativNorm.filter(d=>inRange(d.data,dateIni,dateFim)):ativNorm,[ativNorm,dateIni,dateFim,hasFilter]);
   const totalMov=movFilt.reduce((a,d)=>a+d.mov,0),mediaMov=movFilt.length>0?+(totalMov/movFilt.length).toFixed(1):0;
-  const totalAgend=SDR_AGENDAMENTOS.length,totalReal=SDR_AGENDAMENTOS.filter(d=>d.status===STATUS_REALIZADA).length;
+  const totalAgend=isAbrSDR?SDR_AGENDAMENTOS.length:SDR_AGEND_MAR;
+  const totalReal=isAbrSDR?SDR_AGENDAMENTOS.filter(d=>d.status===STATUS_REALIZADA).length:SDR_AGEND_MAR;
   const txConv=totalAgend>0?Math.round(totalReal/totalAgend*100):0;
   const nLig=ativFilt.filter(d=>d.canal==='ligacao').length,nEmail=ativFilt.filter(d=>d.canal==='email').length,nWhats=ativFilt.filter(d=>d.canal==='whatsapp').length;
   const nEfetivas=ativFilt.filter(d=>d.canal==='ligacao'&&EFETIVAS.includes(d.empresa)).length;
@@ -1056,10 +1230,10 @@ function SDRPage({dateIni,dateFim}){
   const diaMap=useMemo(()=>{
     const dias=[...new Set(ativFilt.map(d=>d.data))].sort();
     return dias.map(dia=>{
-      const idx=SDR_ATIV_DATES.indexOf(dia);
-      return({dia:dia.split('-').reverse().slice(0,2).join('/'),ligacao:ativFilt.filter(d=>d.data===dia&&d.canal==='ligacao').length||undefined,email:ativFilt.filter(d=>d.data===dia&&d.canal==='email').length||undefined,whatsapp:ativFilt.filter(d=>d.data===dia&&d.canal==='whatsapp').length||undefined,agendamentosAcum:idx>=0?SDR_AGEND_ACUM[idx]:null});
+      const idx=SDR_ATIV_DATES_ATUAL.indexOf(dia);
+      return({dia:dia.split('-').reverse().slice(0,2).join('/'),ligacao:ativFilt.filter(d=>d.data===dia&&d.canal==='ligacao').length||undefined,email:ativFilt.filter(d=>d.data===dia&&d.canal==='email').length||undefined,whatsapp:ativFilt.filter(d=>d.data===dia&&d.canal==='whatsapp').length||undefined,agendamentosAcum:idx>=0?SDR_AGEND_ACUM_ATUAL[idx]:null});
     });
-  },[ativFilt]);
+  },[ativFilt,SDR_ATIV_DATES_ATUAL,SDR_AGEND_ACUM_ATUAL]);
   const BONIF=[{min:1,max:20,valor:20,cenario:400},{min:21,max:40,valor:25,cenario:1000},{min:41,max:60,valor:30,cenario:1800}];
   const faixa=BONIF.find(b=>totalAgend>=b.min&&totalAgend<=b.max)||null;
   const proxFaixa=faixa?BONIF.find(b=>b.min>faixa.min):BONIF[0];
@@ -1073,7 +1247,14 @@ function SDRPage({dateIni,dateFim}){
   return(<div style={{display:'flex',flexDirection:'column',gap:11,fontFamily:FONT}}>
     <div style={{background:C.gray,borderRadius:8,padding:'16px 20px',boxShadow:C.shadow,display:'flex',alignItems:'center',gap:16,flexWrap:'wrap'}}>
       <div style={{width:48,height:48,borderRadius:'50%',background:C.white,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><span style={{fontSize:16,fontWeight:800,color:C.gray}}>FV</span></div>
-      <div><div style={{color:'rgba(255,255,255,0.75)',fontSize:10,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em'}}>SDR</div><div style={{color:C.white,fontSize:20,fontWeight:800}}>Fabiana Vaz</div><div style={{color:'rgba(255,255,255,0.7)',fontSize:11}}>Inicio: 01/04/2026 — {movFilt.length} dias registrados</div></div>
+      <div><div style={{color:'rgba(255,255,255,0.75)',fontSize:10,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em'}}>SDR</div><div style={{color:C.white,fontSize:20,fontWeight:800}}>Fabiana Vaz</div><div style={{color:'rgba(255,255,255,0.7)',fontSize:11}}>Inicio: {isAbrSDR?'01/04/2026':'11/03/2026'} — {movFilt.length} dias registrados</div></div>
+      <div style={{display:'flex',alignItems:'center',gap:8,marginLeft:16}}>
+        <span style={{fontSize:10,fontWeight:700,color:'rgba(255,255,255,0.75)',textTransform:'uppercase'}}>Mês</span>
+        <select value={selMesSDR} onChange={e=>setSelMesSDR(e.target.value)} style={{padding:'5px 10px',borderRadius:6,border:'1.5px solid rgba(255,255,255,0.3)',background:'rgba(255,255,255,0.15)',color:C.white,fontSize:11,fontFamily:FONT,outline:'none'}}>
+          <option value="2026-03" style={{color:C.text,background:C.white}}>Mar/26</option>
+          <option value="2026-04" style={{color:C.text,background:C.white}}>Abr/26</option>
+        </select>
+      </div>
       <div style={{marginLeft:'auto',display:'flex',gap:8,flexWrap:'wrap'}}>
         {canalInfo.map(d=>(<div key={d.canal} style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>{d.icon}</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{d.qtd}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>{d.canal}</div></div>))}
         <div style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>✅</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{nEfetivas}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>Lig. Efetivas</div></div>
@@ -1087,7 +1268,7 @@ function SDRPage({dateIni,dateFim}){
       <div style={{padding:'16px',display:'flex',flexDirection:'column',gap:11}}>
         {subSDR==='overview'&&(<div style={{display:'flex',flexDirection:'column',gap:11}}>
           <div style={{display:'flex',gap:9}}><KPICard title="Total Atividades" value={totalCanais} icon="⚡" note={movFilt.length+' dias ativos'}/><KPICard title="Ligacoes" value={nLig} icon="📞" note={canalInfo[0].pct+'% do total'}/><KPICard title="E-mails" value={nEmail} icon="✉️" note={canalInfo[1].pct+'% do total'}/><KPICard title="Empresas" value={empresaMap.length} icon="🏢"/><KPICard title="Agendamentos" value={totalAgend} icon="📅" note={'Meta: '+META_AGEND_MES}/></div>
-          <SDRAtivChart diaMap={diaMap} totalAgend={totalAgend} mkAgendDot={mkAgendDot} mkAgendLabel={mkAgendLabel}/>
+          <SDRAtivChart diaMap={diaMap} totalAgend={totalAgend} mkAgendDot={mkAgendDot} mkAgendLabel={mkAgendLabel} mesLbl={isAbrSDR?'Abr/26':'Mar/26'}/>
           {(()=>{
             const METAS_SDR=[20,40,60];
             const COL_M1=C.orange,COL_M2=C.gray,COL_M3='#AAAAAA';
@@ -1115,7 +1296,7 @@ function SDRPage({dateIni,dateFim}){
           })()}
           <div style={{display:'grid',gridTemplateColumns:'1fr 1.8fr',gap:11}}>
             <Card title="Mix de Canais"><div style={{display:'flex',flexDirection:'column',gap:10,marginTop:4}}>{canalInfo.map(d=>(<div key={d.canal}><div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}><span style={{fontSize:12,fontWeight:600}}>{d.icon} {d.canal}</span><span><strong style={{color:d.fill,fontSize:13}}>{d.qtd}</strong><span style={{fontSize:11,color:C.gray}}> ({d.pct}%)</span></span></div><div style={{height:12,background:C.grayL,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${d.pct}%`,background:d.fill,borderRadius:6}}/></div></div>))}</div></Card>
-            <SDREvolutionChart/>
+            <SDREvolutionChart ligDia={SDR_LIG_ATUAL} emlDia={SDR_EML_ATUAL} whaDia={SDR_WHA_ATUAL} dayLbl={isAbrSDR?'abr':'mar'}/>
           </div>
         </div>)}
         {subSDR==='canais'&&(<div style={{display:'flex',flexDirection:'column',gap:11}}>
@@ -1157,7 +1338,7 @@ function SDRPage({dateIni,dateFim}){
               {(()=>{const META_MES=500;const atual=movFilt.reduce((a,d)=>a+d.mov,0);const pct=Math.min(Math.round(atual/META_MES*100),100);const faltam=Math.max(0,META_MES-atual);return(<div style={{marginTop:10,padding:'12px 14px',background:C.grayL,borderRadius:8}}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}}><span style={{fontSize:11,fontWeight:700,color:C.text}}>Meta Mensal de Contatos (Abr/26)</span><div style={{display:'flex',gap:10,alignItems:'center'}}><span style={{fontSize:12,fontWeight:800,color:C.orange}}>{atual}</span><span style={{fontSize:11,color:C.gray}}>/ {META_MES}</span><span style={{fontSize:11,fontWeight:700,color:pct>=100?C.green:C.gray}}>{pct}%</span></div></div><div style={{height:10,background:C.border,borderRadius:6,overflow:'hidden'}}><div style={{height:'100%',width:`${pct}%`,background:pct>=100?C.green:C.orange,borderRadius:6}}/></div><div style={{display:'flex',justifyContent:'space-between',marginTop:5}}><span style={{fontSize:10,color:C.gray}}>125 interacoes/semana - 25/dia</span><span style={{fontSize:10,color:faltam>0?C.red:C.green,fontWeight:600}}>{faltam>0?'Faltam '+faltam+' contatos':'Meta atingida!'}</span></div></div>);})()}
             </Card>
           </div>
-          <Card title={"Agendamentos Abril - "+SDR_AGENDAMENTOS.length}><div style={{overflowX:'auto',borderRadius:5,border:`1px solid ${C.border}`}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:12,fontFamily:FONT}}><thead><tr style={{background:C.orange}}><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center',width:36}}>#</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'left'}}>Empresa</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Tamanho</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Status</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>CRM</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Motivo de Perda</th></tr></thead><tbody>{SDR_AGENDAMENTOS.map((d,i)=>{const isReal=d.status===STATUS_REALIZADA;const stColor=isReal?C.green:C.orange;const stBg=isReal?C.gL:C.oL;const stLabel=isReal?'Reuniao Realizada':'Reuniao Agendada';const crmColor=d.crm==='Perdida'?C.red:isReal?C.green:C.orange;const crmBg=d.crm==='Perdida'?C.rL:isReal?C.gL:C.oL;return(<tr key={i} style={{...tRow(i),fontSize:12}}><td style={{padding:'9px 12px',color:C.gray,fontWeight:700,textAlign:'center'}}>{i+1}</td><td style={{padding:'9px 12px',fontWeight:700,color:C.text}}>{d.empresa}</td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={d.perfil} color={d.perfil==='ETP'?C.blue:C.orange} bg={d.perfil==='ETP'?C.bL:C.oL}/></td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={stLabel} color={stColor} bg={stBg}/></td><td style={{padding:'9px 12px',textAlign:'center'}}><div style={{display:'flex',flexDirection:'column',gap:3,alignItems:'center'}}><Badge label={d.crm} color={crmColor} bg={crmBg}/>{d.etapaCrm&&<Badge label={d.etapaCrm} color={C.blue} bg={C.bL}/>}</div></td><td style={{padding:'9px 12px',textAlign:'center'}}>{d.motivo?<Badge label={d.motivo} color={C.red} bg={C.rL}/>:<span style={{color:C.gray}}>-</span>}</td></tr>);})}</tbody></table></div><div style={{marginTop:12}}><PBar label={'Meta mensal ('+META_AGEND_MES+')'} actual={totalAgend} meta={META_AGEND_MES}/></div></Card>
+          <Card title={(isAbrSDR?"Agendamentos Abril - "+SDR_AGENDAMENTOS.length:"Agendamentos Março - "+SDR_AGEND_MAR)}><div style={{overflowX:'auto',borderRadius:5,border:`1px solid ${C.border}`}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:12,fontFamily:FONT}}><thead><tr style={{background:C.orange}}><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center',width:36}}>#</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'left'}}>Empresa</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Tamanho</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Status</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>CRM</th><th style={{padding:'9px 12px',color:C.white,fontWeight:700,fontSize:10,textTransform:'uppercase',textAlign:'center'}}>Motivo de Perda</th></tr></thead><tbody>{isAbrSDR?SDR_AGENDAMENTOS.map((d,i)=>{const isReal=d.status===STATUS_REALIZADA;const stColor=isReal?C.green:C.orange;const stBg=isReal?C.gL:C.oL;const stLabel=isReal?'Reuniao Realizada':'Reuniao Agendada';const crmColor=d.crm==='Perdida'?C.red:isReal?C.green:C.orange;const crmBg=d.crm==='Perdida'?C.rL:isReal?C.gL:C.oL;return(<tr key={i} style={{...tRow(i),fontSize:12}}><td style={{padding:'9px 12px',color:C.gray,fontWeight:700,textAlign:'center'}}>{i+1}</td><td style={{padding:'9px 12px',fontWeight:700,color:C.text}}>{d.empresa}</td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={d.perfil} color={d.perfil==='ETP'?C.blue:C.orange} bg={d.perfil==='ETP'?C.bL:C.oL}/></td><td style={{padding:'9px 12px',textAlign:'center'}}><Badge label={stLabel} color={stColor} bg={stBg}/></td><td style={{padding:'9px 12px',textAlign:'center'}}><div style={{display:'flex',flexDirection:'column',gap:3,alignItems:'center'}}><Badge label={d.crm} color={crmColor} bg={crmBg}/>{d.etapaCrm&&<Badge label={d.etapaCrm} color={C.blue} bg={C.bL}/>}</div></td><td style={{padding:'9px 12px',textAlign:'center'}}>{d.motivo?<Badge label={d.motivo} color={C.red} bg={C.rL}/>:<span style={{color:C.gray}}>-</span>}</td></tr>);}):(<tr><td colSpan={6} style={{padding:'24px',textAlign:'center',color:C.gray,fontSize:12}}>Março/26: {SDR_AGEND_MAR} agendamentos realizados (detalhamento não disponível).</td></tr>)}</tbody></table></div><div style={{marginTop:12}}><PBar label={'Meta mensal ('+META_AGEND_MES+')'} actual={totalAgend} meta={META_AGEND_MES}/></div></Card>
         </div>)}
         {subSDR==='bonificacao'&&(<div style={{display:'flex',flexDirection:'column',gap:11}}>
           <Card title="Bonificacao por Agendamentos - Abril/2026"><div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
@@ -1174,7 +1355,166 @@ function SDRPage({dateIni,dateFim}){
   </div>);
 }
 
-const TABS=[{id:'acomp',label:'Executivos Externos'},{id:'interno',label:'Executivos Internos'},{id:'sdr',label:'SDR'},{id:'diag',label:'Diagnostico'},{id:'parcerias',label:'Parcerias'}];
+// ── FUNIL DE VENDAS ─────────────────────────────────
+// Mapa de fonte e indicado por (do CRM / Parcerias)
+const FUNIL_EXTRA={
+  'BENDO LOGISTICA - ETP':       {fonte:'Prospecção Ativa',indicado:''},
+  'GUILHERME ATACAMA - ETP':     {fonte:'Prospecção Ativa',indicado:''},
+  'NATAL TRANSPORTES - PME':     {fonte:'Prospecção Ativa',indicado:''},
+  'PIANETTO TRANSPORTES - ETP':  {fonte:'Prospecção Ativa',indicado:''},
+  'RODOCELL TRANSPORTE - ETP':   {fonte:'Indicação por Clientes',indicado:''},
+  'S E TRANSPORTES - ETP':       {fonte:'Feiras e Eventos',indicado:''},
+  'TRILHA TRANSPORTES - PME':    {fonte:'Prospecção Ativa',indicado:''},
+  'VITORIA PROVEDORA - ETP':     {fonte:'Prospecção Ativa',indicado:''},
+};
+
+const ETAPAS_FUNIL=['Apresentacao','Proposta','Negociacao','Fechamento'];
+const ETAPA_COLOR={'Apresentacao':'#CC6C00','Proposta':'#E65100','Negociacao':'#C62828','Fechamento':'#2E7D32'};
+const ETAPA_BG={'Apresentacao':'#FFF3E0','Proposta':'#FFF0E0','Negociacao':'#FFEBEE','Fechamento':'#E8F5E9'};
+
+function FunilPage({FL}){
+  const hoje=new Date('2026-04-08');
+  const[selEtapa,setSelEtapa]=useState('Todas');
+  const[selResp,setSelResp]=useState('Todos');
+  const[sortCol,setSortCol]=useState('parado');
+  const[sortAsc,setSortAsc]=useState(false);
+
+  const leads=useMemo(()=>{
+    return RAW
+      .filter(r=>ETAPAS_FUNIL.includes(r[F.ETAPA])&&r[F.ESTADO]==='Em Andamento')
+      .map(r=>{
+        const nomeClean=r[F.NOME];
+        const extra=FUNIL_EXTRA[nomeClean]||{};
+        // Cruzar com parcerias para fonte e indicado
+        const parcMatch=PARCERIAS_RAW.find(p=>nomeClean.toUpperCase().includes(p[P.EMPRESA].toUpperCase().slice(0,12))||p[P.EMPRESA].toUpperCase().includes(nomeClean.toUpperCase().slice(0,12)));
+        const fonte=extra.fonte||parcMatch?.[P.FONTE]||'—';
+        const indicado=extra.indicado||(parcMatch&&parcMatch[P.PARCEIRO]&&parcMatch[P.PARCEIRO]!=='Sem parceiro'?parcMatch[P.PARCEIRO]:'—');
+        // Último contato: usar DREUNIAO se disponível, senão DPRIMEIRO
+        const ultContato=r[F.DREUNIAO]||r[F.DPRIMEIRO]||null;
+        const diasParado=ultContato?Math.floor((hoje-new Date(ultContato))/864e5):null;
+        return{
+          id:r[F.ID],nome:nomeClean,etapa:r[F.ETAPA],resp:r[F.RESP],
+          perfil:r[F.PERFIL],fonte,indicado,
+          dprimeiro:r[F.DPRIMEIRO],ultContato,diasParado,
+        };
+      });
+  },[FL]);
+
+  const responsaveis=useMemo(()=>['Todos',...[...new Set(leads.map(r=>r.resp))].sort()],[leads]);
+
+  const filtered=useMemo(()=>{
+    let d=leads;
+    if(selEtapa!=='Todas')d=d.filter(r=>r.etapa===selEtapa);
+    if(selResp!=='Todos')d=d.filter(r=>r.resp===selResp);
+    return [...d].sort((a,b)=>{
+      let va=a[sortCol],vb=b[sortCol];
+      if(sortCol==='parado'){va=a.diasParado??9999;vb=b.diasParado??9999;}
+      if(sortCol==='nome'){va=a.nome;vb=b.nome;}
+      if(typeof va==='string')return sortAsc?va.localeCompare(vb):vb.localeCompare(va);
+      return sortAsc?va-vb:vb-va;
+    });
+  },[leads,selEtapa,selResp,sortCol,sortAsc]);
+
+  const toggleSort=(col)=>{if(sortCol===col)setSortAsc(v=>!v);else{setSortCol(col);setSortAsc(false);}};
+
+  // KPIs
+  const total=filtered.length;
+  const criticos=filtered.filter(r=>r.diasParado!=null&&r.diasParado>30).length;
+  const atencao=filtered.filter(r=>r.diasParado!=null&&r.diasParado>14&&r.diasParado<=30).length;
+  const recentes=filtered.filter(r=>r.diasParado!=null&&r.diasParado<=14).length;
+  const mediaDias=filtered.filter(r=>r.diasParado!=null).length>0?Math.round(filtered.filter(r=>r.diasParado!=null).reduce((a,r)=>a+(r.diasParado||0),0)/filtered.filter(r=>r.diasParado!=null).length):0;
+
+  // Por etapa
+  const porEtapa=ETAPAS_FUNIL.map(e=>({etapa:e,count:leads.filter(r=>r.etapa===e).length}));
+
+  const slBtn=(active,color=C.orange)=>({padding:'4px 11px',borderRadius:20,border:`1.5px solid ${active?color:C.border}`,background:active?color:C.white,color:active?C.white:C.gray,fontSize:11,fontWeight:600,cursor:'pointer',flexShrink:0,fontFamily:FONT});
+  const ThSort=({col,label,w})=>{const active=sortCol===col;return(<th onClick={()=>toggleSort(col)} style={{padding:'7px 10px',textAlign:'left',fontSize:9.5,fontWeight:700,color:active?C.orange:C.gray,textTransform:'uppercase',whiteSpace:'nowrap',cursor:'pointer',background:C.grayL,borderBottom:`1.5px solid ${C.border}`,width:w||'auto',userSelect:'none'}}>{label} {active?(sortAsc?'↑':'↓'):'↕'}</th>);};
+  const diasBadge=(d)=>{if(d===null)return<span style={{color:'#CCC'}}>—</span>;const col=d>30?C.red:d>14?C.orange:C.green;const bg=d>30?C.rL:d>14?C.oL:C.gL;return<span style={{fontSize:10,fontWeight:800,background:bg,color:col,padding:'2px 8px',borderRadius:10,whiteSpace:'nowrap'}}>{d}d</span>;};
+
+  return(<div style={{display:'flex',flexDirection:'column',gap:11,fontFamily:FONT}}>
+    {/* Header */}
+    <div style={{background:C.dark,borderRadius:8,padding:'16px 20px',boxShadow:C.shadow,display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:12}}>
+      <div><div style={{color:'rgba(255,255,255,0.6)',fontSize:10,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.1em'}}>Análise de Pipeline</div><div style={{color:C.white,fontSize:20,fontWeight:800}}>Funil de Vendas — Final de Funil</div><div style={{color:'rgba(255,255,255,0.5)',fontSize:11,marginTop:2}}>Apresentação · Proposta · Negociação · Fechamento</div></div>
+      <div style={{display:'flex',gap:8}}>
+        {[{v:'🔴',n:criticos,l:'Crítico (>30d)',c:C.red},{v:'🟡',n:atencao,l:'Atenção (15-30d)',c:C.orange},{v:'🟢',n:recentes,l:'Recente (≤14d)',c:C.green}].map(k=>(<div key={k.l} style={{background:'rgba(255,255,255,0.1)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.15)'}}><div style={{fontSize:18}}>{k.v}</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{k.n}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.6)',fontWeight:600,textTransform:'uppercase',marginTop:2}}>{k.l}</div></div>))}
+      </div>
+    </div>
+
+    {/* KPIs */}
+    <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:10}}>
+      <KPICard title="Total no Funil" value={total} icon="📊" note={`${ETAPAS_FUNIL.length} etapas`}/>
+      <KPICard title="Média Dias Parado" value={`${mediaDias}d`} icon="⏱" note="desde último contato"/>
+      {porEtapa.map(e=>(<KPICard key={e.etapa} title={e.etapa} value={e.count} icon={e.etapa==='Fechamento'?'🏆':e.etapa==='Negociacao'?'🤝':e.etapa==='Proposta'?'📋':'📣'} note={`${e.count} empresa${e.count!==1?'s':''}`}/>))}
+    </div>
+
+    {/* Filtros */}
+    <div style={{background:C.white,borderRadius:8,padding:'12px 16px',boxShadow:C.shadow}}>
+      <div style={{display:'flex',flexDirection:'column',gap:9}}>
+        <div style={{display:'flex',alignItems:'center',gap:8,flexWrap:'wrap'}}>
+          <span style={{fontSize:10,fontWeight:700,color:C.gray,textTransform:'uppercase',minWidth:72}}>Etapa</span>
+          <div style={{display:'flex',gap:5,flexWrap:'wrap'}}>
+            {['Todas',...ETAPAS_FUNIL].map(e=>(<button key={e} onClick={()=>setSelEtapa(e)} style={slBtn(selEtapa===e,ETAPA_COLOR[e]||C.orange)}>{e}</button>))}
+          </div>
+        </div>
+        <div style={{display:'flex',alignItems:'center',gap:8,flexWrap:'wrap'}}>
+          <span style={{fontSize:10,fontWeight:700,color:C.gray,textTransform:'uppercase',minWidth:72}}>Responsável</span>
+          <div style={{display:'flex',gap:5,flexWrap:'wrap'}}>
+            {responsaveis.map(r=>(<button key={r} onClick={()=>setSelResp(r)} style={slBtn(selResp===r)}>{r.split(' ')[0]}</button>))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Tabela principal */}
+    <div style={{background:C.white,borderRadius:8,boxShadow:C.shadow,overflow:'hidden'}}>
+      <div style={{padding:'10px 14px',borderBottom:`1px solid ${C.border}`,display:'flex',alignItems:'center',gap:8}}>
+        <div style={{width:3,height:16,background:C.orange,borderRadius:2}}/>
+        <span style={{fontSize:12,fontWeight:700,color:C.text}}>Leads no Final de Funil</span>
+        <span style={{background:C.oL,color:C.orange,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:800}}>{filtered.length}</span>
+        <div style={{marginLeft:'auto',display:'flex',gap:16,alignItems:'center'}}>
+          {[{cor:C.red,bg:C.rL,label:'> 30d Crítico'},{cor:C.orange,bg:C.oL,label:'15–30d Atenção'},{cor:C.green,bg:C.gL,label:'≤ 14d Recente'}].map(l=>(<div key={l.label} style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:l.cor}}/><span style={{fontSize:10,color:'#555'}}>{l.label}</span></div>))}
+        </div>
+      </div>
+      <div style={{overflowX:'auto'}}>
+        <table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}>
+          <thead><tr style={{background:C.grayL,borderBottom:`1.5px solid ${C.border}`}}>
+            <ThSort col="nome" label="Empresa" w="22%"/>
+            <ThSort col="etapa" label="Etapa" w="10%"/>
+            <th style={{padding:'7px 10px',fontSize:9.5,fontWeight:700,color:C.gray,textTransform:'uppercase',background:C.grayL,borderBottom:`1.5px solid ${C.border}`,whiteSpace:'nowrap'}}>Perfil</th>
+            <th style={{padding:'7px 10px',fontSize:9.5,fontWeight:700,color:C.gray,textTransform:'uppercase',background:C.grayL,borderBottom:`1.5px solid ${C.border}`,whiteSpace:'nowrap'}}>Responsável</th>
+            <th style={{padding:'7px 10px',fontSize:9.5,fontWeight:700,color:C.gray,textTransform:'uppercase',background:C.grayL,borderBottom:`1.5px solid ${C.border}`,whiteSpace:'nowrap'}}>Fonte</th>
+            <th style={{padding:'7px 10px',fontSize:9.5,fontWeight:700,color:C.gray,textTransform:'uppercase',background:C.grayL,borderBottom:`1.5px solid ${C.border}`,whiteSpace:'nowrap'}}>Indicado por</th>
+            <ThSort col="ultContato" label="Último Contato" w="11%"/>
+            <ThSort col="parado" label="Dias Parado" w="9%"/>
+          </tr></thead>
+          <tbody>
+            {filtered.map((r,i)=>{
+              const etapaCol=ETAPA_COLOR[r.etapa]||C.orange;
+              const etapaBg=ETAPA_BG[r.etapa]||C.oL;
+              const rowBg=r.diasParado!=null&&r.diasParado>30?'#FFF8F8':r.diasParado!=null&&r.diasParado>14?'#FFFDF8':i%2===0?C.white:C.grayL;
+              return(<tr key={r.id} style={{borderBottom:`1px solid ${C.border}`,background:rowBg}}>
+                <td style={{padding:'8px 10px',fontWeight:700,color:C.text,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',maxWidth:240}}>{r.nome}</td>
+                <td style={{padding:'8px 10px'}}><span style={{fontSize:10,fontWeight:700,background:etapaBg,color:etapaCol,padding:'2px 7px',borderRadius:4,whiteSpace:'nowrap'}}>{r.etapa}</span></td>
+                <td style={{padding:'8px 10px'}}><span style={{fontSize:10,fontWeight:700,background:r.perfil==='ETP'?C.bL:'#F0F0F0',color:r.perfil==='ETP'?C.blue:C.gray,padding:'2px 6px',borderRadius:4}}>{r.perfil}</span></td>
+                <td style={{padding:'8px 10px',color:'#555',fontSize:11}}>{r.resp.split(' ')[0]}</td>
+                <td style={{padding:'8px 10px',color:'#555',fontSize:10,maxWidth:140,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{r.fonte}</td>
+                <td style={{padding:'8px 10px'}}>{r.indicado&&r.indicado!=='—'?<span style={{fontSize:10,fontWeight:700,background:'#F0F7FF',color:C.blue,padding:'2px 7px',borderRadius:4}}>{r.indicado.split(' ')[0]}</span>:<span style={{color:'#CCC'}}>—</span>}</td>
+                <td style={{padding:'8px 10px',color:'#888',fontSize:11}}>{r.ultContato?fmtDt(r.ultContato):'—'}</td>
+                <td style={{padding:'8px 10px',textAlign:'center'}}>{diasBadge(r.diasParado)}</td>
+              </tr>);
+            })}
+            {filtered.length===0&&(<tr><td colSpan={8} style={{padding:'32px',textAlign:'center',color:C.gray}}>Nenhum lead encontrado com os filtros selecionados.</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+      <div style={{padding:'8px 14px',borderTop:`1px solid ${C.border}`,background:C.grayL,fontSize:10,color:C.gray}}>
+        * "Dias Parado" calculado a partir da data da última reunião/contato registrada no CRM.
+      </div>
+    </div>
+  </div>);
+}
+
+const TABS=[{id:'acomp',label:'Executivos Externos'},{id:'interno',label:'Executivos Internos'},{id:'sdr',label:'SDR'},{id:'diag',label:'Diagnostico'},{id:'parcerias',label:'Parcerias'},{id:'funil',label:'Funil de Vendas'}];
 
 export default function App(){
   const[tab,setTab]=useState('acomp');
@@ -1208,10 +1548,11 @@ export default function App(){
     </div>
     <div style={{maxWidth:1400,margin:'0 auto',padding:'16px 20px'}}>
       {tab==='acomp'&&<AcompPage FL={FL}/>}
-      {tab==='interno'&&<InternoPage/>}
+      {tab==='interno'&&<InternoPage dateIni={dateIni} dateFim={dateFim}/>}
       {tab==='sdr'&&<SDRPage dateIni={dateIni} dateFim={dateFim}/>}
-      {tab==='diag'&&<DiagPage/>}
-      {tab==='parcerias'&&<ParceriasPage/>}
+      {tab==='diag'&&<DiagPage dateIni={dateIni} dateFim={dateFim}/>}
+      {tab==='parcerias'&&<ParceriasPage dateIni={dateIni} dateFim={dateFim}/>}
+      {tab==='funil'&&<FunilPage FL={FL}/>}
     </div>
   </div>);
 }
