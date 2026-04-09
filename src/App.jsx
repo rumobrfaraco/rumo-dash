@@ -44,7 +44,7 @@ const PARCERIAS_RAW=[
   [17,"RM TRANSPORTES","FB Consult","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","Nao Informado","Nao Informado","PME","Sim","Sim","Nao Informado","05/05/2025","","Nao",2025,5],
   [18,"RODORIBEIRO TRANSPORTES","Saionara | Raster GR","Em Andamento","Follow-up Inicial","Sem Interesse no momento","Indicacao por Parceiros","Sandro Casagrande","Brasil","PR","PR - Noroeste","ENTERPRISE","Nao","Nao Informado","Nao Informado","11/07/2025","","Nao",2025,7],
   [20,"SUDMAR TRANSPORTES","FF","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Marco","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Nao","Nao Informado","Nao Informado","06/05/2025","","Nao",2025,5],
-  [21,"TRANSLOG","FF","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Lucas Cavalcante","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Nao","Nao Informado","Nao Informado","06/05/2025","","Nao",2025,5],
+  [21,"TRANSLOG","FF","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Nao","Nao Informado","Nao Informado","06/05/2025","","Nao",2025,5],
   [22,"TRANSPORTADORA PRINT LTDA","FB Consult","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","SP","SP - Campinas","ENTERPRISE","Sim","Sim","Acima de 200 caminhoes","30/05/2025","","Nao",2025,5],
   [23,"OVOS AVINE","FB Consult","Em Andamento","Diagnostico","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","Nao Informado","Nao Informado","ENTERPRISE","Nao","Sim","Nao Informado","06/05/2025","04/07/2025","Nao",2025,5],
   [24,"TRANSGOSS","Saionara | Raster GR","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","PR","PR - Sudoeste","ENTERPRISE","Sim","Sim","Nao Informado","11/07/2025","10/09/2025","Nao",2025,7],
@@ -53,7 +53,7 @@ const PARCERIAS_RAW=[
   [33,"A J S TUR","Sem parceiro","Em Andamento","Solicitacao de Documentos","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","RS","RS - Noroeste","ENTERPRISE","Sim","Sim","100 a 200 caminhoes","10/07/2025","05/09/2025","Nao",2025,7],
   [35,"DAMACEL TRANSPORTES","FB Consult","Em Andamento","Negociacao","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","RS","RS - Nordeste","ENTERPRISE","Sim","Sim","0 a 50 caminhoes","21/07/2025","30/10/2025","Nao",2025,7],
   [36,"VITORIA PROVEDORA LOGISTICA","Sem parceiro","Em Andamento","Apresentacao","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","RS","RS - Metropolitana POA","ENTERPRISE","Nao","Sim","Acima de 200 caminhoes","02/10/2025","08/12/2025","Nao",2025,10],
-  [37,"RODO WALL","4DGroup","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Lucas Cavalcante","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Sim","Sim","100 a 200 caminhoes","04/08/2025","18/12/2025","Nao",2025,8],
+  [37,"RODO WALL","4DGroup","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Sim","Sim","100 a 200 caminhoes","04/08/2025","18/12/2025","Nao",2025,8],
   [38,"TRANSPORTADORA HAMMES LTDA","FB Consult","Em Andamento","Solicitacao de Documentos","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","RS","RS - Sudeste","ENTERPRISE","Sim","Sim","Acima de 200 caminhoes","29/08/2025","29/01/2026","Nao",2025,8],
   [39,"TEREJORGIS","Daniel | Raster","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Carla Cristina Lemes","Brasil","PR","PR - Centro Oriental","PME","Sim","Sim","0 a 50 caminhoes","23/02/2026","27/02/2026","Nao",2026,2],
   [40,"KADOSH","Daniel | Raster","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Marco","Brasil","PR","PR - Centro Oriental","ENTERPRISE","Nao","Nao","Nao Informado","23/02/2026","24/02/2026","Nao",2026,2],
@@ -72,7 +72,7 @@ const PARCERIAS_RAW=[
   [29,"MASTER TRANSPORTADORA","4DGroup","Perdida","Fechamento","Sem retorno","Indicacao por Parceiros","Sandro Casagrande","Brasil","SP","SP - Campinas","ENTERPRISE","Sim","Sim","0 a 50 caminhoes","10/06/2025","10/06/2025","Nao",2025,6],
   [31,"MATLOG TRANSPORTES","FB Consult","Perdida","Reuniao Realizada","Outro motivo nao listado","Indicacao por Parceiros","Sandro Casagrande","Brasil","SC","SC - Sul Catarinense","ENTERPRISE","Sim","Sim","Nao Informado","28/11/2025","27/08/2025","Nao",2025,11],
   [32,"ADM LOGISTICA E TRANSPORTES","Saionara | Raster GR","Perdida","Reuniao Realizada","Sem Interesse no momento","Indicacao por Parceiros","Sandro Casagrande","Brasil","SC","SC - Oeste","ENTERPRISE","Sim","Sim","0 a 50 caminhoes","01/07/2025","02/09/2025","Nao",2025,7],
-  [34,"BUDEL TRANSPORTES","4DGroup","Perdida","Solicitacao de Documentos","Ja possui consultoria","Indicacao por Parceiros","Lucas Cavalcante","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Sim","Sim","Acima de 200 caminhoes","23/12/2025","17/09/2025","Nao",2025,12],
+  [34,"BUDEL TRANSPORTES","4DGroup","Perdida","Solicitacao de Documentos","Ja possui consultoria","Indicacao por Parceiros","Sandro Casagrande","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Sim","Sim","Acima de 200 caminhoes","23/12/2025","17/09/2025","Nao",2025,12],
 ];
  
 const SDR_AGENDAMENTOS=[
