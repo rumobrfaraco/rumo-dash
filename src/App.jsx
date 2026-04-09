@@ -9,7 +9,7 @@ const MONTHS_KEY=['2025-05','2025-06','2025-07','2025-08','2025-09','2025-10','2
 const MONTHS_LBL=['Mai/25','Jun/25','Jul/25','Ago/25','Set/25','Out/25','Nov/25','Dez/25','Jan/26','Fev/26','Mar/26','Abr/26'];
 const ALL_MONTH_OPTS=[{key:'',label:'Todos os meses'},...MONTHS_KEY.map((k,i)=>({key:k,label:MONTHS_LBL[i]}))];
 const ETAPA_ORDER=['Entrada','Follow-up Inicial','Reuniao Agendada','Reuniao Realizada','Raio-X','Diagnostico','Solicitacao de Documentos','Apresentacao','Proposta','Negociacao','Fechamento'];
-const PARTNER_COLORS={"FB Consult":C.orange,"4DGroup":"#4A4B4D","Saionara | Raster GR":"#8C5200","Anderson FF":"#A0A0A0","Daniel | Raster":"#6F7072","Eusimar | Raster":"#333333","Sem parceiro":"#C0C0C0"};
+const PARTNER_COLORS={"FB Consult":C.orange,"4DGroup":"#4A4B4D","Saionara | Raster GR":"#8C5200","FF":"#A0A0A0","Daniel | Raster":"#6F7072","Eusimar | Raster":"#333333","Sem parceiro":"#C0C0C0"};
 const META_DIA=25,META_AGEND_MES=20;
 const STATUS_REALIZADA="Reuniao Realizada";
 const STATUS_AGENDADA="Reuniao Agendada";
@@ -29,9 +29,9 @@ const RAW=[[1,'2E TRANSPORTES - PME','Karoliny','Entrada','Em Andamento','PME','
  
 const PARCERIAS_RAW=[
   [1,"BENINI TRANSPORTES","Saionara | Raster GR","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","PR","PR - Sudoeste","ENTERPRISE","Nao","Nao Informado","Nao Informado","24/11/2025","","Nao",2025,11],
-  [3,"BORGNO TRANSPORTES","Anderson FF","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","BA","BA - Extremo Oeste","ENTERPRISE","Nao","Nao Informado","Nao Informado","09/07/2025","","Nao",2025,7],
+  [3,"BORGNO TRANSPORTES","FF","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","BA","BA - Extremo Oeste","ENTERPRISE","Nao","Nao Informado","Nao Informado","09/07/2025","","Nao",2025,7],
   [4,"C & L TRANSPORTES","Sem parceiro","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","MG","MG - Triangulo Mineiro/Alto Paraiba","PME","Sim","Sim","0 a 50 caminhoes","13/11/2025","16/11/2025","Nao",2025,11],
-  [5,"ERS TRANSPORTES LTDA","Anderson FF","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Marco","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Nao","Nao Informado","Nao Informado","06/05/2025","","Nao",2025,5],
+  [5,"ERS TRANSPORTES LTDA","FF","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Marco","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Nao","Nao Informado","Nao Informado","06/05/2025","","Nao",2025,5],
   [6,"EXPRESSO DESCALVADO","4DGroup","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","Nao Informado","Nao Informado","ENTERPRISE","Sim","Sim","Nao Informado","06/05/2025","","Nao",2025,5],
   [8,"FRETOU BRASIL TRANSPORTES","Sem parceiro","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","SC","SC - Oeste","PME","Sim","Sim","0 a 50 caminhoes","26/11/2025","26/11/2025","Nao",2025,11],
   [9,"GOVEIA RODRIGUES TRANSPORTES","FB Consult","Em Andamento","Proposta","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","SP","SP - Assis","PME","Sim","Sim","0 a 50 caminhoes","14/08/2025","19/08/2025","Nao",2025,8],
@@ -40,15 +40,15 @@ const PARCERIAS_RAW=[
   [12,"MOREIRA TRANSPORTES","FB Consult","Em Andamento","Negociacao","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","SP","SP - Campinas","PME","Sim","Sim","0 a 50 caminhoes","30/01/2025","30/01/2025","Nao",2025,1],
   [14,"NAYR TRANSPORTES","FB Consult","Em Andamento","Proposta","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","Nao Informado","Nao Informado","PME","Sim","Sim","Nao Informado","05/05/2025","28/07/2025","Nao",2025,5],
   [15,"PONTAL LOGISTICA","FB Consult","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","GO","GO - Centro","PME","Sim","Sim","0 a 50 caminhoes","27/01/2026","29/01/2026","Nao",2025,1],
-  [16,"R C TRANSPORTES","Anderson FF","Em Andamento","Apresentacao","0","Indicacao por Parceiros","Carla Cristina Lemes","Brasil","PR","PR - Oeste","ENTERPRISE","Nao","Sim","Nao Informado","10/06/2025","","Nao",2025,6],
+  [16,"R C TRANSPORTES","FF","Em Andamento","Apresentacao","0","Indicacao por Parceiros","Carla Cristina Lemes","Brasil","PR","PR - Oeste","ENTERPRISE","Nao","Sim","Nao Informado","10/06/2025","","Nao",2025,6],
   [17,"RM TRANSPORTES","FB Consult","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","Nao Informado","Nao Informado","PME","Sim","Sim","Nao Informado","05/05/2025","","Nao",2025,5],
   [18,"RODORIBEIRO TRANSPORTES","Saionara | Raster GR","Em Andamento","Follow-up Inicial","Sem Interesse no momento","Indicacao por Parceiros","Sandro Casagrande","Brasil","PR","PR - Noroeste","ENTERPRISE","Nao","Nao Informado","Nao Informado","11/07/2025","","Nao",2025,7],
-  [20,"SUDMAR TRANSPORTES","Anderson FF","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Marco","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Nao","Nao Informado","Nao Informado","06/05/2025","","Nao",2025,5],
-  [21,"TRANSLOG","Anderson FF","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Lucas Cavalcante","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Nao","Nao Informado","Nao Informado","06/05/2025","","Nao",2025,5],
+  [20,"SUDMAR TRANSPORTES","FF","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Marco","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Nao","Nao Informado","Nao Informado","06/05/2025","","Nao",2025,5],
+  [21,"TRANSLOG","FF","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Lucas Cavalcante","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Nao","Nao Informado","Nao Informado","06/05/2025","","Nao",2025,5],
   [22,"TRANSPORTADORA PRINT LTDA","FB Consult","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","SP","SP - Campinas","ENTERPRISE","Sim","Sim","Acima de 200 caminhoes","30/05/2025","","Nao",2025,5],
   [23,"OVOS AVINE","FB Consult","Em Andamento","Diagnostico","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","Nao Informado","Nao Informado","ENTERPRISE","Nao","Sim","Nao Informado","06/05/2025","04/07/2025","Nao",2025,5],
   [24,"TRANSGOSS","Saionara | Raster GR","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","PR","PR - Sudoeste","ENTERPRISE","Sim","Sim","Nao Informado","11/07/2025","10/09/2025","Nao",2025,7],
-  [27,"TRANSPORTADORA BOA VIAGEM","Anderson FF","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Carla Cristina Lemes","Brasil","Nao Informado","Nao Informado","ENTERPRISE","Sim","Sim","Nao Informado","20/06/2025","16/03/2025","Nao",2025,6],
+  [27,"TRANSPORTADORA BOA VIAGEM","FF","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Carla Cristina Lemes","Brasil","Nao Informado","Nao Informado","ENTERPRISE","Sim","Sim","Nao Informado","20/06/2025","16/03/2025","Nao",2025,6],
   [30,"LARIFO TRANSPORTES","Saionara | Raster GR","Em Andamento","Reuniao Realizada","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","SC","SC - Oeste","ENTERPRISE","Sim","Nao","Acima de 200 caminhoes","28/06/2025","26/06/2025","Nao",2025,6],
   [33,"A J S TUR","Sem parceiro","Em Andamento","Solicitacao de Documentos","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","RS","RS - Noroeste","ENTERPRISE","Sim","Sim","100 a 200 caminhoes","10/07/2025","05/09/2025","Nao",2025,7],
   [35,"DAMACEL TRANSPORTES","FB Consult","Em Andamento","Negociacao","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","RS","RS - Nordeste","ENTERPRISE","Sim","Sim","0 a 50 caminhoes","21/07/2025","30/10/2025","Nao",2025,7],
@@ -61,6 +61,18 @@ const PARCERIAS_RAW=[
   [42,"RACSO","Daniel | Raster","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Carla Cristina Lemes","Brasil","PR","PR - Centro Oriental","ENTERPRISE","Nao","Nao","Nao Informado","23/02/2026","24/02/2026","Nao",2026,2],
   [43,"BOA VIAGEM","Daniel | Raster","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","PR","PR - Centro Oriental","ENTERPRISE","Nao","Nao","Nao Informado","23/02/2026","24/02/2026","Nao",2026,2],
   [44,"TRANSPORTADORA CORTESIA","Daniel | Raster","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Marco","Brasil","PR","PR - Centro Oriental","PME","Nao","Nao","Nao Informado","23/02/2026","24/02/2026","Nao",2026,2],
+  // ── Perdidas ──
+  [2,"BIZARI TRANSPORTES","FB Consult","Perdida","Reuniao Realizada","Sem retorno","Indicacao por Parceiros","Sandro Casagrande","Brasil","GO","GO - Sul","PME","Sim","Sim","0 a 50 caminhoes","05/05/2025","22/05/2025","Nao",2025,5],
+  [7,"FALCON TRANSPORTES","FF","Perdida","Follow-up Inicial","Ja possui consultoria","Indicacao por Parceiros","Sandro Casagrande","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Nao","Nao Informado","Nao Informado","06/05/2025","","Nao",2025,5],
+  [13,"MOVIMENTA LOG","4DGroup","Perdida","Negociacao","Sem Budget","Indicacao por Parceiros","Sandro Casagrande","Brasil","Nao Informado","Nao Informado","PME","Sim","Sim","Nao Informado","05/05/2025","","Nao",2025,5],
+  [19,"RODOSAFRA","FF","Perdida","Solicitacao de Documentos","Sem Interesse no momento","Indicacao por Parceiros","Sandro Casagrande","Brasil","MG","MG - Metropolitana BH","ENTERPRISE","Sim","Sim","0 a 50 caminhoes","06/05/2025","","Nao",2025,5],
+  [25,"UNILOG","FB Consult","Perdida","Negociacao","Sem Interesse no momento","Indicacao por Parceiros","Sandro Casagrande","Brasil","MG","MG - Triangulo Mineiro/Alto Paraiba","ENTERPRISE","Sim","Sim","50 a 100 caminhoes","11/06/2025","02/02/2025","Nao",2025,6],
+  [26,"LVA TRANSPORTES","4DGroup","Perdida","Solicitacao de Documentos","Sem retorno","Indicacao por Parceiros","Sandro Casagrande","Brasil","Nao Informado","Nao definida","ENTERPRISE","Sim","Sim","100 a 200 caminhoes","06/05/2025","04/02/2025","Nao",2025,5],
+  [28,"EXPRESSO GONCALVES TRANSPORTES LTDA","4DGroup","Perdida","Solicitacao de Documentos","Sem retorno","Indicacao por Parceiros","Sandro Casagrande","Brasil","PE","PE - Metropolitana Recife","ENTERPRISE","Sim","Sim","0 a 50 caminhoes","06/05/2025","08/06/2025","Nao",2025,5],
+  [29,"MASTER TRANSPORTADORA","4DGroup","Perdida","Fechamento","Sem retorno","Indicacao por Parceiros","Sandro Casagrande","Brasil","SP","SP - Campinas","ENTERPRISE","Sim","Sim","0 a 50 caminhoes","10/06/2025","10/06/2025","Nao",2025,6],
+  [31,"MATLOG TRANSPORTES","FB Consult","Perdida","Reuniao Realizada","Outro motivo nao listado","Indicacao por Parceiros","Sandro Casagrande","Brasil","SC","SC - Sul Catarinense","ENTERPRISE","Sim","Sim","Nao Informado","28/11/2025","27/08/2025","Nao",2025,11],
+  [32,"ADM LOGISTICA E TRANSPORTES","Saionara | Raster GR","Perdida","Reuniao Realizada","Sem Interesse no momento","Indicacao por Parceiros","Sandro Casagrande","Brasil","SC","SC - Oeste","ENTERPRISE","Sim","Sim","0 a 50 caminhoes","01/07/2025","02/09/2025","Nao",2025,7],
+  [34,"BUDEL TRANSPORTES","4DGroup","Perdida","Solicitacao de Documentos","Ja possui consultoria","Indicacao por Parceiros","Lucas Cavalcante","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Sim","Sim","Acima de 200 caminhoes","23/12/2025","17/09/2025","Nao",2025,12],
 ];
  
 const SDR_AGENDAMENTOS=[
@@ -290,6 +302,7 @@ function ParceriasPage({dateIni,dateFim}){
   const leadsPorMes2026=useMemo(()=>{const m={};PARCERIAS_RAW.forEach(r=>{if(!r[P.DATA_IND])return;const parts=r[P.DATA_IND].split('/');if(parts.length<3||parts[2]!=='2026')return;const key=`${parts[2]}-${parts[1].padStart(2,'0')}`;const label=`${parts[1].padStart(2,'0')}/${parts[2].slice(2)}`;if(!m[key])m[key]={label,key,leads:0};m[key].leads++;});return Object.values(m).sort((a,b)=>a.key.localeCompare(b.key));},[]);
   const totalLeads2026=leadsPorMes2026.reduce((a,b)=>a+b.leads,0);
   const porEtapa=useMemo(()=>{const m={};FL.forEach(r=>{if(r[P.ETAPA])m[r[P.ETAPA]]=(m[r[P.ETAPA]]||0)+1;});return ETAPA_ORDER.filter(e=>m[e]).map(e=>({etapa:e,count:m[e]}));},[FL]);
+  const porResponsavel=useMemo(()=>{const m={};PARCERIAS_RAW.forEach(r=>{const resp=r[P.RESP]||'Nao informado';if(!m[resp])m[resp]={resp,total:0,ativos:0,perdidos:0,reunioes:0};m[resp].total++;if(r[P.STATUS]==='Em Andamento')m[resp].ativos++;if(r[P.STATUS]==='Perdida')m[resp].perdidos++;if(r[P.REUNIAO]==='Sim')m[resp].reunioes++;});return Object.values(m).sort((a,b)=>b.total-a.total);},[]);
   const slBtn=(active,color=C.orange)=>({padding:'4px 11px',borderRadius:20,border:`1.5px solid ${active?color:C.border}`,background:active?color:C.white,color:active?C.white:C.gray,fontSize:11,fontWeight:600,cursor:'pointer',flexShrink:0,fontFamily:FONT});
   return(<div style={{display:'flex',flexDirection:'column',gap:11}}>
     <div style={{background:C.white,borderRadius:8,padding:'12px 16px',boxShadow:C.shadow}}>
@@ -350,6 +363,14 @@ function ParceriasPage({dateIni,dateFim}){
         {porEtapa.map((e,i)=>{const bw=porEtapa[0]?.count>0?pctN(e.count,porEtapa[0].count):0;return(<div key={i} style={{display:'flex',alignItems:'center',gap:6,marginBottom:5}}><div style={{width:130,fontSize:10,color:C.text,textAlign:'right',flexShrink:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{e.etapa}</div><div style={{flex:1,height:14,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${bw}%`,background:i===0?C.orange:i<3?"#8C5200":"#4A4B4D",opacity:Math.max(0.35,1-i*0.06),borderRadius:3}}/></div><span style={{fontSize:10,fontWeight:700,color:C.text,width:28,textAlign:'right',flexShrink:0}}>{e.count}</span></div>);})}
       </Card>
     </div>
+    <Card title="Ranking de Responsáveis">
+      <div style={{overflowX:'auto',borderRadius:6,border:`1px solid ${C.border}`}}>
+        <table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}>
+          <TblHead cols={['Responsável','Total','Ativos','Perdidos','Com Reunião']}/>
+          <tbody>{porResponsavel.map((r,i)=>{return(<tr key={i} style={tRow(i)}><td style={{padding:'7px 10px',fontWeight:700,color:C.text}}>{r.resp}</td><td style={{padding:'7px 10px',fontWeight:800,fontSize:13,color:C.orange}}>{r.total}</td><td style={{padding:'7px 10px',color:C.orange,fontWeight:700}}>{r.ativos}</td><td style={{padding:'7px 10px',color:r.perdidos>0?"#4A4B4D":C.gray,fontWeight:700}}>{r.perdidos||'—'}</td><td style={{padding:'7px 10px',color:"#8C5200",fontWeight:700}}>{r.reunioes||'—'}</td></tr>);})}</tbody>
+        </table>
+      </div>
+    </Card>
     <Card title={`Leads via Parceiros — ${FL.length} registros`}>
       <div style={{overflowX:'auto',borderRadius:6,border:`1px solid ${C.border}`}}>
         <table style={{width:'100%',borderCollapse:'collapse',fontSize:11,tableLayout:'fixed'}}>
