@@ -297,6 +297,8 @@ function ParceriasPage({dateIni,dateFim}){
     return true;
   }),[selParceiro,selStatus,dateIni,dateFim]);
   const perdidos=FL.filter(r=>r[P.STATUS]==='Perdida').length,ativos=FL.filter(r=>r[P.STATUS]==='Em Andamento').length,total=ativos,comReuniao=FL.filter(r=>r[P.STATUS]==='Em Andamento'&&r[P.REUNIAO]==='Sim').length;
+  const totalAtivos=PARCERIAS_RAW.filter(r=>r[P.STATUS]==='Em Andamento').length;
+  const totalPerdidos=PARCERIAS_RAW.filter(r=>r[P.STATUS]==='Perdida').length;
   const porParceiro=useMemo(()=>{const m={};PARCERIAS_RAW.forEach(r=>{const p=r[P.PARCEIRO];if(!m[p])m[p]={parceiro:p,total:0,ativos:0,perdidos:0,reunioes:0};m[p].total++;if(r[P.STATUS]==='Em Andamento')m[p].ativos++;if(r[P.STATUS]==='Perdida')m[p].perdidos++;if(r[P.REUNIAO]==='Sim')m[p].reunioes++;});return Object.values(m).sort((a,b)=>b.total-a.total);},[]);
   const porMes=useMemo(()=>{const m={};FL.forEach(r=>{if(!r[P.DATA_IND])return;const parts=r[P.DATA_IND].split('/');if(parts.length<3)return;if(parts[2]!=='2026')return;const key=`${parts[2]}-${parts[1].padStart(2,'0')}`;if(!m[key])m[key]={label:`${parts[1].padStart(2,'0')}/${parts[2].slice(2)}`,key,leads:0,reunioes:0};m[key].leads++;if(r[P.REUNIAO]==='Sim')m[key].reunioes++;});return Object.values(m).sort((a,b)=>a.key.localeCompare(b.key));},[FL]);
   const leadsPorMes2026=useMemo(()=>{const m={};PARCERIAS_RAW.forEach(r=>{if(!r[P.DATA_IND])return;const parts=r[P.DATA_IND].split('/');if(parts.length<3||parts[2]!=='2026')return;const key=`${parts[2]}-${parts[1].padStart(2,'0')}`;const label=`${parts[1].padStart(2,'0')}/${parts[2].slice(2)}`;if(!m[key])m[key]={label,key,leads:0};m[key].leads++;});return Object.values(m).sort((a,b)=>a.key.localeCompare(b.key));},[]);
@@ -312,9 +314,9 @@ function ParceriasPage({dateIni,dateFim}){
       </div>
     </div>
     <div style={{display:'flex',gap:9}}>
-      <KPICard title="Leads via Parceiros" value={total} icon="🤝" note={`${perdidos} perdidos nao contabilizados`}/>
-      <KPICard title="Com Reuniao" value={comReuniao} icon="📅" note={`${pctN(comReuniao,total).toFixed(0)}% dos ativos`}/>
-      <KPICard title="Ativos" value={ativos} icon="✅" note={`${FL.length} leads no total`}/>
+      <KPICard title="Leads Ativos" value={totalAtivos} icon="🤝" note={`${totalPerdidos} perdidos`}/>
+      <KPICard title="Com Reuniao" value={comReuniao} icon="📅" note={`${pctN(comReuniao,totalAtivos).toFixed(0)}% dos ativos`}/>
+      <KPICard title="Selecionados" value={ativos} icon="🔍" note={`de ${totalAtivos} ativos`}/>
       <KPICard title="Leads Entrados em 2026" value={totalLeads2026} icon="📈" note={`${leadsPorMes2026.length} meses com indicacoes`}/>
     </div>
     <Card title="Leads Entrados por Mes — 2026">
