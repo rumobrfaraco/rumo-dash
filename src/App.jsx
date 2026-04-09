@@ -316,7 +316,7 @@ function ParceriasPage({dateIni,dateFim}){
     <div style={{display:'flex',gap:9}}>
       <KPICard title="Leads Ativos" value={totalAtivos} icon="🤝" note={`${totalPerdidos} perdidos`}/>
       <KPICard title="Com Reuniao" value={comReuniao} icon="📅" note={`${pctN(comReuniao,totalAtivos).toFixed(0)}% dos ativos`}/>
-      <KPICard title="Selecionados" value={ativos} icon="🔍" note={`de ${totalAtivos} ativos`}/>
+      <KPICard title="Perdidos" value={totalPerdidos} icon="❌" note={`${Math.round(totalPerdidos/(totalAtivos+totalPerdidos)*100)}% do total`}/>
       <KPICard title="Leads Entrados em 2026" value={totalLeads2026} icon="📈" note={`${leadsPorMes2026.length} meses com indicacoes`}/>
     </div>
     <Card title="Leads Entrados por Mes — 2026">
