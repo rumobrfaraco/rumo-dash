@@ -12,6 +12,7 @@ const ALL_MONTH_OPTS=[{key:'',label:'Todos os meses'},...MONTHS_KEY.map((k,i)=>(
 const ETAPA_ORDER=['Entrada','Follow-up Inicial','Reuniao Agendada','Reuniao Realizada','Raio-X','Diagnostico','Solicitacao de Documentos','Apresentacao','Proposta','Negociacao','Fechamento'];
 const PARTNER_COLORS={"FB Consult":C.orange,"4DGroup":"#4A4B4D","Saionara | Raster GR":"#8C5200","FF":"#A0A0A0","Daniel | Raster":"#6F7072","Eusimar | Raster":"#333333","Sem parceiro":"#C0C0C0"};
 const META_DIA=25,META_AGEND_MES=20;
+const LAST_UPDATE="16/04/2026 - 14:00";
 const STATUS_REALIZADA="Reuniao Realizada";
 const STATUS_AGENDADA="Reuniao Agendada";
 const pctN=(a,b)=>b>0?+(a/b*100).toFixed(1):0;
@@ -1520,8 +1521,6 @@ const TABS=[{id:'acomp',label:'Executivos Externos'},{id:'interno',label:'Execut
 export default function Dashboard(){
   const[tab,setTab]=useState('acomp');
   const contentRef=useRef(null);
-  const[nowStr,setNowStr]=useState(()=>{const d=new Date();return d.toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});});
-  useEffect(()=>{const t=setInterval(()=>{const d=new Date();setNowStr(d.toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}));},30000);return()=>clearInterval(t);},[]);
   const tabLabel=TABS.find(t=>t.id===tab)?.label||tab;
   async function downloadPDF(){
     if(!contentRef.current)return;
@@ -1556,7 +1555,7 @@ export default function Dashboard(){
     <div style={{background:C.dark,padding:'0 20px',boxShadow:'0 2px 8px rgba(0,0,0,0.3)'}}>
       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',maxWidth:1400,margin:'0 auto',height:52}}>
         <div style={{display:'flex',alignItems:'center',gap:12}}><div style={{background:'#FFFFFF',borderRadius:6,padding:'4px 10px',display:'flex',alignItems:'center',lineHeight:0}}><img src='/logo.png' alt='Rumo Brasil' style={{height:26}}/></div><span style={{color:'rgba(255,255,255,0.25)',fontSize:13}}>|</span><span style={{color:'rgba(255,255,255,0.45)',fontSize:12}}>Dashboard Comercial</span></div>
-        <div style={{display:'flex',alignItems:'center',gap:14}}><span style={{color:'rgba(255,255,255,0.45)',fontSize:11}}><span style={{marginRight:4}}>🕐</span>{nowStr}</span><button id='pdf-btn' onClick={downloadPDF} style={{padding:'6px 14px',borderRadius:6,border:'1.5px solid rgba(255,130,0,0.5)',background:'rgba(255,130,0,0.12)',color:'#FF8200',fontSize:11,fontWeight:700,cursor:'pointer',fontFamily:FONT,display:'flex',alignItems:'center',gap:5}}>⬇ PDF</button></div>
+        <div style={{display:'flex',alignItems:'center',gap:14}}><span style={{color:'rgba(255,255,255,0.4)',fontSize:11}}>Ultima atualizacao: <strong style={{color:'rgba(255,255,255,0.75)',fontWeight:700}}>{LAST_UPDATE}</strong></span><button id='pdf-btn' onClick={downloadPDF} style={{padding:'6px 14px',borderRadius:6,border:'1.5px solid rgba(255,130,0,0.5)',background:'rgba(255,130,0,0.12)',color:'#FF8200',fontSize:11,fontWeight:700,cursor:'pointer',fontFamily:FONT,display:'flex',alignItems:'center',gap:5}}>⬇ PDF</button></div>
       </div>
     </div>
     <div style={{background:C.white,borderBottom:`1px solid ${C.border}`,boxShadow:C.shadow}}>
