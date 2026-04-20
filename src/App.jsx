@@ -752,6 +752,8 @@ const TATIANE_AGENDAMENTOS=[
   {empresa:'TORMANN TRANSPORTES',perfil:'ETP',status:'Reuniao Realizada',etapa:'Proposta',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-02',decisor:'Sim',tipo:'Online'},
   {empresa:'TRANS BOESSIO',perfil:'ETP',status:'Reuniao Realizada',etapa:'Proposta',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-06',decisor:'Sim',tipo:'Online'},
   {empresa:'HP DE OLIVEIRA TRANSPORTES',perfil:'ETP',status:'Reuniao Realizada',etapa:'Proposta',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-07',decisor:'Sim',tipo:'Online'},
+  {empresa:'TRANSPORTADORA NEVADA',perfil:'ETP',status:'Reuniao Agendada',etapa:'',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-15',decisor:'Sim',tipo:'Online'},
+  {empresa:'TRANSPORTADORA RODOLUKE',perfil:'ETP',status:'Reuniao Realizada',etapa:'',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-16',decisor:'Sim',tipo:'Online'},
 ];
 const TATIANE_MOV_MAR=[
   {dia:'25/mar',data:'2026-03-25',mov:39},
@@ -770,6 +772,9 @@ const TATIANE_MOV=[
   {dia:'10/abr',data:'2026-04-10',mov:24},
   {dia:'13/abr',data:'2026-04-13',mov:24},
   {dia:'14/abr',data:'2026-04-14',mov:44},
+  {dia:'15/abr',data:'2026-04-15',mov:40},
+  {dia:'16/abr',data:'2026-04-16',mov:25},
+  {dia:'17/abr',data:'2026-04-17',mov:29},
 ];
 const TATIANE_REUNIOES=[],TATIANE_VISITAS=[],MOV_TATIANE=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,53,30,40,29];
 // Atividades diárias Tatiane por canal (alinhadas com ALL_DAYS_MAR)
@@ -779,11 +784,11 @@ const TATIANE_EML_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,17,5,9];
 const TATIANE_WHA_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0];
 
 // ── Abril/26 ──
-const ALL_DAYS_ABR_TAT=['2026-04-01','2026-04-02','2026-04-06','2026-04-07','2026-04-08','2026-04-09','2026-04-10','2026-04-13','2026-04-14'];
-const MOV_TATIANE_ABR=[48,52,37,26,29,23,34,24,44];
-const TATIANE_LIG_DIA_ABR=[25,20,24,16,20,19,18,22,30];
-const TATIANE_EML_DIA_ABR=[1,0,12,4,5,1,6,12,3];
-const TATIANE_WHA_DIA_ABR=[22,32,1,6,4,3,10,13,16];
+const ALL_DAYS_ABR_TAT=['2026-04-01','2026-04-02','2026-04-06','2026-04-07','2026-04-08','2026-04-09','2026-04-10','2026-04-13','2026-04-14','2026-04-15','2026-04-16','2026-04-17'];
+const MOV_TATIANE_ABR=[48,52,37,26,29,23,34,24,44,40,25,29];
+const TATIANE_LIG_DIA_ABR=[25,20,24,16,20,19,18,22,30,26,24,15];
+const TATIANE_EML_DIA_ABR=[1,0,12,4,5,1,6,12,3,14,4,4];
+const TATIANE_WHA_DIA_ABR=[22,32,1,6,4,3,10,13,16,25,20,7];
 
 function TatianeMixEvolChart({ligDia,emlDia,whaDia,allDays,dayLbl}){
   const COL_L=C.orange,COL_E='#444444',COL_W='#AAAAAA';
