@@ -12,7 +12,7 @@ const ALL_MONTH_OPTS=[{key:'',label:'Todos os meses'},...MONTHS_KEY.map((k,i)=>(
 const ETAPA_ORDER=['Entrada','Follow-up Inicial','Reuniao Agendada','Reuniao Realizada','Raio-X','Diagnostico','Solicitacao de Documentos','Apresentacao','Proposta','Negociacao','Fechamento'];
 const PARTNER_COLORS={"FB Consult":C.orange,"4DGroup":"#4A4B4D","Saionara | Raster GR":"#8C5200","FF":"#A0A0A0","Daniel | Raster":"#6F7072","Eusimar | Raster":"#333333","Sem parceiro":"#C0C0C0"};
 const META_DIA=25,META_AGEND_MES=20;
-const LAST_UPDATE="16/04/2026 - 09:36";
+const LAST_UPDATE="18/04/2026";
 const STATUS_REALIZADA="Reuniao Realizada";
 const STATUS_AGENDADA="Reuniao Agendada";
 const pctN=(a,b)=>b>0?+(a/b*100).toFixed(1):0;
@@ -81,6 +81,10 @@ const SDR_AGENDAMENTOS=[
   {empresa:'SANTISSIMA TRINDADE PARTICIPACOES E LOGISTICA LTDA',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-01'},
   {empresa:'TRANSPORTES PROGRESSO',perfil:'ETP',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-08'},
   {empresa:'GEOTRANS LOGISTICA',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-13'},
+  {empresa:'POLIMODAL',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-16'},
+  {empresa:'BRASQUIMICA TRANSPORTES',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-17'},
+  {empresa:'SIDERTRANS',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-17'},
+  {empresa:'TRANSPREX',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-17'},
 ];
 
 // ── Movimentações SDR Março ──
@@ -122,6 +126,9 @@ const SDR_MOV=[
   {dia:'10/abr',data:'2026-04-10',mov:20},
   {dia:'13/abr',data:'2026-04-13',mov:11},
   {dia:'14/abr',data:'2026-04-14',mov:28},
+  {dia:'15/abr',data:'2026-04-15',mov:20},
+  {dia:'16/abr',data:'2026-04-16',mov:13},
+  {dia:'17/abr',data:'2026-04-17',mov:17},
 ];
  
 const SDR_SEMANAS=[
@@ -134,10 +141,10 @@ const SDR_LIG_DIA_MAR=[0,0,27,9,16,10,21,14,31,14,14,29,15,0,7];
 const SDR_EML_DIA_MAR=[0,22,0,0,0,11,5,0,3,8,7,1,2,0,4];
 const SDR_WHA_DIA_MAR=[0,0,0,0,0,0,0,15,15,12,18,27,9,0,1];
 
-const SDR_DAYS_LBL=['01/abr','02/abr','06/abr','07/abr','08/abr','09/abr','10/abr','13/abr','14/abr'];
-const SDR_LIG_DIA=[8,10,16,8,28,0,6,12,6];
-const SDR_EML_DIA=[5,2,0,3,2,2,4,2,15];
-const SDR_WHA_DIA=[3,1,0,0,3,3,0,0,3];
+const SDR_DAYS_LBL=['01/abr','02/abr','06/abr','07/abr','08/abr','09/abr','10/abr','13/abr','14/abr','15/abr','16/abr','17/abr'];
+const SDR_LIG_DIA=[8,10,16,8,28,0,6,12,6,16,17,12];
+const SDR_EML_DIA=[5,2,0,3,2,2,4,2,15,9,3,0];
+const SDR_WHA_DIA=[3,1,0,0,3,3,0,0,3,5,3,8];
 
 const SDR_AGEND_POR_DATA = {};
 SDR_AGENDAMENTOS.forEach(a => {
@@ -147,7 +154,7 @@ SDR_AGENDAMENTOS.forEach(a => {
 });
 
 const SDR_ATIV_DATES = [
-  '2026-04-01','2026-04-02','2026-04-06','2026-04-07','2026-04-08','2026-04-09','2026-04-10','2026-04-13','2026-04-14'
+  '2026-04-01','2026-04-02','2026-04-06','2026-04-07','2026-04-08','2026-04-09','2026-04-10','2026-04-13','2026-04-14','2026-04-15','2026-04-16','2026-04-17'
 ];
 
 const SDR_AGEND_ACUM = (() => {
@@ -163,7 +170,7 @@ const SDR_AGEND_ACUM = (() => {
 // Totais por mês compilado (histórico + atual)
 const SDR_MENSAL=[
   {mes:'Mar/26',key:'2026-03',ligacao:SDR_LIG_DIA_MAR.reduce((a,b)=>a+b,0),email:SDR_EML_DIA_MAR.reduce((a,b)=>a+b,0),whatsapp:SDR_WHA_DIA_MAR.reduce((a,b)=>a+b,0),agendamentos:10},
-  {mes:'Abr/26',key:'2026-04',ligacao:8+10+16+8+28+0+6+12+6,email:5+2+0+3+2+2+4+2+15,whatsapp:3+1+0+0+3+3+0+0+3,agendamentos:3},
+  {mes:'Abr/26',key:'2026-04',ligacao:8+10+16+8+28+0+6+12+6+16+17+12,email:5+2+0+3+2+2+4+2+15+9+3+0,whatsapp:3+1+0+0+3+3+0+0+3+5+3+8,agendamentos:7},
 ];
 
 function buildSdrEvol(arr){let acc=0;return arr.map(v=>{acc+=v;return acc;});}
@@ -244,9 +251,85 @@ const SDR_ATIV=[
   {data:'2026-04-14',empresa:'A.F. TRASPORTE E LOGISTICA LTDA',canal:'whatsapp'},
   {data:'2026-04-14',empresa:'VENANCIO TRANSPORTES',canal:'whatsapp'},
   {data:'2026-04-14',empresa:'GEOTRANS LOGISTICA LTDA',canal:'whatsapp'},
+  // ── 15/abr ──
+  {data:'2026-04-15',empresa:'CARGO BRASIL LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'TRANSLEVE TRANSPORTES LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'AFC TRANSPORTES E SERVICOS LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'RMC TRANSPORTES E AGENCIAMENTO DE CARGAS LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'HOK TRANSPORTES LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'KAMER CARGO LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'ACOLOG SERVICOS DE TRANSPORTE E LOGISTICA LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'HOK TRANSPORTES LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'US CARGO TRANSPORTE E LOGISTICA LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'TRANSLIGUE TRANSPORTES E SERVICOS LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'RODOLOG LOGISTICA LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'TGL TRANSPORTES LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'CARGO BRASIL LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'TGL TRANSPORTES LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'MANCHESTER LOGISTICA INTEGRADA LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'TRANSPORTE MANN LTDA',canal:'ligacao'},
+  {data:'2026-04-15',empresa:'KAMER CARGO LTDA',canal:'email'},
+  {data:'2026-04-15',empresa:'HOK TRANSPORTES LTDA',canal:'email'},
+  {data:'2026-04-15',empresa:'NP TRANSPORTES E COMERCIO DE VIDROS LTDA',canal:'email'},
+  {data:'2026-04-15',empresa:'TRANSLIGUE TRANSPORTES E SERVICOS LTDA',canal:'email'},
+  {data:'2026-04-15',empresa:'DINOLOG TRANSPORTES E SERVICOS LTDA',canal:'email'},
+  {data:'2026-04-15',empresa:'TRANSPORTE MANN LTDA',canal:'email'},
+  {data:'2026-04-15',empresa:'MANCHESTER LOGISTICA INTEGRADA LTDA',canal:'email'},
+  {data:'2026-04-15',empresa:'TRANSNIL TRANSPORTES LTDA',canal:'email'},
+  {data:'2026-04-15',empresa:'SEKALOG TRANSPORTES LTDA',canal:'email'},
+  {data:'2026-04-15',empresa:'CARGO BRASIL LTDA',canal:'whatsapp'},
+  {data:'2026-04-15',empresa:'TRANSLEVE TRANSPORTES LTDA',canal:'whatsapp'},
+  {data:'2026-04-15',empresa:'US CARGO TRANSPORTE E LOGISTICA LTDA',canal:'whatsapp'},
+  {data:'2026-04-15',empresa:'RODOLOG LOGISTICA LTDA',canal:'whatsapp'},
+  {data:'2026-04-15',empresa:'GAV TRANSPORTES LTDA',canal:'whatsapp'},
+  // ── 16/abr ──
+  {data:'2026-04-16',empresa:'SETE LAGOS TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'VALLOG TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'IXC TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'MRX TRANSPORTES LTDA',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'RV TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'CAGT TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'SETE MARES TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'TRANSAL TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'TRANSKING TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'TRANSABRIL TRANSPORTADORA',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'F&P TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'SIDERTRANS TRANSPORTES RODOVIARIOS LTDA',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'TG TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'TRANSKING TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'FERNAO DIAS LOGISTICA',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'TRANSAL TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'VENTANA SERRA DO BRASIL',canal:'ligacao'},
+  {data:'2026-04-16',empresa:'TG TRANSPORTES',canal:'email'},
+  {data:'2026-04-16',empresa:'TRANSAL TRANSPORTES',canal:'email'},
+  {data:'2026-04-16',empresa:'TRANSKING TRANSPORTES',canal:'email'},
+  {data:'2026-04-16',empresa:'TRANSABRIL TRANSPORTADORA',canal:'whatsapp'},
+  {data:'2026-04-16',empresa:'CONFINS TRANSPORTES LTDA',canal:'whatsapp'},
+  {data:'2026-04-16',empresa:'F&P TRANSPORTES',canal:'whatsapp'},
+  // ── 17/abr ──
+  {data:'2026-04-17',empresa:'SIDERTRANS TRANSPORTES RODOVIARIOS LTDA',canal:'ligacao'},
+  {data:'2026-04-17',empresa:'TRANSPREX TRANSPORTADORA',canal:'ligacao'},
+  {data:'2026-04-17',empresa:'DECSA LOGISTICA E TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-17',empresa:'GRUPO LAMONICA',canal:'ligacao'},
+  {data:'2026-04-17',empresa:'GRV LOGISTICA',canal:'ligacao'},
+  {data:'2026-04-17',empresa:'BRASQUIMICA TRANSPORTES RODOVIARIOS',canal:'ligacao'},
+  {data:'2026-04-17',empresa:'TRANSPREX TRANSPORTADORA',canal:'ligacao'},
+  {data:'2026-04-17',empresa:'IXC TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-17',empresa:'FERNAO DIAS LOGISTICA',canal:'ligacao'},
+  {data:'2026-04-17',empresa:'SETE LAGOS TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-17',empresa:'F&P TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-17',empresa:'TRANSKING TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-17',empresa:'DECSA LOGISTICA E TRANSPORTES',canal:'whatsapp'},
+  {data:'2026-04-17',empresa:'GRUPO LAMONICA',canal:'whatsapp'},
+  {data:'2026-04-17',empresa:'GRV LOGISTICA',canal:'whatsapp'},
+  {data:'2026-04-17',empresa:'BRASQUIMICA TRANSPORTES RODOVIARIOS',canal:'whatsapp'},
+  {data:'2026-04-17',empresa:'IXC TRANSPORTES',canal:'whatsapp'},
+  {data:'2026-04-17',empresa:'TRANSKING TRANSPORTES',canal:'whatsapp'},
+  {data:'2026-04-17',empresa:'F&P TRANSPORTES',canal:'whatsapp'},
+  {data:'2026-04-17',empresa:'CONFINS TRANSPORTES LTDA',canal:'whatsapp'},
 ];
 
-const EFETIVAS=['ARROW LOGISTICA','DINIZ SARAIVA','GRUPO DTRANS','TORMANN TRANSPORTES','HP DE OLIVEIRA TRANSPORTES','OBAL TRANSPORTES','RCR QUALITY LOGISTICA E TRANSPORTES LTDA'];
+const EFETIVAS=['ARROW LOGISTICA','DINIZ SARAIVA','GRUPO DTRANS','TORMANN TRANSPORTES','HP DE OLIVEIRA TRANSPORTES','OBAL TRANSPORTES','RCR QUALITY LOGISTICA E TRANSPORTES LTDA','TRANSLEVE TRANSPORTES LTDA'];
 
 const DIAG_DATA=[
   {id:1,empresa:"DAMACEL TRANSPORTES",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"RS",reforma:"Nao",dias:8,tam:"Enterprise",dataInicio:"2026-01-14",dataConclusao:"2026-01-22",apresentacao:"Sim"},
@@ -261,14 +344,15 @@ const DIAG_DATA=[
   {id:10,empresa:"VITILOG",status:"REVALIDACAO",accountExecutive:"Sandro Casagrande",executivo:"Luana Alves Fontana",estado:"RS",reforma:"Nao",dias:28,tam:"Enterprise",dataInicio:"2025-12-15",dataConclusao:"2026-01-12",apresentacao:"Sim"},
   {id:11,empresa:"STEFANI TRANSPORTES",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"RS",reforma:"Sim",dias:29,tam:"Enterprise",dataInicio:"2025-12-18",dataConclusao:"2026-01-16",apresentacao:"Sim"},
   {id:12,empresa:"DEXLOG",status:"APRESENTACAO",accountExecutive:"Sandro Casagrande",executivo:"Luana Alves Fontana",estado:"PR",reforma:"Sim",dias:32,tam:"PME",dataInicio:"2026-01-22",dataConclusao:"2026-02-20",apresentacao:"Sim"},
-  {id:13,empresa:"TRANSPORTADORA HAMMES",status:"EM PROCESSO",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"RS",reforma:"Sim",dias:30,tam:"Enterprise",dataInicio:"2026-02-11",dataConclusao:"2026-03-12",apresentacao:"Sim"},
+  {id:13,empresa:"TRANSPORTADORA HAMMES",status:"APRESENTACAO",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"RS",reforma:"Sim",dias:30,tam:"Enterprise",dataInicio:"2026-02-11",dataConclusao:"2026-03-27",apresentacao:"Sim"},
   {id:14,empresa:"JS LOGISTICA",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui/Vivian Vilanova",estado:"MG",reforma:"Sim",dias:15,tam:"Enterprise",dataInicio:"2026-03-18",dataConclusao:"2026-04-02",apresentacao:"Sim"},
   {id:15,empresa:"EXCELLENCE TRANSPORTES",status:"DESCARTADA",accountExecutive:"",executivo:"Luana Alves Fontana",estado:"PR",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null,apresentacao:"Sim"},
   {id:16,empresa:"MODO AGROLOGISTICA",status:"DESCARTADA",accountExecutive:"",executivo:"Luana Alves Fontana",estado:"PR",reforma:"Nao",dias:null,tam:"PME",dataInicio:null,dataConclusao:null,apresentacao:"Sim"},
   {id:17,empresa:"TRANSPORTES BRASIL",status:"APRESENTACAO",accountExecutive:"Carla Lemes",executivo:"Luana Alves Fontana",estado:"PR",reforma:"Nao",dias:null,tam:"PME",dataInicio:"2026-03-20",dataConclusao:"2026-04-13",apresentacao:"Sim"},
-  {id:18,empresa:"PONTAL LOGISTICA",status:"NAO INICIADA",accountExecutive:"Sandro Casagrande",executivo:"Luana Alves Fontana",estado:"GO",reforma:"Sim",dias:null,tam:"PME",dataInicio:null,dataConclusao:null,apresentacao:"Sim"},
-  {id:19,empresa:"RT RANGEL",status:"EM PROCESSO",accountExecutive:"Sandro Casagrande",executivo:"Luana/Vivian",estado:"RJ",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:"2026-03-26",dataConclusao:null,apresentacao:"Sim"},
+  {id:18,empresa:"PONTAL LOGISTICA",status:"EM PROCESSO",accountExecutive:"Sandro Casagrande",executivo:"Luana Alves Fontana",estado:"GO",reforma:"Sim",dias:null,tam:"PME",dataInicio:null,dataConclusao:"2026-04-21",apresentacao:"Sim"},
+  {id:19,empresa:"RT RANGEL",status:"APRESENTACAO",accountExecutive:"Sandro Casagrande",executivo:"Luana/Vivian",estado:"RJ",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:"2026-03-26",dataConclusao:"2026-04-21",apresentacao:"Sim"},
   {id:20,empresa:"FRIZON TRANSPORTES",status:"AGUARDANDO DOCUMENTACAO",accountExecutive:"Carla Lemes",executivo:"Luana/Vivian",estado:"MT",reforma:"Sim",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null,apresentacao:"Sim"},
+  {id:21,empresa:"ROCHA TRANSPORTES",status:"AGUARDANDO DOCUMENTACAO",accountExecutive:"",executivo:"",estado:"",reforma:"Nao",dias:null,tam:"Enterprise",dataInicio:null,dataConclusao:null,apresentacao:"Sim"},
 ];
 
 const DIAG_STATUS={"COMPLETE":{dot:"#2D9E60",color:"#2D9E60",label:"Concluido"},"AGUARDANDO DOCUMENTACAO":{dot:"#888",color:"#888",label:"Aguardando Documento"},"EM PROCESSO":{dot:C.orange,color:C.orange,label:"Em Processo"},"REVALIDACAO":{dot:"#B35B00",color:"#B35B00",label:"Revalidacao"},"APRESENTACAO":{dot:"#CC6C00",color:"#CC6C00",label:"Apresentacao"},"NAO INICIADA":{dot:"#4A4B4D",color:"#4A4B4D",label:"Nao Iniciada"},"DESCARTADA":{dot:"#C62828",color:"#C62828",label:"Descartada"}};
@@ -326,11 +410,11 @@ const MARCO_VISITAS=['2026-03-19'];
 const ISAAC_REUNIOES=[];
 const ISAAC_VISITAS=['2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-20','2026-03-20','2026-03-23','2026-03-24','2026-03-24','2026-03-25','2026-03-26','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-31','2026-03-31','2026-03-31'];
 
-const ALL_DAYS_ABR=['2026-04-01','2026-04-02','2026-04-06','2026-04-07','2026-04-08','2026-04-09','2026-04-10','2026-04-13','2026-04-14'];
-const MOV_CARLA_ABR=[2,0,0,15,13,11,16,15,10];
-const MOV_SANDRO_ABR=[0,0,0,4,14,3,0,0,0];
-const MOV_MARCO_ABR=[1,1,5,5,3,0,13,16,18];
-const MOV_ISAAC_ABR=[12,8,5,0,1,9,20,8,7];
+const ALL_DAYS_ABR=['2026-04-01','2026-04-02','2026-04-06','2026-04-07','2026-04-08','2026-04-09','2026-04-10','2026-04-13','2026-04-14','2026-04-15','2026-04-16','2026-04-17'];
+const MOV_CARLA_ABR=[2,0,0,15,13,11,16,15,10,11,8,17];
+const MOV_SANDRO_ABR=[0,0,0,4,14,3,0,0,0,3,2,5];
+const MOV_MARCO_ABR=[1,1,5,5,3,0,13,16,18,8,2,24];
+const MOV_ISAAC_ABR=[12,8,5,0,1,9,20,8,7,10,15,12];
 const SANDRO_REUNIOES_ABR=['2026-04-08','2026-04-10'];
 const SANDRO_VISITAS_ABR=[];
 const CARLA_REUNIOES_ABR=['2026-04-01','2026-04-06'];
@@ -338,7 +422,7 @@ const CARLA_VISITAS_ABR=['2026-04-07','2026-04-07'];
 const MARCO_REUNIOES_ABR=['2026-04-02','2026-04-07'];
 const MARCO_VISITAS_ABR=['2026-04-09','2026-04-09','2026-04-09','2026-04-09','2026-04-09','2026-04-09'];
 const ISAAC_REUNIOES_ABR=['2026-04-13'];
-const ISAAC_VISITAS_ABR=['2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-02','2026-04-02','2026-04-06','2026-04-10','2026-04-13','2026-04-13','2026-04-14','2026-04-14'];
+const ISAAC_VISITAS_ABR=['2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-02','2026-04-02','2026-04-06','2026-04-10','2026-04-13','2026-04-13','2026-04-14','2026-04-14','2026-04-15','2026-04-15','2026-04-16'];
 
 function buildEvolution(dates,allDays){const counts={};dates.forEach(d=>{counts[d]=(counts[d]||0)+1;});let acc=0;return allDays.map(day=>{acc+=(counts[day]||0);return acc;});}
 function buildMovEvolution(movArr){let acc=0;return ALL_DAYS_MAR.map((_,i)=>{acc+=(movArr[i]||0);return acc;});}
