@@ -635,7 +635,7 @@ function DiagPage({dateIni,dateFim}){
                   <div key={d.id} style={{display:'flex',alignItems:'center',gap:8,background:'#fff',borderRadius:6,padding:'7px 12px',border:'1px solid #FFD0A0'}}>
                     <div style={{width:7,height:7,borderRadius:'50%',background:'#CC6C00',flexShrink:0}}/>
                     <span style={{fontSize:12,fontWeight:700,color:C.text,flex:1}}>{d.empresa}</span>
-                    <span style={{fontSize:10,color:'#888'}}>Resp: {d.executivo||'—'}</span>
+                    <span style={{fontSize:10,color:'#888'}}>Exec: {d.accountExecutive||'—'}</span>
                     <span style={{fontSize:10,fontWeight:700,color:'#CC6C00',background:'#FFF0D6',padding:'2px 8px',borderRadius:4,whiteSpace:'nowrap'}}>Apresentação pendente</span>
                   </div>
                 ))}
@@ -650,7 +650,7 @@ function DiagPage({dateIni,dateFim}){
                   <div key={d.id} style={{display:'flex',alignItems:'center',gap:8,background:'#fff',borderRadius:6,padding:'7px 12px',border:'1px solid #FFCDD2'}}>
                     <div style={{width:7,height:7,borderRadius:'50%',background:C.red,flexShrink:0}}/>
                     <span style={{fontSize:12,fontWeight:700,color:C.text,flex:1}}>{d.empresa}</span>
-                    <span style={{fontSize:10,color:'#888'}}>Resp: {d.executivo||'—'}</span>
+                    <span style={{fontSize:10,color:'#888'}}>Exec: {d.accountExecutive||'—'}</span>
                     <span style={{fontSize:10,fontWeight:700,color:C.red,background:C.rL,padding:'2px 8px',borderRadius:4,whiteSpace:'nowrap'}}>Não apresentado</span>
                   </div>
                 ))}
