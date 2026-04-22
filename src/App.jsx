@@ -553,6 +553,23 @@ function DiagPage({dateIni,dateFim}){
   const[showConc,setShowConc]=useState(false);
   const[showDesc,setShowDesc]=useState(false);
   const[showAlerta,setShowAlerta]=useState(true);
+  const[diagView,setDiagView]=useState('diag');
+  const diagRef=useRef(null);
+  async function exportDiagPDF(){
+    if(!diagRef.current)return;
+    try{
+      const h2c=await import('html2canvas');
+      const{default:jsPDF}=await import('jspdf');
+      const canvas=await h2c.default(diagRef.current,{scale:2,useCORS:true,backgroundColor:'#ECEDEC'});
+      const imgH=Math.round(canvas.height*297/canvas.width);
+      const pdf=new jsPDF({orientation:imgH>297?'p':'l',unit:'mm',format:'a4'});
+      const pageW=pdf.internal.pageSize.getWidth(),pageH=pdf.internal.pageSize.getHeight();
+      const ratio=Math.min(pageW/canvas.width,pageH/canvas.height);
+      const w=canvas.width*ratio,h=canvas.height*ratio;
+      pdf.addImage(canvas.toDataURL('image/png'),'PNG',(pageW-w)/2,(pageH-h)/2,w,h);
+      pdf.save('Rumo_'+(diagView==='diag'?'Diagnosticos':'Reforma')+'_'+new Date().toISOString().slice(0,10)+'.pdf');
+    }catch(e){alert('Erro ao gerar PDF: '+e.message);}
+  }
   const DATA=useMemo(()=>{
     if(!dateIni&&!dateFim)return DIAG_DATA;
     return DIAG_DATA.filter(d=>{
@@ -583,8 +600,16 @@ function DiagPage({dateIni,dateFim}){
   const RefBadge=({v})=>{if(!v||v==='—')return <span style={{color:'#CCC'}}>—</span>;return <span style={{fontSize:11,fontWeight:700,color:v==='Sim'?'#2D9E60':C.orange}}>{v}</span>;};
   const UFBadge=({v})=>v?<span style={{fontSize:11,fontWeight:700,color:C.orange}}>{v}</span>:<span style={{color:'#CCC'}}>—</span>;
   const SegBadge=({v})=><span style={{fontSize:10,fontWeight:700,color:v==='Enterprise'?C.orange:'#888',background:v==='Enterprise'?C.oL:'#F0F0F0',padding:'2px 6px',borderRadius:4}}>{v==='Enterprise'?'ETP':'PME'}</span>;
+  const tabBtnSt=(active)=>({padding:'6px 16px',borderRadius:6,border:`1.5px solid ${active?C.orange:C.border}`,background:active?C.orange:C.white,color:active?C.white:C.gray,fontSize:11,fontWeight:700,cursor:'pointer',fontFamily:FONT,transition:'all 0.15s'});
   return(
   <div style={{display:'flex',flexDirection:'column',gap:10,fontFamily:FONT}}>
+    <div style={{display:'flex',alignItems:'center',gap:8,background:C.white,borderRadius:8,padding:'10px 14px',boxShadow:C.shadow,border:`1px solid ${C.border}`}}>
+      <button onClick={()=>setDiagView('diag')} style={tabBtnSt(diagView==='diag')}>Diagnósticos</button>
+      <button onClick={()=>setDiagView('rtc')} style={tabBtnSt(diagView==='rtc')}>Reforma Tributária</button>
+      <button onClick={exportDiagPDF} style={{...tabBtnSt(false),marginLeft:'auto',display:'flex',alignItems:'center',gap:6}}>⬇ Exportar PDF</button>
+    </div>
+    <div ref={diagRef} style={{display:'flex',flexDirection:'column',gap:10}}>
+    {diagView==='diag'&&<>
     <div style={{background:C.white,borderRadius:8,padding:'14px 20px',border:bs,boxShadow:C.shadow}}>
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',flexWrap:'wrap',gap:8}}>
         <div><div style={{fontSize:14,fontWeight:800,color:C.text,letterSpacing:'-0.01em'}}>REPORT DE DIAGNÓSTICO</div><div style={{fontSize:11,color:C.gray,marginTop:2}}>{new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})}</div></div>
@@ -694,7 +719,9 @@ function DiagPage({dateIni,dateFim}){
       <div onClick={()=>setShowDesc(v=>!v)} style={{padding:'7px 14px',background:'#F5F5F3',display:'flex',alignItems:'center',gap:8,cursor:'pointer',userSelect:'none'}}><span style={{fontSize:9,fontWeight:700,color:'#999',textTransform:'uppercase',letterSpacing:'0.07em'}}>Descartadas</span><span style={{background:C.rL,color:C.red,borderRadius:20,padding:'1px 8px',fontSize:9,fontWeight:800}}>{nDesc}</span><span style={{marginLeft:'auto',fontSize:13,color:'#999',fontWeight:700}}>{showDesc?'▲':'▼'}</span></div>
       {showDesc&&<div style={{overflowX:'auto'}}><table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}><thead><tr><th style={{...TH,width:'24%'}}>Empresa</th><th style={{...THC,width:'14%'}}>Account Executive</th><th style={{...THC,width:'14%'}}>Responsável</th><th style={{...THC,width:'6%'}}>UF</th><th style={{...THC,width:'7%'}}>Seg.</th><th style={{...THC,width:'11%'}}>Dt. Entrada</th><th style={{...THC,width:'11%'}}>Dt. Conclusão</th><th style={{...THC,width:'9%'}}>Reforma</th></tr></thead><tbody>{descartadas.map((d,i)=>(<tr key={d.id} style={{borderBottom:`1px solid #F2F2F0`,background:i%2===0?C.white:'#FAFAF8'}}><td style={{padding:'7px 10px',fontWeight:700,fontSize:11,color:'#888',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',maxWidth:200}}>{d.empresa}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#666'}}>{d.accountExecutive||'—'}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#666'}}>{d.executivo||'—'}</td><td style={{padding:'7px 10px',textAlign:'center'}}><UFBadge v={d.estado}/></td><td style={{padding:'7px 10px',textAlign:'center'}}><SegBadge v={d.tam}/></td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataInicio)}</td><td style={{padding:'7px 10px',textAlign:'center',fontSize:11,color:'#888'}}>{fmtDt(d.dataConclusao)}</td><td style={{padding:'7px 10px',textAlign:'center'}}><RefBadge v={d.reforma}/></td></tr>))}</tbody></table></div>}
     </div>
-    <DiagRTCPage/>
+    </>}
+    {diagView==='rtc'&&<DiagRTCPage/>}
+    </div>
   </div>);
 }
 
