@@ -479,6 +479,15 @@ function ParceriasPage({dateIni,dateFim}){
   const porResponsavel=useMemo(()=>{const m={};PARCERIAS_RAW.forEach(r=>{const resp=r[P.RESP]||'Nao informado';if(!m[resp])m[resp]={resp,total:0,ativos:0,perdidos:0,reunioes:0};m[resp].total++;if(r[P.STATUS]==='Em Andamento')m[resp].ativos++;if(r[P.STATUS]==='Perdida')m[resp].perdidos++;if(r[P.REUNIAO]==='Sim')m[resp].reunioes++;});return Object.values(m).sort((a,b)=>b.total-a.total);},[]);
   const slBtn=(active,color=C.orange)=>({padding:'4px 11px',borderRadius:20,border:`1.5px solid ${active?color:C.border}`,background:active?color:C.white,color:active?C.white:C.gray,fontSize:11,fontWeight:600,cursor:'pointer',flexShrink:0,fontFamily:FONT});
   return(<div style={{display:'flex',flexDirection:'column',gap:11}}>
+    <div style={{background:C.gray,borderRadius:8,padding:'16px 20px',boxShadow:C.shadow,display:'flex',alignItems:'center',gap:16,flexWrap:'wrap'}}>
+      <div style={{width:48,height:48,borderRadius:'50%',background:C.white,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><span style={{fontSize:16,fontWeight:800,color:C.gray}}>LF</span></div>
+      <div><div style={{color:'rgba(255,255,255,0.75)',fontSize:10,fontWeight:700,textTransform:'uppercase',letterSpacing:'0.08em'}}>Gestor de Parcerias</div><div style={{color:C.white,fontSize:20,fontWeight:800}}>Lucas Faraco</div><div style={{color:'rgba(255,255,255,0.7)',fontSize:11}}>{parceiros.length-1} parceiros · {PARCERIAS_RAW.length} leads no total</div></div>
+      <div style={{marginLeft:'auto',display:'flex',gap:8,flexWrap:'wrap'}}>
+        {[{icon:'🤝',val:totalAtivos,label:'Ativos'},{icon:'❌',val:totalPerdidos,label:'Perdidos'},{icon:'📅',val:PARCERIAS_RAW.filter(r=>r[P.REUNIAO]==='Sim').length,label:'Com Reunião'},{icon:'🏢',val:parceiros.length-1,label:'Parceiros'}].map(d=>(
+          <div key={d.label} style={{background:'rgba(255,255,255,0.15)',borderRadius:8,padding:'8px 14px',textAlign:'center',border:'1px solid rgba(255,255,255,0.2)'}}><div style={{fontSize:18,marginBottom:2}}>{d.icon}</div><div style={{fontSize:20,fontWeight:800,color:C.white}}>{d.val}</div><div style={{fontSize:9,color:'rgba(255,255,255,0.8)',fontWeight:600,textTransform:'uppercase'}}>{d.label}</div></div>
+        ))}
+      </div>
+    </div>
     <div style={{background:C.white,borderRadius:8,padding:'12px 16px',boxShadow:C.shadow}}>
       <div style={{display:'flex',flexDirection:'column',gap:9}}>
         <div style={{display:'flex',alignItems:'center',gap:8,flexWrap:'wrap'}}><span style={{fontSize:10,fontWeight:700,color:C.gray,textTransform:'uppercase',letterSpacing:'0.07em',minWidth:72}}>Parceiro</span><div style={{display:'flex',gap:5,flexWrap:'wrap'}}>{parceiros.map(p=>(<button key={p} onClick={()=>setSelParceiro(p)} style={slBtn(selParceiro===p,PARTNER_COLORS[p]||C.orange)}>{p}</button>))}</div></div>
