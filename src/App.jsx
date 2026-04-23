@@ -512,11 +512,17 @@ function ParceriasPage({dateIni,dateFim}){
         </div>
       </Card>
       <Card title="Volume por Parceiro — Ativos vs Perdidos">
-        <ResponsiveContainer width="100%" height={260}>
-          <BarChart data={porParceiro} layout="vertical">
-            <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} horizontal={false}/><XAxis type="number" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}}/><YAxis dataKey="parceiro" type="category" tick={{fontSize:9,fill:C.gray,fontFamily:FONT}} width={115}/><Tooltip content={<Tip/>}/><Legend wrapperStyle={{fontSize:10,fontFamily:FONT}}/>
-            <Bar dataKey="ativos" name="Ativos" stackId="a" fill={C.orange} radius={[0,0,0,0]}><LabelList dataKey="ativos" position="insideLeft" style={{fontSize:9,fill:'white',fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
-            <Bar dataKey="perdidos" name="Perdidos" stackId="a" fill={"#4A4B4D"} radius={[0,4,4,0]}><LabelList dataKey="perdidos" position="right" style={{fontSize:9,fill:"#4A4B4D",fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={porParceiro} layout="vertical" margin={{right:28}}>
+            <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} horizontal={false}/><XAxis type="number" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}}/><YAxis dataKey="parceiro" type="category" tick={{fontSize:9,fill:C.gray,fontFamily:FONT}} width={145}/><Tooltip content={<Tip/>}/><Legend wrapperStyle={{fontSize:10,fontFamily:FONT}}/>
+            <Bar dataKey="ativos" name="Ativos" stackId="a" radius={[0,0,0,0]}>
+              {porParceiro.map((e,i)=><Cell key={i} fill={PARTNER_COLORS[e.parceiro]||C.gray}/>)}
+              <LabelList dataKey="ativos" position="insideLeft" style={{fontSize:9,fill:'white',fontWeight:700}} formatter={v=>v>0?v:''}/>
+            </Bar>
+            <Bar dataKey="perdidos" name="Perdidos" stackId="a" radius={[0,4,4,0]}>
+              {porParceiro.map((e,i)=><Cell key={i} fill={PARTNER_COLORS[e.parceiro]||C.gray} fillOpacity={0.4}/>)}
+              <LabelList dataKey="perdidos" position="right" style={{fontSize:9,fill:C.gray,fontWeight:700}} formatter={v=>v>0?v:''}/>
+            </Bar>
           </BarChart>
         </ResponsiveContainer>
       </Card>
