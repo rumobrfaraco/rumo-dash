@@ -2,6 +2,7 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ComposedChart, LabelList, ReferenceLine, Legend, Cell, Line } from "recharts";
 import { geoMercator, geoPath } from "d3-geo";
+import BRAZIL_GEO from "./brazil-states-simple.json";
  
 const C={orange:"#FF8200",oL:"#FFF0E0",gray:"#6F7072",grayL:"#ECEDEC",white:"#FFFFFF",dark:"#1A1A1C",text:"#1A1A1C",border:"#DCDCDC",green:"#2E7D32",gL:"#E8F5E9",red:"#C62828",rL:"#FFEBEE",blue:"#1565C0",bL:"#E3F2FD",amber:"#E65100",aL:"#FFF3E0",teal:"#00695C",shadow:"0 1px 3px rgba(0,0,0,0.08)"};
 const FONT="'Noto Sans',system-ui,sans-serif";
@@ -455,23 +456,18 @@ const tRow=i=>({borderBottom:`1px solid ${C.border}`,background:i%2===0?C.white:
 function fmtDt(iso){if(!iso)return "—";const p=iso.split("-");return p[2]+"/"+p[1];}
 function calcAging(ini,fim){if(!ini)return null;const f=fim?new Date(fim):new Date();return Math.floor((f-new Date(ini))/864e5);}
 
-const GEO_URL_BR="https://servicodados.ibge.gov.br/api/v3/malhas/paises/BR?formato=application/vnd.geo+json&qualidade=baixa&resolucao=2";
-const IBGE_UF={"11":"RO","12":"AC","13":"AM","14":"RR","15":"PA","16":"AP","17":"TO","21":"MA","22":"PI","23":"CE","24":"RN","25":"PB","26":"PE","27":"AL","28":"SE","29":"BA","31":"MG","32":"ES","33":"RJ","35":"SP","41":"PR","42":"SC","43":"RS","50":"MS","51":"MT","52":"GO","53":"DF"};
 const UF_CENTROIDS={"AC":[-70.5,-9.0],"AL":[-36.6,-9.5],"AM":[-64.7,-3.4],"AP":[-52.0,1.4],"BA":[-41.7,-12.5],"CE":[-39.3,-5.1],"DF":[-47.9,-15.8],"ES":[-40.7,-19.6],"GO":[-49.6,-15.9],"MA":[-45.3,-4.9],"MG":[-44.7,-18.1],"MS":[-54.8,-20.5],"MT":[-56.1,-12.6],"PA":[-52.9,-3.8],"PB":[-36.8,-7.1],"PE":[-37.3,-8.3],"PI":[-42.8,-7.7],"PR":[-51.6,-24.6],"RJ":[-43.2,-22.9],"RN":[-36.5,-5.8],"RO":[-63.0,-10.9],"RR":[-61.4,2.0],"RS":[-53.1,-30.0],"SC":[-50.5,-27.5],"SE":[-37.4,-10.6],"SP":[-48.5,-22.3],"TO":[-48.3,-10.2]};
 
 function BrazilMapCard({porEstado,totalComUF,maxUFCount,openModal}){
-  const[geoFeatures,setGeoFeatures]=useState(null);
-  useEffect(()=>{fetch(GEO_URL_BR).then(r=>r.json()).then(d=>setGeoFeatures(d.features));},[]);
   const W=700,H=500;
   const proj=useMemo(()=>geoMercator().center([-52,-14]).scale(880).translate([W/2,H/2]),[]);
   const path=useMemo(()=>geoPath().projection(proj),[proj]);
   return(
     <Card title="Mapa de Indicações por Estado">
       <div style={{position:'relative'}}>
-        {!geoFeatures?<div style={{height:400,display:'flex',alignItems:'center',justifyContent:'center',color:C.gray,fontSize:12}}>Carregando mapa...</div>:(
-          <svg viewBox={`0 0 ${W} ${H}`} style={{width:'100%',height:'auto',display:'block'}}>
-            {geoFeatures.map((feat,i)=>{
-              const uf=IBGE_UF[String(feat.id)];
+        <svg viewBox={`0 0 ${W} ${H}`} style={{width:'100%',height:'auto',display:'block'}}>
+            {BRAZIL_GEO.features.map((feat,i)=>{
+              const uf=feat.properties.sigla;
               const data=uf?porEstado[uf]:null;
               const count=data?.total||0;
               const intensity=count>0?count/maxUFCount:0;
@@ -488,7 +484,6 @@ function BrazilMapCard({porEstado,totalComUF,maxUFCount,openModal}){
               );
             })}
           </svg>
-        )}
         <div style={{position:'absolute',bottom:10,right:10,display:'flex',gap:5,alignItems:'center',background:'rgba(255,255,255,0.92)',padding:'5px 10px',borderRadius:6,border:`1px solid ${C.border}`}}>
           <span style={{fontSize:8,color:C.gray,marginRight:2}}>Menos</span>
           {[0.2,0.4,0.6,0.8,1].map(v=><div key={v} style={{width:12,height:12,borderRadius:2,background:`rgba(255,130,0,${v})`}}/>)}
