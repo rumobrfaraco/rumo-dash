@@ -459,7 +459,7 @@ function calcAging(ini,fim){if(!ini)return null;const f=fim?new Date(fim):new Da
 const UF_CENTROIDS={"AC":[-70.5,-9.0],"AL":[-36.6,-9.5],"AM":[-64.7,-3.4],"AP":[-52.0,1.4],"BA":[-41.7,-12.5],"CE":[-39.3,-5.1],"DF":[-47.9,-15.8],"ES":[-40.7,-19.6],"GO":[-49.6,-15.9],"MA":[-45.3,-4.9],"MG":[-44.7,-18.1],"MS":[-54.8,-20.5],"MT":[-56.1,-12.6],"PA":[-52.9,-3.8],"PB":[-36.8,-7.1],"PE":[-37.3,-8.3],"PI":[-42.8,-7.7],"PR":[-51.6,-24.6],"RJ":[-43.2,-22.9],"RN":[-36.5,-5.8],"RO":[-63.0,-10.9],"RR":[-61.4,2.0],"RS":[-53.1,-30.0],"SC":[-50.5,-27.5],"SE":[-37.4,-10.6],"SP":[-48.5,-22.3],"TO":[-48.3,-10.2]};
 
 function BrazilMapCard({porEstado,totalComUF,maxUFCount,openModal}){
-  const W=700,H=560;
+  const W=560,H=560;
   const proj=useMemo(()=>geoMercator().fitExtent([[20,20],[W-20,H-20]],BRAZIL_GEO),[]);
   const path=useMemo(()=>geoPath().projection(proj),[proj]);
   return(
@@ -562,17 +562,17 @@ function ParceriasPage({dateIni,dateFim}){
         </ComposedChart>
       </ResponsiveContainer>
     </Card>
-    <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:11}}>
-      <Card title="Ranking de Parceiros">
-        <div style={{overflowY:'auto',maxHeight:300,borderRadius:6,border:`1px solid ${C.border}`}}>
+    <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gridAutoRows:'440px',gap:11}}>
+      <Card title="Ranking de Parceiros" style={{overflow:'hidden'}}>
+        <div style={{height:355,overflowY:'auto',borderRadius:6,border:`1px solid ${C.border}`}}>
           <table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}>
             <TblHead cols={['Parceiro','Total','Ativos','Perdidos','Reunioes','Tx. Perda']}/>
             <tbody>{porParceiro.map((r,i)=>{const txP=r.total>0?Math.round(r.perdidos/r.total*100):0;const color=PARTNER_COLORS[r.parceiro]||C.gray;return(<tr key={i} style={{...tRow(i),cursor:'pointer'}} onClick={()=>openModal(`Leads — ${r.parceiro}`,PARCERIAS_RAW.filter(l=>l[P.PARCEIRO]===r.parceiro))}><td style={{padding:'7px 10px'}}><div style={{display:'flex',alignItems:'center',gap:7}}><div style={{width:10,height:10,borderRadius:3,background:color,flexShrink:0}}/><span style={{fontWeight:500}}>{r.parceiro}</span></div></td><td style={{padding:'7px 10px',fontWeight:700,fontSize:13,color}}>{r.total}</td><td style={{padding:'7px 10px',color:C.orange,fontWeight:600}}>{r.ativos}</td><td style={{padding:'7px 10px',color:r.perdidos>0?C.dark:C.gray,fontWeight:600}}>{r.perdidos||'—'}</td><td style={{padding:'7px 10px',color:C.gray,fontWeight:600}}>{r.reunioes||'—'}</td><td style={{padding:'7px 10px'}}><Badge label={`${txP}%`} color={txP>40?C.dark:txP>20?C.gray:C.orange} bg={txP>40?C.grayL:txP>20?C.grayL:C.oL}/></td></tr>);})}</tbody>
           </table>
         </div>
       </Card>
-      <Card title="Volume por Parceiro — Ativos vs Perdidos">
-        <ResponsiveContainer width="100%" height={300}>
+      <Card title="Volume por Parceiro — Ativos vs Perdidos" style={{overflow:'hidden'}}>
+        <ResponsiveContainer width="100%" height={355}>
           <BarChart data={porParceiro} layout="vertical" margin={{top:4,right:30,left:0,bottom:4}}>
             <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} horizontal={false}/><XAxis type="number" tick={{fontSize:9,fill:C.gray,fontFamily:FONT}}/><YAxis dataKey="parceiro" type="category" tick={{fontSize:8.5,fill:C.gray,fontFamily:FONT}} width={130}/><Tooltip content={<Tip/>}/><Legend wrapperStyle={{fontSize:9,fontFamily:FONT}}/>
             <Bar dataKey="ativos" name="Ativos" stackId="a" radius={[0,0,0,0]} style={{cursor:'pointer'}} onClick={d=>openModal(`Leads — ${d.parceiro}`,PARCERIAS_RAW.filter(r=>r[P.PARCEIRO]===d.parceiro))}>
@@ -586,21 +586,21 @@ function ParceriasPage({dateIni,dateFim}){
           </BarChart>
         </ResponsiveContainer>
       </Card>
-      <Card title="Indicacoes por Mes — Leads e Reunioes">
-        <ResponsiveContainer width="100%" height={300}>
+      <Card title="Indicacoes por Mes — Leads e Reunioes" style={{overflow:'hidden'}}>
+        <ResponsiveContainer width="100%" height={355}>
           <ComposedChart data={porMes}><CartesianGrid strokeDasharray="3 3" stroke={C.grayL}/><XAxis dataKey="label" tick={{fontSize:9,fill:C.gray,fontFamily:FONT}}/><YAxis tick={{fontSize:9,fill:C.gray,fontFamily:FONT}}/><Tooltip content={<Tip/>}/>
             <Bar dataKey="leads" name="Leads" fill={C.orange} radius={[4,4,0,0]} style={{cursor:'pointer'}} onClick={d=>openModal(`Indicações de ${d.label}`,FL.filter(r=>getMesKey(r[P.DATA_IND])===d.key))}><LabelList dataKey="leads" position="top" style={{fontSize:9,fill:C.orange,fontWeight:600}} formatter={v=>v>0?v:''}/></Bar>
             <Bar dataKey="reunioes" name="Reunioes" fill={C.gray} radius={[4,4,0,0]} style={{cursor:'pointer'}} onClick={d=>openModal(`Reuniões de ${d.label}`,FL.filter(r=>getMesKey(r[P.DATA_IND])===d.key&&r[P.REUNIAO]==='Sim'))}><LabelList dataKey="reunioes" position="top" style={{fontSize:9,fill:C.gray,fontWeight:600}} formatter={v=>v>0?v:''}/></Bar>
           </ComposedChart>
         </ResponsiveContainer>
       </Card>
-    </div>
-    <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 2fr',gap:11,alignItems:'start'}}>
-      <Card title="Etapas do Funil — Parcerias">
-        {porEtapa.map((e,i)=>{const bw=porEtapa[0]?.count>0?pctN(e.count,porEtapa[0].count):0;return(<div key={i} onClick={()=>openModal(`Etapa: ${e.etapa}`,FL.filter(r=>r[P.ETAPA]===e.etapa))} style={{display:'flex',alignItems:'center',gap:6,marginBottom:6,cursor:'pointer'}}><div style={{width:130,fontSize:10,color:C.text,textAlign:'right',flexShrink:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{e.etapa}</div><div style={{flex:1,height:16,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${bw}%`,background:i===0?C.orange:i<3?C.gray:C.dark,opacity:Math.max(0.35,1-i*0.06),borderRadius:3}}/></div><span style={{fontSize:10,fontWeight:600,color:C.text,width:28,textAlign:'right',flexShrink:0}}>{e.count}</span></div>);})}
+      <Card title="Etapas do Funil — Parcerias" style={{overflow:'hidden'}}>
+        <div style={{height:355,overflowY:'auto',paddingRight:4}}>
+          {porEtapa.map((e,i)=>{const bw=porEtapa[0]?.count>0?pctN(e.count,porEtapa[0].count):0;return(<div key={i} onClick={()=>openModal(`Etapa: ${e.etapa}`,FL.filter(r=>r[P.ETAPA]===e.etapa))} style={{display:'flex',alignItems:'center',gap:6,marginBottom:8,cursor:'pointer'}}><div style={{width:130,fontSize:10,color:C.text,textAlign:'right',flexShrink:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{e.etapa}</div><div style={{flex:1,height:18,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${bw}%`,background:i===0?C.orange:i<3?C.gray:C.dark,opacity:Math.max(0.35,1-i*0.06),borderRadius:3}}/></div><span style={{fontSize:10,fontWeight:600,color:C.text,width:28,textAlign:'right',flexShrink:0}}>{e.count}</span></div>);})}
+        </div>
       </Card>
-      <Card title="Ranking de Responsáveis">
-        <div style={{borderRadius:6,border:`1px solid ${C.border}`}}>
+      <Card title="Ranking de Responsáveis" style={{overflow:'hidden'}}>
+        <div style={{height:355,overflowY:'auto',borderRadius:6,border:`1px solid ${C.border}`}}>
           <table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}>
             <TblHead cols={['Responsável','Total','Ativos','Perdidos','Reunião']}/>
             <tbody>{porResponsavel.map((r,i)=>{return(<tr key={i} style={{...tRow(i),cursor:'pointer'}} onClick={()=>openModal(`Leads de ${r.resp}`,PARCERIAS_RAW.filter(l=>l[P.RESP]===r.resp))}><td style={{padding:'7px 10px',fontWeight:600,color:C.text}}>{r.resp}</td><td style={{padding:'7px 10px',fontWeight:700,fontSize:13,color:C.orange}}>{r.total}</td><td style={{padding:'7px 10px',color:C.orange,fontWeight:600}}>{r.ativos}</td><td style={{padding:'7px 10px',color:r.perdidos>0?C.dark:C.gray,fontWeight:600}}>{r.perdidos||'—'}</td><td style={{padding:'7px 10px',color:C.gray,fontWeight:600}}>{r.reunioes||'—'}</td></tr>);})}</tbody>
