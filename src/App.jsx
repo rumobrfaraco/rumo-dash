@@ -517,7 +517,7 @@ function ParceriasPage({dateIni,dateFim}){
   const totalAtivos=PARCERIAS_RAW.filter(r=>r[P.STATUS]==='Em Andamento').length;
   const totalPerdidos=PARCERIAS_RAW.filter(r=>r[P.STATUS]==='Perdida').length;
   const porParceiro=useMemo(()=>{const m={};PARCERIAS_RAW.forEach(r=>{const p=r[P.PARCEIRO];if(!m[p])m[p]={parceiro:p,total:0,ativos:0,perdidos:0,reunioes:0};m[p].total++;if(r[P.STATUS]==='Em Andamento')m[p].ativos++;if(r[P.STATUS]==='Perdida')m[p].perdidos++;if(r[P.REUNIAO]==='Sim')m[p].reunioes++;});return Object.values(m).sort((a,b)=>b.total-a.total);},[]);
-  const porMes=useMemo(()=>{const m={};FL.forEach(r=>{if(!r[P.DATA_IND])return;const parts=r[P.DATA_IND].split('/');if(parts.length<3)return;const key=`${parts[2]}-${parts[1].padStart(2,'0')}`;if(!m[key])m[key]={label:`${parts[1].padStart(2,'0')}/${parts[2].slice(2)}`,key,leads:0,reunioes:0};m[key].leads++;if(r[P.REUNIAO]==='Sim')m[key].reunioes++;});return Object.values(m).sort((a,b)=>a.key.localeCompare(b.key));},[FL]);
+  const porMes=useMemo(()=>{const m={};FL.forEach(r=>{if(!r[P.DATA_IND])return;const parts=r[P.DATA_IND].split('/');if(parts.length<3)return;const key=`${parts[2]}-${parts[1].padStart(2,'0')}`;if(!m[key])m[key]={label:`${parts[1].padStart(2,'0')}/${parts[2].slice(2)}`,key,leads:0,reunioes:0};m[key].leads++;if(r[P.REUNIAO]==='Sim')m[key].reunioes++;});const arr=Object.values(m).sort((a,b)=>a.key.localeCompare(b.key));const n=arr.length;if(n>1){const sx=arr.reduce((s,_,i)=>s+i,0);const sy=arr.reduce((s,d)=>s+d.leads,0);const sxy=arr.reduce((s,d,i)=>s+i*d.leads,0);const sxx=arr.reduce((s,_,i)=>s+i*i,0);const slope=(n*sxy-sx*sy)/(n*sxx-sx*sx);const intercept=(sy-slope*sx)/n;arr.forEach((d,i)=>{d.tendencia=Math.max(0,Math.round((intercept+slope*i)*10)/10);});}return arr;},[FL]);
   const leadsPorMes2026=useMemo(()=>{const m={};PARCERIAS_RAW.forEach(r=>{if(!r[P.DATA_IND])return;const parts=r[P.DATA_IND].split('/');if(parts.length<3)return;const key=`${parts[2]}-${parts[1].padStart(2,'0')}`;const label=`${parts[1].padStart(2,'0')}/${parts[2].slice(2)}`;if(!m[key])m[key]={label,key,leads:0};m[key].leads++;});return Object.values(m).sort((a,b)=>a.key.localeCompare(b.key));},[]);
   const totalLeads2026=leadsPorMes2026.reduce((a,b)=>a+b.leads,0);
   const porEtapa=useMemo(()=>{const m={};FL.forEach(r=>{if(r[P.ETAPA])m[r[P.ETAPA]]=(m[r[P.ETAPA]]||0)+1;});return ETAPA_ORDER.filter(e=>m[e]).map(e=>({etapa:e,count:m[e]}));},[FL]);
@@ -586,11 +586,12 @@ function ParceriasPage({dateIni,dateFim}){
           </BarChart>
         </ResponsiveContainer>
       </Card>
-      <Card title="Indicacoes por Mes — Leads e Reunioes" style={{overflow:'hidden'}}>
+      <Card title="Indicações por Mês" style={{overflow:'hidden'}}>
         <ResponsiveContainer width="100%" height={405}>
-          <ComposedChart data={porMes}><CartesianGrid strokeDasharray="3 3" stroke={C.grayL}/><XAxis dataKey="label" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}}/><YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}}/><Tooltip content={<Tip/>}/>
+          <ComposedChart data={porMes}><CartesianGrid strokeDasharray="3 3" stroke={C.grayL}/><XAxis dataKey="label" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}}/><YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}}/><Tooltip content={<Tip/>}/><Legend wrapperStyle={{fontSize:10,fontFamily:FONT}}/>
             <Bar dataKey="leads" name="Leads" fill={C.orange} radius={[4,4,0,0]} style={{cursor:'pointer'}} onClick={d=>openModal(`Indicações de ${d.label}`,FL.filter(r=>getMesKey(r[P.DATA_IND])===d.key))}><LabelList dataKey="leads" position="top" style={{fontSize:10,fill:C.orange,fontWeight:600}} formatter={v=>v>0?v:''}/></Bar>
-            <Bar dataKey="reunioes" name="Reunioes" fill={C.gray} radius={[4,4,0,0]} style={{cursor:'pointer'}} onClick={d=>openModal(`Reuniões de ${d.label}`,FL.filter(r=>getMesKey(r[P.DATA_IND])===d.key&&r[P.REUNIAO]==='Sim'))}><LabelList dataKey="reunioes" position="top" style={{fontSize:10,fill:C.gray,fontWeight:600}} formatter={v=>v>0?v:''}/></Bar>
+            <Bar dataKey="reunioes" name="Reuniões" fill={C.gray} radius={[4,4,0,0]} style={{cursor:'pointer'}} onClick={d=>openModal(`Reuniões de ${d.label}`,FL.filter(r=>getMesKey(r[P.DATA_IND])===d.key&&r[P.REUNIAO]==='Sim'))}><LabelList dataKey="reunioes" position="top" style={{fontSize:10,fill:C.gray,fontWeight:600}} formatter={v=>v>0?v:''}/></Bar>
+            <Line type="linear" dataKey="tendencia" name="Tendência" stroke={C.dark} strokeWidth={2} strokeDasharray="6 3" dot={false} activeDot={{r:4,fill:C.dark}}/>
           </ComposedChart>
         </ResponsiveContainer>
       </Card>
