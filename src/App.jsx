@@ -510,7 +510,7 @@ function ParceriasPage({dateIni,dateFim}){
           <Bar dataKey="leads" name="Leads Entrados" fill={C.orange} radius={[4,4,0,0]} barSize={42} style={{cursor:'pointer'}} onClick={d=>openModal(`Leads de ${d.label}`,PARCERIAS_RAW.filter(r=>getMesKey(r[P.DATA_IND])===d.key))}>
             <LabelList dataKey="leads" position="top" style={{fontSize:11,fill:C.orange,fontWeight:800}} formatter={v=>v>0?v:''}/>
           </Bar>
-          <Line dataKey="leads" name="Tendencia" stroke={C.blue} strokeWidth={2} strokeDasharray="4 3" type="monotone" dot={{r:4,fill:C.blue,stroke:'#fff',strokeWidth:2}}/>
+          <Line dataKey="leads" name="Tendencia" stroke={C.gray} strokeWidth={2} strokeDasharray="4 3" type="monotone" dot={{r:4,fill:C.gray,stroke:'#fff',strokeWidth:2}}/>
         </ComposedChart>
       </ResponsiveContainer>
     </Card>
@@ -519,7 +519,7 @@ function ParceriasPage({dateIni,dateFim}){
         <div style={{overflowX:'auto',borderRadius:6,border:`1px solid ${C.border}`}}>
           <table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}>
             <TblHead cols={['Parceiro','Total','Ativos','Perdidos','Reunioes','Tx. Perda']}/>
-            <tbody>{porParceiro.map((r,i)=>{const txP=r.total>0?Math.round(r.perdidos/r.total*100):0;const color=PARTNER_COLORS[r.parceiro]||C.gray;return(<tr key={i} style={{...tRow(i),cursor:'pointer'}} onClick={()=>openModal(`Leads — ${r.parceiro}`,PARCERIAS_RAW.filter(l=>l[P.PARCEIRO]===r.parceiro))}><td style={{padding:'7px 10px'}}><div style={{display:'flex',alignItems:'center',gap:7}}><div style={{width:10,height:10,borderRadius:3,background:color,flexShrink:0}}/><span style={{fontWeight:600}}>{r.parceiro}</span></div></td><td style={{padding:'7px 10px',fontWeight:800,fontSize:13,color}}>{r.total}</td><td style={{padding:'7px 10px',color:C.orange,fontWeight:700}}>{r.ativos}</td><td style={{padding:'7px 10px',color:r.perdidos>0?C.dark:C.gray,fontWeight:700}}>{r.perdidos||'—'}</td><td style={{padding:'7px 10px',color:C.blue,fontWeight:700}}>{r.reunioes||'—'}</td><td style={{padding:'7px 10px'}}><Badge label={`${txP}%`} color={txP>40?C.dark:txP>20?C.blue:C.orange} bg={txP>40?C.grayL:txP>20?C.bL:C.oL}/></td></tr>);})}</tbody>
+            <tbody>{porParceiro.map((r,i)=>{const txP=r.total>0?Math.round(r.perdidos/r.total*100):0;const color=PARTNER_COLORS[r.parceiro]||C.gray;return(<tr key={i} style={{...tRow(i),cursor:'pointer'}} onClick={()=>openModal(`Leads — ${r.parceiro}`,PARCERIAS_RAW.filter(l=>l[P.PARCEIRO]===r.parceiro))}><td style={{padding:'7px 10px'}}><div style={{display:'flex',alignItems:'center',gap:7}}><div style={{width:10,height:10,borderRadius:3,background:color,flexShrink:0}}/><span style={{fontWeight:600}}>{r.parceiro}</span></div></td><td style={{padding:'7px 10px',fontWeight:800,fontSize:13,color}}>{r.total}</td><td style={{padding:'7px 10px',color:C.orange,fontWeight:700}}>{r.ativos}</td><td style={{padding:'7px 10px',color:r.perdidos>0?C.dark:C.gray,fontWeight:700}}>{r.perdidos||'—'}</td><td style={{padding:'7px 10px',color:C.gray,fontWeight:700}}>{r.reunioes||'—'}</td><td style={{padding:'7px 10px'}}><Badge label={`${txP}%`} color={txP>40?C.dark:txP>20?C.gray:C.orange} bg={txP>40?C.grayL:txP>20?C.grayL:C.oL}/></td></tr>);})}</tbody>
           </table>
         </div>
       </Card>
@@ -544,19 +544,19 @@ function ParceriasPage({dateIni,dateFim}){
         <ResponsiveContainer width="100%" height={200}>
           <ComposedChart data={porMes}><CartesianGrid strokeDasharray="3 3" stroke={C.grayL}/><XAxis dataKey="label" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}}/><YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}}/><Tooltip content={<Tip/>}/>
             <Bar dataKey="leads" name="Leads" fill={C.orange} radius={[4,4,0,0]} style={{cursor:'pointer'}} onClick={d=>openModal(`Indicações de ${d.label}`,FL.filter(r=>getMesKey(r[P.DATA_IND])===d.key))}><LabelList dataKey="leads" position="top" style={{fontSize:9.5,fill:C.orange,fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
-            <Bar dataKey="reunioes" name="Reunioes" fill={C.blue} radius={[4,4,0,0]} style={{cursor:'pointer'}} onClick={d=>openModal(`Reuniões de ${d.label}`,FL.filter(r=>getMesKey(r[P.DATA_IND])===d.key&&r[P.REUNIAO]==='Sim'))}><LabelList dataKey="reunioes" position="top" style={{fontSize:9.5,fill:C.blue,fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
+            <Bar dataKey="reunioes" name="Reunioes" fill={C.gray} radius={[4,4,0,0]} style={{cursor:'pointer'}} onClick={d=>openModal(`Reuniões de ${d.label}`,FL.filter(r=>getMesKey(r[P.DATA_IND])===d.key&&r[P.REUNIAO]==='Sim'))}><LabelList dataKey="reunioes" position="top" style={{fontSize:9.5,fill:C.gray,fontWeight:700}} formatter={v=>v>0?v:''}/></Bar>
           </ComposedChart>
         </ResponsiveContainer>
       </Card>
       <Card title="Etapas do Funil — Parcerias">
-        {porEtapa.map((e,i)=>{const bw=porEtapa[0]?.count>0?pctN(e.count,porEtapa[0].count):0;return(<div key={i} onClick={()=>openModal(`Etapa: ${e.etapa}`,FL.filter(r=>r[P.ETAPA]===e.etapa))} style={{display:'flex',alignItems:'center',gap:6,marginBottom:5,cursor:'pointer'}}><div style={{width:130,fontSize:10,color:C.text,textAlign:'right',flexShrink:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{e.etapa}</div><div style={{flex:1,height:14,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${bw}%`,background:i===0?C.orange:i<3?C.blue:C.dark,opacity:Math.max(0.35,1-i*0.06),borderRadius:3}}/></div><span style={{fontSize:10,fontWeight:700,color:C.text,width:28,textAlign:'right',flexShrink:0}}>{e.count}</span></div>);})}
+        {porEtapa.map((e,i)=>{const bw=porEtapa[0]?.count>0?pctN(e.count,porEtapa[0].count):0;return(<div key={i} onClick={()=>openModal(`Etapa: ${e.etapa}`,FL.filter(r=>r[P.ETAPA]===e.etapa))} style={{display:'flex',alignItems:'center',gap:6,marginBottom:5,cursor:'pointer'}}><div style={{width:130,fontSize:10,color:C.text,textAlign:'right',flexShrink:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{e.etapa}</div><div style={{flex:1,height:14,background:C.grayL,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',width:`${bw}%`,background:i===0?C.orange:i<3?C.gray:C.dark,opacity:Math.max(0.35,1-i*0.06),borderRadius:3}}/></div><span style={{fontSize:10,fontWeight:700,color:C.text,width:28,textAlign:'right',flexShrink:0}}>{e.count}</span></div>);})}
       </Card>
     </div>
     <Card title="Ranking de Responsáveis">
       <div style={{overflowX:'auto',borderRadius:6,border:`1px solid ${C.border}`}}>
         <table style={{width:'100%',borderCollapse:'collapse',fontSize:11}}>
           <TblHead cols={['Responsável','Total','Ativos','Perdidos','Com Reunião']}/>
-          <tbody>{porResponsavel.map((r,i)=>{return(<tr key={i} style={{...tRow(i),cursor:'pointer'}} onClick={()=>openModal(`Leads de ${r.resp}`,PARCERIAS_RAW.filter(l=>l[P.RESP]===r.resp))}><td style={{padding:'7px 10px',fontWeight:700,color:C.text}}>{r.resp}</td><td style={{padding:'7px 10px',fontWeight:800,fontSize:13,color:C.orange}}>{r.total}</td><td style={{padding:'7px 10px',color:C.orange,fontWeight:700}}>{r.ativos}</td><td style={{padding:'7px 10px',color:r.perdidos>0?C.dark:C.gray,fontWeight:700}}>{r.perdidos||'—'}</td><td style={{padding:'7px 10px',color:C.blue,fontWeight:700}}>{r.reunioes||'—'}</td></tr>);})}</tbody>
+          <tbody>{porResponsavel.map((r,i)=>{return(<tr key={i} style={{...tRow(i),cursor:'pointer'}} onClick={()=>openModal(`Leads de ${r.resp}`,PARCERIAS_RAW.filter(l=>l[P.RESP]===r.resp))}><td style={{padding:'7px 10px',fontWeight:700,color:C.text}}>{r.resp}</td><td style={{padding:'7px 10px',fontWeight:800,fontSize:13,color:C.orange}}>{r.total}</td><td style={{padding:'7px 10px',color:C.orange,fontWeight:700}}>{r.ativos}</td><td style={{padding:'7px 10px',color:r.perdidos>0?C.dark:C.gray,fontWeight:700}}>{r.perdidos||'—'}</td><td style={{padding:'7px 10px',color:C.gray,fontWeight:700}}>{r.reunioes||'—'}</td></tr>);})}</tbody>
         </table>
       </div>
     </Card>
