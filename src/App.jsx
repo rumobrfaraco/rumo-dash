@@ -517,7 +517,7 @@ function ParceriasPage({dateIni,dateFim}){
   const totalAtivos=PARCERIAS_RAW.filter(r=>r[P.STATUS]==='Em Andamento').length;
   const totalPerdidos=PARCERIAS_RAW.filter(r=>r[P.STATUS]==='Perdida').length;
   const porParceiro=useMemo(()=>{const m={};PARCERIAS_RAW.forEach(r=>{const p=r[P.PARCEIRO];if(!m[p])m[p]={parceiro:p,total:0,ativos:0,perdidos:0,reunioes:0};m[p].total++;if(r[P.STATUS]==='Em Andamento')m[p].ativos++;if(r[P.STATUS]==='Perdida')m[p].perdidos++;if(r[P.REUNIAO]==='Sim')m[p].reunioes++;});return Object.values(m).sort((a,b)=>b.total-a.total);},[]);
-  const porMes=useMemo(()=>{const m={};FL.forEach(r=>{if(!r[P.DATA_IND])return;const parts=r[P.DATA_IND].split('/');if(parts.length<3)return;const key=`${parts[2]}-${parts[1].padStart(2,'0')}`;if(!m[key])m[key]={label:`${parts[1].padStart(2,'0')}/${parts[2].slice(2)}`,key,leads:0,reunioes:0};m[key].leads++;if(r[P.REUNIAO]==='Sim')m[key].reunioes++;});const arr=Object.values(m).sort((a,b)=>a.key.localeCompare(b.key));const n=arr.length;if(n>1){const sx=arr.reduce((s,_,i)=>s+i,0);const sy=arr.reduce((s,d)=>s+d.leads,0);const sxy=arr.reduce((s,d,i)=>s+i*d.leads,0);const sxx=arr.reduce((s,_,i)=>s+i*i,0);const slope=(n*sxy-sx*sy)/(n*sxx-sx*sx);const intercept=(sy-slope*sx)/n;arr.forEach((d,i)=>{d.tendencia=Math.max(0,Math.round((intercept+slope*i)*10)/10);});}return arr;},[FL]);
+  const porMes=useMemo(()=>{const m={};FL.forEach(r=>{if(!r[P.DATA_IND])return;const parts=r[P.DATA_IND].split('/');if(parts.length<3)return;const key=`${parts[2]}-${parts[1].padStart(2,'0')}`;if(!m[key])m[key]={label:`${parts[1].padStart(2,'0')}/${parts[2].slice(2)}`,key,leads:0,reunioes:0};m[key].leads++;if(r[P.REUNIAO]==='Sim')m[key].reunioes++;});const arr=Object.values(m).sort((a,b)=>a.key.localeCompare(b.key));const n=arr.length;if(n>1){const W=Math.min(6,n);const rec=arr.slice(-W);const sx=rec.reduce((s,_,i)=>s+i,0);const sy=rec.reduce((s,d)=>s+d.leads,0);const sxy=rec.reduce((s,d,i)=>s+i*d.leads,0);const sxx=rec.reduce((s,_,i)=>s+i*i,0);const den=W*sxx-sx*sx;const slope=den?(W*sxy-sx*sy)/den:0;const intercept=(sy-slope*sx)/W;const off=n-W;arr.forEach((d,i)=>{d.tendencia=Math.max(0,+(intercept+slope*(i-off)).toFixed(1));});const adv=(key,s)=>{let[y,mo]=key.split('-').map(Number);mo+=s;while(mo>12){mo-=12;y++;}return`${y}-${String(mo).padStart(2,'0')}`;};const lastKey=arr[n-1].key;for(let f=1;f<=3;f++){const fk=adv(lastKey,f);const[fy,fm]=fk.split('-');arr.push({label:`${fm}/${fy.slice(2)}`,key:fk,leads:null,reunioes:null,tendencia:Math.max(0,+(intercept+slope*(W-1+f)).toFixed(1)),forecast:true});}}return arr;},[FL]);
   const leadsPorMes2026=useMemo(()=>{const m={};PARCERIAS_RAW.forEach(r=>{if(!r[P.DATA_IND])return;const parts=r[P.DATA_IND].split('/');if(parts.length<3)return;const key=`${parts[2]}-${parts[1].padStart(2,'0')}`;const label=`${parts[1].padStart(2,'0')}/${parts[2].slice(2)}`;if(!m[key])m[key]={label,key,leads:0};m[key].leads++;});return Object.values(m).sort((a,b)=>a.key.localeCompare(b.key));},[]);
   const totalLeads2026=leadsPorMes2026.reduce((a,b)=>a+b.leads,0);
   const porEtapa=useMemo(()=>{const m={};FL.forEach(r=>{if(r[P.ETAPA])m[r[P.ETAPA]]=(m[r[P.ETAPA]]||0)+1;});return ETAPA_ORDER.filter(e=>m[e]).map(e=>({etapa:e,count:m[e]}));},[FL]);
@@ -548,7 +548,7 @@ function ParceriasPage({dateIni,dateFim}){
         <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:10,fontWeight:600,color:C.gray,textTransform:'uppercase'}}>Parceiro</span><select value={selParceiro} onChange={e=>setSelParceiro(e.target.value)} style={{padding:'5px 10px',borderRadius:6,border:`1.5px solid ${C.border}`,fontSize:11,fontFamily:FONT,outline:'none'}}>{parceiros.map(p=><option key={p} value={p}>{p}</option>)}</select></div>
       </div>
     </div>
-    <Card title="Leads Entrados por Mes">
+    <Card title="Indicações por Mês — Histórico">
       <ResponsiveContainer width="100%" height={200}>
         <ComposedChart data={leadsPorMes2026} margin={{top:20,right:20,left:0,bottom:0}}>
           <CartesianGrid strokeDasharray="3 3" stroke={C.grayL}/>
@@ -587,13 +587,16 @@ function ParceriasPage({dateIni,dateFim}){
         </ResponsiveContainer>
       </Card>
       <Card title="Indicações por Mês" style={{overflow:'hidden'}}>
+        {(()=>{const fLabel=porMes.find(d=>d.forecast)?.label;return(
         <ResponsiveContainer width="100%" height={405}>
           <ComposedChart data={porMes}><CartesianGrid strokeDasharray="3 3" stroke={C.grayL}/><XAxis dataKey="label" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}}/><YAxis tick={{fontSize:10,fill:C.gray,fontFamily:FONT}}/><Tooltip content={<Tip/>}/><Legend wrapperStyle={{fontSize:10,fontFamily:FONT}}/>
-            <Bar dataKey="leads" name="Leads" fill={C.orange} radius={[4,4,0,0]} style={{cursor:'pointer'}} onClick={d=>openModal(`Indicações de ${d.label}`,FL.filter(r=>getMesKey(r[P.DATA_IND])===d.key))}><LabelList dataKey="leads" position="top" style={{fontSize:10,fill:C.orange,fontWeight:600}} formatter={v=>v>0?v:''}/></Bar>
-            <Bar dataKey="reunioes" name="Reuniões" fill={C.gray} radius={[4,4,0,0]} style={{cursor:'pointer'}} onClick={d=>openModal(`Reuniões de ${d.label}`,FL.filter(r=>getMesKey(r[P.DATA_IND])===d.key&&r[P.REUNIAO]==='Sim'))}><LabelList dataKey="reunioes" position="top" style={{fontSize:10,fill:C.gray,fontWeight:600}} formatter={v=>v>0?v:''}/></Bar>
-            <Line type="linear" dataKey="tendencia" name="Tendência" stroke={C.dark} strokeWidth={2} strokeDasharray="6 3" dot={false} activeDot={{r:4,fill:C.dark}}/>
+            <Bar dataKey="leads" name="Leads" fill={C.orange} radius={[4,4,0,0]} style={{cursor:'pointer'}} onClick={d=>d.leads&&openModal(`Indicações de ${d.label}`,FL.filter(r=>getMesKey(r[P.DATA_IND])===d.key))}><LabelList dataKey="leads" position="top" style={{fontSize:10,fill:C.orange,fontWeight:600}} formatter={v=>v>0?v:''}/></Bar>
+            <Bar dataKey="reunioes" name="Reuniões" fill={C.gray} radius={[4,4,0,0]} style={{cursor:'pointer'}} onClick={d=>d.reunioes&&openModal(`Reuniões de ${d.label}`,FL.filter(r=>getMesKey(r[P.DATA_IND])===d.key&&r[P.REUNIAO]==='Sim'))}><LabelList dataKey="reunioes" position="top" style={{fontSize:10,fill:C.gray,fontWeight:600}} formatter={v=>v>0?v:''}/></Bar>
+            <Line type="linear" dataKey="tendencia" name="Previsão" stroke={C.blue} strokeWidth={2} strokeDasharray="6 3" dot={(p)=>p.payload.forecast?<circle key={p.key} cx={p.cx} cy={p.cy} r={4} fill={C.white} stroke={C.blue} strokeWidth={2}/>:<circle key={p.key} cx={p.cx} cy={p.cy} r={0} fill="none"/>} activeDot={{r:4,fill:C.blue}}/>
+            {fLabel&&<ReferenceLine x={fLabel} stroke={C.blue} strokeDasharray="4 2" strokeOpacity={0.5} label={{value:'▶ Prev.',position:'insideTopLeft',fontSize:9,fill:C.blue,dy:-4}}/>}
           </ComposedChart>
         </ResponsiveContainer>
+        );})()}
       </Card>
       <Card title="Etapas do Funil — Parcerias" style={{overflow:'hidden'}}>
         <div style={{height:405,overflowY:'auto',paddingRight:4}}>
