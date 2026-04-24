@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useState, useMemo, useEffect, useRef } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ComposedChart, LabelList, ReferenceLine, Legend, Cell, Line } from "recharts";
-import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
+import { geoMercator, geoPath } from "d3-geo";
  
 const C={orange:"#FF8200",oL:"#FFF0E0",gray:"#6F7072",grayL:"#ECEDEC",white:"#FFFFFF",dark:"#1A1A1C",text:"#1A1A1C",border:"#DCDCDC",green:"#2E7D32",gL:"#E8F5E9",red:"#C62828",rL:"#FFEBEE",blue:"#1565C0",bL:"#E3F2FD",amber:"#E65100",aL:"#FFF3E0",teal:"#00695C",shadow:"0 1px 3px rgba(0,0,0,0.08)"};
 const FONT="'Noto Sans',system-ui,sans-serif";
@@ -459,6 +459,52 @@ const GEO_URL_BR="https://servicodados.ibge.gov.br/api/v3/malhas/paises/BR?forma
 const IBGE_UF={"11":"RO","12":"AC","13":"AM","14":"RR","15":"PA","16":"AP","17":"TO","21":"MA","22":"PI","23":"CE","24":"RN","25":"PB","26":"PE","27":"AL","28":"SE","29":"BA","31":"MG","32":"ES","33":"RJ","35":"SP","41":"PR","42":"SC","43":"RS","50":"MS","51":"MT","52":"GO","53":"DF"};
 const UF_CENTROIDS={"AC":[-70.5,-9.0],"AL":[-36.6,-9.5],"AM":[-64.7,-3.4],"AP":[-52.0,1.4],"BA":[-41.7,-12.5],"CE":[-39.3,-5.1],"DF":[-47.9,-15.8],"ES":[-40.7,-19.6],"GO":[-49.6,-15.9],"MA":[-45.3,-4.9],"MG":[-44.7,-18.1],"MS":[-54.8,-20.5],"MT":[-56.1,-12.6],"PA":[-52.9,-3.8],"PB":[-36.8,-7.1],"PE":[-37.3,-8.3],"PI":[-42.8,-7.7],"PR":[-51.6,-24.6],"RJ":[-43.2,-22.9],"RN":[-36.5,-5.8],"RO":[-63.0,-10.9],"RR":[-61.4,2.0],"RS":[-53.1,-30.0],"SC":[-50.5,-27.5],"SE":[-37.4,-10.6],"SP":[-48.5,-22.3],"TO":[-48.3,-10.2]};
 
+function BrazilMapCard({porEstado,totalComUF,maxUFCount,openModal}){
+  const[geoFeatures,setGeoFeatures]=useState(null);
+  useEffect(()=>{fetch(GEO_URL_BR).then(r=>r.json()).then(d=>setGeoFeatures(d.features));},[]);
+  const W=700,H=500;
+  const proj=useMemo(()=>geoMercator().center([-52,-14]).scale(880).translate([W/2,H/2]),[]);
+  const path=useMemo(()=>geoPath().projection(proj),[proj]);
+  return(
+    <Card title="Mapa de Indicações por Estado">
+      <div style={{position:'relative'}}>
+        {!geoFeatures?<div style={{height:400,display:'flex',alignItems:'center',justifyContent:'center',color:C.gray,fontSize:12}}>Carregando mapa...</div>:(
+          <svg viewBox={`0 0 ${W} ${H}`} style={{width:'100%',height:'auto',display:'block'}}>
+            {geoFeatures.map((feat,i)=>{
+              const uf=IBGE_UF[String(feat.id)];
+              const data=uf?porEstado[uf]:null;
+              const count=data?.total||0;
+              const intensity=count>0?count/maxUFCount:0;
+              const fill=count>0?`rgba(255,130,0,${Math.max(0.2,intensity)})`:'#E4E4E2';
+              const d=path(feat);
+              const c=uf&&UF_CENTROIDS[uf]?proj(UF_CENTROIDS[uf]):null;
+              const pct=totalComUF>0?Math.round(count/totalComUF*100):0;
+              return(
+                <g key={i} onClick={()=>count>0&&openModal(`Leads em ${uf} (${count})`,data.leads)} style={{cursor:count>0?'pointer':'default'}}>
+                  <path d={d} fill={fill} stroke="#fff" strokeWidth={0.8} style={{transition:'fill 0.15s'}}/>
+                  {count>0&&c&&<text x={c[0]} y={c[1]-5} textAnchor="middle" style={{fontSize:10,fill:intensity>0.55?C.white:C.dark,fontWeight:700,fontFamily:FONT,pointerEvents:'none'}}>{count}</text>}
+                  {count>0&&c&&<text x={c[0]} y={c[1]+7} textAnchor="middle" style={{fontSize:8,fill:intensity>0.55?'rgba(255,255,255,0.85)':C.gray,fontFamily:FONT,pointerEvents:'none'}}>{pct}%</text>}
+                </g>
+              );
+            })}
+          </svg>
+        )}
+        <div style={{position:'absolute',bottom:10,right:10,display:'flex',gap:5,alignItems:'center',background:'rgba(255,255,255,0.92)',padding:'5px 10px',borderRadius:6,border:`1px solid ${C.border}`}}>
+          <span style={{fontSize:8,color:C.gray,marginRight:2}}>Menos</span>
+          {[0.2,0.4,0.6,0.8,1].map(v=><div key={v} style={{width:12,height:12,borderRadius:2,background:`rgba(255,130,0,${v})`}}/>)}
+          <span style={{fontSize:8,color:C.gray,marginLeft:2}}>Mais</span>
+        </div>
+      </div>
+      <div style={{display:'flex',gap:14,marginTop:8,flexWrap:'wrap',fontSize:10}}>
+        {Object.values(porEstado).sort((a,b)=>b.total-a.total).map(d=>{
+          const pct=totalComUF>0?Math.round(d.total/totalComUF*100):0;
+          return(<span key={d.uf} onClick={()=>openModal(`Leads em ${d.uf}`,d.leads)} style={{cursor:'pointer'}}><strong style={{color:C.orange}}>{d.uf}</strong> <span style={{color:C.dark}}>{d.total}</span> <span style={{color:C.gray}}>({pct}%)</span></span>);
+        })}
+      </div>
+    </Card>
+  );
+}
+
 function ParceriasPage({dateIni,dateFim}){
   const[selParceiro,setSelParceiro]=useState('Todos');
   const[selMes,setSelMes]=useState('');
@@ -573,49 +619,7 @@ function ParceriasPage({dateIni,dateFim}){
         </table>
       </div>
     </Card>
-    <Card title="Mapa de Indicações por Estado">
-      <div style={{position:'relative'}}>
-        <ComposableMap projection="geoMercator" projectionConfig={{scale:890,center:[-52,-14]}} style={{width:'100%',height:'auto'}} viewBox="0 0 800 560">
-          <Geographies geography={GEO_URL_BR}>
-            {({geographies})=>geographies.map(geo=>{
-              const uf=IBGE_UF[String(geo.id)];
-              const data=uf?porEstado[uf]:null;
-              const count=data?.total||0;
-              const intensity=count>0?count/maxUFCount:0;
-              const fill=count>0?`rgba(255,130,0,${Math.max(0.2,intensity)})`:'#E8E8E6';
-              return(
-                <Geography key={geo.rsmKey} geography={geo} fill={fill} stroke="#FFFFFF" strokeWidth={0.7}
-                  style={{default:{outline:'none'},hover:{fill:count>0?C.orange:'#DCDCDA',outline:'none',cursor:count>0?'pointer':'default'},pressed:{outline:'none'}}}
-                  onClick={()=>count>0&&openModal(`Leads em ${uf} (${count})`,data.leads)}
-                />
-              );
-            })}
-          </Geographies>
-          {Object.entries(porEstado).map(([uf,data])=>{
-            const coord=UF_CENTROIDS[uf];
-            if(!coord)return null;
-            const pct=totalComUF>0?Math.round(data.total/totalComUF*100):0;
-            return(
-              <Marker key={uf} coordinates={coord}>
-                <text textAnchor="middle" dy="-0.25em" style={{fontSize:10,fill:C.dark,fontWeight:700,fontFamily:FONT,pointerEvents:'none'}}>{data.total}</text>
-                <text textAnchor="middle" dy="0.95em" style={{fontSize:8,fill:C.gray,fontFamily:FONT,pointerEvents:'none'}}>{pct}%</text>
-              </Marker>
-            );
-          })}
-        </ComposableMap>
-        <div style={{position:'absolute',bottom:10,right:10,display:'flex',gap:5,alignItems:'center',background:'rgba(255,255,255,0.92)',padding:'5px 10px',borderRadius:6,border:`1px solid ${C.border}`,backdropFilter:'blur(4px)'}}>
-          <span style={{fontSize:8,color:C.gray,textTransform:'uppercase',letterSpacing:'0.05em',marginRight:2}}>Menos</span>
-          {[0.2,0.4,0.6,0.8,1].map(v=><div key={v} style={{width:13,height:13,borderRadius:2,background:`rgba(255,130,0,${v})`}}/>)}
-          <span style={{fontSize:8,color:C.gray,marginLeft:2}}>Mais</span>
-        </div>
-      </div>
-      <div style={{display:'flex',gap:16,marginTop:8,flexWrap:'wrap',fontSize:10,color:C.gray}}>
-        {Object.values(porEstado).sort((a,b)=>b.total-a.total).map(d=>{
-          const pct=totalComUF>0?Math.round(d.total/totalComUF*100):0;
-          return(<span key={d.uf} onClick={()=>openModal(`Leads em ${d.uf}`,d.leads)} style={{cursor:'pointer',color:C.dark}}><strong style={{color:C.orange}}>{d.uf}</strong> {d.total} <span style={{color:C.gray}}>({pct}%)</span></span>);
-        })}
-      </div>
-    </Card>
+    <BrazilMapCard porEstado={porEstado} totalComUF={totalComUF} maxUFCount={maxUFCount} openModal={openModal}/>
     <Card title={`Leads via Parceiros — ${FL.length} registros`}>
       <div style={{overflowX:'auto',borderRadius:6,border:`1px solid ${C.border}`}}>
         <table style={{width:'100%',borderCollapse:'collapse',fontSize:11,tableLayout:'fixed'}}>
