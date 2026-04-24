@@ -454,6 +454,16 @@ const tRow=i=>({borderBottom:`1px solid ${C.border}`,background:i%2===0?C.white:
 function fmtDt(iso){if(!iso)return "—";const p=iso.split("-");return p[2]+"/"+p[1];}
 function calcAging(ini,fim){if(!ini)return null;const f=fim?new Date(fim):new Date();return Math.floor((f-new Date(ini))/864e5);}
 
+const BRAZIL_TILES=[
+  {uf:'AP',r:0,c:4},
+  {uf:'RR',r:1,c:0},{uf:'AM',r:1,c:1},{uf:'PA',r:1,c:2},{uf:'MA',r:1,c:3},{uf:'PI',r:1,c:4},{uf:'CE',r:1,c:5},{uf:'RN',r:1,c:6},{uf:'PB',r:1,c:7},
+  {uf:'AC',r:2,c:0},{uf:'RO',r:2,c:1},{uf:'TO',r:2,c:2},{uf:'BA',r:2,c:3},{uf:'PE',r:2,c:5},{uf:'AL',r:2,c:6},{uf:'SE',r:2,c:7},
+  {uf:'MT',r:3,c:2},{uf:'GO',r:3,c:3},{uf:'MG',r:3,c:4},{uf:'ES',r:3,c:5},{uf:'RJ',r:3,c:6},
+  {uf:'MS',r:4,c:2},{uf:'DF',r:4,c:3},{uf:'SP',r:4,c:4},
+  {uf:'PR',r:5,c:4},
+  {uf:'SC',r:6,c:3},{uf:'RS',r:6,c:4},
+];
+
 function ParceriasPage({dateIni,dateFim}){
   const[selParceiro,setSelParceiro]=useState('Todos');
   const[selMes,setSelMes]=useState('');
@@ -481,7 +491,10 @@ function ParceriasPage({dateIni,dateFim}){
   const leadsPorMes2026=useMemo(()=>{const m={};PARCERIAS_RAW.forEach(r=>{if(!r[P.DATA_IND])return;const parts=r[P.DATA_IND].split('/');if(parts.length<3)return;const key=`${parts[2]}-${parts[1].padStart(2,'0')}`;const label=`${parts[1].padStart(2,'0')}/${parts[2].slice(2)}`;if(!m[key])m[key]={label,key,leads:0};m[key].leads++;});return Object.values(m).sort((a,b)=>a.key.localeCompare(b.key));},[]);
   const totalLeads2026=leadsPorMes2026.reduce((a,b)=>a+b.leads,0);
   const porEtapa=useMemo(()=>{const m={};FL.forEach(r=>{if(r[P.ETAPA])m[r[P.ETAPA]]=(m[r[P.ETAPA]]||0)+1;});return ETAPA_ORDER.filter(e=>m[e]).map(e=>({etapa:e,count:m[e]}));},[FL]);
-  const porResponsavel=useMemo(()=>{const m={};PARCERIAS_RAW.forEach(r=>{const resp=r[P.RESP]||'Nao informado';if(!m[resp])m[resp]={resp,total:0,ativos:0,perdidos:0,reunioes:0};m[resp].total++;if(r[P.STATUS]==='Em Andamento')m[resp].ativos++;if(r[P.STATUS]==='Perdida')m[resp].perdidos++;if(r[P.REUNIAO]==='Sim')m[resp].reunioes++;});return Object.values(m).sort((a,b)=>b.total-a.total);},[]);
+  const porResponsavel=useMemo(()=>{const m={};PARCERIAS_RAW.forEach(r=>{const resp=r[P.RESP]||'Nao informado';if(!m[resp])m[resp]={resp,total:0,ativos:0,perdidos:0,reunioes:0};m[resp].total++;if(r[P.STATUS]==='Em Andamento')m[resp].ativos++;if(r[P.STATUS]==='Perdida')m[resp].perdidos++;if(r[P.REUNIAO]==='Sim')m[resp].reunioes++;});return Object.values(m).sort((a,b)=>b.total-a.total);});
+  const porEstado=useMemo(()=>{const m={};PARCERIAS_RAW.forEach(r=>{const uf=r[P.UF];if(!uf||uf==='Nao Informado'||uf==='Nao definida')return;if(!m[uf])m[uf]={uf,total:0,ativos:0,perdidos:0,leads:[]};m[uf].total++;if(r[P.STATUS]==='Em Andamento')m[uf].ativos++;if(r[P.STATUS]==='Perdida')m[uf].perdidos++;m[uf].leads.push(r);});return m;},[]);
+  const totalComUF=useMemo(()=>PARCERIAS_RAW.filter(r=>r[P.UF]&&r[P.UF]!=='Nao Informado'&&r[P.UF]!=='Nao definida').length,[]);
+  const maxUFCount=useMemo(()=>Math.max(...Object.values(porEstado).map(d=>d.total),1),[porEstado]);
   const slBtn=(active,color=C.orange)=>({padding:'4px 11px',borderRadius:20,border:`1.5px solid ${active?color:C.border}`,background:active?color:C.white,color:active?C.white:C.gray,fontSize:11,fontWeight:500,cursor:'pointer',flexShrink:0,fontFamily:FONT});
   return(<div style={{display:'flex',flexDirection:'column',gap:11}}>
     <div style={{background:C.gray,borderRadius:8,padding:'16px 20px',boxShadow:C.shadow,display:'flex',alignItems:'center',gap:16,flexWrap:'wrap'}}>
@@ -529,9 +542,9 @@ function ParceriasPage({dateIni,dateFim}){
         </div>
       </Card>
       <Card title="Volume por Parceiro — Ativos vs Perdidos">
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={porParceiro} layout="vertical" margin={{right:28}}>
-            <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} horizontal={false}/><XAxis type="number" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}}/><YAxis dataKey="parceiro" type="category" tick={{fontSize:9,fill:C.gray,fontFamily:FONT}} width={145}/><Tooltip content={<Tip/>}/><Legend wrapperStyle={{fontSize:10,fontFamily:FONT}}/>
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart data={porParceiro} layout="vertical" margin={{top:4,right:36,left:0,bottom:4}}>
+            <CartesianGrid strokeDasharray="3 3" stroke={C.grayL} horizontal={false}/><XAxis type="number" tick={{fontSize:10,fill:C.gray,fontFamily:FONT}}/><YAxis dataKey="parceiro" type="category" tick={{fontSize:9.5,fill:C.gray,fontFamily:FONT}} width={185}/><Tooltip content={<Tip/>}/><Legend wrapperStyle={{fontSize:10,fontFamily:FONT}}/>
             <Bar dataKey="ativos" name="Ativos" stackId="a" radius={[0,0,0,0]} style={{cursor:'pointer'}} onClick={d=>openModal(`Leads — ${d.parceiro}`,PARCERIAS_RAW.filter(r=>r[P.PARCEIRO]===d.parceiro))}>
               {porParceiro.map((e,i)=><Cell key={i} fill={PARTNER_COLORS[e.parceiro]||C.gray}/>)}
               <LabelList dataKey="ativos" position="insideLeft" style={{fontSize:9,fill:'white',fontWeight:600}} formatter={v=>v>0?v:''}/>
@@ -563,6 +576,36 @@ function ParceriasPage({dateIni,dateFim}){
           <TblHead cols={['Responsável','Total','Ativos','Perdidos','Com Reunião']}/>
           <tbody>{porResponsavel.map((r,i)=>{return(<tr key={i} style={{...tRow(i),cursor:'pointer'}} onClick={()=>openModal(`Leads de ${r.resp}`,PARCERIAS_RAW.filter(l=>l[P.RESP]===r.resp))}><td style={{padding:'7px 10px',fontWeight:600,color:C.text}}>{r.resp}</td><td style={{padding:'7px 10px',fontWeight:700,fontSize:13,color:C.orange}}>{r.total}</td><td style={{padding:'7px 10px',color:C.orange,fontWeight:600}}>{r.ativos}</td><td style={{padding:'7px 10px',color:r.perdidos>0?C.dark:C.gray,fontWeight:600}}>{r.perdidos||'—'}</td><td style={{padding:'7px 10px',color:C.gray,fontWeight:600}}>{r.reunioes||'—'}</td></tr>);})}</tbody>
         </table>
+      </div>
+    </Card>
+    <Card title="Mapa de Indicações por Estado">
+      <div style={{display:'grid',gridTemplateColumns:'repeat(8,1fr)',gridTemplateRows:'repeat(7,56px)',gap:4}}>
+        {BRAZIL_TILES.map(({uf,r,c})=>{
+          const data=porEstado[uf];
+          const count=data?.total||0;
+          const pct=totalComUF>0?Math.round(count/totalComUF*100):0;
+          const intensity=count>0?count/maxUFCount:0;
+          const bg=count>0?`rgba(255,130,0,${Math.max(0.18,intensity)})`:'#F2F2F0';
+          const textCol=count>0?(intensity>0.55?C.white:C.dark):'#BBBBB9';
+          return(
+            <div key={uf} onClick={()=>count>0&&openModal(`Leads em ${uf} (${count})`,data.leads)}
+              style={{gridColumn:c+1,gridRow:r+1,background:bg,borderRadius:5,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',cursor:count>0?'pointer':'default',border:`1px solid ${count>0?'rgba(255,130,0,0.25)':C.border}`,transition:'background 0.15s',gap:1}}>
+              <div style={{fontSize:8.5,fontWeight:600,color:textCol,letterSpacing:'0.04em',lineHeight:1}}>{uf}</div>
+              {count>0&&<div style={{fontSize:16,fontWeight:600,color:textCol,lineHeight:1.1}}>{count}</div>}
+              {count>0&&<div style={{fontSize:7.5,color:textCol,opacity:0.85,lineHeight:1}}>{pct}%</div>}
+            </div>
+          );
+        })}
+      </div>
+      <div style={{display:'flex',gap:12,marginTop:10,flexWrap:'wrap',alignItems:'center'}}>
+        <span style={{fontSize:9,color:C.gray,fontWeight:500,textTransform:'uppercase',letterSpacing:'0.05em'}}>Escala:</span>
+        {[0.15,0.35,0.55,0.75,1].map(v=>(
+          <div key={v} style={{display:'flex',alignItems:'center',gap:4}}>
+            <div style={{width:14,height:14,borderRadius:3,background:`rgba(255,130,0,${v})`}}/>
+            <span style={{fontSize:9,color:C.gray}}>{v===0.15?'1 lead':v===1?`${maxUFCount} leads`:''}</span>
+          </div>
+        ))}
+        <span style={{fontSize:9,color:C.gray,marginLeft:'auto'}}>{Object.keys(porEstado).length} estados com indicações</span>
       </div>
     </Card>
     <Card title={`Leads via Parceiros — ${FL.length} registros`}>
