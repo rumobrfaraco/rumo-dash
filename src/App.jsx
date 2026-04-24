@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useState, useMemo, useEffect, useRef } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ComposedChart, LabelList, ReferenceLine, Legend, Cell, Line } from "recharts";
+import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
  
 const C={orange:"#FF8200",oL:"#FFF0E0",gray:"#6F7072",grayL:"#ECEDEC",white:"#FFFFFF",dark:"#1A1A1C",text:"#1A1A1C",border:"#DCDCDC",green:"#2E7D32",gL:"#E8F5E9",red:"#C62828",rL:"#FFEBEE",blue:"#1565C0",bL:"#E3F2FD",amber:"#E65100",aL:"#FFF3E0",teal:"#00695C",shadow:"0 1px 3px rgba(0,0,0,0.08)"};
 const FONT="'Noto Sans',system-ui,sans-serif";
@@ -454,15 +455,9 @@ const tRow=i=>({borderBottom:`1px solid ${C.border}`,background:i%2===0?C.white:
 function fmtDt(iso){if(!iso)return "—";const p=iso.split("-");return p[2]+"/"+p[1];}
 function calcAging(ini,fim){if(!ini)return null;const f=fim?new Date(fim):new Date();return Math.floor((f-new Date(ini))/864e5);}
 
-const BRAZIL_TILES=[
-  {uf:'AP',r:0,c:4},
-  {uf:'RR',r:1,c:0},{uf:'AM',r:1,c:1},{uf:'PA',r:1,c:2},{uf:'MA',r:1,c:3},{uf:'PI',r:1,c:4},{uf:'CE',r:1,c:5},{uf:'RN',r:1,c:6},{uf:'PB',r:1,c:7},
-  {uf:'AC',r:2,c:0},{uf:'RO',r:2,c:1},{uf:'TO',r:2,c:2},{uf:'BA',r:2,c:3},{uf:'PE',r:2,c:5},{uf:'AL',r:2,c:6},{uf:'SE',r:2,c:7},
-  {uf:'MT',r:3,c:2},{uf:'GO',r:3,c:3},{uf:'MG',r:3,c:4},{uf:'ES',r:3,c:5},{uf:'RJ',r:3,c:6},
-  {uf:'MS',r:4,c:2},{uf:'DF',r:4,c:3},{uf:'SP',r:4,c:4},
-  {uf:'PR',r:5,c:4},
-  {uf:'SC',r:6,c:3},{uf:'RS',r:6,c:4},
-];
+const GEO_URL_BR="https://servicodados.ibge.gov.br/api/v3/malhas/paises/BR?formato=application/vnd.geo+json&qualidade=baixa&resolucao=2";
+const IBGE_UF={"11":"RO","12":"AC","13":"AM","14":"RR","15":"PA","16":"AP","17":"TO","21":"MA","22":"PI","23":"CE","24":"RN","25":"PB","26":"PE","27":"AL","28":"SE","29":"BA","31":"MG","32":"ES","33":"RJ","35":"SP","41":"PR","42":"SC","43":"RS","50":"MS","51":"MT","52":"GO","53":"DF"};
+const UF_CENTROIDS={"AC":[-70.5,-9.0],"AL":[-36.6,-9.5],"AM":[-64.7,-3.4],"AP":[-52.0,1.4],"BA":[-41.7,-12.5],"CE":[-39.3,-5.1],"DF":[-47.9,-15.8],"ES":[-40.7,-19.6],"GO":[-49.6,-15.9],"MA":[-45.3,-4.9],"MG":[-44.7,-18.1],"MS":[-54.8,-20.5],"MT":[-56.1,-12.6],"PA":[-52.9,-3.8],"PB":[-36.8,-7.1],"PE":[-37.3,-8.3],"PI":[-42.8,-7.7],"PR":[-51.6,-24.6],"RJ":[-43.2,-22.9],"RN":[-36.5,-5.8],"RO":[-63.0,-10.9],"RR":[-61.4,2.0],"RS":[-53.1,-30.0],"SC":[-50.5,-27.5],"SE":[-37.4,-10.6],"SP":[-48.5,-22.3],"TO":[-48.3,-10.2]};
 
 function ParceriasPage({dateIni,dateFim}){
   const[selParceiro,setSelParceiro]=useState('Todos');
@@ -579,33 +574,46 @@ function ParceriasPage({dateIni,dateFim}){
       </div>
     </Card>
     <Card title="Mapa de Indicações por Estado">
-      <div style={{display:'grid',gridTemplateColumns:'repeat(8,1fr)',gridTemplateRows:'repeat(7,56px)',gap:4}}>
-        {BRAZIL_TILES.map(({uf,r,c})=>{
-          const data=porEstado[uf];
-          const count=data?.total||0;
-          const pct=totalComUF>0?Math.round(count/totalComUF*100):0;
-          const intensity=count>0?count/maxUFCount:0;
-          const bg=count>0?`rgba(255,130,0,${Math.max(0.18,intensity)})`:'#F2F2F0';
-          const textCol=count>0?(intensity>0.55?C.white:C.dark):'#BBBBB9';
-          return(
-            <div key={uf} onClick={()=>count>0&&openModal(`Leads em ${uf} (${count})`,data.leads)}
-              style={{gridColumn:c+1,gridRow:r+1,background:bg,borderRadius:5,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',cursor:count>0?'pointer':'default',border:`1px solid ${count>0?'rgba(255,130,0,0.25)':C.border}`,transition:'background 0.15s',gap:1}}>
-              <div style={{fontSize:8.5,fontWeight:600,color:textCol,letterSpacing:'0.04em',lineHeight:1}}>{uf}</div>
-              {count>0&&<div style={{fontSize:16,fontWeight:600,color:textCol,lineHeight:1.1}}>{count}</div>}
-              {count>0&&<div style={{fontSize:7.5,color:textCol,opacity:0.85,lineHeight:1}}>{pct}%</div>}
-            </div>
-          );
-        })}
+      <div style={{position:'relative'}}>
+        <ComposableMap projection="geoMercator" projectionConfig={{scale:890,center:[-52,-14]}} style={{width:'100%',height:'auto'}} viewBox="0 0 800 560">
+          <Geographies geography={GEO_URL_BR}>
+            {({geographies})=>geographies.map(geo=>{
+              const uf=IBGE_UF[String(geo.id)];
+              const data=uf?porEstado[uf]:null;
+              const count=data?.total||0;
+              const intensity=count>0?count/maxUFCount:0;
+              const fill=count>0?`rgba(255,130,0,${Math.max(0.2,intensity)})`:'#E8E8E6';
+              return(
+                <Geography key={geo.rsmKey} geography={geo} fill={fill} stroke="#FFFFFF" strokeWidth={0.7}
+                  style={{default:{outline:'none'},hover:{fill:count>0?C.orange:'#DCDCDA',outline:'none',cursor:count>0?'pointer':'default'},pressed:{outline:'none'}}}
+                  onClick={()=>count>0&&openModal(`Leads em ${uf} (${count})`,data.leads)}
+                />
+              );
+            })}
+          </Geographies>
+          {Object.entries(porEstado).map(([uf,data])=>{
+            const coord=UF_CENTROIDS[uf];
+            if(!coord)return null;
+            const pct=totalComUF>0?Math.round(data.total/totalComUF*100):0;
+            return(
+              <Marker key={uf} coordinates={coord}>
+                <text textAnchor="middle" dy="-0.25em" style={{fontSize:10,fill:C.dark,fontWeight:700,fontFamily:FONT,pointerEvents:'none'}}>{data.total}</text>
+                <text textAnchor="middle" dy="0.95em" style={{fontSize:8,fill:C.gray,fontFamily:FONT,pointerEvents:'none'}}>{pct}%</text>
+              </Marker>
+            );
+          })}
+        </ComposableMap>
+        <div style={{position:'absolute',bottom:10,right:10,display:'flex',gap:5,alignItems:'center',background:'rgba(255,255,255,0.92)',padding:'5px 10px',borderRadius:6,border:`1px solid ${C.border}`,backdropFilter:'blur(4px)'}}>
+          <span style={{fontSize:8,color:C.gray,textTransform:'uppercase',letterSpacing:'0.05em',marginRight:2}}>Menos</span>
+          {[0.2,0.4,0.6,0.8,1].map(v=><div key={v} style={{width:13,height:13,borderRadius:2,background:`rgba(255,130,0,${v})`}}/>)}
+          <span style={{fontSize:8,color:C.gray,marginLeft:2}}>Mais</span>
+        </div>
       </div>
-      <div style={{display:'flex',gap:12,marginTop:10,flexWrap:'wrap',alignItems:'center'}}>
-        <span style={{fontSize:9,color:C.gray,fontWeight:500,textTransform:'uppercase',letterSpacing:'0.05em'}}>Escala:</span>
-        {[0.15,0.35,0.55,0.75,1].map(v=>(
-          <div key={v} style={{display:'flex',alignItems:'center',gap:4}}>
-            <div style={{width:14,height:14,borderRadius:3,background:`rgba(255,130,0,${v})`}}/>
-            <span style={{fontSize:9,color:C.gray}}>{v===0.15?'1 lead':v===1?`${maxUFCount} leads`:''}</span>
-          </div>
-        ))}
-        <span style={{fontSize:9,color:C.gray,marginLeft:'auto'}}>{Object.keys(porEstado).length} estados com indicações</span>
+      <div style={{display:'flex',gap:16,marginTop:8,flexWrap:'wrap',fontSize:10,color:C.gray}}>
+        {Object.values(porEstado).sort((a,b)=>b.total-a.total).map(d=>{
+          const pct=totalComUF>0?Math.round(d.total/totalComUF*100):0;
+          return(<span key={d.uf} onClick={()=>openModal(`Leads em ${d.uf}`,d.leads)} style={{cursor:'pointer',color:C.dark}}><strong style={{color:C.orange}}>{d.uf}</strong> {d.total} <span style={{color:C.gray}}>({pct}%)</span></span>);
+        })}
       </div>
     </Card>
     <Card title={`Leads via Parceiros — ${FL.length} registros`}>
