@@ -1072,7 +1072,7 @@ function TatianeAtivChart({ligDia,emlDia,whaDia,allDays,dayLbl}){
   const ligAcc=buildSdrEvol(ligDia);
   const emlAcc=buildSdrEvol(emlDia);
   const whaAcc=buildSdrEvol(whaDia);
-  const tatAgendPorDataChart={'2026-04-02':1,'2026-04-06':1,'2026-04-07':1,'2026-04-15':1,'2026-04-16':1};
+  const tatAgendPorDataChart=TATIANE_AGENDAMENTOS.reduce((m,a)=>{if(a.dataAgend)m[a.dataAgend]=(m[a.dataAgend]||0)+1;return m;},{});
   const tatAgendAcum=(()=>{let acc=0;return allDays.map(d=>{acc+=(tatAgendPorDataChart[d]||0);return acc;});})();
   const totalLig=ligAcc[ligAcc.length-1],totalEml=emlAcc[emlAcc.length-1],totalWha=whaAcc[whaAcc.length-1];
   const totalCanais=totalLig+totalEml+totalWha;
@@ -1373,7 +1373,7 @@ function InternoPage({dateIni,dateFim}){
   const ligAcc=buildSdrEvol(ligDia);
   const emlAcc=buildSdrEvol(emlDia);
   const whaAcc=buildSdrEvol(whaDia);
-  const tatAgendPorData={'2026-04-02':1,'2026-04-06':1,'2026-04-07':1,'2026-04-15':1,'2026-04-16':1};
+  const tatAgendPorData=TATIANE_AGENDAMENTOS.reduce((m,a)=>{if(a.dataAgend)m[a.dataAgend]=(m[a.dataAgend]||0)+1;return m;},{});
   const tatAgendAcum=(()=>{let acc=0;return allDaysInt.map(d=>{acc+=(tatAgendPorData[d]||0);return acc;});})();
   const diaMap=allDaysInt.map((d,i)=>({
     dia:String(parseInt(d.slice(8)))+'/'+dayLblInt,
