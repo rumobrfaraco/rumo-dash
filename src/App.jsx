@@ -100,6 +100,7 @@ const SDR_AGENDAMENTOS=[
   {empresa:'DINOLOG TRANSPORTES',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-22'},
   {empresa:'INFINITI TRANSPORTES',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-22'},
   {empresa:'RODOVIÁRIO NOVA ERA',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-23'},
+  {empresa:'VENTANA SERRA DO BRASIL',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-24'},
 ];
 
 // ── Movimentações SDR Março ──
@@ -147,7 +148,7 @@ const SDR_MOV=[
   {dia:'20/abr',data:'2026-04-20',mov:11},
   {dia:'22/abr',data:'2026-04-22',mov:12},
   {dia:'23/abr',data:'2026-04-23',mov:12},
-  {dia:'24/abr',data:'2026-04-24',mov:26},
+  {dia:'24/abr',data:'2026-04-24',mov:15},
 ];
  
 const SDR_SEMANAS=[
@@ -189,7 +190,7 @@ const SDR_AGEND_ACUM = (() => {
 // Totais por mês compilado (histórico + atual)
 const SDR_MENSAL=[
   {mes:'Mar/26',key:'2026-03',ligacao:SDR_LIG_DIA_MAR.reduce((a,b)=>a+b,0),email:SDR_EML_DIA_MAR.reduce((a,b)=>a+b,0),whatsapp:SDR_WHA_DIA_MAR.reduce((a,b)=>a+b,0),agendamentos:10},
-  {mes:'Abr/26',key:'2026-04',ligacao:8+10+16+8+28+0+6+12+6+16+17+12+12+12+23+9,email:5+2+0+3+2+2+4+2+15+9+3+0+4+1+1+2,whatsapp:3+1+0+0+3+3+0+0+3+5+3+8+7+9+10+15,agendamentos:10},
+  {mes:'Abr/26',key:'2026-04',ligacao:8+10+16+8+28+0+6+12+6+16+17+12+12+12+23+9,email:5+2+0+3+2+2+4+2+15+9+3+0+4+1+1+2,whatsapp:3+1+0+0+3+3+0+0+3+5+3+8+7+9+10+15,agendamentos:11},
 ];
 
 function buildSdrEvol(arr){let acc=0;return arr.map(v=>{acc+=v;return acc;});}
@@ -520,11 +521,11 @@ const MARCO_VISITAS=['2026-03-19'];
 const ISAAC_REUNIOES=[];
 const ISAAC_VISITAS=['2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-20','2026-03-20','2026-03-23','2026-03-24','2026-03-24','2026-03-25','2026-03-26','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-31','2026-03-31','2026-03-31'];
 
-const ALL_DAYS_ABR=['2026-04-01','2026-04-02','2026-04-06','2026-04-07','2026-04-08','2026-04-09','2026-04-10','2026-04-13','2026-04-14','2026-04-15','2026-04-16','2026-04-17','2026-04-20','2026-04-22','2026-04-23'];
-const MOV_CARLA_ABR=[2,0,0,15,13,11,16,15,10,11,8,17,13,16,14];
-const MOV_SANDRO_ABR=[0,0,0,4,14,3,0,0,0,3,2,5,8,23,4];
-const MOV_MARCO_ABR=[1,1,5,5,3,0,13,16,18,8,2,24,0,11,6];
-const MOV_ISAAC_ABR=[12,8,5,0,1,9,20,8,7,10,15,12,2,1,13];
+const ALL_DAYS_ABR=['2026-04-01','2026-04-02','2026-04-06','2026-04-07','2026-04-08','2026-04-09','2026-04-10','2026-04-13','2026-04-14','2026-04-15','2026-04-16','2026-04-17','2026-04-20','2026-04-22','2026-04-23','2026-04-24'];
+const MOV_CARLA_ABR=[2,0,0,15,13,11,16,15,10,11,8,17,13,16,14,11];
+const MOV_SANDRO_ABR=[0,0,0,4,14,3,0,0,0,3,2,5,8,23,4,0];
+const MOV_MARCO_ABR=[1,1,5,5,3,0,13,16,18,8,2,24,0,11,6,7];
+const MOV_ISAAC_ABR=[12,8,5,0,1,9,20,8,7,10,15,12,2,1,13,17];
 const SANDRO_REUNIOES_ABR=['2026-04-08','2026-04-10','2026-04-22'];
 const SANDRO_VISITAS_ABR=['2026-04-20','2026-04-20','2026-04-20','2026-04-22','2026-04-22','2026-04-22','2026-04-22','2026-04-22'];
 const CARLA_REUNIOES_ABR=['2026-04-01','2026-04-06'];
@@ -956,7 +957,6 @@ const TATIANE_AGENDAMENTOS=[
   {empresa:'TRANSPORTADORA RODOLUKE',perfil:'ETP',status:'Reuniao Realizada',etapa:'',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-16',decisor:'Sim',tipo:'Online'},
   {empresa:'SUPRILOG TRANSPORTES',perfil:'ETP',status:'Reuniao Agendada',etapa:'',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-22',decisor:'Sim',tipo:'Online'},
   {empresa:'JGF TRANSPORTES',perfil:'ETP',status:'Reuniao Agendada',etapa:'',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-23',decisor:'Sim',tipo:'Online'},
-  {empresa:'VENTANA SERRA DO BRASIL',perfil:'ETP',status:STATUS_AGENDADA,etapa:'',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-24',decisor:'Sim',tipo:'Online'},
 ];
 const TATIANE_MOV_MAR=[
   {dia:'25/mar',data:'2026-03-25',mov:39},
