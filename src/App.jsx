@@ -14,7 +14,7 @@ const ALL_MONTH_OPTS=[{key:'',label:'Todos os meses'},...MONTHS_KEY.map((k,i)=>(
 const ETAPA_ORDER=['Entrada','Follow-up Inicial','Reuniao Agendada','Reuniao Realizada','Raio-X','Diagnostico','Solicitacao de Documentos','Apresentacao','Proposta','Negociacao','Fechamento'];
 const PARTNER_COLORS={"FB Consult":C.orange,"4DGroup":"#4A4B4D","Saionara | Raster GR":"#8C5200","FF":"#A0A0A0","Daniel | Raster":"#6F7072","Eusimar | Raster":"#333333","Luis | Raster":"#2D7D8A","Fábio | TruckPag":"#7B5EA7","Leonardo | TruckPag":"#9575CD","Prolog":"#00695C","Sem parceiro":"#C0C0C0"};
 const META_DIA=25,META_AGEND_MES=20;
-const LAST_UPDATE="22/04/2026";
+const LAST_UPDATE="24/04/2026";
 const STATUS_REALIZADA="Reuniao Realizada";
 const STATUS_AGENDADA="Reuniao Agendada";
 const pctN=(a,b)=>b>0?+(a/b*100).toFixed(1):0;
@@ -93,10 +93,13 @@ const SDR_AGENDAMENTOS=[
   {empresa:'SANTISSIMA TRINDADE PARTICIPACOES E LOGISTICA LTDA',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-01'},
   {empresa:'TRANSPORTES PROGRESSO',perfil:'ETP',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-08'},
   {empresa:'GEOTRANS LOGISTICA',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-13'},
-  {empresa:'POLIMODAL',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-16'},
-  {empresa:'BRASQUIMICA TRANSPORTES',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-17'},
-  {empresa:'SIDERTRANS',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-17'},
+  {empresa:'POLIMODAL',perfil:'ETP',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-16'},
+  {empresa:'BRASQUIMICA TRANSPORTES',perfil:'ETP',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-17'},
+  {empresa:'SIDERTRANS',perfil:'ETP',status:STATUS_REALIZADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-17'},
   {empresa:'TRANSPREX',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-17'},
+  {empresa:'DINOLOG TRANSPORTES',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-22'},
+  {empresa:'INFINITI TRANSPORTES',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-22'},
+  {empresa:'RODOVIÁRIO NOVA ERA',perfil:'ETP',status:STATUS_AGENDADA,crm:'Em Andamento',motivo:'',dataAgend:'2026-04-23'},
 ];
 
 // ── Movimentações SDR Março ──
@@ -142,6 +145,9 @@ const SDR_MOV=[
   {dia:'16/abr',data:'2026-04-16',mov:13},
   {dia:'17/abr',data:'2026-04-17',mov:17},
   {dia:'20/abr',data:'2026-04-20',mov:11},
+  {dia:'22/abr',data:'2026-04-22',mov:12},
+  {dia:'23/abr',data:'2026-04-23',mov:12},
+  {dia:'24/abr',data:'2026-04-24',mov:26},
 ];
  
 const SDR_SEMANAS=[
@@ -154,10 +160,10 @@ const SDR_LIG_DIA_MAR=[0,0,27,9,16,10,21,14,31,14,14,29,15,0,7];
 const SDR_EML_DIA_MAR=[0,22,0,0,0,11,5,0,3,8,7,1,2,0,4];
 const SDR_WHA_DIA_MAR=[0,0,0,0,0,0,0,15,15,12,18,27,9,0,1];
 
-const SDR_DAYS_LBL=['01/abr','02/abr','06/abr','07/abr','08/abr','09/abr','10/abr','13/abr','14/abr','15/abr','16/abr','17/abr','20/abr'];
-const SDR_LIG_DIA=[8,10,16,8,28,0,6,12,6,16,17,12,12];
-const SDR_EML_DIA=[5,2,0,3,2,2,4,2,15,9,3,0,4];
-const SDR_WHA_DIA=[3,1,0,0,3,3,0,0,3,5,3,8,7];
+const SDR_DAYS_LBL=['01/abr','02/abr','06/abr','07/abr','08/abr','09/abr','10/abr','13/abr','14/abr','15/abr','16/abr','17/abr','20/abr','22/abr','23/abr','24/abr'];
+const SDR_LIG_DIA=[8,10,16,8,28,0,6,12,6,16,17,12,12,12,23,9];
+const SDR_EML_DIA=[5,2,0,3,2,2,4,2,15,9,3,0,4,1,1,2];
+const SDR_WHA_DIA=[3,1,0,0,3,3,0,0,3,5,3,8,7,9,10,15];
 
 const SDR_AGEND_POR_DATA = {};
 SDR_AGENDAMENTOS.forEach(a => {
@@ -167,7 +173,7 @@ SDR_AGENDAMENTOS.forEach(a => {
 });
 
 const SDR_ATIV_DATES = [
-  '2026-04-01','2026-04-02','2026-04-06','2026-04-07','2026-04-08','2026-04-09','2026-04-10','2026-04-13','2026-04-14','2026-04-15','2026-04-16','2026-04-17','2026-04-20'
+  '2026-04-01','2026-04-02','2026-04-06','2026-04-07','2026-04-08','2026-04-09','2026-04-10','2026-04-13','2026-04-14','2026-04-15','2026-04-16','2026-04-17','2026-04-20','2026-04-22','2026-04-23','2026-04-24'
 ];
 
 const SDR_AGEND_ACUM = (() => {
@@ -183,7 +189,7 @@ const SDR_AGEND_ACUM = (() => {
 // Totais por mês compilado (histórico + atual)
 const SDR_MENSAL=[
   {mes:'Mar/26',key:'2026-03',ligacao:SDR_LIG_DIA_MAR.reduce((a,b)=>a+b,0),email:SDR_EML_DIA_MAR.reduce((a,b)=>a+b,0),whatsapp:SDR_WHA_DIA_MAR.reduce((a,b)=>a+b,0),agendamentos:10},
-  {mes:'Abr/26',key:'2026-04',ligacao:8+10+16+8+28+0+6+12+6+16+17+12+12,email:5+2+0+3+2+2+4+2+15+9+3+0+4,whatsapp:3+1+0+0+3+3+0+0+3+5+3+8+7,agendamentos:7},
+  {mes:'Abr/26',key:'2026-04',ligacao:8+10+16+8+28+0+6+12+6+16+17+12+12+12+23+9,email:5+2+0+3+2+2+4+2+15+9+3+0+4+1+1+2,whatsapp:3+1+0+0+3+3+0+0+3+5+3+8+7+9+10+15,agendamentos:10},
 ];
 
 function buildSdrEvol(arr){let acc=0;return arr.map(v=>{acc+=v;return acc;});}
@@ -344,9 +350,94 @@ const SDR_ATIV=[
   {data:'2026-04-20',empresa:'SUPRILOG TRANSPORTES LTDA',canal:'ligacao'},{data:'2026-04-20',empresa:'RODOTON TRANSPORTES',canal:'ligacao'},{data:'2026-04-20',empresa:'TRANSPREX TRANSPORTADORA',canal:'ligacao'},{data:'2026-04-20',empresa:'GRUPO LAMONICA',canal:'ligacao'},{data:'2026-04-20',empresa:'BRASQUIMICA TRANSPORTES',canal:'ligacao'},{data:'2026-04-20',empresa:'IXC TRANSPORTES',canal:'ligacao'},{data:'2026-04-20',empresa:'FERNAO DIAS LOGISTICA',canal:'ligacao'},{data:'2026-04-20',empresa:'SETE LAGOS TRANSPORTES',canal:'ligacao'},{data:'2026-04-20',empresa:'F&P TRANSPORTES',canal:'ligacao'},{data:'2026-04-20',empresa:'TRANSKING TRANSPORTES',canal:'ligacao'},{data:'2026-04-20',empresa:'VALLOG TRANSPORTES',canal:'ligacao'},{data:'2026-04-20',empresa:'CAGT TRANSPORTES',canal:'ligacao'},
   {data:'2026-04-20',empresa:'RODOTON TRANSPORTES',canal:'email'},{data:'2026-04-20',empresa:'TRANSPREX TRANSPORTADORA',canal:'email'},{data:'2026-04-20',empresa:'GRUPO LAMONICA',canal:'email'},{data:'2026-04-20',empresa:'BRASQUIMICA TRANSPORTES',canal:'email'},
   {data:'2026-04-20',empresa:'IXC TRANSPORTES',canal:'whatsapp'},{data:'2026-04-20',empresa:'FERNAO DIAS LOGISTICA',canal:'whatsapp'},{data:'2026-04-20',empresa:'SETE LAGOS TRANSPORTES',canal:'whatsapp'},{data:'2026-04-20',empresa:'F&P TRANSPORTES',canal:'whatsapp'},{data:'2026-04-20',empresa:'TRANSKING TRANSPORTES',canal:'whatsapp'},{data:'2026-04-20',empresa:'VALLOG TRANSPORTES',canal:'whatsapp'},{data:'2026-04-20',empresa:'CAGT TRANSPORTES',canal:'whatsapp'},
+  // ── 22/abr ──
+  {data:'2026-04-22',empresa:'TRANSCAMILA CARGAS E ARMAZENS GERAIS LTDA',canal:'ligacao'},
+  {data:'2026-04-22',empresa:'SUPRILOG TRANSPORTES LTDA',canal:'ligacao'},
+  {data:'2026-04-22',empresa:'INFINITI TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-22',empresa:'MKM LOGISTICA E TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-22',empresa:'TRANSCOCARI TRANSPORTADORA COCARI LTDA',canal:'ligacao'},
+  {data:'2026-04-22',empresa:'A.H.P TRANSPORTES RODOVIARIO LTDA',canal:'ligacao'},
+  {data:'2026-04-22',empresa:'CONTINUA LOGISTICA E TRANSPORTES LTDA',canal:'ligacao'},
+  {data:'2026-04-22',empresa:'GIRA RAPIDO TRANSPORTES RODOVIARIOS LTDA',canal:'ligacao'},
+  {data:'2026-04-22',empresa:'DINOLOG TRANSPORTES E SERVICOS LTDA',canal:'ligacao'},
+  {data:'2026-04-22',empresa:'TGL TRANSPORTES LTDA',canal:'ligacao'},
+  {data:'2026-04-22',empresa:'SEKALOG TRANSPORTES LTDA',canal:'ligacao'},
+  {data:'2026-04-22',empresa:'TRANSNIL TRANSPORTES LTDA',canal:'ligacao'},
+  {data:'2026-04-22',empresa:'TRANSCAMILA CARGAS E ARMAZENS GERAIS LTDA',canal:'email'},
+  {data:'2026-04-22',empresa:'POLIMODAL',canal:'whatsapp'},
+  {data:'2026-04-22',empresa:'SIDERTRANS TRANSPORTES RODOVIARIOS LTDA',canal:'whatsapp'},
+  {data:'2026-04-22',empresa:'TRANSPREX TRANSPORTADORA',canal:'whatsapp'},
+  {data:'2026-04-22',empresa:'A.H.P TRANSPORTES RODOVIARIO LTDA',canal:'whatsapp'},
+  {data:'2026-04-22',empresa:'CONTINUA LOGISTICA E TRANSPORTES LTDA',canal:'whatsapp'},
+  {data:'2026-04-22',empresa:'GIRA RAPIDO TRANSPORTES RODOVIARIOS LTDA',canal:'whatsapp'},
+  {data:'2026-04-22',empresa:'INFINITI TRANSPORTES',canal:'whatsapp'},
+  {data:'2026-04-22',empresa:'SUPRILOG TRANSPORTES LTDA',canal:'whatsapp'},
+  {data:'2026-04-22',empresa:'KAMER CARGO LTDA',canal:'whatsapp'},
+  // ── 23/abr ──
+  {data:'2026-04-23',empresa:'TRANSPORTES FARAEM LTDA',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'UNIDÃO TRANSPORTES E LOGISTICA',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'TRANSPORTADORA TRANSMIRO',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'RODOFAMA',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'RODOVIÁRIO NOVA ERA',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'RODOSILVER',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'FG EXPRESS',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'CORELOG',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'DINON TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'G6 TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'FG EXPRESS',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'TRANSPORTADORA TRANSMIRO',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'CORELOG',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'DINON TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'TRANSPORTADORA TRANSMIRO',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'CORELOG',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'DINON TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'RODOFAMA',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'RODOSILVER',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'TRANSPORTES FARAEM LTDA',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'TRANSPORTADORA TRANSMIRO',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'3B LOGISTICA LTDA',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'BELLAVER TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-23',empresa:'DINON TRANSPORTES',canal:'email'},
+  {data:'2026-04-23',empresa:'RODOVIÁRIO NOVA ERA',canal:'whatsapp'},
+  {data:'2026-04-23',empresa:'RODOSILVER',canal:'whatsapp'},
+  {data:'2026-04-23',empresa:'RODOFAMA',canal:'whatsapp'},
+  {data:'2026-04-23',empresa:'TRANSPORTES FARAEM LTDA',canal:'whatsapp'},
+  {data:'2026-04-23',empresa:'FG EXPRESS',canal:'whatsapp'},
+  {data:'2026-04-23',empresa:'CORELOG',canal:'whatsapp'},
+  {data:'2026-04-23',empresa:'DINON TRANSPORTES',canal:'whatsapp'},
+  {data:'2026-04-23',empresa:'G6 TRANSPORTES',canal:'whatsapp'},
+  {data:'2026-04-23',empresa:'RODOFAMA',canal:'whatsapp'},
+  {data:'2026-04-23',empresa:'3B LOGISTICA LTDA',canal:'whatsapp'},
+  // ── 24/abr ──
+  {data:'2026-04-24',empresa:'TRANSPARANA',canal:'ligacao'},
+  {data:'2026-04-24',empresa:'G6 TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-24',empresa:'US CARGO TRANSPORTE E LOGISTICA LTDA',canal:'ligacao'},
+  {data:'2026-04-24',empresa:'MANCHESTER LOGISTICA INTEGRADA LTDA',canal:'ligacao'},
+  {data:'2026-04-24',empresa:'M.Y. PORDEUS',canal:'ligacao'},
+  {data:'2026-04-24',empresa:'VENTANA SERRA DO BRASIL',canal:'ligacao'},
+  {data:'2026-04-24',empresa:'IXC TRANSPORTES',canal:'ligacao'},
+  {data:'2026-04-24',empresa:'FG EXPRESS',canal:'ligacao'},
+  {data:'2026-04-24',empresa:'CARGO BRASIL LTDA',canal:'ligacao'},
+  {data:'2026-04-24',empresa:'MANCHESTER LOGISTICA INTEGRADA LTDA',canal:'email'},
+  {data:'2026-04-24',empresa:'SUPERIOR TRANSPORTES',canal:'email'},
+  {data:'2026-04-24',empresa:'TRANSPARANA',canal:'whatsapp'},
+  {data:'2026-04-24',empresa:'G6 TRANSPORTES',canal:'whatsapp'},
+  {data:'2026-04-24',empresa:'GRV LOGISTICA',canal:'whatsapp'},
+  {data:'2026-04-24',empresa:'DECSA LOGISTICA E TRANSPORTES',canal:'whatsapp'},
+  {data:'2026-04-24',empresa:'DECSA LOGISTICA E TRANSPORTES',canal:'whatsapp'},
+  {data:'2026-04-24',empresa:'TRANSPORTADORA PRIMEIRA DO NORDESTE',canal:'whatsapp'},
+  {data:'2026-04-24',empresa:'CARGO BRASIL LTDA',canal:'whatsapp'},
+  {data:'2026-04-24',empresa:'US CARGO TRANSPORTE E LOGISTICA LTDA',canal:'whatsapp'},
+  {data:'2026-04-24',empresa:'GAV TRANSPORTES LTDA',canal:'whatsapp'},
+  {data:'2026-04-24',empresa:'M.Y. PORDEUS',canal:'whatsapp'},
+  {data:'2026-04-24',empresa:'VENTANA SERRA DO BRASIL',canal:'whatsapp'},
+  {data:'2026-04-24',empresa:'IXC TRANSPORTES',canal:'whatsapp'},
+  {data:'2026-04-24',empresa:'F&P TRANSPORTES',canal:'whatsapp'},
+  {data:'2026-04-24',empresa:'CONFINS TRANSPORTES LTDA',canal:'whatsapp'},
+  {data:'2026-04-24',empresa:'DINOLOG TRANSPORTES E SERVICOS LTDA',canal:'whatsapp'},
 ];
 
-const EFETIVAS=['ARROW LOGISTICA','DINIZ SARAIVA','GRUPO DTRANS','TORMANN TRANSPORTES','HP DE OLIVEIRA TRANSPORTES','OBAL TRANSPORTES','RCR QUALITY LOGISTICA E TRANSPORTES LTDA','TRANSLEVE TRANSPORTES LTDA','SUPRILOG TRANSPORTES LTDA'];
+const EFETIVAS=['ARROW LOGISTICA','DINIZ SARAIVA','GRUPO DTRANS','TORMANN TRANSPORTES','HP DE OLIVEIRA TRANSPORTES','OBAL TRANSPORTES','RCR QUALITY LOGISTICA E TRANSPORTES LTDA','TRANSLEVE TRANSPORTES LTDA','SUPRILOG TRANSPORTES LTDA','RODOFAMA','TRANSPORTADORA TRANSMIRO','BELLAVER TRANSPORTES'];
 
 const DIAG_DATA=[
   {id:1,empresa:"DAMACEL TRANSPORTES",status:"COMPLETE",accountExecutive:"Sandro Casagrande",executivo:"Matheus Cambui",estado:"RS",reforma:"Nao",dias:8,tam:"Enterprise",dataInicio:"2026-01-14",dataConclusao:"2026-01-22",apresentacao:"Sim"},
@@ -429,18 +520,18 @@ const MARCO_VISITAS=['2026-03-19'];
 const ISAAC_REUNIOES=[];
 const ISAAC_VISITAS=['2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-19','2026-03-20','2026-03-20','2026-03-23','2026-03-24','2026-03-24','2026-03-25','2026-03-26','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-30','2026-03-31','2026-03-31','2026-03-31'];
 
-const ALL_DAYS_ABR=['2026-04-01','2026-04-02','2026-04-06','2026-04-07','2026-04-08','2026-04-09','2026-04-10','2026-04-13','2026-04-14','2026-04-15','2026-04-16','2026-04-17','2026-04-20'];
-const MOV_CARLA_ABR=[2,0,0,15,13,11,16,15,10,11,8,17,13];
-const MOV_SANDRO_ABR=[0,0,0,4,14,3,0,0,0,3,2,5,8];
-const MOV_MARCO_ABR=[1,1,5,5,3,0,13,16,18,8,2,24,0];
-const MOV_ISAAC_ABR=[12,8,5,0,1,9,20,8,7,10,15,12,2];
-const SANDRO_REUNIOES_ABR=['2026-04-08','2026-04-10'];
-const SANDRO_VISITAS_ABR=['2026-04-20','2026-04-20','2026-04-20'];
+const ALL_DAYS_ABR=['2026-04-01','2026-04-02','2026-04-06','2026-04-07','2026-04-08','2026-04-09','2026-04-10','2026-04-13','2026-04-14','2026-04-15','2026-04-16','2026-04-17','2026-04-20','2026-04-22','2026-04-23'];
+const MOV_CARLA_ABR=[2,0,0,15,13,11,16,15,10,11,8,17,13,16,14];
+const MOV_SANDRO_ABR=[0,0,0,4,14,3,0,0,0,3,2,5,8,23,4];
+const MOV_MARCO_ABR=[1,1,5,5,3,0,13,16,18,8,2,24,0,11,6];
+const MOV_ISAAC_ABR=[12,8,5,0,1,9,20,8,7,10,15,12,2,1,13];
+const SANDRO_REUNIOES_ABR=['2026-04-08','2026-04-10','2026-04-22'];
+const SANDRO_VISITAS_ABR=['2026-04-20','2026-04-20','2026-04-20','2026-04-22','2026-04-22','2026-04-22','2026-04-22','2026-04-22'];
 const CARLA_REUNIOES_ABR=['2026-04-01','2026-04-06'];
 const CARLA_VISITAS_ABR=['2026-04-07','2026-04-07','2026-04-20'];
-const MARCO_REUNIOES_ABR=['2026-04-02','2026-04-07'];
+const MARCO_REUNIOES_ABR=['2026-04-02','2026-04-07','2026-04-22','2026-04-22','2026-04-23'];
 const MARCO_VISITAS_ABR=['2026-04-09','2026-04-09','2026-04-09','2026-04-09','2026-04-09','2026-04-09'];
-const ISAAC_REUNIOES_ABR=['2026-04-13'];
+const ISAAC_REUNIOES_ABR=['2026-04-13','2026-04-23'];
 const ISAAC_VISITAS_ABR=['2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-01','2026-04-02','2026-04-02','2026-04-06','2026-04-10','2026-04-13','2026-04-13','2026-04-14','2026-04-14','2026-04-15','2026-04-15','2026-04-16'];
 
 function buildEvolution(dates,allDays){const counts={};dates.forEach(d=>{counts[d]=(counts[d]||0)+1;});let acc=0;return allDays.map(day=>{acc+=(counts[day]||0);return acc;});}
@@ -863,6 +954,9 @@ const TATIANE_AGENDAMENTOS=[
   {empresa:'HP DE OLIVEIRA TRANSPORTES',perfil:'ETP',status:'Reuniao Realizada',etapa:'Proposta',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-07',decisor:'Sim',tipo:'Online'},
   {empresa:'TRANSPORTADORA NEVADA',perfil:'ETP',status:'Reuniao Agendada',etapa:'',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-15',decisor:'Sim',tipo:'Online'},
   {empresa:'TRANSPORTADORA RODOLUKE',perfil:'ETP',status:'Reuniao Realizada',etapa:'',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-16',decisor:'Sim',tipo:'Online'},
+  {empresa:'SUPRILOG TRANSPORTES',perfil:'ETP',status:'Reuniao Agendada',etapa:'',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-22',decisor:'Sim',tipo:'Online'},
+  {empresa:'JGF TRANSPORTES',perfil:'ETP',status:'Reuniao Agendada',etapa:'',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-23',decisor:'Sim',tipo:'Online'},
+  {empresa:'VENTANA SERRA DO BRASIL',perfil:'ETP',status:STATUS_AGENDADA,etapa:'',crm:'Em Andamento',motivo:'',dataAgend:'2026-04-24',decisor:'Sim',tipo:'Online'},
 ];
 const TATIANE_MOV_MAR=[
   {dia:'25/mar',data:'2026-03-25',mov:39},
@@ -885,6 +979,9 @@ const TATIANE_MOV=[
   {dia:'16/abr',data:'2026-04-16',mov:25},
   {dia:'17/abr',data:'2026-04-17',mov:29},
   {dia:'20/abr',data:'2026-04-20',mov:46},
+  {dia:'22/abr',data:'2026-04-22',mov:25},
+  {dia:'23/abr',data:'2026-04-23',mov:49},
+  {dia:'24/abr',data:'2026-04-24',mov:15},
 ];
 const TATIANE_REUNIOES=[],TATIANE_VISITAS=[],MOV_TATIANE=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,53,30,40,29];
 // Atividades diárias Tatiane por canal (alinhadas com ALL_DAYS_MAR)
@@ -894,11 +991,11 @@ const TATIANE_EML_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,17,5,9];
 const TATIANE_WHA_DIA= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0];
 
 // ── Abril/26 ──
-const ALL_DAYS_ABR_TAT=['2026-04-01','2026-04-02','2026-04-06','2026-04-07','2026-04-08','2026-04-09','2026-04-10','2026-04-13','2026-04-14','2026-04-15','2026-04-16','2026-04-17','2026-04-20'];
-const MOV_TATIANE_ABR=[48,52,37,26,29,23,34,24,44,40,25,29,0];
-const TATIANE_LIG_DIA_ABR=[25,20,24,16,20,19,18,22,30,26,24,15,41];
-const TATIANE_EML_DIA_ABR=[1,0,12,4,5,1,6,12,3,14,4,4,15];
-const TATIANE_WHA_DIA_ABR=[22,32,1,6,4,3,10,13,16,25,20,7,5];
+const ALL_DAYS_ABR_TAT=['2026-04-01','2026-04-02','2026-04-06','2026-04-07','2026-04-08','2026-04-09','2026-04-10','2026-04-13','2026-04-14','2026-04-15','2026-04-16','2026-04-17','2026-04-20','2026-04-22','2026-04-23','2026-04-24'];
+const MOV_TATIANE_ABR=[48,52,37,26,29,23,34,24,44,40,25,29,0,25,0,0];
+const TATIANE_LIG_DIA_ABR=[25,20,24,16,20,19,18,22,30,26,24,15,41,26,32,22];
+const TATIANE_EML_DIA_ABR=[1,0,12,4,5,1,6,12,3,14,4,4,15,15,21,11];
+const TATIANE_WHA_DIA_ABR=[22,32,1,6,4,3,10,13,16,25,20,7,5,7,19,21];
 
 function TatianeMixEvolChart({ligDia,emlDia,whaDia,allDays,dayLbl}){
   const COL_L=C.orange,COL_E='#444444',COL_W='#AAAAAA';
@@ -1161,7 +1258,7 @@ function AcompPage({FL}){
   const[selMes,setSelMes]=useState('2026-04');
   const[selExec,setSelExec]=useState('Todos');
   const dados=useMemo(()=>selExec==='Todos'?FL:FL.filter(r=>r[F.RESP]===selExec),[FL,selExec]);
-  const REUN_MANUAL={'Sandro Casagrande':{'2026-02':9,'2026-03':8,'2026-04':2},'Carla Cristina Lemes':{'2026-02':2,'2026-03':4,'2026-04':2},'Marco':{'2026-03':4,'2026-04':2},'Isaac Santos':{'2026-04':1}};
+  const REUN_MANUAL={'Sandro Casagrande':{'2026-02':9,'2026-03':8,'2026-04':3},'Carla Cristina Lemes':{'2026-02':2,'2026-03':4,'2026-04':2},'Marco':{'2026-03':4,'2026-04':5},'Isaac Santos':{'2026-04':2}};
   const getReunMes=(nome,mes)=>{if(REUN_MANUAL[nome]&&REUN_MANUAL[nome][mes]!==undefined)return REUN_MANUAL[nome][mes];return dados.filter(r=>r[F.RESP]===nome&&r[F.DREUNIAO]&&mo(r[F.DREUNIAO])===mes).length;};
   const execStats=useMemo(()=>EXEC_METAS.map(e=>{
     const mesLimite=selMes||'2026-04';
@@ -1245,7 +1342,7 @@ function InternoPage({dateIni,dateFim}){
   const totalEml=emlDia.reduce((a,b)=>a+b,0);
   const totalWha=whaDia.reduce((a,b)=>a+b,0);
   const totalCanais=totalLig+totalEml+totalWha;
-  const nEfetivas=isAbr?71:13;
+  const nEfetivas=isAbr?87:13;
   const diasReg=allDaysInt.filter((_,i)=>movDia[i]>0).length;
   const totalAgend=TATIANE_AGENDAMENTOS.length;
   const totalReal=TATIANE_AGENDAMENTOS.filter(d=>d.status===STATUS_REALIZADA).length;
