@@ -12,9 +12,9 @@ const MONTHS_KEY=['2025-05','2025-06','2025-07','2025-08','2025-09','2025-10','2
 const MONTHS_LBL=['Mai/25','Jun/25','Jul/25','Ago/25','Set/25','Out/25','Nov/25','Dez/25','Jan/26','Fev/26','Mar/26','Abr/26'];
 const ALL_MONTH_OPTS=[{key:'',label:'Todos os meses'},...MONTHS_KEY.map((k,i)=>({key:k,label:MONTHS_LBL[i]}))];
 const ETAPA_ORDER=['Entrada','Follow-up Inicial','Reuniao Agendada','Reuniao Realizada','Raio-X','Diagnostico','Solicitacao de Documentos','Apresentacao','Proposta','Negociacao','Fechamento'];
-const PARTNER_COLORS={"FB Consult":C.orange,"4DGroup":"#4A4B4D","Saionara | Raster GR":"#8C5200","FF":"#A0A0A0","Daniel | Raster":"#6F7072","Eusimar | Raster":"#333333","Luis | Raster":"#2D7D8A","Fábio | TruckPag":"#7B5EA7","Leonardo | TruckPag":"#9575CD","Prolog":"#00695C","Sem parceiro":"#C0C0C0"};
+const PARTNER_COLORS={"FB Consult":C.orange,"4DGroup":"#4A4B4D","Saionara | Raster GR":"#8C5200","FF":"#A0A0A0","Daniel | Raster":"#6F7072","Eusimar | Raster":"#333333","Luis | Raster":"#2D7D8A","Djeison | Raster":"#0277BD","Fábio | TruckPag":"#7B5EA7","Leonardo | TruckPag":"#9575CD","Prolog":"#00695C","Legacy":"#558B2F","Sem parceiro":"#C0C0C0"};
 const META_DIA=25,META_AGEND_MES=20;
-const LAST_UPDATE="24/04/2026";
+const LAST_UPDATE="29/04/2026";
 const STATUS_REALIZADA="Reuniao Realizada";
 const STATUS_AGENDADA="Reuniao Agendada";
 const pctN=(a,b)=>b>0?+(a/b*100).toFixed(1):0;
@@ -75,6 +75,8 @@ const PARCERIAS_RAW=[
   [52,"BRNV TRANSPORTES","Leonardo | TruckPag","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","BA","BA - Metropolitana de Salvador","ENTERPRISE","Nao","Nao","Nao Informado","23/04/2026","","Nao",2026,4],
   [53,"JAT TRANSPORTES","Prolog","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","MG","MG - Metropolitana BH","ENTERPRISE","Nao","Nao","Nao Informado","23/04/2026","","Nao",2026,4],
   [54,"JAF TRANSPORTES","Prolog","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","MG","MG - Metropolitana BH","ENTERPRISE","Nao","Nao","Nao Informado","23/04/2026","","Nao",2026,4],
+  [55,"TRANSPORTADORA AUGUSTA","Djeison | Raster","Em Andamento","Follow-up Inicial","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","RS","RS - Metropolitana POA","ENTERPRISE","Nao","Nao","Nao Informado","27/04/2026","","Nao",2026,4],
+  [56,"RODOWAVES","Legacy","Em Andamento","Reuniao Agendada","0","Indicacao por Parceiros","Sandro Casagrande","Brasil","RS","RS - Nordeste","ENTERPRISE","Nao","Nao","Nao Informado","27/04/2026","","Nao",2026,4],
   // ── Perdidas ──
   [2,"BIZARI TRANSPORTES","FB Consult","Perdida","Reuniao Realizada","Sem retorno","Indicacao por Parceiros","Sandro Casagrande","Brasil","GO","GO - Sul","PME","Sim","Sim","0 a 50 caminhoes","05/05/2025","22/05/2025","Nao",2025,5],
   [7,"FALCON TRANSPORTES","FF","Perdida","Follow-up Inicial","Ja possui consultoria","Indicacao por Parceiros","Sandro Casagrande","Brasil","PR","PR - Metropolitana CWB","ENTERPRISE","Nao","Nao Informado","Nao Informado","06/05/2025","","Nao",2025,5],
