@@ -592,8 +592,86 @@ function ParceriasPage({dateIni,dateFim}){
   const[selParceiro,setSelParceiro]=useState('Todos');
   const[selMes,setSelMes]=useState('');
   const[modal,setModal]=useState(null);
+  const[selExecPDF,setSelExecPDF]=useState('');
+  const[pdfLoading,setPdfLoading]=useState(false);
   const openModal=(title,leads)=>setModal({title,leads});
   const getMesKey=d=>{if(!d)return null;const p=d.split('/');return p.length>=3?`${p[2]}-${p[1].padStart(2,'0')}`:null;};
+  const execsPDF=useMemo(()=>[...new Set(PARCERIAS_RAW.map(r=>r[P.RESP]).filter(Boolean))].sort(),[]);
+  const execPDFSel=selExecPDF||execsPDF[0]||'';
+  async function exportExecPDF(){
+    if(!execPDFSel)return;
+    setPdfLoading(true);
+    try{
+      const{default:jsPDF}=await import('jspdf');
+      const leads=PARCERIAS_RAW.filter(r=>r[P.RESP]===execPDFSel);
+      const hoje=new Date().toLocaleDateString('pt-BR');
+      const pdf=new jsPDF({orientation:'l',unit:'mm',format:'a4'});
+      const pw=pdf.internal.pageSize.getWidth(),ph=pdf.internal.pageSize.getHeight();
+      const mg=12,rowH=7;
+      const drawHeader=()=>{
+        pdf.setFillColor(26,26,28);pdf.rect(0,0,pw,22,'F');
+        pdf.setTextColor(255,130,0);pdf.setFontSize(13);pdf.setFont(undefined,'bold');
+        pdf.text('RUMO BRASIL',mg,14);
+        pdf.setTextColor(255,255,255);pdf.setFontSize(10);pdf.setFont(undefined,'normal');
+        pdf.text(`Relatório de Parcerias — ${execPDFSel}`,mg+50,14);
+        pdf.text(`Gerado em: ${hoje}`,pw-mg,14,{align:'right'});
+        pdf.setFillColor(255,130,0);pdf.rect(0,22,pw,1.5,'F');
+      };
+      drawHeader();
+      const ativos=leads.filter(r=>r[P.STATUS]==='Em Andamento').length;
+      const comReun=leads.filter(r=>r[P.REUNIAO]==='Sim').length;
+      const perdidos=leads.filter(r=>r[P.STATUS]==='Perdida').length;
+      pdf.setTextColor(60,60,60);pdf.setFontSize(9);pdf.setFont(undefined,'normal');
+      pdf.text(`Total: ${leads.length} leads   |   Ativos: ${ativos}   |   Perdidos: ${perdidos}   |   Com Reunião: ${comReun}`,mg,30);
+      const cols=[
+        {label:'#',w:8},{label:'Empresa',w:62},{label:'Parceiro',w:38},{label:'Status',w:28},
+        {label:'Etapa',w:42},{label:'Reunião',w:18},{label:'Decisor',w:18},
+        {label:'UF',w:12},{label:'Mesorregião',w:38},{label:'Data Ind.',w:23},
+      ];
+      let y=34;
+      const drawTableHeader=()=>{
+        pdf.setFillColor(45,45,48);pdf.rect(mg,y,pw-2*mg,rowH,'F');
+        pdf.setTextColor(255,255,255);pdf.setFontSize(7.5);pdf.setFont(undefined,'bold');
+        let x=mg+2;cols.forEach(c=>{pdf.text(c.label,x,y+5);x+=c.w;});
+        y+=rowH;
+      };
+      drawTableHeader();
+      pdf.setFont(undefined,'normal');
+      leads.forEach((r,i)=>{
+        if(y+rowH>ph-8){pdf.addPage();drawHeader();y=28;drawTableHeader();pdf.setFont(undefined,'normal');}
+        if(i%2===0){pdf.setFillColor(248,248,248);pdf.rect(mg,y,pw-2*mg,rowH,'F');}
+        const status=r[P.STATUS]==='Em Andamento';
+        const vals=[
+          String(r[P.ID]),
+          r[P.EMPRESA]||'—',
+          r[P.PARCEIRO]||'—',
+          r[P.STATUS]||'—',
+          r[P.ETAPA]||'—',
+          r[P.REUNIAO]==='Sim'?'Sim':'Não',
+          r[P.DECISOR]==='Sim'?'Sim':'Não',
+          (r[P.UF]&&r[P.UF]!=='Nao Informado'&&r[P.UF]!=='Nao definida')?r[P.UF]:'—',
+          r[P.MESO]||'—',
+          r[P.DATA_IND]||'—',
+        ];
+        let x=mg+2;
+        cols.forEach((c,ci)=>{
+          const txt=vals[ci];
+          const max=Math.floor(c.w/1.85);
+          const disp=txt.length>max?txt.slice(0,max-1)+'…':txt;
+          if(ci===3){pdf.setTextColor(status?180:60,status?80:60,status?0:60);}
+          else{pdf.setTextColor(30,30,30);}
+          pdf.setFontSize(7.5);
+          pdf.text(disp,x,y+5);
+          x+=c.w;
+        });
+        y+=rowH;
+      });
+      pdf.setTextColor(150,150,150);pdf.setFontSize(7);
+      pdf.text(`Rumo Brasil — Confidencial — ${hoje}`,pw/2,ph-4,{align:'center'});
+      pdf.save(`Rumo_Parcerias_${execPDFSel.split(' ')[0]}_${new Date().toISOString().slice(0,10)}.pdf`);
+    }catch(e){alert('Erro ao gerar PDF: '+e.message);}
+    setPdfLoading(false);
+  }
   const parceiros=useMemo(()=>['Todos',...[...new Set(PARCERIAS_RAW.map(r=>r[P.PARCEIRO]))].sort()],[]);
   const FL=useMemo(()=>PARCERIAS_RAW.filter(r=>{
     if(selParceiro!=='Todos'&&r[P.PARCEIRO]!==selParceiro)return false;
@@ -637,9 +715,18 @@ function ParceriasPage({dateIni,dateFim}){
       </div>
     </div>
     <div style={{background:C.white,borderRadius:8,padding:'12px 16px',boxShadow:C.shadow}}>
-      <div style={{display:'flex',gap:16,flexWrap:'wrap'}}>
+      <div style={{display:'flex',gap:16,flexWrap:'wrap',alignItems:'center'}}>
         <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:10,fontWeight:600,color:C.gray,textTransform:'uppercase'}}>Mês</span><select value={selMes} onChange={e=>setSelMes(e.target.value)} style={{padding:'5px 10px',borderRadius:6,border:`1.5px solid ${C.border}`,fontSize:11,fontFamily:FONT,outline:'none'}}>{ALL_MONTH_OPTS.map(o=><option key={o.key} value={o.key}>{o.label}</option>)}</select></div>
         <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontSize:10,fontWeight:600,color:C.gray,textTransform:'uppercase'}}>Parceiro</span><select value={selParceiro} onChange={e=>setSelParceiro(e.target.value)} style={{padding:'5px 10px',borderRadius:6,border:`1.5px solid ${C.border}`,fontSize:11,fontFamily:FONT,outline:'none'}}>{parceiros.map(p=><option key={p} value={p}>{p}</option>)}</select></div>
+        <div style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:8}}>
+          <span style={{fontSize:10,fontWeight:600,color:C.gray,textTransform:'uppercase',whiteSpace:'nowrap'}}>PDF por Executivo</span>
+          <select value={execPDFSel} onChange={e=>setSelExecPDF(e.target.value)} style={{padding:'5px 10px',borderRadius:6,border:`1.5px solid ${C.border}`,fontSize:11,fontFamily:FONT,outline:'none'}}>
+            {execsPDF.map(e=><option key={e} value={e}>{e}</option>)}
+          </select>
+          <button onClick={exportExecPDF} disabled={pdfLoading} style={{padding:'6px 14px',borderRadius:6,border:`1.5px solid rgba(255,130,0,0.5)`,background:'rgba(255,130,0,0.10)',color:C.orange,fontSize:11,fontWeight:600,cursor:pdfLoading?'wait':'pointer',fontFamily:FONT,display:'flex',alignItems:'center',gap:5,whiteSpace:'nowrap',opacity:pdfLoading?0.6:1}}>
+            {pdfLoading?'Gerando…':'⬇ Gerar PDF'}
+          </button>
+        </div>
       </div>
     </div>
     <Card title="Indicações por Mês — Histórico">
