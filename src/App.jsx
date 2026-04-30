@@ -606,68 +606,227 @@ function ParceriasPage({dateIni,dateFim}){
       const leads=PARCERIAS_RAW.filter(r=>r[P.RESP]===execPDFSel);
       const hoje=new Date().toLocaleDateString('pt-BR');
       const pdf=new jsPDF({orientation:'l',unit:'mm',format:'a4'});
-      const pw=pdf.internal.pageSize.getWidth(),ph=pdf.internal.pageSize.getHeight();
-      const mg=12,rowH=7;
-      const drawHeader=()=>{
-        pdf.setFillColor(26,26,28);pdf.rect(0,0,pw,22,'F');
-        pdf.setTextColor(255,130,0);pdf.setFontSize(13);pdf.setFont(undefined,'bold');
-        pdf.text('RUMO BRASIL',mg,14);
-        pdf.setTextColor(255,255,255);pdf.setFontSize(10);pdf.setFont(undefined,'normal');
-        pdf.text(`Relatório de Parcerias — ${execPDFSel}`,mg+50,14);
-        pdf.text(`Gerado em: ${hoje}`,pw-mg,14,{align:'right'});
-        pdf.setFillColor(255,130,0);pdf.rect(0,22,pw,1.5,'F');
+      const pw=pdf.internal.pageSize.getWidth(); // 297
+      const ph=pdf.internal.pageSize.getHeight(); // 210
+      const mg=13;
+      const uw=pw-2*mg; // 271mm usable width
+      const hexRgb=h=>{const n=parseInt((h||'#6F7072').replace('#',''),16);return[(n>>16)&255,(n>>8)&255,n&255];};
+      // Truncate text to fit maxW mm at current font size using jsPDF measurement
+      const trunc=(txt,maxW)=>{
+        let s=String(txt||'—');
+        if(pdf.getTextWidth(s)<=maxW)return s;
+        while(s.length>1&&pdf.getTextWidth(s+'…')>maxW)s=s.slice(0,-1);
+        return s+'…';
       };
-      drawHeader();
+      const footer=()=>{
+        pdf.setDrawColor(220,220,220);pdf.setLineWidth(0.3);pdf.line(mg,ph-7,pw-mg,ph-7);
+        pdf.setTextColor(160,160,160);pdf.setFontSize(6.5);pdf.setFont(undefined,'normal');
+        pdf.text('Rumo Brasil — Documento Confidencial',mg,ph-3.5);
+        pdf.text(`Gerado em ${hoje}`,pw-mg,ph-3.5,{align:'right'});
+      };
+      const pageHeader=(subtitle)=>{
+        pdf.setFillColor(26,26,28);pdf.rect(0,0,pw,19,'F');
+        pdf.setFillColor(255,130,0);pdf.rect(0,19,pw,1.2,'F');
+        pdf.setTextColor(255,130,0);pdf.setFontSize(11);pdf.setFont(undefined,'bold');
+        pdf.text('RUMO BRASIL',mg,12.5);
+        pdf.setTextColor(200,200,200);pdf.setFontSize(8.5);pdf.setFont(undefined,'normal');
+        pdf.text(subtitle,mg+38,12.5);
+        pdf.setTextColor(130,130,130);pdf.setFontSize(7.5);
+        pdf.text(execPDFSel,pw-mg,12.5,{align:'right'});
+      };
+
+      // ── PÁGINA 1: INSIGHTS ──────────────────────────────────────────
+      pageHeader('Relatório de Parcerias — Resumo Executivo');
       const ativos=leads.filter(r=>r[P.STATUS]==='Em Andamento').length;
-      const comReun=leads.filter(r=>r[P.REUNIAO]==='Sim').length;
       const perdidos=leads.filter(r=>r[P.STATUS]==='Perdida').length;
-      pdf.setTextColor(60,60,60);pdf.setFontSize(9);pdf.setFont(undefined,'normal');
-      pdf.text(`Total: ${leads.length} leads   |   Ativos: ${ativos}   |   Perdidos: ${perdidos}   |   Com Reunião: ${comReun}`,mg,30);
-      const cols=[
-        {label:'#',w:8},{label:'Empresa',w:62},{label:'Parceiro',w:38},{label:'Status',w:28},
-        {label:'Etapa',w:42},{label:'Reunião',w:18},{label:'Decisor',w:18},
-        {label:'UF',w:12},{label:'Mesorregião',w:38},{label:'Data Ind.',w:23},
+      const comReun=leads.filter(r=>r[P.REUNIAO]==='Sim').length;
+      const comDecis=leads.filter(r=>r[P.DECISOR]==='Sim').length;
+      const advanced=['Apresentacao','Solicitacao de Documentos','Proposta','Negociacao','Fechamento'];
+      const advLeads=leads.filter(r=>advanced.includes(r[P.ETAPA]));
+      const txPerda=leads.length>0?Math.round(perdidos/leads.length*100):0;
+
+      // KPI strip
+      const kpis=[
+        {label:'Total Leads',val:leads.length,r:26,g:26,b:28},
+        {label:'Ativos',val:ativos,r:180,g:80,b:0},
+        {label:'Perdidos',val:perdidos,r:100,g:100,b:100},
+        {label:'Com Reunião',val:comReun,r:21,g:101,b:192},
+        {label:'Com Decisor',val:comDecis,r:46,g:125,b:50},
+        {label:'Estágio Avançado',val:advLeads.length,r:0,g:105,b:92},
+        {label:'Taxa de Perda',val:txPerda+'%',r:198,g:40,b:40},
       ];
-      let y=34;
-      const drawTableHeader=()=>{
-        pdf.setFillColor(45,45,48);pdf.rect(mg,y,pw-2*mg,rowH,'F');
-        pdf.setTextColor(255,255,255);pdf.setFontSize(7.5);pdf.setFont(undefined,'bold');
-        let x=mg+2;cols.forEach(c=>{pdf.text(c.label,x,y+5);x+=c.w;});
-        y+=rowH;
+      const kw=(uw-(kpis.length-1)*3)/kpis.length;
+      let ky=24;
+      kpis.forEach((k,i)=>{
+        const kx=mg+i*(kw+3);
+        pdf.setFillColor(250,250,250);pdf.setDrawColor(k.r,k.g,k.b);pdf.setLineWidth(0.4);
+        pdf.roundedRect(kx,ky,kw,18,1.5,1.5,'FD');
+        pdf.setFillColor(k.r,k.g,k.b);pdf.rect(kx,ky,kw,2.5,'F');
+        pdf.setTextColor(k.r,k.g,k.b);pdf.setFontSize(14);pdf.setFont(undefined,'bold');
+        pdf.text(String(k.val),kx+kw/2,ky+12,{align:'center'});
+        pdf.setTextColor(90,90,90);pdf.setFontSize(6);pdf.setFont(undefined,'normal');
+        pdf.text(k.label,kx+kw/2,ky+16.5,{align:'center'});
+      });
+
+      // Two columns below KPIs
+      const colGap=8,c1w=(uw-colGap)*0.48,c2w=uw-colGap-c1w;
+      const c1x=mg,c2x=mg+c1w+colGap;
+      let y1=ky+24,y2=ky+24;
+
+      // ── Coluna 1: Pipeline por Etapa ──
+      pdf.setTextColor(26,26,28);pdf.setFontSize(8);pdf.setFont(undefined,'bold');
+      pdf.text('Pipeline por Etapa',c1x,y1);
+      pdf.setFillColor(255,130,0);pdf.rect(c1x,y1+1.5,24,0.7,'F');
+      y1+=7;
+      const etapaMap={};
+      leads.forEach(r=>{if(r[P.ETAPA])etapaMap[r[P.ETAPA]]=(etapaMap[r[P.ETAPA]]||0)+1;});
+      const etapas=ETAPA_ORDER.filter(e=>etapaMap[e]).map(e=>({e,n:etapaMap[e]}));
+      const maxE=etapas.length>0?etapas[0].n:1;
+      const eRowH=7.2,labelW=52,barAreaW=c1w-labelW-12;
+      // header row
+      pdf.setFillColor(45,45,48);pdf.rect(c1x,y1,c1w,eRowH,'F');
+      pdf.setTextColor(255,255,255);pdf.setFontSize(6.5);pdf.setFont(undefined,'bold');
+      pdf.text('Etapa',c1x+1.5,y1+4.8);
+      pdf.text('N',c1x+labelW+barAreaW+3,y1+4.8);
+      pdf.text('%',c1x+labelW+barAreaW+9,y1+4.8);
+      y1+=eRowH;
+      etapas.forEach(({e,n},i)=>{
+        const pct=leads.length>0?Math.round(n/leads.length*100):0;
+        if(i%2===0){pdf.setFillColor(247,247,247);pdf.rect(c1x,y1,c1w,eRowH,'F');}
+        // label
+        pdf.setFontSize(6.5);pdf.setFont(undefined,'normal');pdf.setTextColor(30,30,30);
+        pdf.text(trunc(e,labelW-2),c1x+1.5,y1+4.8);
+        // bar
+        const bx=c1x+labelW,bw=barAreaW*n/maxE;
+        pdf.setFillColor(230,230,230);pdf.rect(bx,y1+1.8,barAreaW,3.5,'F');
+        const ci=ETAPA_ORDER.indexOf(e);
+        const fc=ci<=2?[255,130,0]:ci<=5?[111,112,114]:[46,125,50];
+        pdf.setFillColor(...fc);if(bw>0)pdf.rect(bx,y1+1.8,bw,3.5,'F');
+        // count + pct
+        pdf.setFont(undefined,'bold');pdf.setTextColor(26,26,28);
+        pdf.text(String(n),c1x+labelW+barAreaW+3,y1+4.8);
+        pdf.setFont(undefined,'normal');pdf.setTextColor(120,120,120);
+        pdf.text(pct+'%',c1x+labelW+barAreaW+9,y1+4.8);
+        y1+=eRowH;
+      });
+
+      // ── Coluna 2: Parceiros ──
+      pdf.setTextColor(26,26,28);pdf.setFontSize(8);pdf.setFont(undefined,'bold');
+      pdf.text('Distribuição por Parceiro',c2x,y2);
+      pdf.setFillColor(255,130,0);pdf.rect(c2x,y2+1.5,30,0.7,'F');
+      y2+=7;
+      const parcMap={};
+      leads.forEach(r=>{
+        const pk=r[P.PARCEIRO]||'Sem parceiro';
+        if(!parcMap[pk])parcMap[pk]={t:0,a:0,p:0,reun:0};
+        parcMap[pk].t++;
+        if(r[P.STATUS]==='Em Andamento')parcMap[pk].a++;
+        if(r[P.STATUS]==='Perdida')parcMap[pk].p++;
+        if(r[P.REUNIAO]==='Sim')parcMap[pk].reun++;
+      });
+      const parcs=Object.entries(parcMap).sort((a,b)=>b[1].t-a[1].t);
+      const pCols=[{l:'Parceiro',w:c2w*0.38},{l:'Total',w:c2w*0.12},{l:'Ativos',w:c2w*0.13},{l:'Perdidos',w:c2w*0.13},{l:'Reunião',w:c2w*0.12},{l:'Tx.Perda',w:c2w*0.12}];
+      const pRowH=7;
+      pdf.setFillColor(45,45,48);pdf.rect(c2x,y2,c2w,pRowH,'F');
+      pdf.setTextColor(255,255,255);pdf.setFontSize(6.5);pdf.setFont(undefined,'bold');
+      let px=c2x+1.5;pCols.forEach(c=>{pdf.text(c.l,px,y2+5);px+=c.w;});
+      y2+=pRowH;
+      parcs.forEach(([nome,d],i)=>{
+        if(i%2===0){pdf.setFillColor(247,247,247);pdf.rect(c2x,y2,c2w,pRowH,'F');}
+        const rgb=hexRgb(PARTNER_COLORS[nome]);
+        pdf.setFillColor(...rgb);pdf.rect(c2x,y2,2,pRowH,'F');
+        const tx=d.t>0?Math.round(d.p/d.t*100):0;
+        const vals=[trunc(nome,pCols[0].w-5),String(d.t),String(d.a),String(d.p),String(d.reun),tx+'%'];
+        px=c2x+1.5;
+        pCols.forEach((c,ci)=>{
+          pdf.setFontSize(6.5);
+          if(ci===0){pdf.setFont(undefined,'normal');pdf.setTextColor(30,30,30);pdf.text(vals[ci],c2x+4,y2+5);}
+          else if(ci===1){pdf.setFont(undefined,'bold');pdf.setTextColor(26,26,28);pdf.text(vals[ci],px,y2+5);}
+          else if(ci===2){pdf.setFont(undefined,'normal');pdf.setTextColor(180,80,0);pdf.text(vals[ci],px,y2+5);}
+          else if(ci===3){pdf.setFont(undefined,'normal');pdf.setTextColor(100,100,100);pdf.text(vals[ci],px,y2+5);}
+          else if(ci===4){pdf.setFont(undefined,'normal');pdf.setTextColor(21,101,192);pdf.text(vals[ci],px,y2+5);}
+          else{pdf.setFont(undefined,'bold');pdf.setTextColor(tx>40?180:tx>20?130:46,tx>40?40:tx>20?100:125,tx>40?40:tx>20?40:50);pdf.text(vals[ci],px,y2+5);}
+          px+=c.w;
+        });
+        y2+=pRowH;
+      });
+
+      // ── Leads em Estágio Avançado (abaixo das 2 colunas) ──
+      if(advLeads.length>0){
+        const yAdv=Math.max(y1,y2)+5;
+        if(yAdv+10+advLeads.length*6<ph-10){
+          pdf.setFillColor(255,243,224);pdf.setDrawColor(255,130,0);pdf.setLineWidth(0.5);
+          const boxH=8+Math.min(advLeads.length,5)*6;
+          pdf.roundedRect(mg,yAdv,uw,boxH,2,2,'FD');
+          pdf.setTextColor(160,60,0);pdf.setFontSize(7.5);pdf.setFont(undefined,'bold');
+          pdf.text('Leads em Estágio Avançado',mg+3,yAdv+5.5);
+          pdf.setFontSize(7);pdf.setFont(undefined,'normal');
+          // column headers
+          const ah=yAdv+5.5,ac=[{l:'Empresa',x:mg+3,w:80},{l:'Etapa',x:mg+85,w:55},{l:'Data Ind.',x:mg+142,w:40},{l:'Reunião',x:mg+184,w:35},{l:'Decisor',x:mg+221,w:35}];
+          advLeads.slice(0,5).forEach((r,i)=>{
+            const ry=yAdv+8+i*6;
+            if(i%2===1){pdf.setFillColor(255,235,200);pdf.rect(mg+1,ry-4,uw-2,6,'F');}
+            ac.forEach(col=>{
+              let v='—';
+              if(col.l==='Empresa')v=trunc(r[P.EMPRESA]||'—',col.w-2);
+              else if(col.l==='Etapa')v=trunc(r[P.ETAPA]||'—',col.w-2);
+              else if(col.l==='Data Ind.')v=r[P.DATA_IND]||'—';
+              else if(col.l==='Reunião')v=r[P.REUNIAO]==='Sim'?'✓ Sim':'—';
+              else if(col.l==='Decisor')v=r[P.DECISOR]==='Sim'?'✓ Sim':'—';
+              pdf.setTextColor(col.l==='Etapa'?160:col.l==='Reunião'&&r[P.REUNIAO]==='Sim'?21:30,
+                col.l==='Etapa'?60:col.l==='Reunião'&&r[P.REUNIAO]==='Sim'?101:30,
+                col.l==='Etapa'?0:col.l==='Reunião'&&r[P.REUNIAO]==='Sim'?192:30);
+              pdf.text(v,col.x,ry);
+            });
+          });
+        }
+      }
+      footer();
+
+      // ── PÁGINA 2+: LISTA COMPLETA ───────────────────────────────────
+      pdf.addPage();
+      pageHeader(`Relatório de Parcerias — Lista Completa (${leads.length} leads)`);
+      // coluna: #8, Empresa:60, Parceiro:36, Status:26, Etapa:38, Reun:15, Decis:15, UF:10, Data:20, Meso:33 = 261 + 10 padding = 271 ✓
+      const cols=[
+        {l:'#',w:8},{l:'Empresa',w:60},{l:'Parceiro',w:36},{l:'Status',w:26},
+        {l:'Etapa',w:38},{l:'Reunião',w:15},{l:'Decisor',w:15},{l:'UF',w:10},
+        {l:'Data Ind.',w:20},{l:'Mesorregião',w:43},
+      ];
+      const rH=6.5;
+      let y=23;
+      const drawTH=()=>{
+        pdf.setFillColor(45,45,48);pdf.rect(mg,y,uw,rH,'F');
+        pdf.setTextColor(255,255,255);pdf.setFontSize(6.8);pdf.setFont(undefined,'bold');
+        let x=mg+1.5;cols.forEach(c=>{pdf.text(c.l,x,y+4.6);x+=c.w;});
+        y+=rH;
       };
-      drawTableHeader();
-      pdf.setFont(undefined,'normal');
+      drawTH();
       leads.forEach((r,i)=>{
-        if(y+rowH>ph-8){pdf.addPage();drawHeader();y=28;drawTableHeader();pdf.setFont(undefined,'normal');}
-        if(i%2===0){pdf.setFillColor(248,248,248);pdf.rect(mg,y,pw-2*mg,rowH,'F');}
-        const status=r[P.STATUS]==='Em Andamento';
+        if(y+rH>ph-10){footer();pdf.addPage();pageHeader(`Lista Completa — continuação`);y=23;drawTH();}
+        if(i%2===0){pdf.setFillColor(248,248,248);pdf.rect(mg,y,uw,rH,'F');}
+        const isAtivo=r[P.STATUS]==='Em Andamento';
+        const isAdv=advanced.includes(r[P.ETAPA]);
+        if(isAdv){pdf.setFillColor(255,247,237);pdf.rect(mg,y,uw,rH,'F');}
         const vals=[
-          String(r[P.ID]),
-          r[P.EMPRESA]||'—',
-          r[P.PARCEIRO]||'—',
-          r[P.STATUS]||'—',
-          r[P.ETAPA]||'—',
-          r[P.REUNIAO]==='Sim'?'Sim':'Não',
-          r[P.DECISOR]==='Sim'?'Sim':'Não',
+          String(r[P.ID]),r[P.EMPRESA]||'—',r[P.PARCEIRO]||'—',r[P.STATUS]||'—',r[P.ETAPA]||'—',
+          r[P.REUNIAO]==='Sim'?'Sim':'—',r[P.DECISOR]==='Sim'?'Sim':'—',
           (r[P.UF]&&r[P.UF]!=='Nao Informado'&&r[P.UF]!=='Nao definida')?r[P.UF]:'—',
-          r[P.MESO]||'—',
           r[P.DATA_IND]||'—',
+          (r[P.MESO]&&r[P.MESO]!=='Nao Informado'&&r[P.MESO]!=='Nao definida')?r[P.MESO]:'—',
         ];
-        let x=mg+2;
+        let x=mg+1.5;
         cols.forEach((c,ci)=>{
-          const txt=vals[ci];
-          const max=Math.floor(c.w/1.85);
-          const disp=txt.length>max?txt.slice(0,max-1)+'…':txt;
-          if(ci===3){pdf.setTextColor(status?180:60,status?80:60,status?0:60);}
+          pdf.setFontSize(6.8);pdf.setFont(undefined,ci===1?'bold':'normal');
+          if(ci===3){pdf.setTextColor(isAtivo?165:90,isAtivo?75:90,isAtivo?0:90);}
+          else if(ci===4&&isAdv){pdf.setTextColor(160,60,0);}
+          else if((ci===5&&r[P.REUNIAO]==='Sim')||(ci===6&&r[P.DECISOR]==='Sim')){pdf.setTextColor(21,101,192);}
           else{pdf.setTextColor(30,30,30);}
-          pdf.setFontSize(7.5);
-          pdf.text(disp,x,y+5);
+          pdf.text(trunc(vals[ci],c.w-1.5),x,y+4.6);
           x+=c.w;
         });
-        y+=rowH;
+        y+=rH;
       });
-      pdf.setTextColor(150,150,150);pdf.setFontSize(7);
-      pdf.text(`Rumo Brasil — Confidencial — ${hoje}`,pw/2,ph-4,{align:'center'});
+      footer();
       pdf.save(`Rumo_Parcerias_${execPDFSel.split(' ')[0]}_${new Date().toISOString().slice(0,10)}.pdf`);
     }catch(e){alert('Erro ao gerar PDF: '+e.message);}
     setPdfLoading(false);
